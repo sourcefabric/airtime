@@ -29,15 +29,16 @@ function tra($input)
 {
     ## initialize at first call of this function ###
 
-    $GS =& $_SESSION['GS'];
-    #static $GS;
+    #$GS =& $_SESSION['GS'];
+    static $GS;
     global $uiBase;
 
     if ($uiBase->langid && !is_array($GS)) {
         #echo "load translation";
-        include_once dirname(__FILE__).'/localizer/require.inc.php';
+        include_once dirname(__FILE__).'/localizer/loader.inc.php';
         #echo $uiBase->langid;
-        $GS = loadTranslations($uiBase->langid);
+        $GS = loadTranslations($uiBase->langid); 
+        #print_r($GS);
     }
     ## end init ####################################
 

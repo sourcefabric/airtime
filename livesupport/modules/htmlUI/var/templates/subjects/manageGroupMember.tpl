@@ -1,7 +1,7 @@
 {assign var="_gname" value=$SUBJECTS->Base->gb->getSubjName($_REQUEST.id)}
 
 <div class="container_elements" style="width: 607px;">
-    <h1>{tra 0='Manage Group: $1' 1=$_gname}</h1>
+    <h1>{tra str='Manage Group: $1' 1=$_gname}</h1>
 
     <div class="container_table" style="width: 594px;">
 

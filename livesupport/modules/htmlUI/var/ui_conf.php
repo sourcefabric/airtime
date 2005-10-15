@@ -20,7 +20,7 @@ define('UI_WARNING',                    TRUE);
 define('UI_ERROR',                      TRUE);
 
 ## Local settings
-define('UI_DEFAULT_LANGID',             'en_US');
+define('UI_DEFAULT_LANGID',             'en_GB');
 #define('UI_UPLOAD_LANGID',              $_SESSION['langid']);
 define('UI_UPLOAD_LANGID',              UI_DEFAULT_LANGID);
 define('UI_TIMEZONEOFFSET',             date('Z'));

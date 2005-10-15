@@ -20,10 +20,12 @@
                 {assign var="_uploadform" value=null}
         {/if}
         </div>
-
-        <div id="div_MData">
-            {include file="file/metadataform.tpl"}
-        </div>
+        
+        {if $_REQUEST.act == addFileMData || $_REQUEST.act == addWebstreamMData || $_REQUEST.act == editItem}
+            <div id="div_MData">
+                {include file="file/metadataform.tpl"}
+            </div>
+        {/if}
     {/if}
 
     {if $editItem.type == 'webstream'}
