@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<languages>
+	<item>
+		<Id>default_DEFAULT</Id>
+		<Name>Default</Name>
+		<NativeName>Default</NativeName>
+	</item>
+	<item>
+		<Id>en_GB</Id>
+		<Name>English</Name>
+		<NativeName>English</NativeName>
+	</item>
+</languages>
