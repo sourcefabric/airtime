@@ -151,9 +151,17 @@ class uiPlaylist
     function loadLookedFromPref()
     {
         if(is_string($saved = $this->Base->gb->loadPref($this->Base->sessid, UI_PL_ACCESSTOKEN_KEY))) {
-            #$this->release();
-            list ($this->activeId, $this->token) = explode (':', $saved);
-
+            list ($plid, $token) = explode (':', $saved);
+            
+            if (!$this->Base->gb->existsPlaylist($plid, $this->Base->sessid)) { 
+                $this->Base->gb->delPref($this->Base->sessid, UI_PL_ACCESSTOKEN_KEY); 
+                $this->Base->_retMsg('Playlist not found in database.');
+                $this->Base->redirUrl = UI_BROWSER.'?popup[]=_2PL.simpleManagement&popup[]=_close';
+                return FALSE;          
+            }
+            $this->activeId = $plid;
+            $this->token    = $token;
+            
             $this->Base->redirUrl = UI_BROWSER.'?popup[]=_2PL.simpleManagement&popup[]=_close';
             return TRUE;
         }
