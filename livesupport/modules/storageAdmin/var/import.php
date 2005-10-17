@@ -27,6 +27,7 @@
     Location : $URL$
 
 ------------------------------------------------------------------------------*/
+ini_set('memory_limit', '64M');
 header("Content-type: text/plain");
 echo "\n#StorageServer import script:\n";
 //echo date('H:i:s')."\n";
