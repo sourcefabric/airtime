@@ -89,7 +89,7 @@ class AccessRecur{
         }
         $r = $ppa->ls->releasePlaylist($ppa->sessid, $token, FALSE);
         if($ppa->dbc->isError($r)){ return $r; }
-        return TRUE;
+        return $r;
     }
     function processPlaylist($pla, $parent){
         $res = array();
