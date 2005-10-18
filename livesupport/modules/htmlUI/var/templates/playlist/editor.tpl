@@ -17,9 +17,6 @@
                     <!-- start repeat after 14 columns -->
                         <tr class="blue_head">
                             <td style="width: 30px"><input type="checkbox" name="all" onClick="collector_switchAll('PL')"></td>
-                                <script type="text/javascript">
-                                    document.forms['PL'].elements['all'].checked = false;
-                                </script>
                             <td style="width: 200px">##Title##</td>
                             <td>                     ##Duration##</td>
                             <td style="width: 200px">##Artist##</td>
@@ -84,7 +81,12 @@
                     <input type="button" class="button_large" value="##Description##"      onClick="location.href='{$UI_BROWSER}?act=PL.editMetaData'">
                 </div>
             </div>
+            
+<script type="text/javascript">
+        document.forms['PL'].elements['all'].checked = false;
+        collector_switchAll('PL');
+</script>
 
-        <!-- end playlist editor -->
+{assign var="_duration" value=null}
 
-{assign var="_duration"    value=null}
+<!-- end playlist editor -->

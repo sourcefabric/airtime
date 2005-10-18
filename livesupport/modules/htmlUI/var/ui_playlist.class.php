@@ -3,14 +3,15 @@ class uiPlaylist
 {
     function uiPlaylist(&$uiBase)
     {
-        $this->Base      =& $uiBase;
-        $this->activeId  =& $_SESSION[UI_PLAYLIST_SESSNAME]['activeId'];
-        $this->title     = $this->Base->_getMDataValue($this->activeId, UI_MDATA_KEY_TITLE);
-        $this->duration  = $this->Base->_getMDataValue($this->activeId, UI_MDATA_KEY_DURATION);
-        $this->token     =& $_SESSION[UI_PLAYLIST_SESSNAME]['token'];
-        $this->reloadUrl   = UI_BROWSER.'?popup[]=_reload_parent&popup[]=_close';
-        $this->redirectUrl = UI_BROWSER.'?popup[]=_2PL.simpleManagement&popup[]=_close';
-        $this->returnUrl   = UI_BROWSER.'?act=PL.simpleManagement';
+        $this->Base         =& $uiBase;
+        $this->activeId     =& $_SESSION[UI_PLAYLIST_SESSNAME]['activeId'];
+        $this->changed      =& $_SESSION[UI_PLAYLIST_SESSNAME]['changed']; 
+        $this->title        = $this->Base->_getMDataValue($this->activeId, UI_MDATA_KEY_TITLE);
+        $this->duration     = $this->Base->_getMDataValue($this->activeId, UI_MDATA_KEY_DURATION);
+        $this->token        =& $_SESSION[UI_PLAYLIST_SESSNAME]['token'];
+        $this->reloadUrl    = UI_BROWSER.'?popup[]=_reload_parent&popup[]=_close';
+        $this->redirectUrl  = UI_BROWSER.'?popup[]=_2PL.simpleManagement&popup[]=_close';
+        $this->returnUrl    = UI_BROWSER.'?act=PL.simpleManagement';
     }
 
     function setReload()
@@ -101,6 +102,8 @@ class uiPlaylist
         $this->activeId = NULL;
         $this->token    = NULL;
         $this->Base->gb->delPref($this->Base->sessid, UI_PL_ACCESSTOKEN_KEY);
+        
+        $this->changed = FALSE;
         return TRUE;
     }
 
@@ -110,6 +113,7 @@ class uiPlaylist
         $tmpid = $this->activeId;
         $this->release(FALSE);
         $this->activate($tmpid, FALSE);
+        $this->changed = FALSE;
         if (UI_VERBOSE) $this->Base->_retMsg('Playlist "$1" saved', $this->Base->_getMDataValue($tmpid, UI_MDATA_KEY_TITLE));
 
         return $this->activeId;
@@ -117,7 +121,7 @@ class uiPlaylist
 
 
     function revert()
-    {
+    {        
         if(!$this->token) {
             if (UI_WARNING) $this->Base->_retMsg('No Playlist is locked by You.');
             return FALSE;
@@ -135,13 +139,15 @@ class uiPlaylist
 
         if ($this->activate($this->Base->gb->_idFromGunid($plgunid), FALSE) !== TRUE)
             return FALSE;
-
+            
+        $this->changed  = FALSE;
+        
         return $this->activeId;
     }
 
     function reportLookedPL($setMsg=FALSE)
     {
-        if(is_string($saved = $this->Base->gb->loadPref($this->Base->sessid, UI_PL_ACCESSTOKEN_KEY))) {
+        if(is_string($this->Base->gb->loadPref($this->Base->sessid, UI_PL_ACCESSTOKEN_KEY))) {
             if ($setMsg == TRUE) $this->Base->_retMsg('Found locked Playlist.');
             return TRUE;
         }
@@ -150,6 +156,8 @@ class uiPlaylist
 
     function loadLookedFromPref()
     {
+        $this->changed  = TRUE;
+        
         if(is_string($saved = $this->Base->gb->loadPref($this->Base->sessid, UI_PL_ACCESSTOKEN_KEY))) {
             list ($plid, $token) = explode (':', $saved);
             
@@ -170,6 +178,8 @@ class uiPlaylist
 
     function addItem($elemIds)
     {
+        $this->changed = TRUE;
+        
         if (!$elemIds) {
             if (UI_WARNING) $this->Base->_retMsg('No Item(s) selected');
             return FALSE;
@@ -184,12 +194,14 @@ class uiPlaylist
                 $this->Base->_retMsg('Error on add item to Playlist');
                 return FALSE;
             }
-        }
+        }        
         return TRUE;
     }
 
     function removeItem($elemIds)
     {
+        $this->changed = TRUE;
+        
         if (!$elemIds) {
             if (UI_WARNING) $this->Base->_retMsg('No Item(s) selected');
             return FALSE;
@@ -211,6 +223,8 @@ class uiPlaylist
         # create PL
         # activate
         # add clip if $id is set
+        $this->changed = TRUE;
+        
         if (is_array($this->activeId)) {
             $this->Base->_retMsg('Already active Playlist');
             return FALSE;
@@ -233,7 +247,8 @@ class uiPlaylist
                 return FALSE;
             }
         }
-        #$this->redirUrl = UI_BRWOSER.'?popup=_2PL.simpleManagement';
+        #$this->redirUrl = UI_BRWOSER.'?popup=_2PL.simpleManagement';<br>
+
         return $plid;
     }
 
@@ -271,6 +286,7 @@ class uiPlaylist
 
     function changeTransition($id, $type, $duration)
     {
+        $this->changed = TRUE;
         $pause = $pause;
         $xfade = GreenBox::_secsToPlTime($duration/1000);
 
@@ -332,11 +348,14 @@ class uiPlaylist
                 }
             }
         }
+        return TRUE;
     }
 
 
     function moveItem($id, $pos)
     {
+        $this->changed = TRUE;
+        
         $r = $this->Base->gb->moveAudioClipInPlaylist($this->token, $id, $pos, $this->Base->sessid);
         if (PEAR::isError($r)) {
             if (UI_VERBOSE) print_r($r);
@@ -349,6 +368,8 @@ class uiPlaylist
 
     function reOrder($items)
     {
+        $this->changed  = TRUE;
+                
         asort($items);      # just to be sure items are in right order
         $pos = 0;
         foreach($items as $id=>$v) { 
@@ -399,7 +420,7 @@ class uiPlaylist
     }
 
 
-    function changeTransitionForm($id, $type, &$mask)
+    function changeTransitionForm($id, $type, $mask)
     {
         $form = new HTML_QuickForm('PL_changeTransition', UI_STANDARD_FORM_METHOD, UI_HANDLER);
         $s = $this->getCurrElement($id);
@@ -431,7 +452,7 @@ class uiPlaylist
     }
 
 
-    function changeAllTransitionsForm(&$mask)
+    function changeAllTransitionsForm($mask)
     {
         $form = new HTML_QuickForm('PL_changeTransition', UI_STANDARD_FORM_METHOD, UI_HANDLER);
         $this->Base->_parseArr2Form($form, $mask['transition']);
@@ -480,8 +501,10 @@ class uiPlaylist
     }
 
 
-    function editMetaData(&$formdata)
+    function editMetaData($formdata)
     {
+        $this->changed  = TRUE;
+                
         include dirname(__FILE__).'/formmask/metadata.inc.php';
 
         $id             = $this->activeId;
