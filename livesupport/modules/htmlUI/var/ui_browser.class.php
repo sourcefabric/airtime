@@ -331,6 +331,7 @@ class uiBrowser extends uiBase {
         ## convert element names to be unique over different forms-parts, add javascript to spread values over parts, add existing values from database
         foreach ($mask['pages'] as $key=>$val) {
             foreach ($mask['pages'][$key] as $k=>$v) {
+                if (!is_array($mask['pages'][$key][$k]['attributes'])) $mask['pages'][$key][$k]['attributes'] = array();
                 $mask['pages'][$key][$k]['element']    = $key.'___'.$this->_formElementEncode($v['element']);
                 $mask['pages'][$key][$k]['attributes'] = array_merge($mask['pages'][$key][$k]['attributes'], array('onChange' => "spread(this, '".$this->_formElementEncode($v['element'])."')"));
                 ## load data from GreenBox

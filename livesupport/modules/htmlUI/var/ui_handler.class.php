@@ -20,7 +20,7 @@ class uiHandler extends uiBase {
      *
      *  @param $config array, configurartion data
      */
-    function uiHandler(&$config)
+    function uiHandler($config)
     {
         $this->uiBase($config);
     }
@@ -36,7 +36,7 @@ class uiHandler extends uiBase {
      *  @param login string, username
      *  @param pass  string, password
      */
-    function login(&$formdata, &$mask)
+    function login($formdata, $mask)
     {
         #$this->_cleanArray($_SESSION);
 
@@ -105,7 +105,7 @@ class uiHandler extends uiBase {
      *  @param formdata array, submitted text and file
      *  @param id int, destination folder id
      */
-    function uploadFile(&$formdata, &$mask, $replace=NULL)
+    function uploadFile($formdata, $mask, $replace=NULL)
     {
         if ($this->test4audioType($formdata['mediafile']['name']) === FALSE) {
             if (UI_ERROR) $this->_retMsg('$1 uses an unsupported file type.', $formdata['mediafile']['name']);
@@ -204,7 +204,7 @@ class uiHandler extends uiBase {
      *  @param formdata array, submitted text and file
      *  @param id int, destination folder id
      */
-    function addWebstream(&$formdata, &$mask)
+    function addWebstream($formdata, $mask)
     {
         $id  = $formdata['id'];
         $folderId = $formdata['folderId'];
@@ -239,7 +239,7 @@ class uiHandler extends uiBase {
     }
 
 
-    function editWebstream(&$formdata, &$mask)
+    function editWebstream($formdata, $mask)
     {
         $id  = $formdata['id'];
         if (!$this->_validateForm($formdata, $mask)) {
@@ -254,11 +254,13 @@ class uiHandler extends uiBase {
 
         $this->redirUrl = UI_BROWSER.'?act=editItem&id='.$formdata['id'];
         if (UI_VERBOSE) $this->_retMsg('Stream Data changed');
+        
+        return TRUE;
     }
 
 
-    function editMetaData(&$formdata)
-    {                        
+    function editMetaData($formdata)
+    {                     
         include dirname(__FILE__).'/formmask/metadata.inc.php';
         $id             = $formdata['id'];
         $curr_langid    = $formdata['curr_langid'];
@@ -272,7 +274,7 @@ class uiHandler extends uiBase {
 
         if (!count($mData)) return;
 
-        foreach ($mData as $key=>$val) {
+        foreach ($mData as $key=>$val) { 
             $r = $this->_setMDataValue($id, $key, $val, $curr_langid);
             if (PEAR::isError($r)) {
                 $this->_retMsg('Unable to set "$1" to value "$2".', $key, $val);
@@ -471,7 +473,7 @@ class uiHandler extends uiBase {
     }
 
 
-    function _validateForm(&$formdata, &$mask)
+    function _validateForm($formdata, $mask)
     {
         $form = new HTML_QuickForm('validation', UI_STANDARD_FORM_METHOD, UI_HANDLER);
         $this->_parseArr2Form($form, $mask, 'server');
@@ -511,7 +513,7 @@ class uiHandler extends uiBase {
     }
 
 
-    function changeStationPrefs(&$formdata, &$mask)
+    function changeStationPrefs($formdata, $mask)
     {
         $this->redirUrl = UI_BROWSER;
 
@@ -531,11 +533,12 @@ class uiHandler extends uiBase {
             if ($val['type'] == 'file' && $formdata[$val['element']]['name']) {
                 if (FALSE === @move_uploaded_file($formdata[$val['element']]['tmp_name'], $this->gb->loadGroupPref($this->sessid, 'StationPrefs', 'stationLogoPath')))
                     $this->_retMsg('Error uploading Logo');
-                    return;
+                    return FALSE;
             }
         }
         $this->loadStationPrefs($mask, TRUE);
         if (UI_VERBOSE) $this->_retMsg('Settings saved');
+        
         return TRUE;
     }
 }

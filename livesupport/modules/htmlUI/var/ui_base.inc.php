@@ -210,6 +210,7 @@ class uiBase
                 if (!$v['groupit'])     $form->addElement($elem[$v['element']]);
 
             } elseif (isset($v['type'])) {
+                if (!is_array($v['attributes'])) $v['attributes'] = array();
                 $elem[$v['element']] =& $form->createElement($v['type'], $v['element'], tra($v['label']),
                                             ($v[type]=='text' || $v['type']=='file' || $v['type']=='password') ? array_merge(array('size'=>UI_INPUT_STANDARD_SIZE, 'maxlength'=>UI_INPUT_STANDARD_MAXLENGTH), $v['attributes']) :
                                             ($v['type']=='textarea' ? array_merge(array('rows'=>UI_TEXTAREA_STANDART_ROWS, 'cols'=>UI_TEXTAREA_STANDART_COLS), $v['attributes']) :
@@ -372,12 +373,13 @@ class uiBase
 
 
     function _setMDataValue($id, $key, $value, $langid=NULL)
-    {
+    { 
         if (!$langid) $langid = UI_DEFAULT_LANGID;
+        if (ini_get('magic_quotes_gpc')) $value = str_replace("\'", "'", $value);
 
         if ($this->gb->setMDataValue($id, $key, $this->sessid, $value, $langid)) {
             return TRUE;
-        }
+        } 
 
         return FALSE;
     }
