@@ -46,7 +46,7 @@ if(PEAR::isError($dbc)){ echo "ERROR: ".$dbc->getMessage()." ".$dbc->getUserInfo
 $dbc->setFetchMode(DB_FETCHMODE_ASSOC);
 $gb = &new GreenBox($dbc, $config);
 
-$testonly = ($argv[1] == '-n');
+$testonly = (isset($argv[1]) && $argv[1] == '-n');
 #$testonly = TRUE;
 
 $errors=0;
@@ -138,6 +138,7 @@ while($filename = fgets($stdin, 2048)){
             $k0 = $k1;
             //if($k0=='tags') $k1=$infoFromFile['tags'][0];
             $k1 = 'id3v2';
+            if(!isset($infoFromFile[$k1])) continue;
             list($fn, $v)  = array($fn1, $infoFromFile[$k1]);
             foreach($fn1 as $k2=>$fn2){
                 if(is_null($fn2)) continue;

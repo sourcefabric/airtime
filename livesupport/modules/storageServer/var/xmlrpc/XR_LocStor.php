@@ -991,7 +991,7 @@ class XR_LocStor extends LocStor{
     {
         list($ok, $r) = $this->_xr_getPars($input);
         if(!$ok) return $r;
-        if(is_null($r['recursive'])) $r['recursive']=FALSE;
+        if(!isset($r['recursive']) || is_null($r['recursive'])) $r['recursive']=FALSE;
         $res = $this->accessPlaylist($r['sessid'], $r['plid'],
             (boolean)$r['recursive']);
         if(PEAR::isError($res)){
@@ -1042,7 +1042,7 @@ class XR_LocStor extends LocStor{
     {
         list($ok, $r) = $this->_xr_getPars($input);
         if(!$ok) return $r;
-        if(is_null($r['recursive'])) $r['recursive']=FALSE;
+        if(!isset($r['recursive']) || is_null($r['recursive'])) $r['recursive']=FALSE;
         $res = $this->releasePlaylist(NULL, $r['token'],
             (boolean)$r['recursive']);
         if(PEAR::isError($res)){

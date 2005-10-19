@@ -44,7 +44,7 @@ class Playlist extends StoredFile{
      *  @param className string, optional classname to recall
      *  @return instace of Playlist object
      */
-    function recallByGunid(&$gb, $gunid, $className='Playlist')
+    function &recallByGunid(&$gb, $gunid, $className='Playlist')
     {
         return parent::recallByGunid($gb, $gunid, $className);
     }
@@ -58,7 +58,7 @@ class Playlist extends StoredFile{
      *  @param className string, optional classname to recall
      *  @return instace of Playlist object
      */
-    function recallByToken(&$gb, $token, $className='Playlist')
+    function &recallByToken(&$gb, $token, $className='Playlist')
     {
         return parent::recallByToken($gb, $token, $className);
     }
@@ -77,7 +77,7 @@ class Playlist extends StoredFile{
      */
     function getAcInfo($acId)
     {
-        $ac =& StoredFile::recall($this->gb, $acId);
+        $ac = StoredFile::recall($this->gb, $acId);
         if(PEAR::isError($ac)){ return $ac; }
         $acGunid = $ac->gunid;
         $r = $ac->md->getMetadataEl('dcterms:extent');
@@ -725,7 +725,7 @@ class Playlist extends StoredFile{
     function _cyclicRecursion($insGunid)
     {
         if($this->gunid == $insGunid) return TRUE;
-        $pl =& Playlist::recallByGunid($this->gb, $insGunid);
+        $pl = Playlist::recallByGunid($this->gb, $insGunid);
         if(PEAR::isError($pl)){ return $pl; }
         $arr = $pl->md->genPhpArray();
         if(PEAR::isError($arr)){ return $arr; }
