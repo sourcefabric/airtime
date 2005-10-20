@@ -2,6 +2,10 @@
 <translations>
 	<Id>en_GB</Id>
 	<item>
+		<key>Playlist</key>
+		<value />
+	</item>
+	<item>
 		<key>Access</key>
 		<value />
 	</item>
@@ -226,6 +230,10 @@
 		<value />
 	</item>
 	<item>
+		<key>Fr</key>
+		<value />
+	</item>
+	<item>
 		<key>Go</key>
 		<value />
 	</item>
@@ -279,6 +287,10 @@
 	</item>
 	<item>
 		<key>Metadata XML</key>
+		<value />
+	</item>
+	<item>
+		<key>Mo</key>
 		<value />
 	</item>
 	<item>
@@ -418,6 +430,10 @@
 		<value />
 	</item>
 	<item>
+		<key>Sa</key>
+		<value />
+	</item>
+	<item>
 		<key>Save Playlist</key>
 		<value />
 	</item>
@@ -478,6 +494,14 @@
 		<value />
 	</item>
 	<item>
+		<key>Su</key>
+		<value />
+	</item>
+	<item>
+		<key>Th</key>
+		<value />
+	</item>
+	<item>
 		<key>Time</key>
 		<value />
 	</item>
@@ -491,6 +515,10 @@
 	</item>
 	<item>
 		<key>Tree view</key>
+		<value />
+	</item>
+	<item>
+		<key>Tu</key>
 		<value />
 	</item>
 	<item>
@@ -519,6 +547,10 @@
 	</item>
 	<item>
 		<key>Voice</key>
+		<value />
+	</item>
+	<item>
+		<key>We</key>
 		<value />
 	</item>
 	<item>
