@@ -2,8 +2,8 @@
 <translations>
 	<Id>default_DEFAULT</Id>
 	<item>
-		<key>Playlist</key>
-		<value>Playlist</value>
+		<key>Cannot connect to Scheduler</key>
+		<value>Cannot connect to Scheduler</value>
 	</item>
 	<item>
 		<key>Access</key>
@@ -234,6 +234,10 @@
 		<value>Fr</value>
 	</item>
 	<item>
+		<key>Friday</key>
+		<value>Friday</value>
+	</item>
+	<item>
 		<key>Go</key>
 		<value>Go</value>
 	</item>
@@ -292,6 +296,10 @@
 	<item>
 		<key>Mo</key>
 		<value>Mo</value>
+	</item>
+	<item>
+		<key>Monday</key>
+		<value>Monday</value>
 	</item>
 	<item>
 		<key>Month</key>
@@ -370,6 +378,10 @@
 		<value>Playing Next</value>
 	</item>
 	<item>
+		<key>Playlist</key>
+		<value>Playlist</value>
+	</item>
+	<item>
 		<key>Playlist Editor</key>
 		<value>Playlist Editor</value>
 	</item>
@@ -432,6 +444,10 @@
 	<item>
 		<key>Sa</key>
 		<value>Sa</value>
+	</item>
+	<item>
+		<key>Saturday</key>
+		<value>Saturday</value>
 	</item>
 	<item>
 		<key>Save Playlist</key>
@@ -498,8 +514,16 @@
 		<value>Su</value>
 	</item>
 	<item>
+		<key>Sunday</key>
+		<value>Sunday</value>
+	</item>
+	<item>
 		<key>Th</key>
 		<value>Th</value>
+	</item>
+	<item>
+		<key>Thursday</key>
+		<value>Thursday</value>
 	</item>
 	<item>
 		<key>Time</key>
@@ -520,6 +544,10 @@
 	<item>
 		<key>Tu</key>
 		<value>Tu</value>
+	</item>
+	<item>
+		<key>Tuesday</key>
+		<value>Tuesday</value>
 	</item>
 	<item>
 		<key>Type</key>
@@ -556,6 +584,10 @@
 	<item>
 		<key>Webstream</key>
 		<value>Webstream</value>
+	</item>
+	<item>
+		<key>Wednesday</key>
+		<value>Wednesday</value>
 	</item>
 	<item>
 		<key>Week</key>

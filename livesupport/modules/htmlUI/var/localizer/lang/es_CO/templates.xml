@@ -2,8 +2,8 @@
 <translations>
 	<Id>es_CO</Id>
 	<item>
-		<key>Playlist</key>
-		<value>Clave de acceso</value>
+		<key>Cannot connect to Scheduler</key>
+		<value />
 	</item>
 	<item>
 		<key>$1 must be $2</key>
@@ -796,6 +796,10 @@
 	<item>
 		<key>Playing Next</key>
 		<value />
+	</item>
+	<item>
+		<key>Playlist</key>
+		<value>Clave de acceso</value>
 	</item>
 	<item>
 		<key>Playlist &quot;$1&quot; activated</key>

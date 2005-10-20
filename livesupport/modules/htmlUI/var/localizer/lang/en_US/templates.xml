@@ -2,7 +2,7 @@
 <translations>
 	<Id>en_US</Id>
 	<item>
-		<key>Playlist</key>
+		<key>Cannot connect to Scheduler</key>
 		<value />
 	</item>
 	<item>
@@ -234,6 +234,10 @@
 		<value />
 	</item>
 	<item>
+		<key>Friday</key>
+		<value />
+	</item>
+	<item>
 		<key>Go</key>
 		<value />
 	</item>
@@ -291,6 +295,10 @@
 	</item>
 	<item>
 		<key>Mo</key>
+		<value />
+	</item>
+	<item>
+		<key>Monday</key>
 		<value />
 	</item>
 	<item>
@@ -370,6 +378,10 @@
 		<value />
 	</item>
 	<item>
+		<key>Playlist</key>
+		<value />
+	</item>
+	<item>
 		<key>Playlist Editor</key>
 		<value />
 	</item>
@@ -431,6 +443,10 @@
 	</item>
 	<item>
 		<key>Sa</key>
+		<value />
+	</item>
+	<item>
+		<key>Saturday</key>
 		<value />
 	</item>
 	<item>
@@ -498,7 +514,15 @@
 		<value />
 	</item>
 	<item>
+		<key>Sunday</key>
+		<value />
+	</item>
+	<item>
 		<key>Th</key>
+		<value />
+	</item>
+	<item>
+		<key>Thursday</key>
 		<value />
 	</item>
 	<item>
@@ -519,6 +543,10 @@
 	</item>
 	<item>
 		<key>Tu</key>
+		<value />
+	</item>
+	<item>
+		<key>Tuesday</key>
 		<value />
 	</item>
 	<item>
@@ -555,6 +583,10 @@
 	</item>
 	<item>
 		<key>Webstream</key>
+		<value />
+	</item>
+	<item>
+		<key>Wednesday</key>
 		<value />
 	</item>
 	<item>

@@ -2,7 +2,7 @@
 <translations>
 	<Id>hu_HU</Id>
 	<item>
-		<key>Playlist</key>
+		<key>Cannot connect to Scheduler</key>
 		<value />
 	</item>
 	<item>
@@ -795,6 +795,10 @@
 	</item>
 	<item>
 		<key>Playing Next</key>
+		<value />
+	</item>
+	<item>
+		<key>Playlist</key>
 		<value />
 	</item>
 	<item>

@@ -3,7 +3,7 @@
 	<Id>de_DE</Id>
 	<item>
 		<key>$1 uses an unsupported file type.</key>
-		<value />
+		<value>$1 ist ein nicht unterstützter Dateityp.</value>
 	</item>
 	<item>
 		<key>Access denied.</key>
@@ -11,7 +11,7 @@
 	</item>
 	<item>
 		<key>Access to home directory failed.</key>
-		<value />
+		<value>Zugriff auf das Home-verzeichnis verweigert.</value>
 	</item>
 	<item>
 		<key>Already active Playlist</key>
@@ -103,7 +103,7 @@
 	</item>
 	<item>
 		<key>Nothing selected.</key>
-		<value />
+		<value>Es wurde nichts ausgewählt.</value>
 	</item>
 	<item>
 		<key>Old password was incorrect.</key>
@@ -135,11 +135,11 @@
 	</item>
 	<item>
 		<key>Scheduler did not start. Check setting of &quot;UI_SCHEDULER_DAEMON_CMD&quot; in ui_conf.php. File &quot;/tmp/scheduler.log&quot; could be helpful.</key>
-		<value />
+		<value>Scheduler startete nicht. Bitte Einstellung von &quot;UI_SCHEDULER_DAEMON_CMD&quot; in ui_conf.php überprüfen. &quot;/tmp/scheduler.log&quot; könnte hilfreich sein.</value>
 	</item>
 	<item>
 		<key>Scheduler is running.</key>
-		<value />
+		<value>Der Scheduler wird ausgeführt.</value>
 	</item>
 	<item>
 		<key>ScratchPad length is not set in System Preferences, so it cannot be used.</key>
@@ -151,43 +151,43 @@
 	</item>
 	<item>
 		<key>Stream Data changed</key>
-		<value />
+		<value>Stream Daten geändert.</value>
 	</item>
 	<item>
 		<key>Stream Data saved</key>
-		<value />
+		<value>Stream Daten gespeichert.</value>
 	</item>
 	<item>
 		<key>Subject $1 added.</key>
-		<value />
+		<value>Subjekt $1 hinzugefügt.</value>
 	</item>
 	<item>
 		<key>Target is not Folder</key>
-		<value />
+		<value>Das Ziel ist kein Verzeichnis</value>
 	</item>
 	<item>
 		<key>There is no playlist available to unlock.</key>
-		<value />
+		<value>Keine Programmliste die freigegeben werden kann.</value>
 	</item>
 	<item>
 		<key>Unable to activate playlist &quot;$1&quot;</key>
-		<value />
+		<value>Programmliste $1 konnte nicht geöffnet werden.</value>
 	</item>
 	<item>
 		<key>Unable to release Playlist.</key>
-		<value />
+		<value>Programmliste konnte nicht freigegeben werden.</value>
 	</item>
 	<item>
 		<key>Unable to revert to locked state.</key>
-		<value />
+		<value>Nicht möglich zum letzten Stand zurückzukehren.</value>
 	</item>
 	<item>
 		<key>Unable to set &quot;$1&quot; to value &quot;$2&quot;.</key>
-		<value />
+		<value>Nicht möglich &quot;$1&quot; auf &quot;$2&quot; zu setzen.</value>
 	</item>
 	<item>
 		<key>Upload of file $1 was incomplete.</key>
-		<value />
+		<value>Hochladen von Datei &quot;$1&quot; war unvollständig.</value>
 	</item>
 	<item>
 		<key>Uploaded file $1 is bigger than LiveSupports system setting.</key>
@@ -195,15 +195,15 @@
 	</item>
 	<item>
 		<key>Uploaded file $1 is bigger than setting in php.ini.</key>
-		<value />
+		<value>Die hochzuladende Datei &quot;$1&quot; ist größer als max_upload_filesize Einstellung.</value>
 	</item>
 	<item>
 		<key>User or group &quot;$1&quot; already exists.</key>
-		<value />
+		<value>Benutzer/Gruppenname &quot;$1&quot; bereits benutzt.</value>
 	</item>
 	<item>
 		<key>You have an Playlist already activated, first close it</key>
-		<value />
+		<value>Es ist bereits eine Programmliste geöffnet, bitte erst schliessen.</value>
 	</item>
 	<item>
 		<key>$1 must be $2</key>
