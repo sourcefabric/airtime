@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<translations>
+	<Id>ar_JO</Id>
+	<item>
+		<key>Playlist</key>
+		<value />
+	</item>
+	<item>
+		<key>Fr</key>
+		<value />
+	</item>
+	<item>
+		<key>Mo</key>
+		<value />
+	</item>
+	<item>
+		<key>Sa</key>
+		<value />
+	</item>
+	<item>
+		<key>Su</key>
+		<value />
+	</item>
+	<item>
+		<key>Th</key>
+		<value />
+	</item>
+	<item>
+		<key>Tu</key>
+		<value />
+	</item>
+	<item>
+		<key>We</key>
+		<value />
+	</item>
+</translations>
