@@ -1,5 +1,6 @@
 <?php
 header("Content-type: text/html; charset=utf-8");
+include 'auth.inc.php';
 
 require_once dirname(__FILE__)."/includes/camp_html.php";
 require_once dirname(__FILE__)."/includes/Input.php";
