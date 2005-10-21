@@ -312,7 +312,9 @@ ${TMP_DIR}/modules_setup.stamp:
                                          --with-apache-group=${APACHE_GROUP} \
 										 --with-www-docroot=${WWW_DOCROOT} \
 								 --with-configure-apache=${CONFIGURE_APACHE}
-	cd ${STORAGE_ADMIN_DIR} && ./configure --prefix=${prefix}
+	cd ${STORAGE_ADMIN_DIR} && ./configure --prefix=${prefix} \
+	                --with-storage-server=${prefix}/var/LiveSupport/storageServer \
+	                --with-phppart-dir=${prefix}/usr/var
 	cd ${STORAGE_SERVER_DIR} && \
 		./configure --prefix=${prefix} \
 	                --with-apache-group=${APACHE_GROUP} \
