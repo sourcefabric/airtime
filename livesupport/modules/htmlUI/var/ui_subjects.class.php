@@ -5,7 +5,8 @@ class uiSubjects
     {
         $this->Base       =& $uiBase;
         $this->reloadUrl  = UI_BROWSER.'?popup[]=_reload_parent&popup[]=_close';
-        $this->redirUrl   = UI_BROWSER.'?act=SUBJECTS';
+        $this->suRedirUrl = UI_BROWSER.'?act=SUBJECTS';
+        $this->redirUrl   = UI_BROWSER;
     }
 
     function setReload()
@@ -13,10 +14,16 @@ class uiSubjects
          $this->Base->redirUrl = $this->reloadUrl;
     }
 
+    function setSuRedir()
+    {
+         $this->Base->redirUrl = $this->suRedirUrl;
+    }
+    
     function setRedir()
     {
          $this->Base->redirUrl = $this->redirUrl;
     }
+    
     /**
      *  getAddSubjectForm
      *
@@ -106,8 +113,11 @@ class uiSubjects
         include dirname(__FILE__). '/formmask/subjects.inc.php';
 
         $form = new HTML_QuickForm('chgPasswd', UI_STANDARD_FORM_METHOD, UI_HANDLER);
-        if ($su === TRUE) {
+        if ($this->Base->gb->checkPerm($this->Base->userid, 'subjects') === TRUE) {
+            $mask['chgPasswd']['cancel']['attributes'] = array('onClick' => 'location.href="'.UI_BROWSER.'?act=SUBJECTS"');
             unset ($mask['chgPasswd']['oldpasswd']);
+        } else {
+            $mask['chgPasswd']['cancel']['attributes'] = array('onClick' => 'location.href="'.UI_BROWSER.'"');   
         }
         $this->Base->_parseArr2Form($form, $mask['chgPasswd']);
         $form->setConstants(array('login' => $login));
@@ -129,22 +139,28 @@ class uiSubjects
      */
     function chgPasswd($request)
     {
-        $this->setRedir();
-
-        if ($this->Base->login !== $request['login'] && !$this->Base->gb->checkPerm($this->Base->userid, 'subjects')){
-            $this->Base->_retMsg('Access denied.');
-            return FALSE;
-        }
-        if (FALSE === $this->Base->gb->authenticate($request['login'], $request['oldpasswd'])) {
-            $this->Base->_retMsg('Old password was incorrect.');
-            $this->Base->redirUrl = $_SERVER['HTTP_REFERER'];
-            return FASLE;
-        }
         if ($request['passwd'] !== $request['passwd2']) {
             $this->Base->_retMsg("Passwords did not match.");
             $this->Base->redirUrl = $_SERVER['HTTP_REFERER'];
             return FALSE;
-        } 
+        }   
+              
+        if ($this->Base->gb->checkPerm($this->Base->userid, 'subjects')) {
+            $this->setSuRedir();    
+        } else {
+            $this->setRedir();
+            
+            if ($this->Base->login !== $request['login']){
+                $this->Base->_retMsg('Access denied.');
+                return FALSE;
+            }
+            if ($this->Base->gb->authenticate($request['login'], $request['oldpasswd']) === FALSE) {
+                $this->Base->_retMsg('Old password was incorrect.');
+                $this->Base->redirUrl = $_SERVER['HTTP_REFERER'];
+                return FASLE;
+            }
+        }
+
         if (PEAR::isError($ret = $this->Base->gb->passwd($request['login'], $request['oldpasswd'], $request['passwd'], $this->Base->sessid))) { 
             $this->Base->_retMsg($ret->getMessage()); 
             return FALSE;
