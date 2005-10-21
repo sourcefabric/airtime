@@ -913,7 +913,6 @@ class GreenBox extends BasicStor{
                     "GreenBox::passwd: access denied (oldpass)", GBERR_DENY);
             }
         }
-        return PEAR::raiseError("GreenBox::passwd: OK");
         $res = parent::passwd($login, $oldpass, $pass);
         if(PEAR::isError($res)) return $res;
         return TRUE;
