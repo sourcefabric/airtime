@@ -43,7 +43,7 @@ class uiSubjects
     *
     *  @param formdata array('login', 'pass')
     */
-    function addSubj(&$request)
+    function addSubj($request)
     {
         include dirname(__FILE__). '/formmask/subjects.inc.php';
         $this->setRedir();
@@ -77,7 +77,7 @@ class uiSubjects
      *
      *  @param login string, login name of removed user
      */
-    function removeSubj(&$request)
+    function removeSubj($request)
     {
         $this->setReload();
 
@@ -127,12 +127,11 @@ class uiSubjects
      *  @param pass string, new password
      *  @param pass2 string, retype of new password
      */
-    function chgPasswd(&$request)
+    function chgPasswd($request)
     {
         $this->setRedir();
 
-        if ($this->Base->userid != $uid &&
-            ! $this->Base->gb->checkPerm($this->Base->userid, 'subjects')){
+        if ($this->Base->login !== $request['login'] && !$this->Base->gb->checkPerm($this->Base->userid, 'subjects')){
             $this->Base->_retMsg('Access denied.');
             return FALSE;
         }
@@ -145,13 +144,15 @@ class uiSubjects
             $this->Base->_retMsg("Passwords did not match.");
             $this->Base->redirUrl = $_SERVER['HTTP_REFERER'];
             return FALSE;
-        }
-        if (PEAR::isError($ret = $this->Base->gb->passwd($request['login'], $request['oldpass'], $request['pass'], $this->Base->sessid))) { 
-            $this->Base->_retMsg($ret->getMessage());
+        } 
+        if (PEAR::isError($ret = $this->Base->gb->passwd($request['login'], $request['oldpasswd'], $request['passwd'], $this->Base->sessid))) { 
+            $this->Base->_retMsg($ret->getMessage()); 
             return FALSE;
         }
-        if (UI_VERBOSE)
+        if (UI_VERBOSE) {
             $this->Base->_retMsg('Password changed.');
+        }
+            
         return TRUE;
     }
 
