@@ -2,8 +2,12 @@
 <translations>
 	<Id>default_DEFAULT</Id>
 	<item>
-		<key>Cannot connect to Scheduler</key>
-		<value>Cannot connect to Scheduler</value>
+		<key>Are you sure to delete open Playlist?</key>
+		<value>Are you sure to delete open Playlist?</value>
+	</item>
+	<item>
+		<key>Change Password</key>
+		<value>Change Password</value>
 	</item>
 	<item>
 		<key>Access</key>
@@ -34,10 +38,6 @@
 		<value>Add files to ScratchPad</value>
 	</item>
 	<item>
-		<key>Add files to active Playlist</key>
-		<value>Add files to active Playlist</value>
-	</item>
-	<item>
 		<key>Add files to open Playlist</key>
 		<value>Add files to open Playlist</value>
 	</item>
@@ -60,10 +60,6 @@
 	<item>
 		<key>Are you sure to delete $1 selected files?</key>
 		<value>Are you sure to delete $1 selected files?</value>
-	</item>
-	<item>
-		<key>Are you sure to delete active Playlist?</key>
-		<value>Are you sure to delete active Playlist?</value>
 	</item>
 	<item>
 		<key>Are you sure to delete file &quot;$1&quot;?</key>
@@ -112,6 +108,10 @@
 	<item>
 		<key>Cancel</key>
 		<value>Cancel</value>
+	</item>
+	<item>
+		<key>Cannot connect to Scheduler</key>
+		<value>Cannot connect to Scheduler</value>
 	</item>
 	<item>
 		<key>Change Fadein</key>

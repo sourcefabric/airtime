@@ -1,7 +1,8 @@
 <div class="content">
-{if $_REQUEST.act == addFileMData || $_REQUEST.act == addWebstreamMData || $_REQUEST.act == editItem}
-    {include file="file/tabswitch.js.tpl"}
-{/if}
+    {if $_REQUEST.act == addFileMData || $_REQUEST.act == addWebstreamMData || $_REQUEST.act == editItem}
+        {include file="file/tabswitch.js.tpl"}
+    {/if}
+
     <div class="container_elements" style="width: 607px;">
         <h1>
         {if $_REQUEST.act == addFileData || $_REQUEST.act == addFileMData || $_REQUEST.act == addWebstreamData || $_REQUEST.act == addWebstreamMData}
@@ -21,11 +22,9 @@
         {/if}
         </div>
         
-        {if $_REQUEST.act == addFileMData || $_REQUEST.act == addWebstreamMData || $_REQUEST.act == editItem}
-            <div id="div_MData">
-                {include file="file/metadataform.tpl"}
-            </div>
-        {/if}
+        <div id="div_MData">
+            {include file="file/metadataform.tpl"}
+        </div>
     {/if}
 
     {if $editItem.type == 'webstream'}
@@ -46,16 +45,5 @@
 
     </div>
 </div>
-
-<script language="javascript">
-
-{if $_REQUEST.act == addFileData || $_REQUEST.act == addWebstreamData}
-    document.getElementById('div_MData').style.display   = 'none';
-{else}
-    document.getElementById('div_Data').style.display  = 'none';
-    showMain();
-{/if}
-
-</script>
 
 

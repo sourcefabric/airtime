@@ -14,7 +14,7 @@ require_once 'XML/Unserializer.php';
 global $g_localizerConfig;
 
 // Maintenance Mode allow to add languages and edit default language
-$g_localizerConfig['MAINTENANCE'] = FALSE;
+$g_localizerConfig['MAINTENANCE'] = TRUE;
 
 // Debug Mode to display additinal info
 $g_localizerConfig['DEBUG'] = FALSE;

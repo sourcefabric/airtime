@@ -27,15 +27,11 @@
 	</item>
 	<item>
 		<key>Add files to ScratchPad</key>
-		<value>Datei zum ScratchPad hinzufügen</value>
-	</item>
-	<item>
-		<key>Add files to active Playlist</key>
-		<value>Datei zur offenen Programmliste hinzu</value>
+		<value>Dateien zum Notizblock</value>
 	</item>
 	<item>
 		<key>Add files to open Playlist</key>
-		<value>Datei zur offenen Programmliste hinzu</value>
+		<value>Datei zur offenen Programmliste</value>
 	</item>
 	<item>
 		<key>Add selected</key>
@@ -58,12 +54,12 @@
 		<value>$1 Dateien wirklich löschen?</value>
 	</item>
 	<item>
-		<key>Are you sure to delete active Playlist?</key>
-		<value>Offene Programmliste wirklich löschen?</value>
-	</item>
-	<item>
 		<key>Are you sure to delete file &quot;$1&quot;?</key>
 		<value>Datei &quot;$1&quot; wirklich löschen?</value>
+	</item>
+	<item>
+		<key>Are you sure to delete open Playlist?</key>
+		<value>Offene Programmliste wirklich löschen?</value>
 	</item>
 	<item>
 		<key>Are you sure to discard all changes?</key>
@@ -126,6 +122,10 @@
 		<value>Fade ändern</value>
 	</item>
 	<item>
+		<key>Change Password</key>
+		<value>Passwort ändern</value>
+	</item>
+	<item>
 		<key>Change Transition</key>
 		<value>Überblenden ändern</value>
 	</item>
@@ -151,7 +151,7 @@
 	</item>
 	<item>
 		<key>Close Playlist</key>
-		<value>Programmliste schließen</value>
+		<value>Schließen</value>
 	</item>
 	<item>
 		<key>Connection to $1 port $2 $3</key>
@@ -415,7 +415,7 @@
 	</item>
 	<item>
 		<key>Remove from ScratchPad</key>
-		<value>Entferne vom ScratchPad</value>
+		<value>Entferne vom Notizblock</value>
 	</item>
 	<item>
 		<key>Remove from group</key>
@@ -435,11 +435,11 @@
 	</item>
 	<item>
 		<key>Reorder Playlist</key>
-		<value>Programmliste umsortieren</value>
+		<value>Liste umsortieren</value>
 	</item>
 	<item>
 		<key>Revert to Saved</key>
-		<value>Zum letzten Stand zurückkehren</value>
+		<value>Änderungen rückgängig</value>
 	</item>
 	<item>
 		<key>Sa</key>
@@ -451,11 +451,11 @@
 	</item>
 	<item>
 		<key>Save Playlist</key>
-		<value>Programmliste abspeichern</value>
+		<value>Liste Speichern</value>
 	</item>
 	<item>
 		<key>Save Reorder</key>
-		<value>Struktur abspeichern</value>
+		<value>Struktur speichern</value>
 	</item>
 	<item>
 		<key>Schedule</key>
@@ -471,7 +471,7 @@
 	</item>
 	<item>
 		<key>ScratchPad</key>
-		<value>ScratchPad</value>
+		<value>Notizblock</value>
 	</item>
 	<item>
 		<key>Search</key>
@@ -599,7 +599,7 @@
 	</item>
 	<item>
 		<key>You need to have at least one non-open playlist on ScratchPad to schedule it.</key>
-		<value>Mindestens eine ungeöffnete Programmliste muss im ScratchPad sein.</value>
+		<value>Mindestens eine geschlossene Programmliste muss auf dem  Notizblock stehen.</value>
 	</item>
 	<item>
 		<key>audioclip</key>

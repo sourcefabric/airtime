@@ -60,7 +60,7 @@
                 <option>##Multiple Action:##</option>
                 <option value="SP.addItem">##Add files to ScratchPad##</option>
                 {if $_PL_activeId}
-                    <option value="PL.addItem">##Add files to active Playlist##</option>
+                    <option value="PL.addItem">##Add files to open Playlist##</option>
                 {else}
                     <option value="PL.create">##New Playlist using this files##</option>
                 {/if}

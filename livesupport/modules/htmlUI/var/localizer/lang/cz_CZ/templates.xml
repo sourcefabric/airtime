@@ -2,7 +2,11 @@
 <translations>
 	<Id>cz_CZ</Id>
 	<item>
-		<key>Cannot connect to Scheduler</key>
+		<key>Are you sure to delete open Playlist?</key>
+		<value />
+	</item>
+	<item>
+		<key>Change Password</key>
 		<value />
 	</item>
 	<item>
@@ -70,10 +74,6 @@
 		<value />
 	</item>
 	<item>
-		<key>Add files to active Playlist</key>
-		<value />
-	</item>
-	<item>
 		<key>Add files to open Playlist</key>
 		<value />
 	</item>
@@ -107,10 +107,6 @@
 	</item>
 	<item>
 		<key>Are you sure to delete $1 selected files?</key>
-		<value />
-	</item>
-	<item>
-		<key>Are you sure to delete active Playlist?</key>
 		<value />
 	</item>
 	<item>
@@ -196,6 +192,10 @@
 	<item>
 		<key>Cancel</key>
 		<value>Storno</value>
+	</item>
+	<item>
+		<key>Cannot connect to Scheduler</key>
+		<value />
 	</item>
 	<item>
 		<key>Cannot create Playlist</key>

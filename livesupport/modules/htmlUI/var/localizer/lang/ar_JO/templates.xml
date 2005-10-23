@@ -2,6 +2,14 @@
 <translations>
 	<Id>ar_JO</Id>
 	<item>
+		<key>Are you sure to delete open Playlist?</key>
+		<value />
+	</item>
+	<item>
+		<key>Change Password</key>
+		<value />
+	</item>
+	<item>
 		<key>Cannot connect to Scheduler</key>
 		<value />
 	</item>
