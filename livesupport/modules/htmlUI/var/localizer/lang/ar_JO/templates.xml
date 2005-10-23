@@ -2,15 +2,23 @@
 <translations>
 	<Id>ar_JO</Id>
 	<item>
+		<key>_Name of translator</key>
+		<value />
+	</item>
+	<item>
+		<key>_Native language name</key>
+		<value />
+	</item>
+	<item>
 		<key>Are you sure to delete open Playlist?</key>
 		<value />
 	</item>
 	<item>
-		<key>Change Password</key>
+		<key>Cannot connect to Scheduler</key>
 		<value />
 	</item>
 	<item>
-		<key>Cannot connect to Scheduler</key>
+		<key>Change Password</key>
 		<value />
 	</item>
 	<item>

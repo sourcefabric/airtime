@@ -2,11 +2,11 @@
 <translations>
 	<Id>en_GB</Id>
 	<item>
-		<key>Are you sure to delete open Playlist?</key>
+		<key>_Name of translator</key>
 		<value />
 	</item>
 	<item>
-		<key>Change Password</key>
+		<key>_Native language name</key>
 		<value />
 	</item>
 	<item>
@@ -63,6 +63,10 @@
 	</item>
 	<item>
 		<key>Are you sure to delete file &quot;$1&quot;?</key>
+		<value />
+	</item>
+	<item>
+		<key>Are you sure to delete open Playlist?</key>
 		<value />
 	</item>
 	<item>
@@ -123,6 +127,10 @@
 	</item>
 	<item>
 		<key>Change Fades</key>
+		<value />
+	</item>
+	<item>
+		<key>Change Password</key>
 		<value />
 	</item>
 	<item>
@@ -451,10 +459,6 @@
 	</item>
 	<item>
 		<key>Save Playlist</key>
-		<value />
-	</item>
-	<item>
-		<key>Save Reorder</key>
 		<value />
 	</item>
 	<item>

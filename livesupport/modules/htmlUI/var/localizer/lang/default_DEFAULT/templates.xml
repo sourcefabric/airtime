@@ -2,12 +2,12 @@
 <translations>
 	<Id>default_DEFAULT</Id>
 	<item>
-		<key>Are you sure to delete open Playlist?</key>
-		<value>Are you sure to delete open Playlist?</value>
+		<key>_Name of translator</key>
+		<value>_Name of translator</value>
 	</item>
 	<item>
-		<key>Change Password</key>
-		<value>Change Password</value>
+		<key>_Native language name</key>
+		<value>_Native language name</value>
 	</item>
 	<item>
 		<key>Access</key>
@@ -64,6 +64,10 @@
 	<item>
 		<key>Are you sure to delete file &quot;$1&quot;?</key>
 		<value>Are you sure to delete file &quot;$1&quot;?</value>
+	</item>
+	<item>
+		<key>Are you sure to delete open Playlist?</key>
+		<value>Are you sure to delete open Playlist?</value>
 	</item>
 	<item>
 		<key>Are you sure to discard all changes?</key>
@@ -124,6 +128,10 @@
 	<item>
 		<key>Change Fades</key>
 		<value>Change Fades</value>
+	</item>
+	<item>
+		<key>Change Password</key>
+		<value>Change Password</value>
 	</item>
 	<item>
 		<key>Change Transition</key>
@@ -452,10 +460,6 @@
 	<item>
 		<key>Save Playlist</key>
 		<value>Save Playlist</value>
-	</item>
-	<item>
-		<key>Save Reorder</key>
-		<value>Save Reorder</value>
 	</item>
 	<item>
 		<key>Schedule</key>

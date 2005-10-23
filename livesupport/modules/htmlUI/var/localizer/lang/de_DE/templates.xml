@@ -454,10 +454,6 @@
 		<value>Liste Speichern</value>
 	</item>
 	<item>
-		<key>Save Reorder</key>
-		<value>Struktur speichern</value>
-	</item>
-	<item>
 		<key>Schedule</key>
 		<value />
 	</item>
@@ -600,6 +596,14 @@
 	<item>
 		<key>You need to have at least one non-open playlist on ScratchPad to schedule it.</key>
 		<value>Mindestens eine geschlossene Programmliste muss auf dem  Notizblock stehen.</value>
+	</item>
+	<item>
+		<key>_Name of translator</key>
+		<value>Sebastian Göbel</value>
+	</item>
+	<item>
+		<key>_Native language name</key>
+		<value>Deutsch</value>
 	</item>
 	<item>
 		<key>audioclip</key>

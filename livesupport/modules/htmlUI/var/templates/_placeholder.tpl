@@ -17,3 +17,5 @@ This template is just used to get additional strings into localizer
 ##Saturday##
 ##Sunday##
 ##Cannot connect to Scheduler##
+##_Name of translator##
+##_Native language name##
