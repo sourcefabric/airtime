@@ -2,23 +2,23 @@
 <languages>
 	<item>
 		<Id>am_AM</Id>
-		<Name>Armenian</Name>
-		<NativeName>Armenian</NativeName>
+		<Name>Armenian (AM)</Name>
+		<NativeName>Armenian (AM)</NativeName>
 	</item>
 	<item>
 		<Id>ar_JO</Id>
-		<Name>Arabic(JO)</Name>
-		<NativeName>اللغة العربية</NativeName>
+		<Name>Arabic (JO)</Name>
+		<NativeName>اللغة العربية (JO)</NativeName>
 	</item>
 	<item>
 		<Id>cz_CZ</Id>
-		<Name>Czech(CZ)</Name>
-		<NativeName>Čeština(CZ)</NativeName>
+		<Name>Czech (CZ)</Name>
+		<NativeName>Čeština (CZ)</NativeName>
 	</item>
 	<item>
 		<Id>de_DE</Id>
-		<Name>German(DE)</Name>
-		<NativeName>Deutsch(DE)</NativeName>
+		<Name>German (DE)</Name>
+		<NativeName>Deutsch (DE)</NativeName>
 	</item>
 	<item>
 		<Id>default_DEFAULT</Id>
@@ -27,37 +27,37 @@
 	</item>
 	<item>
 		<Id>en_GB</Id>
-		<Name>English(GB)</Name>
-		<NativeName>English(GB)</NativeName>
+		<Name>English (GB)</Name>
+		<NativeName>English (GB)</NativeName>
 	</item>
 	<item>
 		<Id>en_US</Id>
-		<Name>English(US)</Name>
-		<NativeName>English(US)</NativeName>
+		<Name>English (US)</Name>
+		<NativeName>English (US)</NativeName>
 	</item>
 	<item>
 		<Id>es_CO</Id>
-		<Name>Spanish(CO)</Name>
-		<NativeName>Español(CO)</NativeName>
+		<Name>Spanish (CO)</Name>
+		<NativeName>Español (CO)</NativeName>
 	</item>
 	<item>
 		<Id>hu_HU</Id>
-		<Name>Hungarian(HU)</Name>
-		<NativeName>Magyar(HU)</NativeName>
+		<Name>Hungarian (HU)</Name>
+		<NativeName>Magyar (HU)</NativeName>
 	</item>
 	<item>
 		<Id>nl_NL</Id>
-		<Name>Dutch(NL)</Name>
-		<NativeName>Nederlands(NL)</NativeName>
+		<Name>Dutch (NL)</Name>
+		<NativeName>Nederlands (NL)</NativeName>
 	</item>
 	<item>
 		<Id>ru_RU</Id>
-		<Name>Russian</Name>
-		<NativeName>По-pусски(RU)</NativeName>
+		<Name>Russian (RU)</Name>
+		<NativeName>По-pусски (RU)</NativeName>
 	</item>
 	<item>
 		<Id>sr_CS</Id>
-		<Name>Serbian(CS)</Name>
-		<NativeName>Srpski(CS)</NativeName>
+		<Name>Serbian (CS)</Name>
+		<NativeName>Srpski (CS)</NativeName>
 	</item>
 </languages>

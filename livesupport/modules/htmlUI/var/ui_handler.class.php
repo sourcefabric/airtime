@@ -49,7 +49,7 @@ class uiHandler extends uiBase {
         $sessid = $this->gb->login($formdata['login'], $formdata['pass']);
 
         if (!$sessid || PEAR::isError($sessid)){
-            $this->_retMsg('Login failed');
+            $this->_retMsg('Login failed.');
             $_SESSION['retransferFormData']['login'] = $formdata['login'];
             $this->redirUrl = UI_BROWSER.'?popup[]=login';
             return FALSE;
@@ -108,7 +108,7 @@ class uiHandler extends uiBase {
     function uploadFile($formdata, $mask, $replace=NULL)
     {
         if ($this->test4audioType($formdata['mediafile']['name']) === FALSE) {
-            if (UI_ERROR) $this->_retMsg('$1 uses an unsupported file type.', $formdata['mediafile']['name']);
+            if (UI_ERROR) $this->_retMsg('"$1" uses an unsupported file type.', $formdata['mediafile']['name']);
             $this->redirUrl = UI_BROWSER."?act=addFileData&folderId=".$formdata['folderId'];
             return FALSE;
         }
@@ -117,7 +117,7 @@ class uiHandler extends uiBase {
         $folderId = $formdata['folderId'];
 
         if ($this->gb->getFileType($folderId) != 'Folder') {
-            $this->_retMsg('Target is not Folder');
+            $this->_retMsg('The target is not a folder.');
             $this->redirUrl = UI_BROWSER."?act=fileList";
             return FALSE;
         }
@@ -150,7 +150,7 @@ class uiHandler extends uiBase {
         }
 
         $this->redirUrl = UI_BROWSER."?act=addFileMData&id=$r";
-        if (UI_VERBOSE) $this->_retMsg('Audioclip Data saved');
+        if (UI_VERBOSE) $this->_retMsg('Data of audiclip saved.');
         return $r;
     }
 
@@ -210,7 +210,7 @@ class uiHandler extends uiBase {
         $folderId = $formdata['folderId'];
 
         if ($this->gb->getFileType($folderId) != 'Folder') {
-            $this->_retMsg ('Target is not Folder');
+            $this->_retMsg ('The target is not a folder.');
             $this->redirUrl = UI_BROWSER."?act=fileList";
             return FALSE;
         }
@@ -234,7 +234,7 @@ class uiHandler extends uiBase {
         $this->_setMDataValue($r, UI_MDATA_KEY_FORMAT, UI_MDATA_VALUE_FORMAT_STREAM);
 
         $this->redirUrl = UI_BROWSER."?act=addWebstreamMData&id=$r";
-        if (UI_VERBOSE) $this->_retMsg('Stream Data saved');
+        if (UI_VERBOSE) $this->_retMsg('Stream data saved.');
         return $r;
     }
 
@@ -253,7 +253,7 @@ class uiHandler extends uiBase {
         $this->_setMDataValue($id, UI_MDATA_KEY_DURATION, $extent);
 
         $this->redirUrl = UI_BROWSER.'?act=editItem&id='.$formdata['id'];
-        if (UI_VERBOSE) $this->_retMsg('Stream Data changed');
+        if (UI_VERBOSE) $this->_retMsg('Stream data saved.');
         
         return TRUE;
     }
@@ -281,7 +281,7 @@ class uiHandler extends uiBase {
             }
         }
 
-        if (UI_VERBOSE) $this->_retMsg('Metadata saved');
+        if (UI_VERBOSE) $this->_retMsg('Metadata saved.');
     }
 
 
@@ -487,16 +487,16 @@ class uiHandler extends uiBase {
                 if ($val['error']) {
 
                     switch ($val['error']) {
-                        case 1: $was_error = TRUE; $this->_retMsg('Uploaded file $1 is bigger than setting in php.ini.', $mask[$key]['label']); break;
-                        case 2: $was_error = TRUE; $this->_retMsg('Uploaded file $1 is bigger than LiveSupports system setting.', $mask[$key]['label']); break;
-                        case 3: $was_error = TRUE; $this->_retMsg('Upload of file $1 was incomplete.', $mask[$key]['label']); break;
-                        case 4: if ($mask[$key]['required']) {$was_error = TRUE; $this->_retMsg('File $1 was not uploaded.', $mask[$key]['label']);} break;
+                        case 1: $was_error = TRUE; $this->_retMsg('Uploaded file "$1" is bigger than setting in php.ini.', $mask[$key]['label']); break;
+                        case 2: $was_error = TRUE; $this->_retMsg('Uploaded file "$1" is bigger than LiveSupport&acute;s system setting.', $mask[$key]['label']); break;
+                        case 3: $was_error = TRUE; $this->_retMsg('Upload of file "$1" was incomplete.', $mask[$key]['label']); break;
+                        case 4: if ($mask[$key]['required']) {$was_error = TRUE; $this->_retMsg('File "$1" has not been uploaded.', $mask[$key]['label']);} break;
                     }
                 }
             }
             if ($was_error) {
                 $_SESSION['retransferFormData'] = array_merge($_REQUEST, $_FILES);
-                $this->_retMsg('Invalid Form Data');
+                $this->_retMsg('Invalid or incomplete form data.');
                 return FALSE;
             }
         }
@@ -518,26 +518,26 @@ class uiHandler extends uiBase {
         $this->redirUrl = UI_BROWSER;
 
         if ($this->_validateForm($formdata, $mask) == FALSE) {
-            $this->_retMsg('Error saving Settings');
+            $this->_retMsg('Error while saving settings.');
             return FALSE;
         }
         foreach($mask as $key=>$val) {
             if ($val['isPref']) {
                 if (strlen($formdata[$val['element']])) {
                     if (PEAR::isError($this->gb->saveGroupPref($this->sessid, 'StationPrefs', $val['element'], $formdata[$val['element']])))
-                        $this->_retMsg('Error saving Settings');
+                        $this->_retMsg('Error while saving settings.');
                 } else {
                     $this->gb->delGroupPref($this->sessid,  'StationPrefs', $val['element']);
                 }
             }
             if ($val['type'] == 'file' && $formdata[$val['element']]['name']) {
                 if (FALSE === @move_uploaded_file($formdata[$val['element']]['tmp_name'], $this->gb->loadGroupPref($this->sessid, 'StationPrefs', 'stationLogoPath')))
-                    $this->_retMsg('Error uploading Logo');
+                    $this->_retMsg('Error while uploading logo.');
                     return FALSE;
             }
         }
         $this->loadStationPrefs($mask, TRUE);
-        if (UI_VERBOSE) $this->_retMsg('Settings saved');
+        if (UI_VERBOSE) $this->_retMsg('Settings saved.');
         
         return TRUE;
     }

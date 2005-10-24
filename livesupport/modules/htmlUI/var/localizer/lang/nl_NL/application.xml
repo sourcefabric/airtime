@@ -2,208 +2,8 @@
 <translations>
 	<Id>nl_NL</Id>
 	<item>
-		<key>$1 uses an unsupported file type.</key>
+		<key>&quot;$1&quot; uses an unsupported file type.</key>
 		<value>$1 gebruikt een niet ondersteund bestands type.</value>
-	</item>
-	<item>
-		<key>Access denied.</key>
-		<value>Toegang geweigerd.</value>
-	</item>
-	<item>
-		<key>Access to home directory failed.</key>
-		<value>Toegang tot eigen documenten geweigerd.</value>
-	</item>
-	<item>
-		<key>Already active Playlist</key>
-		<value>Playlist is reeds actief.</value>
-	</item>
-	<item>
-		<key>Audioclip Data saved</key>
-		<value>Audioclip informatie opgeslagen.</value>
-	</item>
-	<item>
-		<key>Cannot create Playlist</key>
-		<value>Kan playlist niet maken.</value>
-	</item>
-	<item>
-		<key>Cannot delete this Playlist</key>
-		<value>Kan playlist niet verwijderen.</value>
-	</item>
-	<item>
-		<key>Cannot move item</key>
-		<value>Kan item niet verplaatsen in de playlist.</value>
-	</item>
-	<item>
-		<key>Cannot remove Item from Playlist</key>
-		<value>Kan item niet van playlist verwijderen.</value>
-	</item>
-	<item>
-		<key>Change fade information failed.</key>
-		<value>Veranderen van fade informatie mislukt.</value>
-	</item>
-	<item>
-		<key>Entry $1 was already on the ScratchPad. It has been moved to the top of the list.</key>
-		<value>$1 item was reeds op ScratchPad. Het is boven in de lijst geplaats.</value>
-	</item>
-	<item>
-		<key>Entry added at $1 with ScheduleId: $2</key>
-		<value>Regel toegevoegd aan $1 met ScheduleId: $2.</value>
-	</item>
-	<item>
-		<key>Entry with ScheduleId $1 removed</key>
-		<value>Regel met schedule ID $1 verwijderd.</value>
-	</item>
-	<item>
-		<key>Error on add item to Playlist</key>
-		<value>Fout bij toevoegen item aan Playlist.</value>
-	</item>
-	<item>
-		<key>Error saving Settings</key>
-		<value>Fout opslaan van Systeem voorkeuren.</value>
-	</item>
-	<item>
-		<key>Error uploading Logo</key>
-		<value>Fout bij het verzenden van Logo.</value>
-	</item>
-	<item>
-		<key>Error: $1</key>
-		<value>Fout: $1</value>
-	</item>
-	<item>
-		<key>File $1 was not uploaded.</key>
-		<value>$1 bestand is niet verzonden.</value>
-	</item>
-	<item>
-		<key>Found locked Playlist.</key>
-		<value>Vastgezette Playlist gevonden.</value>
-	</item>
-	<item>
-		<key>Invalid Form Data</key>
-		<value>Verkeerde data formaat</value>
-	</item>
-	<item>
-		<key>Login failed</key>
-		<value>Login niet gelukt.</value>
-	</item>
-	<item>
-		<key>Metadata saved</key>
-		<value>Meta-gegevens opgeslagen.</value>
-	</item>
-	<item>
-		<key>No Item(s) selected</key>
-		<value>Geen Items geselecteerd</value>
-	</item>
-	<item>
-		<key>No Playlist is locked by You.</key>
-		<value>U heeft nog geen playlist vastgezet.</value>
-	</item>
-	<item>
-		<key>Note: Station Preferences not setup proberly.</key>
-		<value>Mededeling: Eigenschappen zijn nog niet goed ingesteld.</value>
-	</item>
-	<item>
-		<key>Nothing selected.</key>
-		<value>Niets geselecteerd.</value>
-	</item>
-	<item>
-		<key>Old password was incorrect.</key>
-		<value>Oude wachtwoord is niet goed.</value>
-	</item>
-	<item>
-		<key>Password changed.</key>
-		<value>Wachtwoord aangepast.</value>
-	</item>
-	<item>
-		<key>Playlist &quot;$1&quot; activated</key>
-		<value>Playlist &quot;$1&quot; geopend</value>
-	</item>
-	<item>
-		<key>Playlist &quot;$1&quot; released</key>
-		<value>Playlist &quot;$1&quot; uitgegeven.</value>
-	</item>
-	<item>
-		<key>Playlist &quot;$1&quot; reverted</key>
-		<value>Playlist &quot;$1&quot; hersteld.</value>
-	</item>
-	<item>
-		<key>Playlist &quot;$1&quot; saved</key>
-		<value>Playlist &quot;$1&quot; opgeslagen.</value>
-	</item>
-	<item>
-		<key>Playlist has been locked by $1</key>
-		<value>Playlist is vastgezet door $1.</value>
-	</item>
-	<item>
-		<key>Scheduler did not start. Check setting of &quot;UI_SCHEDULER_DAEMON_CMD&quot; in ui_conf.php. File &quot;/tmp/scheduler.log&quot; could be helpful.</key>
-		<value />
-	</item>
-	<item>
-		<key>Scheduler is running.</key>
-		<value />
-	</item>
-	<item>
-		<key>ScratchPad length is not set in System Preferences, so it cannot be used.</key>
-		<value>Het aantal regels van het ScratchPad ontbreek in eigenschappen en kan daarom niet gebruikt worden.</value>
-	</item>
-	<item>
-		<key>Settings saved</key>
-		<value>Instellingen opgeslagen.</value>
-	</item>
-	<item>
-		<key>Stream Data changed</key>
-		<value>Stream data veranderd.</value>
-	</item>
-	<item>
-		<key>Stream Data saved</key>
-		<value>Stream data opgeslagen.</value>
-	</item>
-	<item>
-		<key>Subject $1 added.</key>
-		<value>Onderwerp $1 toegevoegd.</value>
-	</item>
-	<item>
-		<key>Target is not Folder</key>
-		<value>Doel is geen map.</value>
-	</item>
-	<item>
-		<key>There is no playlist available to unlock.</key>
-		<value>Er is geen Playlist beschikbaar om vrij te geven.</value>
-	</item>
-	<item>
-		<key>Unable to activate playlist &quot;$1&quot;</key>
-		<value>Kan playlist &quot;$1&quot; niet activeren</value>
-	</item>
-	<item>
-		<key>Unable to release Playlist.</key>
-		<value>Playlist uitgeven is niet mogelijk.</value>
-	</item>
-	<item>
-		<key>Unable to revert to locked state.</key>
-		<value>Herstellen van vastgezette status is niet mogelijk.</value>
-	</item>
-	<item>
-		<key>Unable to set &quot;$1&quot; to value &quot;$2&quot;.</key>
-		<value>Onmogelijk om &quot;$1&quot; op &quot;$2&quot; in te stellen.</value>
-	</item>
-	<item>
-		<key>Upload of file $1 was incomplete.</key>
-		<value>Uploaden van bestand $1 was niet compleet.</value>
-	</item>
-	<item>
-		<key>Uploaded file $1 is bigger than LiveSupports system setting.</key>
-		<value>Het bestand $1 is groter dan de systeem instelling van LiveSupport.</value>
-	</item>
-	<item>
-		<key>Uploaded file $1 is bigger than setting in php.ini.</key>
-		<value>Het bestand $1 is groter dan in php.ini is ingesteld.</value>
-	</item>
-	<item>
-		<key>User or group &quot;$1&quot; already exists.</key>
-		<value>Gebruiker of groep &quot;$1&quot; bestaat al.</value>
-	</item>
-	<item>
-		<key>You have an Playlist already activated, first close it</key>
-		<value>Er is reeds een Playlist open, sluit deze eerst.</value>
 	</item>
 	<item>
 		<key>$1 must be $2</key>
@@ -218,8 +18,20 @@
 		<value>-</value>
 	</item>
 	<item>
+		<key>A playlist is already opened.</key>
+		<value>Playlist is reeds actief.</value>
+	</item>
+	<item>
 		<key>Access</key>
 		<value>Toegang</value>
+	</item>
+	<item>
+		<key>Access denied.</key>
+		<value>Toegang geweigerd.</value>
+	</item>
+	<item>
+		<key>Access to home directory failed.</key>
+		<value>Toegang tot eigen documenten geweigerd.</value>
 	</item>
 	<item>
 		<key>Add Audio</key>
@@ -338,6 +150,22 @@
 		<value>Annuleer</value>
 	</item>
 	<item>
+		<key>Cannot create playlist.</key>
+		<value>Kan playlist niet maken.</value>
+	</item>
+	<item>
+		<key>Cannot delete this playlist.</key>
+		<value>Kan playlist niet verwijderen.</value>
+	</item>
+	<item>
+		<key>Cannot move item.</key>
+		<value>Kan item niet verplaatsen in de playlist.</value>
+	</item>
+	<item>
+		<key>Cannot remove item from playlist.</key>
+		<value>Kan item niet van playlist verwijderen.</value>
+	</item>
+	<item>
 		<key>Catalog number</key>
 		<value>Catalogus nummer</value>
 	</item>
@@ -360,6 +188,10 @@
 	<item>
 		<key>Change password</key>
 		<value>Wijzig wachtwoord</value>
+	</item>
+	<item>
+		<key>Changing fade information failed.</key>
+		<value>Veranderen van fade informatie mislukt.</value>
 	</item>
 	<item>
 		<key>Channels</key>
@@ -396,6 +228,10 @@
 	<item>
 		<key>Current Members</key>
 		<value>Huidige leden</value>
+	</item>
+	<item>
+		<key>Data of audiclip saved.</key>
+		<value>Audioclip informatie opgeslagen.</value>
 	</item>
 	<item>
 		<key>Date</key>
@@ -466,6 +302,34 @@
 		<value>Gebruikte encoder software</value>
 	</item>
 	<item>
+		<key>Entry $1 is already on the scratchpad. It has been moved to the top of the list.</key>
+		<value>$1 item was reeds op ScratchPad. Het is boven in de lijst geplaats.</value>
+	</item>
+	<item>
+		<key>Entry added at $1 with ScheduleId $2.</key>
+		<value>Regel toegevoegd aan $1 met ScheduleId: $2.</value>
+	</item>
+	<item>
+		<key>Entry with ScheduleId $1 removed.</key>
+		<value>Regel met schedule ID $1 verwijderd.</value>
+	</item>
+	<item>
+		<key>Error while saving settings.</key>
+		<value>Fout opslaan van Systeem voorkeuren.</value>
+	</item>
+	<item>
+		<key>Error while trying to add item to playlist.</key>
+		<value>Fout bij toevoegen item aan Playlist.</value>
+	</item>
+	<item>
+		<key>Error while uploading logo.</key>
+		<value>Fout bij het verzenden van Logo.</value>
+	</item>
+	<item>
+		<key>Error: $1</key>
+		<value>Fout: $1</value>
+	</item>
+	<item>
 		<key>Fade</key>
 		<value>Fade</value>
 	</item>
@@ -476,6 +340,10 @@
 	<item>
 		<key>File</key>
 		<value>Bestand</value>
+	</item>
+	<item>
+		<key>File &quot;$1&quot; has not been uploaded.</key>
+		<value>$1 bestand is niet verzonden.</value>
 	</item>
 	<item>
 		<key>File List</key>
@@ -510,6 +378,10 @@
 		<value>Formaat</value>
 	</item>
 	<item>
+		<key>Found locked playlist.</key>
+		<value>Vastgezette Playlist gevonden.</value>
+	</item>
+	<item>
 		<key>Fr</key>
 		<value>vr</value>
 	</item>
@@ -530,6 +402,10 @@
 		<value>Go</value>
 	</item>
 	<item>
+		<key>Group &quot;$1&quot; added.</key>
+		<value />
+	</item>
+	<item>
 		<key>Group Name</key>
 		<value>Groepsnaam</value>
 	</item>
@@ -548,6 +424,10 @@
 	<item>
 		<key>Insert Playlist here</key>
 		<value>Playlist hier invoegen</value>
+	</item>
+	<item>
+		<key>Invalid or incomplete form data.</key>
+		<value>Verkeerde data formaat</value>
 	</item>
 	<item>
 		<key>Item</key>
@@ -598,6 +478,10 @@
 		<value>Aanmelden</value>
 	</item>
 	<item>
+		<key>Login failed.</key>
+		<value>Login niet gelukt.</value>
+	</item>
+	<item>
 		<key>Lyricist</key>
 		<value>Schrijver</value>
 	</item>
@@ -640,6 +524,10 @@
 	<item>
 		<key>Members</key>
 		<value>Leden</value>
+	</item>
+	<item>
+		<key>Metadata saved.</key>
+		<value>Meta-gegevens opgeslagen.</value>
 	</item>
 	<item>
 		<key>Missing value for $1</key>
@@ -710,6 +598,10 @@
 		<value>Geen groepsleden</value>
 	</item>
 	<item>
+		<key>No item(s) selected.</key>
+		<value>Geen Items geselecteerd</value>
+	</item>
+	<item>
 		<key>No match found.</key>
 		<value>Geen Items gevonden.</value>
 	</item>
@@ -718,8 +610,16 @@
 		<value>Geen objecten.</value>
 	</item>
 	<item>
+		<key>No playlists have been locked by you.</key>
+		<value>U heeft nog geen playlist vastgezet.</value>
+	</item>
+	<item>
 		<key>Nothing left</key>
 		<value>Niets over</value>
+	</item>
+	<item>
+		<key>Nothing selected.</key>
+		<value>Niets geselecteerd.</value>
 	</item>
 	<item>
 		<key>November</key>
@@ -732,6 +632,10 @@
 	<item>
 		<key>Old Password</key>
 		<value>Oude wachtwoord</value>
+	</item>
+	<item>
+		<key>Old password was incorrect.</key>
+		<value>Oude wachtwoord is niet goed.</value>
 	</item>
 	<item>
 		<key>Open last Playlist</key>
@@ -762,6 +666,10 @@
 		<value>Wachtwoord</value>
 	</item>
 	<item>
+		<key>Password changed.</key>
+		<value>Wachtwoord aangepast.</value>
+	</item>
+	<item>
 		<key>Passwords did not match.</key>
 		<value>Wachtwoord komt niet overeen.</value>
 	</item>
@@ -770,8 +678,32 @@
 		<value>Playlist</value>
 	</item>
 	<item>
+		<key>Playlist &quot;$1&quot; opened.</key>
+		<value>Playlist &quot;$1&quot; geopend</value>
+	</item>
+	<item>
+		<key>Playlist &quot;$1&quot; released.</key>
+		<value>Playlist &quot;$1&quot; uitgegeven.</value>
+	</item>
+	<item>
+		<key>Playlist &quot;$1&quot; reverted.</key>
+		<value>Playlist &quot;$1&quot; hersteld.</value>
+	</item>
+	<item>
+		<key>Playlist &quot;$1&quot; saved.</key>
+		<value>Playlist &quot;$1&quot; opgeslagen.</value>
+	</item>
+	<item>
 		<key>Playlist Metadata</key>
 		<value>Playlist meta-gegevens</value>
+	</item>
+	<item>
+		<key>Playlist has been locked by &quot;$1&quot;.</key>
+		<value>Playlist is vastgezet door $1.</value>
+	</item>
+	<item>
+		<key>Playlist not found in database.</key>
+		<value />
 	</item>
 	<item>
 		<key>Playlists</key>
@@ -894,6 +826,14 @@
 		<value>Scheduler verkenner</value>
 	</item>
 	<item>
+		<key>Scheduler did not start. Check setting of &quot;UI_SCHEDULER_DAEMON_CMD&quot; in ui_conf.php. File &quot;/tmp/scheduler.log&quot; could be helpful.</key>
+		<value />
+	</item>
+	<item>
+		<key>Scheduler is running.</key>
+		<value />
+	</item>
+	<item>
 		<key>ScratchPad</key>
 		<value>ScratchPad</value>
 	</item>
@@ -912,6 +852,10 @@
 	<item>
 		<key>September</key>
 		<value>september</value>
+	</item>
+	<item>
+		<key>Settings saved.</key>
+		<value>Instellingen opgeslagen.</value>
 	</item>
 	<item>
 		<key>Show Info</key>
@@ -954,6 +898,10 @@
 		<value>Stream URL</value>
 	</item>
 	<item>
+		<key>Stream data saved.</key>
+		<value>Stream data opgeslagen.</value>
+	</item>
+	<item>
 		<key>Su</key>
 		<value>zo</value>
 	</item>
@@ -980,6 +928,18 @@
 	<item>
 		<key>Th</key>
 		<value>do</value>
+	</item>
+	<item>
+		<key>The scratchpad length is not set in system preferences, so it cannot be used.</key>
+		<value>Het aantal regels van het ScratchPad ontbreek in eigenschappen en kan daarom niet gebruikt worden.</value>
+	</item>
+	<item>
+		<key>The target is not a folder.</key>
+		<value>Doel is geen map.</value>
+	</item>
+	<item>
+		<key>There is no playlist available to unlock.</key>
+		<value>Er is geen Playlist beschikbaar om vrij te geven.</value>
 	</item>
 	<item>
 		<key>Thursday</key>
@@ -1018,8 +978,44 @@
 		<value>Type</value>
 	</item>
 	<item>
+		<key>Unable to open playlist &quot;$1&quot;.</key>
+		<value>Kan playlist &quot;$1&quot; niet activeren</value>
+	</item>
+	<item>
+		<key>Unable to release playlist.</key>
+		<value>Playlist uitgeven is niet mogelijk.</value>
+	</item>
+	<item>
+		<key>Unable to revert to locked state.</key>
+		<value>Herstellen van vastgezette status is niet mogelijk.</value>
+	</item>
+	<item>
+		<key>Unable to set &quot;$1&quot; to value &quot;$2&quot;.</key>
+		<value>Onmogelijk om &quot;$1&quot; op &quot;$2&quot; in te stellen.</value>
+	</item>
+	<item>
+		<key>Upload of file &quot;$1&quot; was incomplete.</key>
+		<value>Uploaden van bestand $1 was niet compleet.</value>
+	</item>
+	<item>
+		<key>Uploaded file &quot;$1&quot; is bigger than LiveSupport&amp;acute;s system setting.</key>
+		<value>Het bestand $1 is groter dan de systeem instelling van LiveSupport.</value>
+	</item>
+	<item>
+		<key>Uploaded file &quot;$1&quot; is bigger than setting in php.ini.</key>
+		<value>Het bestand $1 is groter dan in php.ini is ingesteld.</value>
+	</item>
+	<item>
+		<key>User &quot;$1&quot; added.</key>
+		<value />
+	</item>
+	<item>
 		<key>User Password</key>
 		<value>Wachtwoord</value>
+	</item>
+	<item>
+		<key>User or group &quot;$1&quot; already exists.</key>
+		<value>Gebruiker of groep &quot;$1&quot; bestaat al.</value>
 	</item>
 	<item>
 		<key>User/Group Management</key>
@@ -1032,6 +1028,10 @@
 	<item>
 		<key>Username</key>
 		<value>Gebruikersnaam</value>
+	</item>
+	<item>
+		<key>Warning: station preferences have not been set up properly.</key>
+		<value>Mededeling: Eigenschappen zijn nog niet goed ingesteld.</value>
 	</item>
 	<item>
 		<key>We</key>
@@ -1052,6 +1052,10 @@
 	<item>
 		<key>Year</key>
 		<value>Jaar</value>
+	</item>
+	<item>
+		<key>You already have an open playlist. Close it first.</key>
+		<value>Er is reeds een Playlist open, sluit deze eerst.</value>
 	</item>
 	<item>
 		<key>You need to have at least one non-open playlist on ScratchPad to schedule it.</key>

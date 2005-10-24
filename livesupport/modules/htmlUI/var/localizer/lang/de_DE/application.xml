@@ -2,8 +2,12 @@
 <translations>
 	<Id>de_DE</Id>
 	<item>
-		<key>$1 uses an unsupported file type.</key>
-		<value>$1 ist ein nicht unterstützter Dateityp.</value>
+		<key>&quot;$1&quot; uses an unsupported file type.</key>
+		<value>&quot;$1&quot; verwendet einen nicht unterstützter Dateityp.</value>
+	</item>
+	<item>
+		<key>A playlist is already opened.</key>
+		<value>Es ist bereits eine Programmliste geöffnet.</value>
 	</item>
 	<item>
 		<key>Access denied.</key>
@@ -14,55 +18,51 @@
 		<value>Zugriff auf das Home-verzeichnis verweigert.</value>
 	</item>
 	<item>
-		<key>Already active Playlist</key>
-		<value>Es ist bereits eine Programmliste aktiviert.</value>
-	</item>
-	<item>
-		<key>Audioclip Data saved</key>
-		<value>Audioclip Daten gespeichert.</value>
-	</item>
-	<item>
-		<key>Cannot create Playlist</key>
+		<key>Cannot create playlist.</key>
 		<value>Konnte Programmliste nicht anlegen.</value>
 	</item>
 	<item>
-		<key>Cannot delete this Playlist</key>
+		<key>Cannot delete this playlist.</key>
 		<value>Konnte diese Programmliste nicht löschen.</value>
 	</item>
 	<item>
-		<key>Cannot move item</key>
+		<key>Cannot move item.</key>
 		<value>Konnte Datei in Programmliste nicht bewegen.</value>
 	</item>
 	<item>
-		<key>Cannot remove Item from Playlist</key>
+		<key>Cannot remove item from playlist.</key>
 		<value>Konnte Datei auf Programmliste nicht entfernen.</value>
 	</item>
 	<item>
-		<key>Change fade information failed.</key>
+		<key>Changing fade information failed.</key>
 		<value>Konnte fade Informationen nicht ändern.</value>
 	</item>
 	<item>
-		<key>Entry $1 was already on the ScratchPad. It has been moved to the top of the list.</key>
+		<key>Data of audiclip saved.</key>
+		<value>Audioclip Daten gespeichert.</value>
+	</item>
+	<item>
+		<key>Entry $1 is already on the scratchpad. It has been moved to the top of the list.</key>
 		<value>Datei $1 war bereits im ScratchPad. Sie wurde an die Spitze verschoben.</value>
 	</item>
 	<item>
-		<key>Entry added at $1 with ScheduleId: $2</key>
+		<key>Entry added at $1 with ScheduleId $2.</key>
 		<value>Eintrag hinzugefügt um $1 unter ID $2.</value>
 	</item>
 	<item>
-		<key>Entry with ScheduleId $1 removed</key>
+		<key>Entry with ScheduleId $1 removed.</key>
 		<value>Eintrag mit ID $1 entfernt.</value>
 	</item>
 	<item>
-		<key>Error on add item to Playlist</key>
-		<value>Fehler beim Hinzufügen einer Detei zur Programmliste.</value>
-	</item>
-	<item>
-		<key>Error saving Settings</key>
+		<key>Error while saving settings.</key>
 		<value>Fehler beim Speichern der Stationseinstellungen.</value>
 	</item>
 	<item>
-		<key>Error uploading Logo</key>
+		<key>Error while trying to add item to playlist.</key>
+		<value>Fehler beim Hinzufügen einer Detei zur Programmliste.</value>
+	</item>
+	<item>
+		<key>Error while uploading logo.</key>
 		<value>Fehler beim Hochladen des Logos.</value>
 	</item>
 	<item>
@@ -70,36 +70,36 @@
 		<value>Fehler: $1</value>
 	</item>
 	<item>
-		<key>File $1 was not uploaded.</key>
+		<key>File &quot;$1&quot; has not been uploaded.</key>
 		<value>Die Datei $1 wurde nicht hochgeladen.</value>
 	</item>
 	<item>
-		<key>Found locked Playlist.</key>
+		<key>Found locked playlist.</key>
 		<value>Eine gesperrte Programmliste wurde aufgefunden.</value>
 	</item>
 	<item>
-		<key>Invalid Form Data</key>
+		<key>Group &quot;$1&quot; added.</key>
+		<value>Gruppe &quot;$1&quot; wurde hinzugefügt.</value>
+	</item>
+	<item>
+		<key>Invalid or incomplete form data.</key>
 		<value>Fehlerhafte Formulardaten.</value>
 	</item>
 	<item>
-		<key>Login failed</key>
+		<key>Login failed.</key>
 		<value>Anmeldung gescheitert.</value>
 	</item>
 	<item>
-		<key>Metadata saved</key>
+		<key>Metadata saved.</key>
 		<value>Metadaten gespeichert.</value>
 	</item>
 	<item>
-		<key>No Item(s) selected</key>
+		<key>No item(s) selected.</key>
 		<value>Keine Detai(en) ausgäwählt.</value>
 	</item>
 	<item>
-		<key>No Playlist is locked by You.</key>
+		<key>No playlists have been locked by you.</key>
 		<value>Keine aktive Programmliste vorhanden.</value>
-	</item>
-	<item>
-		<key>Note: Station Preferences not setup proberly.</key>
-		<value>Achtung: Stationseinstellungen unvollständig.</value>
 	</item>
 	<item>
 		<key>Nothing selected.</key>
@@ -114,24 +114,28 @@
 		<value>Passwort geändert.</value>
 	</item>
 	<item>
-		<key>Playlist &quot;$1&quot; activated</key>
+		<key>Playlist &quot;$1&quot; opened.</key>
 		<value>Programmliste &quot;$1&quot; aktiviert.</value>
 	</item>
 	<item>
-		<key>Playlist &quot;$1&quot; released</key>
+		<key>Playlist &quot;$1&quot; released.</key>
 		<value>Programmliste &quot;$1&quot; freigegeben.</value>
 	</item>
 	<item>
-		<key>Playlist &quot;$1&quot; reverted</key>
+		<key>Playlist &quot;$1&quot; reverted.</key>
 		<value>Programmliste &quot;$1&quot; zurückgesetzt.</value>
 	</item>
 	<item>
-		<key>Playlist &quot;$1&quot; saved</key>
+		<key>Playlist &quot;$1&quot; saved.</key>
 		<value>Programmliste &quot;$1&quot; gespeichert.</value>
 	</item>
 	<item>
-		<key>Playlist has been locked by $1</key>
+		<key>Playlist has been locked by &quot;$1&quot;.</key>
 		<value>Diese Programmliste ist gesperrt von $1.</value>
+	</item>
+	<item>
+		<key>Playlist not found in database.</key>
+		<value>Programmliste wurde nicht gefunden.</value>
 	</item>
 	<item>
 		<key>Scheduler did not start. Check setting of &quot;UI_SCHEDULER_DAEMON_CMD&quot; in ui_conf.php. File &quot;/tmp/scheduler.log&quot; could be helpful.</key>
@@ -142,39 +146,31 @@
 		<value>Der Scheduler wird ausgeführt.</value>
 	</item>
 	<item>
-		<key>ScratchPad length is not set in System Preferences, so it cannot be used.</key>
-		<value>Das ScratchPad kann nicht benutzt werden solange seine Länge nicht nicht in den Stationseinstellungen gesetzt wurde.</value>
-	</item>
-	<item>
-		<key>Settings saved</key>
+		<key>Settings saved.</key>
 		<value>Stationseinstellungen gespeichert.</value>
 	</item>
 	<item>
-		<key>Stream Data changed</key>
-		<value>Stream Daten geändert.</value>
-	</item>
-	<item>
-		<key>Stream Data saved</key>
+		<key>Stream data saved.</key>
 		<value>Stream Daten gespeichert.</value>
 	</item>
 	<item>
-		<key>Subject $1 added.</key>
-		<value>Subjekt $1 hinzugefügt.</value>
+		<key>The scratchpad length is not set in system preferences, so it cannot be used.</key>
+		<value>Das ScratchPad kann nicht benutzt werden solange seine Länge nicht nicht in den Stationseinstellungen gesetzt wurde.</value>
 	</item>
 	<item>
-		<key>Target is not Folder</key>
-		<value>Das Ziel ist kein Verzeichnis</value>
+		<key>The target is not a folder.</key>
+		<value>Das Ziel ist kein Verzeichnis.</value>
 	</item>
 	<item>
 		<key>There is no playlist available to unlock.</key>
 		<value>Keine Programmliste die freigegeben werden kann.</value>
 	</item>
 	<item>
-		<key>Unable to activate playlist &quot;$1&quot;</key>
+		<key>Unable to open playlist &quot;$1&quot;.</key>
 		<value>Programmliste $1 konnte nicht geöffnet werden.</value>
 	</item>
 	<item>
-		<key>Unable to release Playlist.</key>
+		<key>Unable to release playlist.</key>
 		<value>Programmliste konnte nicht freigegeben werden.</value>
 	</item>
 	<item>
@@ -186,23 +182,31 @@
 		<value>Nicht möglich &quot;$1&quot; auf &quot;$2&quot; zu setzen.</value>
 	</item>
 	<item>
-		<key>Upload of file $1 was incomplete.</key>
+		<key>Upload of file &quot;$1&quot; was incomplete.</key>
 		<value>Hochladen von Datei &quot;$1&quot; war unvollständig.</value>
 	</item>
 	<item>
-		<key>Uploaded file $1 is bigger than LiveSupports system setting.</key>
+		<key>Uploaded file &quot;$1&quot; is bigger than LiveSupport&amp;acute;s system setting.</key>
 		<value>Die hochgeladene Datei ist grösser als die Einstellung in LiveSupport.</value>
 	</item>
 	<item>
-		<key>Uploaded file $1 is bigger than setting in php.ini.</key>
+		<key>Uploaded file &quot;$1&quot; is bigger than setting in php.ini.</key>
 		<value>Die hochzuladende Datei &quot;$1&quot; ist größer als max_upload_filesize Einstellung.</value>
+	</item>
+	<item>
+		<key>User &quot;$1&quot; added.</key>
+		<value>Benutzer &quot;$1&quot; wurde hinzugefügt.</value>
 	</item>
 	<item>
 		<key>User or group &quot;$1&quot; already exists.</key>
 		<value>Benutzer/Gruppenname &quot;$1&quot; bereits benutzt.</value>
 	</item>
 	<item>
-		<key>You have an Playlist already activated, first close it</key>
+		<key>Warning: station preferences have not been set up properly.</key>
+		<value>Achtung: Stationseinstellungen unvollständig.</value>
+	</item>
+	<item>
+		<key>You already have an open playlist. Close it first.</key>
 		<value>Es ist bereits eine Programmliste geöffnet, bitte erst schliessen.</value>
 	</item>
 	<item>

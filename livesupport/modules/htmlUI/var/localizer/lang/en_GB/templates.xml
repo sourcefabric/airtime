@@ -2,14 +2,6 @@
 <translations>
 	<Id>en_GB</Id>
 	<item>
-		<key>_Name of translator</key>
-		<value />
-	</item>
-	<item>
-		<key>_Native language name</key>
-		<value />
-	</item>
-	<item>
 		<key>Access</key>
 		<value />
 	</item>
@@ -35,11 +27,11 @@
 	</item>
 	<item>
 		<key>Add files to ScratchPad</key>
-		<value />
+		<value>Add files to scratchpad</value>
 	</item>
 	<item>
 		<key>Add files to open Playlist</key>
-		<value />
+		<value>Add files to open playlist</value>
 	</item>
 	<item>
 		<key>Add selected</key>
@@ -47,7 +39,7 @@
 	</item>
 	<item>
 		<key>Add to ScratchPad</key>
-		<value />
+		<value>Add to scratchpad</value>
 	</item>
 	<item>
 		<key>Add to group</key>
@@ -67,7 +59,7 @@
 	</item>
 	<item>
 		<key>Are you sure to delete open Playlist?</key>
-		<value />
+		<value>Are you sure you want to delete the open playlist?</value>
 	</item>
 	<item>
 		<key>Are you sure to discard all changes?</key>
@@ -115,27 +107,27 @@
 	</item>
 	<item>
 		<key>Cannot connect to Scheduler</key>
-		<value />
+		<value>Cannot connect to scheduler</value>
 	</item>
 	<item>
 		<key>Change Fadein</key>
-		<value />
+		<value>Change fade in settings</value>
 	</item>
 	<item>
 		<key>Change Fadeout</key>
-		<value />
+		<value>Change fade out settings</value>
 	</item>
 	<item>
 		<key>Change Fades</key>
-		<value />
+		<value>Change fades</value>
 	</item>
 	<item>
 		<key>Change Password</key>
-		<value />
+		<value>Change password</value>
 	</item>
 	<item>
 		<key>Change Transition</key>
-		<value />
+		<value>Change transition</value>
 	</item>
 	<item>
 		<key>Change password</key>
@@ -151,7 +143,7 @@
 	</item>
 	<item>
 		<key>Clear Playlist</key>
-		<value />
+		<value>Clear playlist</value>
 	</item>
 	<item>
 		<key>Close</key>
@@ -159,7 +151,7 @@
 	</item>
 	<item>
 		<key>Close Playlist</key>
-		<value />
+		<value>Close playlist</value>
 	</item>
 	<item>
 		<key>Connection to $1 port $2 $3</key>
@@ -175,11 +167,11 @@
 	</item>
 	<item>
 		<key>Current Members</key>
-		<value />
+		<value>Current members</value>
 	</item>
 	<item>
 		<key>Daily View</key>
-		<value />
+		<value>Daily view</value>
 	</item>
 	<item>
 		<key>Data</key>
@@ -195,11 +187,11 @@
 	</item>
 	<item>
 		<key>Delete Playlist</key>
-		<value />
+		<value>Delete playlist</value>
 	</item>
 	<item>
 		<key>Delete files</key>
-		<value />
+		<value>Delete files</value>
 	</item>
 	<item>
 		<key>Description</key>
@@ -219,7 +211,7 @@
 	</item>
 	<item>
 		<key>Edit Playlist</key>
-		<value />
+		<value>Edit playlist</value>
 	</item>
 	<item>
 		<key>Fade</key>
@@ -227,15 +219,15 @@
 	</item>
 	<item>
 		<key>File List</key>
-		<value />
+		<value>File list</value>
 	</item>
 	<item>
 		<key>File Management</key>
-		<value />
+		<value>File Management</value>
 	</item>
 	<item>
 		<key>Folder Structure</key>
-		<value />
+		<value>Folder structure</value>
 	</item>
 	<item>
 		<key>Fr</key>
@@ -263,11 +255,11 @@
 	</item>
 	<item>
 		<key>Library Search</key>
-		<value />
+		<value>Library search</value>
 	</item>
 	<item>
 		<key>List Folder</key>
-		<value />
+		<value>List folder</value>
 	</item>
 	<item>
 		<key>Listen</key>
@@ -283,7 +275,7 @@
 	</item>
 	<item>
 		<key>Manage Group: $1</key>
-		<value />
+		<value>Manage Group: $1</value>
 	</item>
 	<item>
 		<key>Manage group members</key>
@@ -291,7 +283,7 @@
 	</item>
 	<item>
 		<key>Media Library</key>
-		<value />
+		<value>Media Library</value>
 	</item>
 	<item>
 		<key>Members</key>
@@ -315,7 +307,7 @@
 	</item>
 	<item>
 		<key>Monthly View</key>
-		<value />
+		<value>Monthly view</value>
 	</item>
 	<item>
 		<key>Move</key>
@@ -323,7 +315,7 @@
 	</item>
 	<item>
 		<key>Multiple Action:</key>
-		<value />
+		<value>Multiple action:</value>
 	</item>
 	<item>
 		<key>Music</key>
@@ -335,11 +327,11 @@
 	</item>
 	<item>
 		<key>New Playlist using this files</key>
-		<value />
+		<value>New playlist using these files</value>
 	</item>
 	<item>
 		<key>New empty Playlist</key>
-		<value />
+		<value>New empty playlist</value>
 	</item>
 	<item>
 		<key>New playlist using this files</key>
@@ -347,7 +339,7 @@
 	</item>
 	<item>
 		<key>No Entry</key>
-		<value />
+		<value>No entry</value>
 	</item>
 	<item>
 		<key>No group members</key>
@@ -367,7 +359,7 @@
 	</item>
 	<item>
 		<key>Now Playing</key>
-		<value />
+		<value>Now playing</value>
 	</item>
 	<item>
 		<key>OK</key>
@@ -375,7 +367,7 @@
 	</item>
 	<item>
 		<key>Open last Playlist</key>
-		<value />
+		<value>Open last playlist</value>
 	</item>
 	<item>
 		<key>Page</key>
@@ -383,7 +375,7 @@
 	</item>
 	<item>
 		<key>Playing Next</key>
-		<value />
+		<value>Playing next</value>
 	</item>
 	<item>
 		<key>Playlist</key>
@@ -391,11 +383,11 @@
 	</item>
 	<item>
 		<key>Playlist Editor</key>
-		<value />
+		<value>Playlist editor</value>
 	</item>
 	<item>
 		<key>Playlist Metadata</key>
-		<value />
+		<value>Playlist metadata</value>
 	</item>
 	<item>
 		<key>Playlists</key>
@@ -411,11 +403,11 @@
 	</item>
 	<item>
 		<key>RawAnalyze</key>
-		<value />
+		<value>Raw analyze</value>
 	</item>
 	<item>
 		<key>Remove Selected</key>
-		<value />
+		<value>Remove selected</value>
 	</item>
 	<item>
 		<key>Remove files</key>
@@ -423,7 +415,7 @@
 	</item>
 	<item>
 		<key>Remove from ScratchPad</key>
-		<value />
+		<value>Remove from scratchpad</value>
 	</item>
 	<item>
 		<key>Remove from group</key>
@@ -443,11 +435,11 @@
 	</item>
 	<item>
 		<key>Reorder Playlist</key>
-		<value />
+		<value>Re-arrange playlist</value>
 	</item>
 	<item>
 		<key>Revert to Saved</key>
-		<value />
+		<value>Revert to saved</value>
 	</item>
 	<item>
 		<key>Sa</key>
@@ -459,7 +451,7 @@
 	</item>
 	<item>
 		<key>Save Playlist</key>
-		<value />
+		<value>Save playlist</value>
 	</item>
 	<item>
 		<key>Schedule</key>
@@ -471,11 +463,11 @@
 	</item>
 	<item>
 		<key>Scheduler Navigation</key>
-		<value />
+		<value>Scheduler navigation</value>
 	</item>
 	<item>
 		<key>ScratchPad</key>
-		<value />
+		<value>Scratchpad</value>
 	</item>
 	<item>
 		<key>Search</key>
@@ -483,7 +475,7 @@
 	</item>
 	<item>
 		<key>Show Info</key>
-		<value />
+		<value>Show info</value>
 	</item>
 	<item>
 		<key>Signed in</key>
@@ -491,15 +483,15 @@
 	</item>
 	<item>
 		<key>Start Scheduler</key>
-		<value />
+		<value>Start scheduler</value>
 	</item>
 	<item>
 		<key>Station Settings</key>
-		<value />
+		<value>Station settings</value>
 	</item>
 	<item>
 		<key>Station Time</key>
-		<value />
+		<value>Station time</value>
 	</item>
 	<item>
 		<key>Station settings</key>
@@ -511,7 +503,7 @@
 	</item>
 	<item>
 		<key>Stream is wanted type &lt;font color=&quot;green&quot;&gt;$1&lt;/font&gt;.</key>
-		<value />
+		<value>Stream is expected type &lt;font color=&quot;green&quot;&gt;$1&lt;/font&gt;.</value>
 	</item>
 	<item>
 		<key>Su</key>
@@ -571,11 +563,11 @@
 	</item>
 	<item>
 		<key>User/Group Management</key>
-		<value />
+		<value>User/group management</value>
 	</item>
 	<item>
 		<key>User/Groups</key>
-		<value />
+		<value>User/groups</value>
 	</item>
 	<item>
 		<key>Voice</key>
@@ -603,6 +595,14 @@
 	</item>
 	<item>
 		<key>You need to have at least one non-open playlist on ScratchPad to schedule it.</key>
+		<value>You need to have at least one non-open playlist in the scratchpad to schedule it.</value>
+	</item>
+	<item>
+		<key>_Name of translator</key>
+		<value />
+	</item>
+	<item>
+		<key>_Native language name</key>
 		<value />
 	</item>
 	<item>

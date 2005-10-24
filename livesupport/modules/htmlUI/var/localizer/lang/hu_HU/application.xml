@@ -2,207 +2,7 @@
 <translations>
 	<Id>hu_HU</Id>
 	<item>
-		<key>$1 uses an unsupported file type.</key>
-		<value />
-	</item>
-	<item>
-		<key>Access denied.</key>
-		<value />
-	</item>
-	<item>
-		<key>Access to home directory failed.</key>
-		<value>A saját könyvtár nem elérhető.</value>
-	</item>
-	<item>
-		<key>Already active Playlist</key>
-		<value />
-	</item>
-	<item>
-		<key>Audioclip Data saved</key>
-		<value />
-	</item>
-	<item>
-		<key>Cannot create Playlist</key>
-		<value />
-	</item>
-	<item>
-		<key>Cannot delete this Playlist</key>
-		<value />
-	</item>
-	<item>
-		<key>Cannot move item</key>
-		<value />
-	</item>
-	<item>
-		<key>Cannot remove Item from Playlist</key>
-		<value />
-	</item>
-	<item>
-		<key>Change fade information failed.</key>
-		<value />
-	</item>
-	<item>
-		<key>Entry $1 was already on the ScratchPad. It has been moved to the top of the list.</key>
-		<value />
-	</item>
-	<item>
-		<key>Entry added at $1 with ScheduleId: $2</key>
-		<value />
-	</item>
-	<item>
-		<key>Entry with ScheduleId $1 removed</key>
-		<value />
-	</item>
-	<item>
-		<key>Error on add item to Playlist</key>
-		<value />
-	</item>
-	<item>
-		<key>Error saving Settings</key>
-		<value />
-	</item>
-	<item>
-		<key>Error uploading Logo</key>
-		<value />
-	</item>
-	<item>
-		<key>Error: $1</key>
-		<value />
-	</item>
-	<item>
-		<key>File $1 was not uploaded.</key>
-		<value />
-	</item>
-	<item>
-		<key>Found locked Playlist.</key>
-		<value />
-	</item>
-	<item>
-		<key>Invalid Form Data</key>
-		<value />
-	</item>
-	<item>
-		<key>Login failed</key>
-		<value />
-	</item>
-	<item>
-		<key>Metadata saved</key>
-		<value />
-	</item>
-	<item>
-		<key>No Item(s) selected</key>
-		<value />
-	</item>
-	<item>
-		<key>No Playlist is locked by You.</key>
-		<value />
-	</item>
-	<item>
-		<key>Note: Station Preferences not setup proberly.</key>
-		<value />
-	</item>
-	<item>
-		<key>Nothing selected.</key>
-		<value>Nincs semmi kiválasztva.</value>
-	</item>
-	<item>
-		<key>Old password was incorrect.</key>
-		<value />
-	</item>
-	<item>
-		<key>Password changed.</key>
-		<value />
-	</item>
-	<item>
-		<key>Playlist &quot;$1&quot; activated</key>
-		<value />
-	</item>
-	<item>
-		<key>Playlist &quot;$1&quot; released</key>
-		<value />
-	</item>
-	<item>
-		<key>Playlist &quot;$1&quot; reverted</key>
-		<value />
-	</item>
-	<item>
-		<key>Playlist &quot;$1&quot; saved</key>
-		<value />
-	</item>
-	<item>
-		<key>Playlist has been locked by $1</key>
-		<value />
-	</item>
-	<item>
-		<key>Scheduler did not start. Check setting of &quot;UI_SCHEDULER_DAEMON_CMD&quot; in ui_conf.php. File &quot;/tmp/scheduler.log&quot; could be helpful.</key>
-		<value />
-	</item>
-	<item>
-		<key>Scheduler is running.</key>
-		<value />
-	</item>
-	<item>
-		<key>ScratchPad length is not set in System Preferences, so it cannot be used.</key>
-		<value />
-	</item>
-	<item>
-		<key>Settings saved</key>
-		<value />
-	</item>
-	<item>
-		<key>Stream Data changed</key>
-		<value />
-	</item>
-	<item>
-		<key>Stream Data saved</key>
-		<value />
-	</item>
-	<item>
-		<key>Subject $1 added.</key>
-		<value />
-	</item>
-	<item>
-		<key>Target is not Folder</key>
-		<value />
-	</item>
-	<item>
-		<key>There is no playlist available to unlock.</key>
-		<value />
-	</item>
-	<item>
-		<key>Unable to activate playlist &quot;$1&quot;</key>
-		<value>Nem tudom megnyitni a(z) &apos;$1&apos; műsort</value>
-	</item>
-	<item>
-		<key>Unable to release Playlist.</key>
-		<value />
-	</item>
-	<item>
-		<key>Unable to revert to locked state.</key>
-		<value />
-	</item>
-	<item>
-		<key>Unable to set &quot;$1&quot; to value &quot;$2&quot;.</key>
-		<value />
-	</item>
-	<item>
-		<key>Upload of file $1 was incomplete.</key>
-		<value />
-	</item>
-	<item>
-		<key>Uploaded file $1 is bigger than LiveSupports system setting.</key>
-		<value />
-	</item>
-	<item>
-		<key>Uploaded file $1 is bigger than setting in php.ini.</key>
-		<value />
-	</item>
-	<item>
-		<key>User or group &quot;$1&quot; already exists.</key>
-		<value>Már létezik $1 nevű felhasználó vagy csoport.</value>
-	</item>
-	<item>
-		<key>You have an Playlist already activated, first close it</key>
+		<key>&quot;$1&quot; uses an unsupported file type.</key>
 		<value />
 	</item>
 	<item>
@@ -218,8 +18,20 @@
 		<value>-</value>
 	</item>
 	<item>
+		<key>A playlist is already opened.</key>
+		<value />
+	</item>
+	<item>
 		<key>Access</key>
 		<value />
+	</item>
+	<item>
+		<key>Access denied.</key>
+		<value />
+	</item>
+	<item>
+		<key>Access to home directory failed.</key>
+		<value>A saját könyvtár nem elérhető.</value>
 	</item>
 	<item>
 		<key>Add Audio</key>
@@ -338,6 +150,22 @@
 		<value />
 	</item>
 	<item>
+		<key>Cannot create playlist.</key>
+		<value />
+	</item>
+	<item>
+		<key>Cannot delete this playlist.</key>
+		<value />
+	</item>
+	<item>
+		<key>Cannot move item.</key>
+		<value />
+	</item>
+	<item>
+		<key>Cannot remove item from playlist.</key>
+		<value />
+	</item>
+	<item>
 		<key>Catalog number</key>
 		<value />
 	</item>
@@ -360,6 +188,10 @@
 	<item>
 		<key>Change password</key>
 		<value>Jelszóváltoztatás</value>
+	</item>
+	<item>
+		<key>Changing fade information failed.</key>
+		<value />
 	</item>
 	<item>
 		<key>Channels</key>
@@ -396,6 +228,10 @@
 	<item>
 		<key>Current Members</key>
 		<value>Jelenlegi tagok</value>
+	</item>
+	<item>
+		<key>Data of audiclip saved.</key>
+		<value />
 	</item>
 	<item>
 		<key>Date</key>
@@ -466,6 +302,34 @@
 		<value />
 	</item>
 	<item>
+		<key>Entry $1 is already on the scratchpad. It has been moved to the top of the list.</key>
+		<value />
+	</item>
+	<item>
+		<key>Entry added at $1 with ScheduleId $2.</key>
+		<value />
+	</item>
+	<item>
+		<key>Entry with ScheduleId $1 removed.</key>
+		<value />
+	</item>
+	<item>
+		<key>Error while saving settings.</key>
+		<value />
+	</item>
+	<item>
+		<key>Error while trying to add item to playlist.</key>
+		<value />
+	</item>
+	<item>
+		<key>Error while uploading logo.</key>
+		<value />
+	</item>
+	<item>
+		<key>Error: $1</key>
+		<value />
+	</item>
+	<item>
 		<key>Fade</key>
 		<value />
 	</item>
@@ -475,6 +339,10 @@
 	</item>
 	<item>
 		<key>File</key>
+		<value />
+	</item>
+	<item>
+		<key>File &quot;$1&quot; has not been uploaded.</key>
 		<value />
 	</item>
 	<item>
@@ -510,6 +378,10 @@
 		<value />
 	</item>
 	<item>
+		<key>Found locked playlist.</key>
+		<value />
+	</item>
+	<item>
 		<key>Fr</key>
 		<value>P</value>
 	</item>
@@ -530,6 +402,10 @@
 		<value />
 	</item>
 	<item>
+		<key>Group &quot;$1&quot; added.</key>
+		<value />
+	</item>
+	<item>
 		<key>Group Name</key>
 		<value />
 	</item>
@@ -547,6 +423,10 @@
 	</item>
 	<item>
 		<key>Insert Playlist here</key>
+		<value />
+	</item>
+	<item>
+		<key>Invalid or incomplete form data.</key>
 		<value />
 	</item>
 	<item>
@@ -598,6 +478,10 @@
 		<value>Bejelentkezés</value>
 	</item>
 	<item>
+		<key>Login failed.</key>
+		<value />
+	</item>
+	<item>
 		<key>Lyricist</key>
 		<value />
 	</item>
@@ -640,6 +524,10 @@
 	<item>
 		<key>Members</key>
 		<value>Tagok</value>
+	</item>
+	<item>
+		<key>Metadata saved.</key>
+		<value />
 	</item>
 	<item>
 		<key>Missing value for $1</key>
@@ -710,6 +598,10 @@
 		<value>Nincsenek tagok</value>
 	</item>
 	<item>
+		<key>No item(s) selected.</key>
+		<value />
+	</item>
+	<item>
 		<key>No match found.</key>
 		<value />
 	</item>
@@ -718,8 +610,16 @@
 		<value />
 	</item>
 	<item>
+		<key>No playlists have been locked by you.</key>
+		<value />
+	</item>
+	<item>
 		<key>Nothing left</key>
 		<value>Semmi sem maradt</value>
+	</item>
+	<item>
+		<key>Nothing selected.</key>
+		<value>Nincs semmi kiválasztva.</value>
 	</item>
 	<item>
 		<key>November</key>
@@ -731,6 +631,10 @@
 	</item>
 	<item>
 		<key>Old Password</key>
+		<value />
+	</item>
+	<item>
+		<key>Old password was incorrect.</key>
 		<value />
 	</item>
 	<item>
@@ -762,6 +666,10 @@
 		<value />
 	</item>
 	<item>
+		<key>Password changed.</key>
+		<value />
+	</item>
+	<item>
 		<key>Passwords did not match.</key>
 		<value />
 	</item>
@@ -770,7 +678,31 @@
 		<value />
 	</item>
 	<item>
+		<key>Playlist &quot;$1&quot; opened.</key>
+		<value />
+	</item>
+	<item>
+		<key>Playlist &quot;$1&quot; released.</key>
+		<value />
+	</item>
+	<item>
+		<key>Playlist &quot;$1&quot; reverted.</key>
+		<value />
+	</item>
+	<item>
+		<key>Playlist &quot;$1&quot; saved.</key>
+		<value />
+	</item>
+	<item>
 		<key>Playlist Metadata</key>
+		<value />
+	</item>
+	<item>
+		<key>Playlist has been locked by &quot;$1&quot;.</key>
+		<value />
+	</item>
+	<item>
+		<key>Playlist not found in database.</key>
 		<value />
 	</item>
 	<item>
@@ -894,6 +826,14 @@
 		<value />
 	</item>
 	<item>
+		<key>Scheduler did not start. Check setting of &quot;UI_SCHEDULER_DAEMON_CMD&quot; in ui_conf.php. File &quot;/tmp/scheduler.log&quot; could be helpful.</key>
+		<value />
+	</item>
+	<item>
+		<key>Scheduler is running.</key>
+		<value />
+	</item>
+	<item>
 		<key>ScratchPad</key>
 		<value />
 	</item>
@@ -912,6 +852,10 @@
 	<item>
 		<key>September</key>
 		<value>szeptember</value>
+	</item>
+	<item>
+		<key>Settings saved.</key>
+		<value />
 	</item>
 	<item>
 		<key>Show Info</key>
@@ -954,6 +898,10 @@
 		<value />
 	</item>
 	<item>
+		<key>Stream data saved.</key>
+		<value />
+	</item>
+	<item>
 		<key>Su</key>
 		<value>V</value>
 	</item>
@@ -980,6 +928,18 @@
 	<item>
 		<key>Th</key>
 		<value>Cs</value>
+	</item>
+	<item>
+		<key>The scratchpad length is not set in system preferences, so it cannot be used.</key>
+		<value />
+	</item>
+	<item>
+		<key>The target is not a folder.</key>
+		<value />
+	</item>
+	<item>
+		<key>There is no playlist available to unlock.</key>
+		<value />
 	</item>
 	<item>
 		<key>Thursday</key>
@@ -1018,8 +978,44 @@
 		<value />
 	</item>
 	<item>
+		<key>Unable to open playlist &quot;$1&quot;.</key>
+		<value>Nem tudom megnyitni a(z) &apos;$1&apos; műsort</value>
+	</item>
+	<item>
+		<key>Unable to release playlist.</key>
+		<value />
+	</item>
+	<item>
+		<key>Unable to revert to locked state.</key>
+		<value />
+	</item>
+	<item>
+		<key>Unable to set &quot;$1&quot; to value &quot;$2&quot;.</key>
+		<value />
+	</item>
+	<item>
+		<key>Upload of file &quot;$1&quot; was incomplete.</key>
+		<value />
+	</item>
+	<item>
+		<key>Uploaded file &quot;$1&quot; is bigger than LiveSupport&amp;acute;s system setting.</key>
+		<value />
+	</item>
+	<item>
+		<key>Uploaded file &quot;$1&quot; is bigger than setting in php.ini.</key>
+		<value />
+	</item>
+	<item>
+		<key>User &quot;$1&quot; added.</key>
+		<value />
+	</item>
+	<item>
 		<key>User Password</key>
 		<value />
+	</item>
+	<item>
+		<key>User or group &quot;$1&quot; already exists.</key>
+		<value>Már létezik $1 nevű felhasználó vagy csoport.</value>
 	</item>
 	<item>
 		<key>User/Group Management</key>
@@ -1031,6 +1027,10 @@
 	</item>
 	<item>
 		<key>Username</key>
+		<value />
+	</item>
+	<item>
+		<key>Warning: station preferences have not been set up properly.</key>
 		<value />
 	</item>
 	<item>
@@ -1051,6 +1051,10 @@
 	</item>
 	<item>
 		<key>Year</key>
+		<value />
+	</item>
+	<item>
+		<key>You already have an open playlist. Close it first.</key>
 		<value />
 	</item>
 	<item>

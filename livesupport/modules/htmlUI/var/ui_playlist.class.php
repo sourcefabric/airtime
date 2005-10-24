@@ -61,23 +61,23 @@ class uiPlaylist
         # store access token to ls_pref abd session
         # load PL into session
         if ($this->token) {
-            if (UI_WARNING) $this->Base->_retMsg('You have an Playlist already activated, first close it');
+            if (UI_WARNING) $this->Base->_retMsg('You already have an open playlist. Close it first.');
             return FALSE;
         }
         if(($userid = $this->Base->gb->playlistIsAvailable($plid, $this->Base->sessid)) !== TRUE) {
-             if (UI_WARNING) $this->Base->_retMsg('Playlist has been locked by $1', $this->Base->gb->getSubjName($userid));
+             if (UI_WARNING) $this->Base->_retMsg('Playlist has been locked by "$1".', $this->Base->gb->getSubjName($userid));
             return FALSE;
         }
         $token = $this->Base->gb->lockPlaylistForEdit($plid, $this->Base->sessid);
         if (PEAR::isError($token)) {
             #print_r($token);
-            $this->Base->_retMsg('Unable to activate playlist "$1"', $this->Base->_getMDataValue($plid, UI_MDATA_KEY_TITLE));
+            $this->Base->_retMsg('Unable to open playlist "$1".', $this->Base->_getMDataValue($plid, UI_MDATA_KEY_TITLE));
             return FALSE;
         }
         $this->token = $token;
         $this->Base->gb->savePref($this->Base->sessid, UI_PL_ACCESSTOKEN_KEY, $plid.':'.$this->token);
         $this->activeId = $plid;
-        if ($msg && UI_VERBOSE) $this->Base->_retMsg('Playlist "$1" activated', $this->Base->_getMDataValue($plid, UI_MDATA_KEY_TITLE));
+        if ($msg && UI_VERBOSE) $this->Base->_retMsg('Playlist "$1" opened.', $this->Base->_getMDataValue($plid, UI_MDATA_KEY_TITLE));
 
         return TRUE;
     }
@@ -95,10 +95,10 @@ class uiPlaylist
         $plgunid = $this->Base->gb->releaseLockedPlaylist($this->token, $this->Base->sessid);
         if (PEAR::isError($plgunid)) {
             #print_r($plgunid);
-            if (UI_WARNING) $this->Base->_retMsg('Unable to release Playlist.');
+            if (UI_WARNING) $this->Base->_retMsg('Unable to release playlist.');
             return FALSE;
         }
-        if ($msg && UI_VERBOSE) $this->Base->_retMsg('Playlist "$1" released', $this->Base->_getMDataValue($this->Base->gb->_idFromGunid($plgunid), UI_MDATA_KEY_TITLE));
+        if ($msg && UI_VERBOSE) $this->Base->_retMsg('Playlist "$1" released.', $this->Base->_getMDataValue($this->Base->gb->_idFromGunid($plgunid), UI_MDATA_KEY_TITLE));
         $this->activeId = NULL;
         $this->token    = NULL;
         $this->Base->gb->delPref($this->Base->sessid, UI_PL_ACCESSTOKEN_KEY);
@@ -114,7 +114,7 @@ class uiPlaylist
         $this->release(FALSE);
         $this->activate($tmpid, FALSE);
         $this->changed = FALSE;
-        if (UI_VERBOSE) $this->Base->_retMsg('Playlist "$1" saved', $this->Base->_getMDataValue($tmpid, UI_MDATA_KEY_TITLE));
+        if (UI_VERBOSE) $this->Base->_retMsg('Playlist "$1" saved.', $this->Base->_getMDataValue($tmpid, UI_MDATA_KEY_TITLE));
 
         return $this->activeId;
     }
@@ -123,7 +123,7 @@ class uiPlaylist
     function revert()
     {        
         if(!$this->token) {
-            if (UI_WARNING) $this->Base->_retMsg('No Playlist is locked by You.');
+            if (UI_WARNING) $this->Base->_retMsg('No playlists have been locked by you.');
             return FALSE;
         }
         $plgunid = $this->Base->gb->revertEditedPlaylist($this->token, $this->Base->sessid);
@@ -132,7 +132,7 @@ class uiPlaylist
             if (UI_WARNING) $this->Base->_retMsg('Unable to revert to locked state.');
             return FALSE;
         }
-        if (UI_VERBOSE) $this->Base->_retMsg('Playlist "$1" reverted', $this->Base->_getMDataValue($this->Base->gb->_idFromGunid($plgunid), UI_MDATA_KEY_TITLE));
+        if (UI_VERBOSE) $this->Base->_retMsg('Playlist "$1" reverted.', $this->Base->_getMDataValue($this->Base->gb->_idFromGunid($plgunid), UI_MDATA_KEY_TITLE));
         $this->activeId = NULL;
         $this->token    = NULL;
         $this->Base->gb->delPref($this->Base->sessid, UI_PL_ACCESSTOKEN_KEY);
@@ -148,7 +148,7 @@ class uiPlaylist
     function reportLookedPL($setMsg=FALSE)
     {
         if(is_string($this->Base->gb->loadPref($this->Base->sessid, UI_PL_ACCESSTOKEN_KEY))) {
-            if ($setMsg == TRUE) $this->Base->_retMsg('Found locked Playlist.');
+            if ($setMsg == TRUE) $this->Base->_retMsg('Found locked playlist.');
             return TRUE;
         }
         return FALSE;
@@ -181,7 +181,7 @@ class uiPlaylist
         $this->changed = TRUE;
         
         if (!$elemIds) {
-            if (UI_WARNING) $this->Base->_retMsg('No Item(s) selected');
+            if (UI_WARNING) $this->Base->_retMsg('No item(s) selected.');
             return FALSE;
         }
         if (!is_array($elemIds))
@@ -191,7 +191,7 @@ class uiPlaylist
             $r = $this->Base->gb->addAudioClipToPlaylist($this->token, $elemId, $this->Base->sessid);
             if (PEAR::isError($r)) {
                 #print_r($r);
-                $this->Base->_retMsg('Error on add item to Playlist');
+                $this->Base->_retMsg('Error while trying to add item to playlist.');
                 return FALSE;
             }
         }        
@@ -203,7 +203,7 @@ class uiPlaylist
         $this->changed = TRUE;
         
         if (!$elemIds) {
-            if (UI_WARNING) $this->Base->_retMsg('No Item(s) selected');
+            if (UI_WARNING) $this->Base->_retMsg('No item(s) selected.');
             return FALSE;
         }
         if (!is_array($elemIds))
@@ -211,7 +211,7 @@ class uiPlaylist
 
         foreach ($elemIds as $elemId) {
             if ($this->Base->gb->delAudioClipFromPlaylist($this->token, $elemId, $this->Base->sessid) !== TRUE) {
-                $this->Base->_retMsg('Cannot remove Item from Playlist');
+                $this->Base->_retMsg('Cannot remove item from playlist.');
                 return FALSE;
             }
         }
@@ -226,13 +226,13 @@ class uiPlaylist
         $this->changed = TRUE;
         
         if (is_array($this->activeId)) {
-            $this->Base->_retMsg('Already active Playlist');
+            $this->Base->_retMsg('A playlist is already opened.');
             return FALSE;
         }
         $datetime = strftime('%Y-%m-%d %H:%M:%S');
         $plid = $this->Base->gb->createPlaylist($this->Base->homeid, $datetime, $this->Base->sessid);
         if (!$plid) {
-            $this->Base->_retMsg('Cannot create Playlist');
+            $this->Base->_retMsg('Cannot create playlist.');
             return FALSE;
         }
 
@@ -332,7 +332,7 @@ class uiPlaylist
                 #print_r($r);
                 if (PEAR::isError($r)) {
                     if (UI_VERBOSE) print_r($r);
-                    $this->Base->_retMsg('Change fade information failed.');
+                    $this->Base->_retMsg('Changing fade information failed.');
                     return FALSE;
                 }
             }
@@ -343,7 +343,7 @@ class uiPlaylist
                 #print_r($r);
                 if (PEAR::isError($r)) {
                     if (UI_VERBOSE) print_r($r);
-                    $this->Base->_retMsg('Change fade information failed.');
+                    $this->Base->_retMsg('Changing fade information failed.');
                     return FALSE;
                 }
             }
@@ -359,7 +359,7 @@ class uiPlaylist
         $r = $this->Base->gb->moveAudioClipInPlaylist($this->token, $id, $pos, $this->Base->sessid);
         if (PEAR::isError($r)) {
             if (UI_VERBOSE) print_r($r);
-            $this->Base->_retMsg('Cannot move item');
+            $this->Base->_retMsg('Cannot move item.');
             return FALSE;
         }
         return TRUE;
@@ -377,7 +377,7 @@ class uiPlaylist
             $r = $this->Base->gb->moveAudioClipInPlaylist($this->token, $id, $pos, $this->Base->sessid);
             if (PEAR::isError($r)) {
                 if (UI_VERBOSE) print_r($r);
-                $this->Base->_retMsg('Cannot move item');
+                $this->Base->_retMsg('Cannot move item.');
                 return FALSE;
             }
         }
@@ -529,7 +529,7 @@ class uiPlaylist
                 $this->Base->_retMsg('Unable to set "$1" to value "$2".', $key, $val);
             }
         }
-        if (UI_VERBOSE) $this->Base->_retMsg('Metadata saved');
+        if (UI_VERBOSE) $this->Base->_retMsg('Metadata saved.');
     }
 
 
@@ -539,7 +539,7 @@ class uiPlaylist
         $this->release(FALSE);
         if ($this->Base->delete($id))
             return $id;
-        $this->Base->_retMsg('Cannot delete this Playlist');
+        $this->Base->_retMsg('Cannot delete this playlist.');
         return FALSE;
     }
 

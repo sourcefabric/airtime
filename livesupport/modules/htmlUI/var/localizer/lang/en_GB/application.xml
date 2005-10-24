@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <translations>
+	<Id>en_GB</Id>
 	<item>
-		<key>$1 uses an unsupported file type.</key>
+		<key>&quot;$1&quot; uses an unsupported file type.</key>
 		<value />
+	</item>
+	<item>
+		<key>A playlist is already opened.</key>
+		<value>A playlist is already opened</value>
 	</item>
 	<item>
 		<key>Access denied.</key>
@@ -13,92 +18,88 @@
 		<value />
 	</item>
 	<item>
-		<key>Already active Playlist</key>
+		<key>Cannot create playlist.</key>
 		<value />
 	</item>
 	<item>
-		<key>Audioclip Data saved</key>
+		<key>Cannot delete this playlist.</key>
 		<value />
 	</item>
 	<item>
-		<key>Cannot create Playlist</key>
+		<key>Cannot move item.</key>
 		<value />
 	</item>
 	<item>
-		<key>Cannot delete this Playlist</key>
+		<key>Cannot remove item from playlist.</key>
+		<value>Cannot remove item from playlist</value>
+	</item>
+	<item>
+		<key>Changing fade information failed.</key>
+		<value>Changing fade informaiton failed</value>
+	</item>
+	<item>
+		<key>Data of audiclip saved.</key>
+		<value>Data of audiclip saved</value>
+	</item>
+	<item>
+		<key>Entry $1 is already on the scratchpad. It has been moved to the top of the list.</key>
+		<value>Entry $1 is already on the scratchpad. It has been moved to the top of the list.</value>
+	</item>
+	<item>
+		<key>Entry added at $1 with ScheduleId $2.</key>
 		<value />
 	</item>
 	<item>
-		<key>Cannot move item</key>
+		<key>Entry with ScheduleId $1 removed.</key>
 		<value />
 	</item>
 	<item>
-		<key>Cannot remove Item from Playlist</key>
-		<value />
+		<key>Error while saving settings.</key>
+		<value>Error while saving settings</value>
 	</item>
 	<item>
-		<key>Change fade information failed.</key>
-		<value />
+		<key>Error while trying to add item to playlist.</key>
+		<value>Error while trying to add item to playlist</value>
 	</item>
 	<item>
-		<key>Entry $1 was already on the ScratchPad. It has been moved to the top of the list.</key>
-		<value />
-	</item>
-	<item>
-		<key>Entry added at $1 with ScheduleId: $2</key>
-		<value />
-	</item>
-	<item>
-		<key>Entry with ScheduleId $1 removed</key>
-		<value />
-	</item>
-	<item>
-		<key>Error on add item to Playlist</key>
-		<value />
-	</item>
-	<item>
-		<key>Error saving Settings</key>
-		<value />
-	</item>
-	<item>
-		<key>Error uploading Logo</key>
-		<value />
+		<key>Error while uploading logo.</key>
+		<value>Error while uploading logo</value>
 	</item>
 	<item>
 		<key>Error: $1</key>
 		<value />
 	</item>
 	<item>
-		<key>File $1 was not uploaded.</key>
+		<key>File &quot;$1&quot; has not been uploaded.</key>
+		<value>File $1 has not been uploaded.</value>
+	</item>
+	<item>
+		<key>Found locked playlist.</key>
+		<value>Found locked playlist</value>
+	</item>
+	<item>
+		<key>Group &quot;$1&quot; added.</key>
 		<value />
 	</item>
 	<item>
-		<key>Found locked Playlist.</key>
+		<key>Invalid or incomplete form data.</key>
 		<value />
 	</item>
 	<item>
-		<key>Invalid Form Data</key>
+		<key>Login failed.</key>
 		<value />
 	</item>
 	<item>
-		<key>Login failed</key>
+		<key>Metadata saved.</key>
 		<value />
 	</item>
 	<item>
-		<key>Metadata saved</key>
+		<key>No item(s) selected.</key>
 		<value />
 	</item>
 	<item>
-		<key>No Item(s) selected</key>
-		<value />
-	</item>
-	<item>
-		<key>No Playlist is locked by You.</key>
-		<value />
-	</item>
-	<item>
-		<key>Note: Station Preferences not setup proberly.</key>
-		<value />
+		<key>No playlists have been locked by you.</key>
+		<value>No playlists have been locked by you.</value>
 	</item>
 	<item>
 		<key>Nothing selected.</key>
@@ -113,23 +114,27 @@
 		<value />
 	</item>
 	<item>
-		<key>Playlist &quot;$1&quot; activated</key>
+		<key>Playlist &quot;$1&quot; opened.</key>
 		<value />
 	</item>
 	<item>
-		<key>Playlist &quot;$1&quot; released</key>
+		<key>Playlist &quot;$1&quot; released.</key>
 		<value />
 	</item>
 	<item>
-		<key>Playlist &quot;$1&quot; reverted</key>
+		<key>Playlist &quot;$1&quot; reverted.</key>
 		<value />
 	</item>
 	<item>
-		<key>Playlist &quot;$1&quot; saved</key>
+		<key>Playlist &quot;$1&quot; saved.</key>
 		<value />
 	</item>
 	<item>
-		<key>Playlist has been locked by $1</key>
+		<key>Playlist has been locked by &quot;$1&quot;.</key>
+		<value />
+	</item>
+	<item>
+		<key>Playlist not found in database.</key>
 		<value />
 	</item>
 	<item>
@@ -141,39 +146,31 @@
 		<value />
 	</item>
 	<item>
-		<key>ScratchPad length is not set in System Preferences, so it cannot be used.</key>
+		<key>Settings saved.</key>
 		<value />
 	</item>
 	<item>
-		<key>Settings saved</key>
+		<key>Stream data saved.</key>
 		<value />
 	</item>
 	<item>
-		<key>Stream Data changed</key>
-		<value />
+		<key>The scratchpad length is not set in system preferences, so it cannot be used.</key>
+		<value>The scratchpad length is not set in system preferences, so it cannot be used.</value>
 	</item>
 	<item>
-		<key>Stream Data saved</key>
-		<value />
-	</item>
-	<item>
-		<key>Subject $1 added.</key>
-		<value />
-	</item>
-	<item>
-		<key>Target is not Folder</key>
-		<value />
+		<key>The target is not a folder.</key>
+		<value>The target is not a folder</value>
 	</item>
 	<item>
 		<key>There is no playlist available to unlock.</key>
 		<value />
 	</item>
 	<item>
-		<key>Unable to activate playlist &quot;$1&quot;</key>
+		<key>Unable to open playlist &quot;$1&quot;.</key>
 		<value />
 	</item>
 	<item>
-		<key>Unable to release Playlist.</key>
+		<key>Unable to release playlist.</key>
 		<value />
 	</item>
 	<item>
@@ -185,15 +182,19 @@
 		<value />
 	</item>
 	<item>
-		<key>Upload of file $1 was incomplete.</key>
+		<key>Upload of file &quot;$1&quot; was incomplete.</key>
 		<value />
 	</item>
 	<item>
-		<key>Uploaded file $1 is bigger than LiveSupports system setting.</key>
+		<key>Uploaded file &quot;$1&quot; is bigger than LiveSupport&amp;acute;s system setting.</key>
 		<value />
 	</item>
 	<item>
-		<key>Uploaded file $1 is bigger than setting in php.ini.</key>
+		<key>Uploaded file &quot;$1&quot; is bigger than setting in php.ini.</key>
+		<value />
+	</item>
+	<item>
+		<key>User &quot;$1&quot; added.</key>
 		<value />
 	</item>
 	<item>
@@ -201,8 +202,12 @@
 		<value />
 	</item>
 	<item>
-		<key>You have an Playlist already activated, first close it</key>
-		<value />
+		<key>Warning: station preferences have not been set up properly.</key>
+		<value>Warning: station preferences have not been set up properly.</value>
+	</item>
+	<item>
+		<key>You already have an open playlist. Close it first.</key>
+		<value>You already have an active playlist. Close it first.</value>
 	</item>
 	<item>
 		<key>e</key>

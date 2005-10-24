@@ -2,208 +2,8 @@
 <translations>
 	<Id>cz_CZ</Id>
 	<item>
-		<key>$1 uses an unsupported file type.</key>
+		<key>&quot;$1&quot; uses an unsupported file type.</key>
 		<value />
-	</item>
-	<item>
-		<key>Access denied.</key>
-		<value>Přístup zamítnut.</value>
-	</item>
-	<item>
-		<key>Access to home directory failed.</key>
-		<value />
-	</item>
-	<item>
-		<key>Already active Playlist</key>
-		<value>Playlist je již aktivní.</value>
-	</item>
-	<item>
-		<key>Audioclip Data saved</key>
-		<value>Data audioklipu uložena.</value>
-	</item>
-	<item>
-		<key>Cannot create Playlist</key>
-		<value>Vytvoření playlistu nebylo úspěšné.</value>
-	</item>
-	<item>
-		<key>Cannot delete this Playlist</key>
-		<value>Smazání playlistu nebylo úspěšné.</value>
-	</item>
-	<item>
-		<key>Cannot move item</key>
-		<value>Přesunutí souboru v playlistu nebylo úspěšné.</value>
-	</item>
-	<item>
-		<key>Cannot remove Item from Playlist</key>
-		<value>Smazání souboru z playlistu nebylo úspěšné.</value>
-	</item>
-	<item>
-		<key>Change fade information failed.</key>
-		<value>Změna prolínání nebyla úspěšná.</value>
-	</item>
-	<item>
-		<key>Entry $1 was already on the ScratchPad. It has been moved to the top of the list.</key>
-		<value>Položka $1 je již na pracovní ploše. Byla přesunuta na vrchol seznamu.</value>
-	</item>
-	<item>
-		<key>Entry added at $1 with ScheduleId: $2</key>
-		<value>Položka přidána do $1 s identifikátorem $2.</value>
-	</item>
-	<item>
-		<key>Entry with ScheduleId $1 removed</key>
-		<value>Položka s identifikátorem $1 odstraněna.</value>
-	</item>
-	<item>
-		<key>Error on add item to Playlist</key>
-		<value>Chyba při přidávání položky do playlistu.</value>
-	</item>
-	<item>
-		<key>Error saving Settings</key>
-		<value>Chyba při ukládání systémového nastavení.</value>
-	</item>
-	<item>
-		<key>Error uploading Logo</key>
-		<value>Chyba při nahrávání loga.</value>
-	</item>
-	<item>
-		<key>Error: $1</key>
-		<value>Chyba: $1</value>
-	</item>
-	<item>
-		<key>File $1 was not uploaded.</key>
-		<value>Soubor $1 nebyl nahrán.</value>
-	</item>
-	<item>
-		<key>Found locked Playlist.</key>
-		<value>Byl nalezen zam�?ený playlist.</value>
-	</item>
-	<item>
-		<key>Invalid Form Data</key>
-		<value>Ve formuláři byla nalezena neplatná data.</value>
-	</item>
-	<item>
-		<key>Login failed</key>
-		<value>Přihlášení nebylo úspěšné.</value>
-	</item>
-	<item>
-		<key>Metadata saved</key>
-		<value>Metadata byla uložena.</value>
-	</item>
-	<item>
-		<key>No Item(s) selected</key>
-		<value>Nebyl vybrán žádný soubor.</value>
-	</item>
-	<item>
-		<key>No Playlist is locked by You.</key>
-		<value>Žádný playlist není aktivní.</value>
-	</item>
-	<item>
-		<key>Note: Station Preferences not setup proberly.</key>
-		<value>Poznámka: Předvolby stanice nejsou správně zadány.</value>
-	</item>
-	<item>
-		<key>Nothing selected.</key>
-		<value />
-	</item>
-	<item>
-		<key>Old password was incorrect.</key>
-		<value>Staré heslo není platné.</value>
-	</item>
-	<item>
-		<key>Password changed.</key>
-		<value>Heslo bylo změněno.</value>
-	</item>
-	<item>
-		<key>Playlist &quot;$1&quot; activated</key>
-		<value>Playlist &quot;$1&quot; byl aktivován.</value>
-	</item>
-	<item>
-		<key>Playlist &quot;$1&quot; released</key>
-		<value>Playlist &quot;$1&quot; byl uvolněn.</value>
-	</item>
-	<item>
-		<key>Playlist &quot;$1&quot; reverted</key>
-		<value>Playlist &quot;$1&quot; byl vrácen do předchozího stavu.</value>
-	</item>
-	<item>
-		<key>Playlist &quot;$1&quot; saved</key>
-		<value>Playlist &quot;$1&quot; byl uložen.</value>
-	</item>
-	<item>
-		<key>Playlist has been locked by $1</key>
-		<value>Playlist byl uzam�?en uživatelem $1.</value>
-	</item>
-	<item>
-		<key>Scheduler did not start. Check setting of &quot;UI_SCHEDULER_DAEMON_CMD&quot; in ui_conf.php. File &quot;/tmp/scheduler.log&quot; could be helpful.</key>
-		<value />
-	</item>
-	<item>
-		<key>Scheduler is running.</key>
-		<value />
-	</item>
-	<item>
-		<key>ScratchPad length is not set in System Preferences, so it cannot be used.</key>
-		<value>Pracovní plocha nemá nastavenu velikost v systémových předvolbách, nemůže tedy být použita.</value>
-	</item>
-	<item>
-		<key>Settings saved</key>
-		<value>Předvolby stanice byly uloženy.</value>
-	</item>
-	<item>
-		<key>Stream Data changed</key>
-		<value>Data streamu byla změněna.</value>
-	</item>
-	<item>
-		<key>Stream Data saved</key>
-		<value>Data streamu byla uložena.</value>
-	</item>
-	<item>
-		<key>Subject $1 added.</key>
-		<value>Subjekt $1 přidán.</value>
-	</item>
-	<item>
-		<key>Target is not Folder</key>
-		<value>Cílový objekt není složka.</value>
-	</item>
-	<item>
-		<key>There is no playlist available to unlock.</key>
-		<value>Není zde žádný playlist k odem�?ení.</value>
-	</item>
-	<item>
-		<key>Unable to activate playlist &quot;$1&quot;</key>
-		<value />
-	</item>
-	<item>
-		<key>Unable to release Playlist.</key>
-		<value>Nepodařilo se uvolnit playlist.</value>
-	</item>
-	<item>
-		<key>Unable to revert to locked state.</key>
-		<value>Nepodařilo se vrátit k zam�?enému stavu.</value>
-	</item>
-	<item>
-		<key>Unable to set &quot;$1&quot; to value &quot;$2&quot;.</key>
-		<value />
-	</item>
-	<item>
-		<key>Upload of file $1 was incomplete.</key>
-		<value />
-	</item>
-	<item>
-		<key>Uploaded file $1 is bigger than LiveSupports system setting.</key>
-		<value>Nahrávaný soubor $1 je větší než povoluje nastavení LiveSupportu.</value>
-	</item>
-	<item>
-		<key>Uploaded file $1 is bigger than setting in php.ini.</key>
-		<value>Nahrávaný soubor $1 je větší než je povoleno v php.ini.</value>
-	</item>
-	<item>
-		<key>User or group &quot;$1&quot; already exists.</key>
-		<value />
-	</item>
-	<item>
-		<key>You have an Playlist already activated, first close it</key>
-		<value>Máte již aktivovaný playlist, nejdříve ho zavřete.</value>
 	</item>
 	<item>
 		<key>$1 must be $2</key>
@@ -218,8 +18,20 @@
 		<value />
 	</item>
 	<item>
+		<key>A playlist is already opened.</key>
+		<value>Playlist je již aktivní.</value>
+	</item>
+	<item>
 		<key>Access</key>
 		<value>Přístup</value>
+	</item>
+	<item>
+		<key>Access denied.</key>
+		<value>Přístup zamítnut.</value>
+	</item>
+	<item>
+		<key>Access to home directory failed.</key>
+		<value />
 	</item>
 	<item>
 		<key>Add Audio</key>
@@ -338,6 +150,22 @@
 		<value>Storno</value>
 	</item>
 	<item>
+		<key>Cannot create playlist.</key>
+		<value>Vytvoření playlistu nebylo úspěšné.</value>
+	</item>
+	<item>
+		<key>Cannot delete this playlist.</key>
+		<value>Smazání playlistu nebylo úspěšné.</value>
+	</item>
+	<item>
+		<key>Cannot move item.</key>
+		<value>Přesunutí souboru v playlistu nebylo úspěšné.</value>
+	</item>
+	<item>
+		<key>Cannot remove item from playlist.</key>
+		<value>Smazání souboru z playlistu nebylo úspěšné.</value>
+	</item>
+	<item>
 		<key>Catalog number</key>
 		<value>Katalogové �?íslo</value>
 	</item>
@@ -360,6 +188,10 @@
 	<item>
 		<key>Change password</key>
 		<value />
+	</item>
+	<item>
+		<key>Changing fade information failed.</key>
+		<value>Změna prolínání nebyla úspěšná.</value>
 	</item>
 	<item>
 		<key>Channels</key>
@@ -396,6 +228,10 @@
 	<item>
 		<key>Current Members</key>
 		<value />
+	</item>
+	<item>
+		<key>Data of audiclip saved.</key>
+		<value>Data audioklipu uložena.</value>
 	</item>
 	<item>
 		<key>Date</key>
@@ -462,6 +298,34 @@
 		<value>Použitý kódovací software</value>
 	</item>
 	<item>
+		<key>Entry $1 is already on the scratchpad. It has been moved to the top of the list.</key>
+		<value>Položka $1 je již na pracovní ploše. Byla přesunuta na vrchol seznamu.</value>
+	</item>
+	<item>
+		<key>Entry added at $1 with ScheduleId $2.</key>
+		<value>Položka přidána do $1 s identifikátorem $2.</value>
+	</item>
+	<item>
+		<key>Entry with ScheduleId $1 removed.</key>
+		<value>Položka s identifikátorem $1 odstraněna.</value>
+	</item>
+	<item>
+		<key>Error while saving settings.</key>
+		<value>Chyba při ukládání systémového nastavení.</value>
+	</item>
+	<item>
+		<key>Error while trying to add item to playlist.</key>
+		<value>Chyba při přidávání položky do playlistu.</value>
+	</item>
+	<item>
+		<key>Error while uploading logo.</key>
+		<value>Chyba při nahrávání loga.</value>
+	</item>
+	<item>
+		<key>Error: $1</key>
+		<value>Chyba: $1</value>
+	</item>
+	<item>
 		<key>Fade</key>
 		<value>Prolínat</value>
 	</item>
@@ -472,6 +336,10 @@
 	<item>
 		<key>File</key>
 		<value>Soubor</value>
+	</item>
+	<item>
+		<key>File &quot;$1&quot; has not been uploaded.</key>
+		<value>Soubor $1 nebyl nahrán.</value>
 	</item>
 	<item>
 		<key>File List</key>
@@ -506,6 +374,10 @@
 		<value>Formát</value>
 	</item>
 	<item>
+		<key>Found locked playlist.</key>
+		<value>Byl nalezen zam�?ený playlist.</value>
+	</item>
+	<item>
 		<key>Fr</key>
 		<value />
 	</item>
@@ -526,6 +398,10 @@
 		<value>Jdi</value>
 	</item>
 	<item>
+		<key>Group &quot;$1&quot; added.</key>
+		<value />
+	</item>
+	<item>
 		<key>Group Name</key>
 		<value>Jméno skupiny</value>
 	</item>
@@ -544,6 +420,10 @@
 	<item>
 		<key>Insert Playlist here</key>
 		<value>Zde vložit playlist</value>
+	</item>
+	<item>
+		<key>Invalid or incomplete form data.</key>
+		<value>Ve formuláři byla nalezena neplatná data.</value>
 	</item>
 	<item>
 		<key>Item</key>
@@ -594,6 +474,10 @@
 		<value />
 	</item>
 	<item>
+		<key>Login failed.</key>
+		<value>Přihlášení nebylo úspěšné.</value>
+	</item>
+	<item>
 		<key>Lyricist</key>
 		<value>Autor textu</value>
 	</item>
@@ -636,6 +520,10 @@
 	<item>
 		<key>Members</key>
 		<value />
+	</item>
+	<item>
+		<key>Metadata saved.</key>
+		<value>Metadata byla uložena.</value>
 	</item>
 	<item>
 		<key>Missing value for $1</key>
@@ -706,6 +594,10 @@
 		<value />
 	</item>
 	<item>
+		<key>No item(s) selected.</key>
+		<value>Nebyl vybrán žádný soubor.</value>
+	</item>
+	<item>
 		<key>No match found.</key>
 		<value>Žadný soubor nenalezen</value>
 	</item>
@@ -714,7 +606,15 @@
 		<value>Žadné objekty</value>
 	</item>
 	<item>
+		<key>No playlists have been locked by you.</key>
+		<value>Žádný playlist není aktivní.</value>
+	</item>
+	<item>
 		<key>Nothing left</key>
+		<value />
+	</item>
+	<item>
+		<key>Nothing selected.</key>
 		<value />
 	</item>
 	<item>
@@ -728,6 +628,10 @@
 	<item>
 		<key>Old Password</key>
 		<value>Staré heslo</value>
+	</item>
+	<item>
+		<key>Old password was incorrect.</key>
+		<value>Staré heslo není platné.</value>
 	</item>
 	<item>
 		<key>Open last Playlist</key>
@@ -758,6 +662,10 @@
 		<value>Heslo</value>
 	</item>
 	<item>
+		<key>Password changed.</key>
+		<value>Heslo bylo změněno.</value>
+	</item>
+	<item>
 		<key>Passwords did not match.</key>
 		<value>Hesla nesouhlasí.</value>
 	</item>
@@ -766,8 +674,32 @@
 		<value>Playlist</value>
 	</item>
 	<item>
+		<key>Playlist &quot;$1&quot; opened.</key>
+		<value>Playlist &quot;$1&quot; byl aktivován.</value>
+	</item>
+	<item>
+		<key>Playlist &quot;$1&quot; released.</key>
+		<value>Playlist &quot;$1&quot; byl uvolněn.</value>
+	</item>
+	<item>
+		<key>Playlist &quot;$1&quot; reverted.</key>
+		<value>Playlist &quot;$1&quot; byl vrácen do předchozího stavu.</value>
+	</item>
+	<item>
+		<key>Playlist &quot;$1&quot; saved.</key>
+		<value>Playlist &quot;$1&quot; byl uložen.</value>
+	</item>
+	<item>
 		<key>Playlist Metadata</key>
 		<value>Metadata playlistu</value>
+	</item>
+	<item>
+		<key>Playlist has been locked by &quot;$1&quot;.</key>
+		<value>Playlist byl uzam�?en uživatelem $1.</value>
+	</item>
+	<item>
+		<key>Playlist not found in database.</key>
+		<value />
 	</item>
 	<item>
 		<key>Playlists</key>
@@ -890,6 +822,14 @@
 		<value>Navigace v plánova�?i</value>
 	</item>
 	<item>
+		<key>Scheduler did not start. Check setting of &quot;UI_SCHEDULER_DAEMON_CMD&quot; in ui_conf.php. File &quot;/tmp/scheduler.log&quot; could be helpful.</key>
+		<value />
+	</item>
+	<item>
+		<key>Scheduler is running.</key>
+		<value />
+	</item>
+	<item>
 		<key>ScratchPad</key>
 		<value>Pracovní plocha</value>
 	</item>
@@ -908,6 +848,10 @@
 	<item>
 		<key>September</key>
 		<value />
+	</item>
+	<item>
+		<key>Settings saved.</key>
+		<value>Předvolby stanice byly uloženy.</value>
 	</item>
 	<item>
 		<key>Show Info</key>
@@ -950,6 +894,10 @@
 		<value>URL streamu</value>
 	</item>
 	<item>
+		<key>Stream data saved.</key>
+		<value>Data streamu byla uložena.</value>
+	</item>
+	<item>
 		<key>Su</key>
 		<value />
 	</item>
@@ -976,6 +924,18 @@
 	<item>
 		<key>Th</key>
 		<value />
+	</item>
+	<item>
+		<key>The scratchpad length is not set in system preferences, so it cannot be used.</key>
+		<value>Pracovní plocha nemá nastavenu velikost v systémových předvolbách, nemůže tedy být použita.</value>
+	</item>
+	<item>
+		<key>The target is not a folder.</key>
+		<value>Cílový objekt není složka.</value>
+	</item>
+	<item>
+		<key>There is no playlist available to unlock.</key>
+		<value>Není zde žádný playlist k odem�?ení.</value>
 	</item>
 	<item>
 		<key>Thursday</key>
@@ -1014,12 +974,48 @@
 		<value>Typ</value>
 	</item>
 	<item>
+		<key>Unable to open playlist &quot;$1&quot;.</key>
+		<value />
+	</item>
+	<item>
+		<key>Unable to release playlist.</key>
+		<value>Nepodařilo se uvolnit playlist.</value>
+	</item>
+	<item>
+		<key>Unable to revert to locked state.</key>
+		<value>Nepodařilo se vrátit k zam�?enému stavu.</value>
+	</item>
+	<item>
 		<key>Unable to set &quot;$1&quot; to &quot;$2&quot; langue &quot;$3&quot;</key>
 		<value>Nepodařilo se nastavit &quot;$1&quot; na &quot;$2&quot; s jazykem &quot;$3&quot;.</value>
 	</item>
 	<item>
+		<key>Unable to set &quot;$1&quot; to value &quot;$2&quot;.</key>
+		<value />
+	</item>
+	<item>
+		<key>Upload of file &quot;$1&quot; was incomplete.</key>
+		<value />
+	</item>
+	<item>
+		<key>Uploaded file &quot;$1&quot; is bigger than LiveSupport&amp;acute;s system setting.</key>
+		<value>Nahrávaný soubor $1 je větší než povoluje nastavení LiveSupportu.</value>
+	</item>
+	<item>
+		<key>Uploaded file &quot;$1&quot; is bigger than setting in php.ini.</key>
+		<value>Nahrávaný soubor $1 je větší než je povoleno v php.ini.</value>
+	</item>
+	<item>
+		<key>User &quot;$1&quot; added.</key>
+		<value />
+	</item>
+	<item>
 		<key>User Password</key>
 		<value>Uživatelské heslo</value>
+	</item>
+	<item>
+		<key>User or group &quot;$1&quot; already exists.</key>
+		<value />
 	</item>
 	<item>
 		<key>User/Group Management</key>
@@ -1032,6 +1028,10 @@
 	<item>
 		<key>Username</key>
 		<value>Uživatelské jméno</value>
+	</item>
+	<item>
+		<key>Warning: station preferences have not been set up properly.</key>
+		<value>Poznámka: Předvolby stanice nejsou správně zadány.</value>
 	</item>
 	<item>
 		<key>We</key>
@@ -1052,6 +1052,10 @@
 	<item>
 		<key>Year</key>
 		<value>Rok</value>
+	</item>
+	<item>
+		<key>You already have an open playlist. Close it first.</key>
+		<value>Máte již aktivovaný playlist, nejdříve ho zavřete.</value>
 	</item>
 	<item>
 		<key>You need to have at least one non-open playlist on ScratchPad to schedule it.</key>

@@ -72,8 +72,13 @@ class uiSubjects
             $this->Base->_retMsg($res->getMessage());
             return FALSE;
         }
-        if (UI_VERBOSE) $this->Base->_retMsg('Subject $1 added.', $request['login']);
-
+        if (UI_VERBOSE) {
+            if ($request['passwd']) {
+                $this->Base->_retMsg('User "$1" added.', $request['login']);
+            } else {
+                $this->Base->_retMsg('Group "$1" added.', $request['login']);
+            }
+        }    
         return TRUE;
     }
 

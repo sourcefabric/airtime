@@ -167,7 +167,7 @@ class uiBase
             #if ($this->STATIONPREFS['stationMaxfilesize']) $this->STATIONPREFS['stationMaxfilesize'] = strtr(ini_get('upload_max_filesize'), array('M'=>'000000', 'k'=>'000'));
 
             if ($miss && $this->gb->getSessLogin($this->sessid)) {
-                if (UI_WARNING) $this->_retMsg('Note: Station Preferences not setup proberly.');
+                if (UI_WARNING) $this->_retMsg('Warning: station preferences have not been set up properly.');
                 $this->redirUrl = UI_BROWSER.'?popup[]=_2changeStationPrefs&popup[]=_close';         ## popup because check is taken in login-popup
             }
 
