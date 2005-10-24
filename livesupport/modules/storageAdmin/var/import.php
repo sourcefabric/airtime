@@ -170,7 +170,7 @@ while($filename = fgets($stdin, 2048)){
             addMdata($fn, $v);
         }
     }
-    if(!$titleHaveSet || trim($mdata[$titleKey])=='') addMdata($titleKey, basename($filename)." X");
+    if(!$titleHaveSet || trim($mdata[$titleKey])=='') addMdata($titleKey, basename($filename));
 //    unset($mdata['dc:title']);
 
     if(!$testonly){
