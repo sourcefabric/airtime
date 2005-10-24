@@ -142,7 +142,7 @@ function translationForm($p_request)
 				<tr>
 					<td>
 		        		<SELECT NAME="localizer_source_language" onchange="this.form.submit();" class="input_select">
-		        		<?php echo LanguageMenu(LOCALIZER::getAllLanguages(NULL, TRUE), $localizerSourceLanguage); ?>
+		        		<?php echo LanguageMenu(LOCALIZER::getAllLanguages(NULL, $g_localizerConfig['MAINTENANCE']), $localizerSourceLanguage); ?>
 		        		</select>
 					</td>
 				</tr>
