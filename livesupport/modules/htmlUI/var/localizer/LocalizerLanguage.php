@@ -534,13 +534,21 @@ class LocalizerLanguage {
         $defaultTranslationTable = $defaultLanguage->getTranslationTable();
     	$count = 0;
     	$modified = false;
-    	foreach ($defaultTranslationTable as $key => $value) {
+    	foreach ($defaultTranslationTable as $key => $value) { 
     		if (!isset($this->m_translationTable[$key])) {
     			$this->addString($key, '', $count);
     			$modified = true;
     		}
     		$count++;
-    	}
+    	} 
+    	foreach ($this->m_translationTable as $key => $value) { 
+    		if (!isset($defaultTranslationTable[$key])) {
+    			$this->deleteString($key, '', $count);
+    			$modified = true;
+    		}
+    		$count++;
+    	} 
+    	
     	return ($this->fixPositions() || $modified);
     } // fn syncToDefault
     

@@ -2,14 +2,6 @@
 <translations>
 	<Id>en_US</Id>
 	<item>
-		<key>_Name of translator</key>
-		<value />
-	</item>
-	<item>
-		<key>_Native language name</key>
-		<value />
-	</item>
-	<item>
 		<key>Access</key>
 		<value />
 	</item>
@@ -603,6 +595,14 @@
 	</item>
 	<item>
 		<key>You need to have at least one non-open playlist on ScratchPad to schedule it.</key>
+		<value />
+	</item>
+	<item>
+		<key>_Name of translator</key>
+		<value />
+	</item>
+	<item>
+		<key>_Native language name</key>
 		<value />
 	</item>
 	<item>

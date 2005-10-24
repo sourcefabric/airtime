@@ -11,6 +11,7 @@ global $g_localizerConfig;
 
 $action = Input::Get('action', 'string', 'translate', true);
 $prefix = Input::Get('prefix', 'string', '', true);
+$save   = Input::Get('save', 'boolean', false);
 
 $langCode = null;
 if (isset($_REQUEST['TOL_Language'])){
@@ -32,7 +33,7 @@ if ($g_localizerConfig['MAINTENANCE']) {
 
 
 switch ($action) {
-	case 'translate':
+	case 'translate': 
 	    require_once("translate.php");    
 	    translationForm($_REQUEST);
 		break;

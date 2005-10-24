@@ -60,7 +60,7 @@ function translationForm($p_request)
     	if (!$targetLang->loadFile($mode)) {
     		$targetLang->saveFile($mode);
         }
-        
+       
         // Make sure that the languages have the same strings and are in the same
         // order as the default language file.
         $modified = $sourceLang->syncToDefault();
@@ -70,7 +70,7 @@ function translationForm($p_request)
         $modified = $targetLang->syncToDefault();
         if ($modified) {
         	$targetLang->saveFile($mode);
-        }
+        } 
 	}
 	
     
@@ -142,7 +142,7 @@ function translationForm($p_request)
 				<tr>
 					<td>
 		        		<SELECT NAME="localizer_source_language" onchange="this.form.submit();" class="input_select">
-		        		<?php echo LanguageMenu(LOCALIZER::getAllLanguages(NULL, $g_localizerConfig['MAINTENANCE']), $localizerSourceLanguage); ?>
+		        		<?php echo LanguageMenu(LOCALIZER::getAllLanguages(NULL, TRUE), $localizerSourceLanguage); ?>
 		        		</select>
 					</td>
 				</tr>
