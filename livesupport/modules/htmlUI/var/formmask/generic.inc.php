@@ -18,14 +18,14 @@ $ui_fmask = array(
             'element'   => 'stationName',
             'isPref'    => TRUE,
             'type'      => 'text',
-            'label'     => 'Station Name',
+            'label'     => 'Station name',
             'required'  => TRUE
         ),
         array(
             'element'   => 'stationLogoPath',
             'isPref'    => TRUE,
             'type'      => 'hidden',
-            'label'     => 'Station Logo Path',
+            'label'     => 'Station logo path',
             'default'   => 'img/stationlogo.image',
             'required'  => TRUE,
         ),
@@ -53,15 +53,15 @@ $ui_fmask = array(
         array(
             'element'   => 'stationlogo',
             'type'      => 'file',
-            'label'     => 'Station Logo',
-            'requiredmsg'=> 'please select Logo file',
+            'label'     => 'Station logo',
+            'requiredmsg'=> 'please select logo file',
             'attributes'=> array('multiple' => 'application/pdf')
         ),
         array(
             'element'   => UI_SCRATCHPAD_MAXLENGTH_KEY,
             'isPref'    => TRUE,
             'type'      => 'select',
-            'label'     => 'Maximum length of ScratchPad',
+            'label'     => 'Maximum length of scratchpad',
             'options'   => array(
                             5   => 5,
                             10  => 10,
@@ -86,7 +86,7 @@ $ui_fmask = array(
         ),
         array(
             'group'     => array('cancel', 'Submit'),
-            'label'     => '&nbsp;'
+            'label'     => ' '
         ),
     ),
 
@@ -103,25 +103,25 @@ $ui_fmask = array(
         array(
             'element'   => 'oldpass',
             'type'      => 'password',
-            'label'     => 'Old Password',
+            'label'     => 'Old password',
             'required'  => TRUE,
         ),
         array(
             'element'   => 'pass',
             'type'      => 'password',
-            'label'     => 'New Password',
+            'label'     => 'New password',
             'required'  => TRUE,
         ),
         array(
             'element'   => 'pass2',
             'type'      => 'password',
-            'label'     => 'Retype Password',
+            'label'     => 'Repeat password',
             'required'  => TRUE,
         ),
         array(
             'rule'      => 'compare',
             'element'   => array('pass','pass2'),
-            'rulemsg'   => 'The passwords do not match'
+            'rulemsg'   => 'The passwords do not match.'
         ),
         array(
             'element'   =>'Submit',
@@ -182,7 +182,7 @@ $ui_fmask = array(
         array(
             'element'   => 'mediafile',
             'type'      => 'file',
-            'label'     => 'Media File',
+            'label'     => 'Media file',
             'required'  => TRUE,
             'requiredmsg'=> 'Please select media file'
         ),
@@ -216,7 +216,7 @@ $ui_fmask = array(
         array(
             'element'   => 'mediafile',
             'type'      => 'file',
-            'label'     => 'Media File',
+            'label'     => 'Media file',
             'required'  => TRUE,
             'requiredmsg'=> 'please select media file'
         ),
@@ -272,27 +272,7 @@ $ui_fmask = array(
             'format'    => UI_REGEX_URL,
             'rulemsg'   => 'URL seems invalid',
             'attributes'=> array('maxlength' => 256),
-            #'groupit'   => TRUE
         ),
-        /*
-        array(
-            'element'   => 'test',
-            'type'      => 'button',
-            'label'     => 'Test',
-            'groupit'   => TRUE,
-            'attributes'=> array('onclick' => "popup('".UI_BROWSER."?popup[]=testStream&url=' + document.forms['addWebstream'].elements['grp[url]'].value, 'PingSTream', 400, 250)")
-        ),
-        array(
-            'group'     => array('url', 'test'),
-            'name'      => 'grp',
-            'label'     => 'Stream URL',
-        ),
-        array(
-            'grouprule',
-            'name'      => 'grprule',
-
-        ),
-        */
         array(
             'element'   => 'length',
             'type'      => 'date',
@@ -366,7 +346,7 @@ $ui_fmask = array(
         array(
             'element'   => 'limit',
             'type'      => 'select',
-            'label'     => 'Rows per Page',
+            'label'     => 'Rows per page',
             'options'   => array(
                             10  => 10,
                             25  => 25,
@@ -377,7 +357,7 @@ $ui_fmask = array(
         array(
             'element'   => 'clear',
             'type'      => 'button',
-            'label'     => 'Reset Criteria',
+            'label'     => 'Reset criteria',
             'attributes'  => array('class' => 'button_wide', 'onClick' => "this.form.reset(); hpopup('".UI_HANDLER."?act=SEARCH.clear', 'SF')"),
             'groupit'   => TRUE,
         ),
@@ -472,7 +452,7 @@ $ui_fmask = array(
         array(
             'element'   => 'filetype',
             'type'      => 'select',
-            'label'     => 'File Type',
+            'label'     => 'File type',
             'options'   => array(
                             UI_FILETYPE_ANY       => '*',
                             UI_FILETYPE_AUDIOCLIP => 'Audioclip',
@@ -484,7 +464,7 @@ $ui_fmask = array(
         array(
             'element'   => 'limit',
             'type'      => 'select',
-            'label'     => 'Rows per Page',
+            'label'     => 'Rows per page',
             'options'   => array(
                             10  => 10,
                             25  => 25,
@@ -503,7 +483,7 @@ $ui_fmask = array(
         array(
             'element'   => 'reset',
             'type'      => 'button',
-            'label'     => 'Reset Criteria',
+            'label'     => 'Reset criteria',
             'attributes'=> array('class' => 'button_wide', 'onClick' => 'hpopup("'.UI_HANDLER.'?act=BROWSE.setDefaults")'),
             'groupit'   => TRUE
         ),
@@ -522,7 +502,7 @@ $ui_fmask = array(
         array(
             'element'   => 'simplesearch',
             'type'      => 'header',
-            'label'     => 'Search Library',
+            'label'     => 'Search library',
         ),
         array(
             'element'   => 'criterium',
@@ -640,7 +620,7 @@ $ui_fmask = array(
             ),
             array(
                 'group'     => array('switchdown', 'switchup'),
-                'label'     => '&nbsp;'
+                'label'     => ' '
             ),
             array(
                 'element'   => 'cancel',

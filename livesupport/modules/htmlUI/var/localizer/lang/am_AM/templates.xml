@@ -2,6 +2,54 @@
 <translations>
 	<Id>am_AM</Id>
 	<item>
+		<key>April</key>
+		<value />
+	</item>
+	<item>
+		<key>August</key>
+		<value />
+	</item>
+	<item>
+		<key>December</key>
+		<value />
+	</item>
+	<item>
+		<key>February</key>
+		<value />
+	</item>
+	<item>
+		<key>January</key>
+		<value />
+	</item>
+	<item>
+		<key>July</key>
+		<value />
+	</item>
+	<item>
+		<key>June</key>
+		<value />
+	</item>
+	<item>
+		<key>March</key>
+		<value />
+	</item>
+	<item>
+		<key>May</key>
+		<value />
+	</item>
+	<item>
+		<key>November</key>
+		<value />
+	</item>
+	<item>
+		<key>October</key>
+		<value />
+	</item>
+	<item>
+		<key>September</key>
+		<value />
+	</item>
+	<item>
 		<key>Access</key>
 		<value />
 	</item>

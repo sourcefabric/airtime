@@ -278,7 +278,7 @@ class Localizer {
        	
       	foreach ($data as $line) { 
             foreach ($funcPatterns as $fp => $pos) { 
-                if (preg_match_all($fp, $line, $m)) {                    
+                if (preg_match_all($fp, $line, $m)) {                   
                     foreach ($m[$pos] as $match) {
                         #$match = str_replace("\\\\", "\\", $match);
                         if (strlen($match)) $matches[$match] = $match;

@@ -103,6 +103,14 @@ $g_localizerConfig['mapPrefixToDir'] = array(
             'funcPatterns'  => array('/##([^{}]*)##/U' => 1, '/{tra[ ]*str=\'([^\']*)\'.*}/iU' => 1),
             'display'       => 'Templates'
     ),
+    'masks'         => array(
+            'path'          => '../formmask',
+            'depth'         => 1,
+            'filePatterns'  => array('/(.*).php/'),
+            'execlPattern'  => '/(\/\.|^\.)/',
+            'funcPatterns'  => array('/[\'"]label[\'"] *=> *[\'"]([^\'"]+)[\'"]/iU' => 1),
+            'display'       => 'Forms'
+    ),
     /*
     'localizer'     => array(
             'path'          => '/',

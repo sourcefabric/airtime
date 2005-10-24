@@ -541,6 +541,7 @@ class LocalizerLanguage {
     		}
     		$count++;
     	} 
+    	/*
     	foreach ($this->m_translationTable as $key => $value) { 
     		if (!isset($defaultTranslationTable[$key])) {
     			$this->deleteString($key, '', $count);
@@ -548,7 +549,7 @@ class LocalizerLanguage {
     		}
     		$count++;
     	} 
-    	
+    	*/
     	return ($this->fixPositions() || $modified);
     } // fn syncToDefault
     

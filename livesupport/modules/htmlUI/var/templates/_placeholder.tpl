@@ -19,3 +19,16 @@ This template is just used to get additional strings into localizer
 ##Cannot connect to Scheduler##
 ##_Name of translator##
 ##_Native language name##
+##January##
+##February##
+##March##
+##April##
+##May##
+##June##
+##July##
+##August##
+##September##
+##October##
+##November##
+##December##
+

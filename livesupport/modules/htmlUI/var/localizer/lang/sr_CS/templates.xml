@@ -2,12 +2,52 @@
 <translations>
 	<Id>sr_CS</Id>
 	<item>
-		<key>_Name of translator</key>
-		<value />
+		<key>April</key>
+		<value>April</value>
 	</item>
 	<item>
-		<key>_Native language name</key>
-		<value />
+		<key>August</key>
+		<value>Avgust</value>
+	</item>
+	<item>
+		<key>December</key>
+		<value>Decembar</value>
+	</item>
+	<item>
+		<key>February</key>
+		<value>Februar</value>
+	</item>
+	<item>
+		<key>January</key>
+		<value>Januar</value>
+	</item>
+	<item>
+		<key>July</key>
+		<value>Jul</value>
+	</item>
+	<item>
+		<key>June</key>
+		<value>Jun</value>
+	</item>
+	<item>
+		<key>March</key>
+		<value>Mart</value>
+	</item>
+	<item>
+		<key>May</key>
+		<value>Maj</value>
+	</item>
+	<item>
+		<key>November</key>
+		<value>Novembar</value>
+	</item>
+	<item>
+		<key>October</key>
+		<value>Oktobar</value>
+	</item>
+	<item>
+		<key>September</key>
+		<value>Septembar</value>
 	</item>
 	<item>
 		<key>$1 must be $2</key>
@@ -102,10 +142,6 @@
 		<value>Plej lista je već aktivna.</value>
 	</item>
 	<item>
-		<key>April</key>
-		<value>April</value>
-	</item>
-	<item>
 		<key>Are you sure to delete $1 selected files?</key>
 		<value />
 	</item>
@@ -164,10 +200,6 @@
 	<item>
 		<key>Audioclip Data saved</key>
 		<value>Podaci o audio klipu su sačuvani.</value>
-	</item>
-	<item>
-		<key>August</key>
-		<value>Avgust</value>
 	</item>
 	<item>
 		<key>BPM</key>
@@ -326,10 +358,6 @@
 		<value>Dan</value>
 	</item>
 	<item>
-		<key>December</key>
-		<value>Decembar</value>
-	</item>
-	<item>
 		<key>Delete</key>
 		<value>Obriši</value>
 	</item>
@@ -424,10 +452,6 @@
 	<item>
 		<key>Fade</key>
 		<value>Miks</value>
-	</item>
-	<item>
-		<key>February</key>
-		<value>Februar</value>
 	</item>
 	<item>
 		<key>File</key>
@@ -526,18 +550,6 @@
 		<value>Stavka</value>
 	</item>
 	<item>
-		<key>January</key>
-		<value>Januar</value>
-	</item>
-	<item>
-		<key>July</key>
-		<value>Jul</value>
-	</item>
-	<item>
-		<key>June</key>
-		<value>Jun</value>
-	</item>
-	<item>
 		<key>Label</key>
 		<value>Diskografska kuća</value>
 	</item>
@@ -602,16 +614,8 @@
 		<value>Uredi članove grupe</value>
 	</item>
 	<item>
-		<key>March</key>
-		<value>Mart</value>
-	</item>
-	<item>
 		<key>Maximum length of ScratchPad</key>
 		<value>Maksimalna dužina pripremne liste</value>
-	</item>
-	<item>
-		<key>May</key>
-		<value>Maj</value>
 	</item>
 	<item>
 		<key>Media File</key>
@@ -742,20 +746,12 @@
 		<value>Ništa nije odabrano.</value>
 	</item>
 	<item>
-		<key>November</key>
-		<value>Novembar</value>
-	</item>
-	<item>
 		<key>Now Playing</key>
 		<value />
 	</item>
 	<item>
 		<key>OK</key>
 		<value />
-	</item>
-	<item>
-		<key>October</key>
-		<value>Oktobar</value>
 	</item>
 	<item>
 		<key>Old Password</key>
@@ -1002,10 +998,6 @@
 		<value>Izaberi vrednost</value>
 	</item>
 	<item>
-		<key>September</key>
-		<value>Septembar</value>
-	</item>
-	<item>
 		<key>Settings saved</key>
 		<value>Podešavanja stanice su sačuvana.</value>
 	</item>
@@ -1244,6 +1236,14 @@
 	<item>
 		<key>You need to have at least one non-open playlist on ScratchPad to schedule it.</key>
 		<value>Treba da imate najmanje jednu neotvorenu plej listu u Pripremi da biste je stavili u raspored.</value>
+	</item>
+	<item>
+		<key>_Name of translator</key>
+		<value />
+	</item>
+	<item>
+		<key>_Native language name</key>
+		<value />
 	</item>
 	<item>
 		<key>audioclip</key>

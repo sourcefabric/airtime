@@ -2,12 +2,52 @@
 <translations>
 	<Id>hu_HU</Id>
 	<item>
-		<key>_Name of translator</key>
-		<value />
+		<key>April</key>
+		<value>április</value>
 	</item>
 	<item>
-		<key>_Native language name</key>
-		<value />
+		<key>August</key>
+		<value>augusztus</value>
+	</item>
+	<item>
+		<key>December</key>
+		<value>december</value>
+	</item>
+	<item>
+		<key>February</key>
+		<value>február</value>
+	</item>
+	<item>
+		<key>January</key>
+		<value>január</value>
+	</item>
+	<item>
+		<key>July</key>
+		<value>július</value>
+	</item>
+	<item>
+		<key>June</key>
+		<value>június</value>
+	</item>
+	<item>
+		<key>March</key>
+		<value>március</value>
+	</item>
+	<item>
+		<key>May</key>
+		<value>május</value>
+	</item>
+	<item>
+		<key>November</key>
+		<value>november</value>
+	</item>
+	<item>
+		<key>October</key>
+		<value>október</value>
+	</item>
+	<item>
+		<key>September</key>
+		<value>szeptember</value>
 	</item>
 	<item>
 		<key>$1 must be $2</key>
@@ -102,10 +142,6 @@
 		<value />
 	</item>
 	<item>
-		<key>April</key>
-		<value>április</value>
-	</item>
-	<item>
 		<key>Are you sure to delete $1 selected files?</key>
 		<value />
 	</item>
@@ -164,10 +200,6 @@
 	<item>
 		<key>Audioclip Data saved</key>
 		<value />
-	</item>
-	<item>
-		<key>August</key>
-		<value>augusztus</value>
 	</item>
 	<item>
 		<key>BPM</key>
@@ -330,10 +362,6 @@
 		<value />
 	</item>
 	<item>
-		<key>December</key>
-		<value>december</value>
-	</item>
-	<item>
 		<key>Delete</key>
 		<value>Törlés</value>
 	</item>
@@ -428,10 +456,6 @@
 	<item>
 		<key>Fade</key>
 		<value />
-	</item>
-	<item>
-		<key>February</key>
-		<value>február</value>
 	</item>
 	<item>
 		<key>File</key>
@@ -530,18 +554,6 @@
 		<value />
 	</item>
 	<item>
-		<key>January</key>
-		<value>január</value>
-	</item>
-	<item>
-		<key>July</key>
-		<value>július</value>
-	</item>
-	<item>
-		<key>June</key>
-		<value>június</value>
-	</item>
-	<item>
 		<key>Label</key>
 		<value />
 	</item>
@@ -606,16 +618,8 @@
 		<value>Csoport szerkesztése</value>
 	</item>
 	<item>
-		<key>March</key>
-		<value>március</value>
-	</item>
-	<item>
 		<key>Maximum length of ScratchPad</key>
 		<value />
-	</item>
-	<item>
-		<key>May</key>
-		<value>május</value>
 	</item>
 	<item>
 		<key>Media File</key>
@@ -742,20 +746,12 @@
 		<value>Nincs semmi kiválasztva.</value>
 	</item>
 	<item>
-		<key>November</key>
-		<value>november</value>
-	</item>
-	<item>
 		<key>Now Playing</key>
 		<value />
 	</item>
 	<item>
 		<key>OK</key>
 		<value />
-	</item>
-	<item>
-		<key>October</key>
-		<value>október</value>
 	</item>
 	<item>
 		<key>Old Password</key>
@@ -1002,10 +998,6 @@
 		<value />
 	</item>
 	<item>
-		<key>September</key>
-		<value>szeptember</value>
-	</item>
-	<item>
 		<key>Settings saved</key>
 		<value />
 	</item>
@@ -1244,6 +1236,14 @@
 	<item>
 		<key>You need to have at least one non-open playlist on ScratchPad to schedule it.</key>
 		<value>Nincs időzíthető (csuporban levő és nem szerkesztett) műsor.</value>
+	</item>
+	<item>
+		<key>_Name of translator</key>
+		<value />
+	</item>
+	<item>
+		<key>_Native language name</key>
+		<value />
 	</item>
 	<item>
 		<key>audioclip</key>

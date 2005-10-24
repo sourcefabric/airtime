@@ -50,6 +50,10 @@
 		<value>Zur Programmliste hinzufügen</value>
 	</item>
 	<item>
+		<key>April</key>
+		<value>April</value>
+	</item>
+	<item>
 		<key>Are you sure to delete $1 selected files?</key>
 		<value>$1 Dateien wirklich löschen?</value>
 	</item>
@@ -88,6 +92,10 @@
 	<item>
 		<key>Audioclip</key>
 		<value>Audiodatei</value>
+	</item>
+	<item>
+		<key>August</key>
+		<value>August</value>
 	</item>
 	<item>
 		<key>Back to overview</key>
@@ -182,6 +190,10 @@
 		<value>Tag</value>
 	</item>
 	<item>
+		<key>December</key>
+		<value>Dezember</value>
+	</item>
+	<item>
 		<key>Delete</key>
 		<value>Löschen</value>
 	</item>
@@ -216,6 +228,10 @@
 	<item>
 		<key>Fade</key>
 		<value>Überblenden</value>
+	</item>
+	<item>
+		<key>February</key>
+		<value>Februar</value>
 	</item>
 	<item>
 		<key>File List</key>
@@ -254,6 +270,18 @@
 		<value>Element</value>
 	</item>
 	<item>
+		<key>January</key>
+		<value>Januar</value>
+	</item>
+	<item>
+		<key>July</key>
+		<value>Juli</value>
+	</item>
+	<item>
+		<key>June</key>
+		<value>Juni</value>
+	</item>
+	<item>
 		<key>Library Search</key>
 		<value>Medien suchen</value>
 	</item>
@@ -280,6 +308,14 @@
 	<item>
 		<key>Manage group members</key>
 		<value>Verwalte Gruppenmitglieder</value>
+	</item>
+	<item>
+		<key>March</key>
+		<value>März</value>
+	</item>
+	<item>
+		<key>May</key>
+		<value>Mai</value>
 	</item>
 	<item>
 		<key>Media Library</key>
@@ -358,12 +394,20 @@
 		<value>Nichts mehr vorhanden</value>
 	</item>
 	<item>
+		<key>November</key>
+		<value>November</value>
+	</item>
+	<item>
 		<key>Now Playing</key>
 		<value>Spielt gerade</value>
 	</item>
 	<item>
 		<key>OK</key>
 		<value>OK</value>
+	</item>
+	<item>
+		<key>October</key>
+		<value>Oktober</value>
 	</item>
 	<item>
 		<key>Open last Playlist</key>
@@ -451,7 +495,7 @@
 	</item>
 	<item>
 		<key>Save Playlist</key>
-		<value>Liste Speichern</value>
+		<value>Liste speichern</value>
 	</item>
 	<item>
 		<key>Schedule</key>
@@ -472,6 +516,10 @@
 	<item>
 		<key>Search</key>
 		<value>Suchen</value>
+	</item>
+	<item>
+		<key>September</key>
+		<value>September</value>
 	</item>
 	<item>
 		<key>Show Info</key>
@@ -742,10 +790,6 @@
 		<value>Es ist bereits eine Programmliste aktiviert.</value>
 	</item>
 	<item>
-		<key>April</key>
-		<value />
-	</item>
-	<item>
 		<key>Are you sure to logout $1?</key>
 		<value />
 	</item>
@@ -764,10 +808,6 @@
 	<item>
 		<key>Audioclip Data saved</key>
 		<value>Audioclip Daten gespeichert.</value>
-	</item>
-	<item>
-		<key>August</key>
-		<value />
 	</item>
 	<item>
 		<key>BPM</key>
@@ -838,10 +878,6 @@
 		<value />
 	</item>
 	<item>
-		<key>December</key>
-		<value />
-	</item>
-	<item>
 		<key>Delete File</key>
 		<value>Datei löschen</value>
 	</item>
@@ -892,10 +928,6 @@
 	<item>
 		<key>Error: $1</key>
 		<value>Fehler: $1</value>
-	</item>
-	<item>
-		<key>February</key>
-		<value />
 	</item>
 	<item>
 		<key>File</key>
@@ -958,18 +990,6 @@
 		<value>Fehlerhafte Formulardaten.</value>
 	</item>
 	<item>
-		<key>January</key>
-		<value />
-	</item>
-	<item>
-		<key>July</key>
-		<value />
-	</item>
-	<item>
-		<key>June</key>
-		<value />
-	</item>
-	<item>
 		<key>Label</key>
 		<value />
 	</item>
@@ -1006,15 +1026,7 @@
 		<value>MDataXML</value>
 	</item>
 	<item>
-		<key>March</key>
-		<value />
-	</item>
-	<item>
 		<key>Maximum length of ScratchPad</key>
-		<value />
-	</item>
-	<item>
-		<key>May</key>
 		<value />
 	</item>
 	<item>
@@ -1063,14 +1075,6 @@
 	</item>
 	<item>
 		<key>Nothing selected.</key>
-		<value />
-	</item>
-	<item>
-		<key>November</key>
-		<value />
-	</item>
-	<item>
-		<key>October</key>
 		<value />
 	</item>
 	<item>
@@ -1212,10 +1216,6 @@
 	<item>
 		<key>Select a Value</key>
 		<value>Wert auswählen</value>
-	</item>
-	<item>
-		<key>September</key>
-		<value />
 	</item>
 	<item>
 		<key>Settings saved</key>

@@ -2,12 +2,52 @@
 <translations>
 	<Id>default_DEFAULT</Id>
 	<item>
-		<key>_Name of translator</key>
-		<value>_Name of translator</value>
+		<key>April</key>
+		<value>April</value>
 	</item>
 	<item>
-		<key>_Native language name</key>
-		<value>_Native language name</value>
+		<key>August</key>
+		<value>August</value>
+	</item>
+	<item>
+		<key>December</key>
+		<value>December</value>
+	</item>
+	<item>
+		<key>February</key>
+		<value>February</value>
+	</item>
+	<item>
+		<key>January</key>
+		<value>January</value>
+	</item>
+	<item>
+		<key>July</key>
+		<value>July</value>
+	</item>
+	<item>
+		<key>June</key>
+		<value>June</value>
+	</item>
+	<item>
+		<key>March</key>
+		<value>March</value>
+	</item>
+	<item>
+		<key>May</key>
+		<value>May</value>
+	</item>
+	<item>
+		<key>November</key>
+		<value>November</value>
+	</item>
+	<item>
+		<key>October</key>
+		<value>October</value>
+	</item>
+	<item>
+		<key>September</key>
+		<value>September</value>
 	</item>
 	<item>
 		<key>Access</key>
@@ -604,6 +644,14 @@
 	<item>
 		<key>You need to have at least one non-open playlist on ScratchPad to schedule it.</key>
 		<value>You need to have at least one non-open playlist on ScratchPad to schedule it.</value>
+	</item>
+	<item>
+		<key>_Name of translator</key>
+		<value>_Name of translator</value>
+	</item>
+	<item>
+		<key>_Native language name</key>
+		<value>_Native language name</value>
 	</item>
 	<item>
 		<key>audioclip</key>

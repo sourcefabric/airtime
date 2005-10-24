@@ -2,12 +2,52 @@
 <translations>
 	<Id>es_CO</Id>
 	<item>
-		<key>_Name of translator</key>
-		<value />
+		<key>April</key>
+		<value>Abril</value>
 	</item>
 	<item>
-		<key>_Native language name</key>
-		<value />
+		<key>August</key>
+		<value>Agosto</value>
+	</item>
+	<item>
+		<key>December</key>
+		<value>Diciembre</value>
+	</item>
+	<item>
+		<key>February</key>
+		<value>Febrero</value>
+	</item>
+	<item>
+		<key>January</key>
+		<value>Enero</value>
+	</item>
+	<item>
+		<key>July</key>
+		<value>Julio</value>
+	</item>
+	<item>
+		<key>June</key>
+		<value>Junio</value>
+	</item>
+	<item>
+		<key>March</key>
+		<value>Marzo</value>
+	</item>
+	<item>
+		<key>May</key>
+		<value>Mayo</value>
+	</item>
+	<item>
+		<key>November</key>
+		<value>Noviembre</value>
+	</item>
+	<item>
+		<key>October</key>
+		<value>Octubre</value>
+	</item>
+	<item>
+		<key>September</key>
+		<value>Septiembre</value>
 	</item>
 	<item>
 		<key>$1 must be $2</key>
@@ -102,10 +142,6 @@
 		<value>Acceso denegado</value>
 	</item>
 	<item>
-		<key>April</key>
-		<value>Abril</value>
-	</item>
-	<item>
 		<key>Are you sure to delete $1 selected files?</key>
 		<value />
 	</item>
@@ -164,10 +200,6 @@
 	<item>
 		<key>Audioclip Data saved</key>
 		<value>Lista de reproducción ya activa</value>
-	</item>
-	<item>
-		<key>August</key>
-		<value>Agosto</value>
 	</item>
 	<item>
 		<key>BPM</key>
@@ -330,10 +362,6 @@
 		<value>Fecha</value>
 	</item>
 	<item>
-		<key>December</key>
-		<value>Diciembre</value>
-	</item>
-	<item>
 		<key>Delete</key>
 		<value>Eliminar</value>
 	</item>
@@ -428,10 +456,6 @@
 	<item>
 		<key>Fade</key>
 		<value>Programa de codificación utilizado</value>
-	</item>
-	<item>
-		<key>February</key>
-		<value>Febrero</value>
 	</item>
 	<item>
 		<key>File</key>
@@ -530,18 +554,6 @@
 		<value>Elemento</value>
 	</item>
 	<item>
-		<key>January</key>
-		<value>Enero</value>
-	</item>
-	<item>
-		<key>July</key>
-		<value>Julio</value>
-	</item>
-	<item>
-		<key>June</key>
-		<value>Junio</value>
-	</item>
-	<item>
 		<key>Label</key>
 		<value>Elemento</value>
 	</item>
@@ -606,16 +618,8 @@
 		<value>Administración de miembros de grupo</value>
 	</item>
 	<item>
-		<key>March</key>
-		<value>Marzo</value>
-	</item>
-	<item>
 		<key>Maximum length of ScratchPad</key>
 		<value>Principal</value>
-	</item>
-	<item>
-		<key>May</key>
-		<value>Mayo</value>
 	</item>
 	<item>
 		<key>Media File</key>
@@ -742,20 +746,12 @@
 		<value>No se ha seleccionado nada</value>
 	</item>
 	<item>
-		<key>November</key>
-		<value>Noviembre</value>
-	</item>
-	<item>
 		<key>Now Playing</key>
 		<value />
 	</item>
 	<item>
 		<key>OK</key>
 		<value />
-	</item>
-	<item>
-		<key>October</key>
-		<value>Octubre</value>
 	</item>
 	<item>
 		<key>Old Password</key>
@@ -1002,10 +998,6 @@
 		<value>La longitud del ScratchPad no ha sido definida en las Preferencias del Sistema, por lo tanto no se puede utilizar.</value>
 	</item>
 	<item>
-		<key>September</key>
-		<value>Septiembre</value>
-	</item>
-	<item>
 		<key>Settings saved</key>
 		<value>Seleccione un valor</value>
 	</item>
@@ -1244,6 +1236,14 @@
 	<item>
 		<key>You need to have at least one non-open playlist on ScratchPad to schedule it.</key>
 		<value>Necesita tener al menos una lista de producción no abierta en el  Bloc de Apuntes para programarlo.</value>
+	</item>
+	<item>
+		<key>_Name of translator</key>
+		<value />
+	</item>
+	<item>
+		<key>_Native language name</key>
+		<value />
 	</item>
 	<item>
 		<key>audioclip</key>

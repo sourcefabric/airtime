@@ -2,12 +2,52 @@
 <translations>
 	<Id>nl_NL</Id>
 	<item>
-		<key>_Name of translator</key>
-		<value />
+		<key>April</key>
+		<value>april</value>
 	</item>
 	<item>
-		<key>_Native language name</key>
-		<value />
+		<key>August</key>
+		<value>augustus</value>
+	</item>
+	<item>
+		<key>December</key>
+		<value>december</value>
+	</item>
+	<item>
+		<key>February</key>
+		<value>februari</value>
+	</item>
+	<item>
+		<key>January</key>
+		<value>januari</value>
+	</item>
+	<item>
+		<key>July</key>
+		<value>juli</value>
+	</item>
+	<item>
+		<key>June</key>
+		<value>juni</value>
+	</item>
+	<item>
+		<key>March</key>
+		<value>maart</value>
+	</item>
+	<item>
+		<key>May</key>
+		<value>mei</value>
+	</item>
+	<item>
+		<key>November</key>
+		<value>november</value>
+	</item>
+	<item>
+		<key>October</key>
+		<value>oktober</value>
+	</item>
+	<item>
+		<key>September</key>
+		<value>september</value>
 	</item>
 	<item>
 		<key>$1 must be $2</key>
@@ -102,10 +142,6 @@
 		<value>Playlist is reeds actief.</value>
 	</item>
 	<item>
-		<key>April</key>
-		<value>april</value>
-	</item>
-	<item>
 		<key>Are you sure to delete $1 selected files?</key>
 		<value />
 	</item>
@@ -164,10 +200,6 @@
 	<item>
 		<key>Audioclip Data saved</key>
 		<value>Audioclip informatie opgeslagen.</value>
-	</item>
-	<item>
-		<key>August</key>
-		<value>augustus</value>
 	</item>
 	<item>
 		<key>BPM</key>
@@ -330,10 +362,6 @@
 		<value>Dag</value>
 	</item>
 	<item>
-		<key>December</key>
-		<value>december</value>
-	</item>
-	<item>
 		<key>Delete</key>
 		<value>Verwijderen</value>
 	</item>
@@ -428,10 +456,6 @@
 	<item>
 		<key>Fade</key>
 		<value>Fade</value>
-	</item>
-	<item>
-		<key>February</key>
-		<value>februari</value>
 	</item>
 	<item>
 		<key>File</key>
@@ -530,18 +554,6 @@
 		<value>Item</value>
 	</item>
 	<item>
-		<key>January</key>
-		<value>januari</value>
-	</item>
-	<item>
-		<key>July</key>
-		<value>juli</value>
-	</item>
-	<item>
-		<key>June</key>
-		<value>juni</value>
-	</item>
-	<item>
 		<key>Label</key>
 		<value>Omschrijving</value>
 	</item>
@@ -606,16 +618,8 @@
 		<value>Beheer groepsleden</value>
 	</item>
 	<item>
-		<key>March</key>
-		<value>maart</value>
-	</item>
-	<item>
 		<key>Maximum length of ScratchPad</key>
 		<value>Maximum aantal regels ScratchPad</value>
-	</item>
-	<item>
-		<key>May</key>
-		<value>mei</value>
 	</item>
 	<item>
 		<key>Media File</key>
@@ -742,20 +746,12 @@
 		<value>Niets geselecteerd.</value>
 	</item>
 	<item>
-		<key>November</key>
-		<value>november</value>
-	</item>
-	<item>
 		<key>Now Playing</key>
 		<value />
 	</item>
 	<item>
 		<key>OK</key>
 		<value />
-	</item>
-	<item>
-		<key>October</key>
-		<value>oktober</value>
 	</item>
 	<item>
 		<key>Old Password</key>
@@ -1002,10 +998,6 @@
 		<value>Kies een waarde</value>
 	</item>
 	<item>
-		<key>September</key>
-		<value>september</value>
-	</item>
-	<item>
 		<key>Settings saved</key>
 		<value>Instellingen opgeslagen.</value>
 	</item>
@@ -1244,6 +1236,14 @@
 	<item>
 		<key>You need to have at least one non-open playlist on ScratchPad to schedule it.</key>
 		<value>U moet minimaal 1 afgesloten playlist in ScratchPad hebben om een lijst te plannen.</value>
+	</item>
+	<item>
+		<key>_Name of translator</key>
+		<value />
+	</item>
+	<item>
+		<key>_Native language name</key>
+		<value />
 	</item>
 	<item>
 		<key>audioclip</key>

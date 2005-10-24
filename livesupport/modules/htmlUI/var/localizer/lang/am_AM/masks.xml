@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<translations>
+	<Id>am_AM</Id>
+	<item>
+		<key>Duration (ms)</key>
+		<value />
+	</item>
+	<item>
+		<key>Groupname</key>
+		<value />
+	</item>
+	<item>
+		<key>Maximum length of scratchpad</key>
+		<value />
+	</item>
+	<item>
+		<key>Media file</key>
+		<value />
+	</item>
+	<item>
+		<key>Metadata</key>
+		<value />
+	</item>
+	<item>
+		<key>New password</key>
+		<value />
+	</item>
+	<item>
+		<key>Old password</key>
+		<value />
+	</item>
+	<item>
+		<key>Repeat password</key>
+		<value />
+	</item>
+	<item>
+		<key>Reset criteria</key>
+		<value />
+	</item>
+	<item>
+		<key>Rows per page</key>
+		<value />
+	</item>
+	<item>
+		<key>Search library</key>
+		<value />
+	</item>
+	<item>
+		<key>Snap to hour</key>
+		<value />
+	</item>
+	<item>
+		<key>Snap to next</key>
+		<value />
+	</item>
+	<item>
+		<key>Snap to previous</key>
+		<value />
+	</item>
+	<item>
+		<key>Station logo</key>
+		<value />
+	</item>
+	<item>
+		<key>Station logo path</key>
+		<value />
+	</item>
+	<item>
+		<key>Station name</key>
+		<value />
+	</item>
+	<item>
+		<key>Test</key>
+		<value />
+	</item>
+</translations>
