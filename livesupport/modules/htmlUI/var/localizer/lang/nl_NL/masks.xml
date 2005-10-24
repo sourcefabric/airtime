@@ -94,14 +94,6 @@
 		<value />
 	</item>
 	<item>
-		<key>Edit File</key>
-		<value>Bestand aanpassen</value>
-	</item>
-	<item>
-		<key>Edit Metadata</key>
-		<value>Meta-gegevens aanpassen</value>
-	</item>
-	<item>
 		<key>Encoded by</key>
 		<value>Geencodeerd door</value>
 	</item>
@@ -226,10 +218,6 @@
 		<value>Waardering</value>
 	</item>
 	<item>
-		<key>Remove File from Playlist</key>
-		<value>Verwijder bestand uit de Playlist</value>
-	</item>
-	<item>
 		<key>Repeat password</key>
 		<value />
 	</item>
@@ -328,10 +316,6 @@
 	<item>
 		<key>Type</key>
 		<value>Type</value>
-	</item>
-	<item>
-		<key>Upload of file $1 was incomplete.</key>
-		<value>Uploaden van bestand $1 was niet compleet.</value>
 	</item>
 	<item>
 		<key>Username</key>

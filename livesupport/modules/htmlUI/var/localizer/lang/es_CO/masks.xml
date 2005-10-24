@@ -94,14 +94,6 @@
 		<value />
 	</item>
 	<item>
-		<key>Edit File</key>
-		<value>Duración</value>
-	</item>
-	<item>
-		<key>Edit Metadata</key>
-		<value>Editar lista de reproducción</value>
-	</item>
-	<item>
 		<key>Encoded by</key>
 		<value>Editar metadatos</value>
 	</item>
@@ -226,10 +218,6 @@
 		<value>Rango</value>
 	</item>
 	<item>
-		<key>Remove File from Playlist</key>
-		<value>Análisis en bruto</value>
-	</item>
-	<item>
 		<key>Repeat password</key>
 		<value />
 	</item>
@@ -328,10 +316,6 @@
 	<item>
 		<key>Type</key>
 		<value>Vista de árbol</value>
-	</item>
-	<item>
-		<key>Upload of file $1 was incomplete.</key>
-		<value>No se pudo revertir al estado de bloqueo</value>
 	</item>
 	<item>
 		<key>Username</key>

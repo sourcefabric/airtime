@@ -70,6 +70,10 @@
 		<value>Saradnik</value>
 	</item>
 	<item>
+		<key>Copyright</key>
+		<value />
+	</item>
+	<item>
 		<key>Creator</key>
 		<value />
 	</item>
@@ -88,14 +92,6 @@
 	<item>
 		<key>Duration (ms)</key>
 		<value />
-	</item>
-	<item>
-		<key>Edit File</key>
-		<value>Obradi fajl</value>
-	</item>
-	<item>
-		<key>Edit Metadata</key>
-		<value>Promeni metadatu</value>
 	</item>
 	<item>
 		<key>Encoded by</key>
@@ -222,10 +218,6 @@
 		<value>Ocena</value>
 	</item>
 	<item>
-		<key>Remove File from Playlist</key>
-		<value>Ukloni fajl iz  plej liste</value>
-	</item>
-	<item>
 		<key>Repeat password</key>
 		<value />
 	</item>
@@ -324,10 +316,6 @@
 	<item>
 		<key>Type</key>
 		<value>Tip</value>
-	</item>
-	<item>
-		<key>Upload of file $1 was incomplete.</key>
-		<value>Aploud fajla  $1 nije kompletan.</value>
 	</item>
 	<item>
 		<key>Username</key>

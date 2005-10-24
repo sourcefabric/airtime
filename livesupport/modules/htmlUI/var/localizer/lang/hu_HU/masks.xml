@@ -94,14 +94,6 @@
 		<value />
 	</item>
 	<item>
-		<key>Edit File</key>
-		<value />
-	</item>
-	<item>
-		<key>Edit Metadata</key>
-		<value />
-	</item>
-	<item>
 		<key>Encoded by</key>
 		<value />
 	</item>
@@ -226,10 +218,6 @@
 		<value />
 	</item>
 	<item>
-		<key>Remove File from Playlist</key>
-		<value />
-	</item>
-	<item>
 		<key>Repeat password</key>
 		<value />
 	</item>
@@ -327,10 +315,6 @@
 	</item>
 	<item>
 		<key>Type</key>
-		<value />
-	</item>
-	<item>
-		<key>Upload of file $1 was incomplete.</key>
 		<value />
 	</item>
 	<item>
