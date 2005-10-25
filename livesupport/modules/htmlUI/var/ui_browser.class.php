@@ -275,25 +275,24 @@ class uiBrowser extends uiBase {
 
         if (!is_array($relations)) include dirname(__FILE__).'/formmask/mdata_relations.inc.php';
 
-        $arr = $this->gb->getMDataArray($id, $this->sessid);
-        if (!is_array($arr)) return FALSE;
+        $mdata = $this->gb->getMDataArray($id, $this->sessid);
+        if (!is_array($mdata)) return FALSE;
 
-        foreach ($arr as $key=>$val) {
+        foreach ($mdata as $key=>$val) {
             if (is_array($val)) {
                 if ($val[$this->langid]) $val = $val[$this->langid];
                 else                     $val = $val[UI_DEFAULT_LANGID];
             }
 
             if ($relations[$key]) {
-                unset($arr[$key]);
-                $arr[$relations[tra($key)]]   = $val;
+                $arr[tra($relations[$key])]   = $val;
             } else {
-                $arr[$key] = $val;
+                $arr[tra($key)] = $val;
             }
         }
-
+        $arr[$relations[UI_MDATA_KEY_TITLE]] = $this->_getMDataValue($id, UI_MDATA_KEY_TITLE);
         ksort($arr);
-        #print_r($arr);
+
         return array('metadata' => $arr);
     }
 

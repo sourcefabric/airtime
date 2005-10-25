@@ -15,7 +15,7 @@
 	</item>
 	<item>
 		<key>Add Group</key>
-		<value>Gruppe hinzufügen</value>
+		<value>Neue Gruppe</value>
 	</item>
 	<item>
 		<key>Add Members</key>
@@ -23,7 +23,7 @@
 	</item>
 	<item>
 		<key>Add User</key>
-		<value>Benutzer hinzufügen</value>
+		<value>Neuer Benutzer</value>
 	</item>
 	<item>
 		<key>Add files to ScratchPad</key>
@@ -659,7 +659,7 @@
 	</item>
 	<item>
 		<key>calendar week</key>
-		<value>Kelenderwoche</value>
+		<value>Kalenderwoche</value>
 	</item>
 	<item>
 		<key>copy</key>
