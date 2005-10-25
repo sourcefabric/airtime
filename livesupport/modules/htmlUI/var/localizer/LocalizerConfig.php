@@ -26,9 +26,11 @@ $g_localizerConfig['DEFAULT_LANGUAGE'] = 'default_DEFAULT';
 // Filename prefix for translation files.
 $g_localizerConfig['FILENAME_PREFIX'] = 'locals';
 
-
 // Order keys alphabetically?
 $g_localizerConfig['ORDER_KEYS'] = TRUE;
+
+// Delete unsed key from non-default language files on sync?
+$g_localizerConfig['DELETE_UNUSED_ON_SYNC'] = TRUE; 
 
 // Filename prefix for the global translation file -
 // a file that is always loaded with the particular 

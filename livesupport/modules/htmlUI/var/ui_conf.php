@@ -53,6 +53,7 @@ define('UI_STATIONINFO_SESSNAME',       'STATIONINFO');
 define('UI_BROWSE_SESSNAME',            'L_BROWSE');
 define('UI_SEARCH_SESSNAME',            'L_SEARCH');
 define('UI_PLAYLIST_SESSNAME',          'PLAYLIST');
+define('UI_LOCALIZATION_SESSNAME',      'LOCALIZATION');
 
 ## Metadata Keys
 define('UI_MDATA_KEY_TITLE',            'dc:title');
@@ -122,20 +123,7 @@ $config = array_merge($config,
         'stream_types'  => array(
                             'application/ogg',
                             'audio/mpeg'
-        ),
-        'languages'     => array(
-                            'ar_JO'        => 'Arabic(JO)',
-                            'am_AM'        => 'Armenian(AM)',
-                            'en_GB'        => 'English (GB)',
-                            'en_US'        => 'English (US)',
-                            'es_CO'        => 'Español (CO)',
-                            'cz_CZ'        => 'Česky (CZ)',
-                            'de_DE'        => 'Deutsch (DE)',
-                            'hu_HU'        => 'Magyar (HU)',
-                            'nl_NL'        => 'Nederlands (NL)',
-                            'sr_CS'        => 'Srpski (CS)',
-                            'ru_RU'        => 'Russia(RU)'
-        ),
+        )
     )
 );
 require_once dirname(__FILE__).'/ui_base.inc.php';

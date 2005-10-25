@@ -70,7 +70,7 @@ class uiBrowser extends uiBase {
      *  @param string $faillogin login name of failed login process
      *  @return string (html)
      */
-    function login(&$mask)
+    function login($mask)
     {
         $form = new HTML_QuickForm('login', UI_STANDARD_FORM_METHOD, UI_HANDLER);
         $this->_parseArr2Form($form, $mask['languages']);

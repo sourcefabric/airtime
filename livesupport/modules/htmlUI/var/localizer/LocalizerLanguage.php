@@ -541,15 +541,16 @@ class LocalizerLanguage {
     		}
     		$count++;
     	} 
-
-    	foreach ($this->m_translationTable as $key => $value) { 
-    		if (!isset($defaultTranslationTable[$key])) {
-    			$this->deleteString($key, '', $count);
-    			$modified = true;
-    		}
-    		$count++;
-    	} 
-
+        if ($g_localizerConfig['DELETE_UNUSED_ON_SYNC'] === true) {
+        	foreach ($this->m_translationTable as $key => $value) { 
+        		if (!isset($defaultTranslationTable[$key])) {
+        			$this->deleteString($key, '', $count);
+        			$modified = true;
+        		}
+        		$count++;
+        	} 
+        }
+        
     	return ($this->fixPositions() || $modified);
     } // fn syncToDefault
     

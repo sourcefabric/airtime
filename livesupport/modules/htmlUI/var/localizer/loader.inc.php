@@ -7,4 +7,9 @@ function loadTranslations($langid)
     Localizer::LoadLanguageFiles('application', $langid, true);
     return Localizer::LoadLanguageFiles('templates', $langid, true);
 }
+
+function getLanguages()
+{
+    return LOCALIZER::getAllLanguages(NULL, FALSE);    
+}
 ?>

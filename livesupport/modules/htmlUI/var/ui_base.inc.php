@@ -17,6 +17,21 @@ function errCallBack($err)
 }
 
 // --- basic funtionality ---
+
+function _getLanguages()
+{
+    $languages =& $_SESSION[UI_LOCALIZATION_SESSNAME]['languages'];
+    
+    if (!is_array($languages)) {
+        include_once dirname(__FILE__).'/localizer/loader.inc.php'; 
+        foreach (getLanguages() as $k => $lang) { 
+            $languages[$lang->m_languageId] = $lang->m_nativeName;    
+        }    
+          
+    } 
+    return $languages;
+}
+
 /**
  *  tra
  *
@@ -29,7 +44,7 @@ function tra($input)
 {
     ## initialize at first call of this function ###
 
-    #$GS =& $_SESSION['GS'];
+    #$GS =& $_SESSION[UI_LOCALIZATION_SESSNAME]['GS'];
     static $GS;
     global $uiBase;
 
@@ -84,14 +99,6 @@ function _getNumArr($start, $end, $step=1)
     }
     return $arr;
 }
-
-
-function _getLanguages()
-{
-    global $config;
-    return $config['languages'];
-}
-
 
 /**
  *  uiBase class
