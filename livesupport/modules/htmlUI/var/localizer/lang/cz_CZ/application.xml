@@ -3,7 +3,7 @@
 	<Id>cz_CZ</Id>
 	<item>
 		<key>&quot;$1&quot; uses an unsupported file type.</key>
-		<value />
+		<value>&quot;$1&quot; používá nepodporovaný typ souboru</value>
 	</item>
 	<item>
 		<key>A playlist is already opened.</key>
@@ -15,7 +15,7 @@
 	</item>
 	<item>
 		<key>Access to home directory failed.</key>
-		<value />
+		<value>Přístup k domovskému adresáři selhal.</value>
 	</item>
 	<item>
 		<key>Cannot create playlist.</key>
@@ -79,7 +79,7 @@
 	</item>
 	<item>
 		<key>Group &quot;$1&quot; added.</key>
-		<value />
+		<value>Skupina &quot;$1&quot; přidána.</value>
 	</item>
 	<item>
 		<key>Invalid or incomplete form data.</key>
@@ -103,7 +103,7 @@
 	</item>
 	<item>
 		<key>Nothing selected.</key>
-		<value />
+		<value>Nic nebylo vybráno.</value>
 	</item>
 	<item>
 		<key>Old password was incorrect.</key>
@@ -135,7 +135,7 @@
 	</item>
 	<item>
 		<key>Playlist not found in database.</key>
-		<value />
+		<value>Playlist nenalezen v databázi.</value>
 	</item>
 	<item>
 		<key>Scheduler did not start. Check setting of &quot;UI_SCHEDULER_DAEMON_CMD&quot; in ui_conf.php. File &quot;/tmp/scheduler.log&quot; could be helpful.</key>
@@ -167,7 +167,7 @@
 	</item>
 	<item>
 		<key>Unable to open playlist &quot;$1&quot;.</key>
-		<value />
+		<value>Není možné otevřít playlist &quot;$1&quot;.</value>
 	</item>
 	<item>
 		<key>Unable to release playlist.</key>
@@ -179,11 +179,11 @@
 	</item>
 	<item>
 		<key>Unable to set &quot;$1&quot; to value &quot;$2&quot;.</key>
-		<value />
+		<value>Není možné nastavit &quot;$1&quot; na hodnotu &quot;$2&quot;.</value>
 	</item>
 	<item>
 		<key>Upload of file &quot;$1&quot; was incomplete.</key>
-		<value />
+		<value>Nahrávání souboru &quot;$1&quot; není kompletní.</value>
 	</item>
 	<item>
 		<key>Uploaded file &quot;$1&quot; is bigger than LiveSupport&amp;acute;s system setting.</key>
@@ -195,11 +195,11 @@
 	</item>
 	<item>
 		<key>User &quot;$1&quot; added.</key>
-		<value />
+		<value>Uživatel &quot;$1&quot; přidán.</value>
 	</item>
 	<item>
 		<key>User or group &quot;$1&quot; already exists.</key>
-		<value />
+		<value>Uživatel nebo skupina &quot;$1&quot; již existuje.</value>
 	</item>
 	<item>
 		<key>Warning: station preferences have not been set up properly.</key>

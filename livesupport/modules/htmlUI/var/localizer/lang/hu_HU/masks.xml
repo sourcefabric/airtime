@@ -11,139 +11,140 @@
 	</item>
 	<item>
 		<key>Album</key>
-		<value />
+		<value>Lemez</value>
 	</item>
 	<item>
 		<key>Artist web page</key>
-		<value />
+		<value>Előadó honlapja</value>
 	</item>
 	<item>
 		<key>Audio file information web page</key>
-		<value />
+		<value>Zeneszám honlapja</value>
 	</item>
 	<item>
 		<key>Audio source web page</key>
-		<value />
+		<value>Forrás honlapja</value>
 	</item>
 	<item>
 		<key>BPM</key>
-		<value />
+		<value>Tempó (BPM)</value>
 	</item>
 	<item>
 		<key>Bitrate</key>
-		<value />
+		<value>Bitek száma mp-ként</value>
 	</item>
 	<item>
 		<key>Buy CD web page</key>
-		<value />
+		<value>CD-bolt honlapja</value>
 	</item>
 	<item>
 		<key>Cancel</key>
-		<value />
+		<value>Mégse</value>
 	</item>
 	<item>
 		<key>Catalog number</key>
-		<value />
+		<value>Katalógusszám</value>
 	</item>
 	<item>
 		<key>Category</key>
-		<value />
+		<value>Típus</value>
 	</item>
 	<item>
 		<key>Channels</key>
-		<value />
+		<value>Csatornák száma</value>
 	</item>
 	<item>
 		<key>Checksum</key>
-		<value />
+		<value>Ellenőrző összeg</value>
 	</item>
 	<item>
 		<key>Composer</key>
-		<value />
+		<value>Zeneszerző</value>
 	</item>
 	<item>
 		<key>Conductor</key>
-		<value />
+		<value>Karmester</value>
 	</item>
 	<item>
 		<key>Contributor</key>
-		<value />
+		<value>Társszerző</value>
 	</item>
 	<item>
 		<key>Copyright</key>
-		<value />
+		<value>Szerzői jog tulajdonosa</value>
 	</item>
 	<item>
 		<key>Creator</key>
-		<value />
+		<value>Előadó</value>
 	</item>
 	<item>
 		<key>Date</key>
-		<value />
+		<value>Dátum</value>
 	</item>
 	<item>
 		<key>Description</key>
-		<value />
+		<value>Leírás</value>
 	</item>
 	<item>
 		<key>Disc number</key>
-		<value />
+		<value>Hányadik lemez</value>
 	</item>
 	<item>
 		<key>Duration (ms)</key>
-		<value />
+		<value>Hossz (ms)</value>
 	</item>
 	<item>
 		<key>Encoded by</key>
-		<value />
+		<value>Rögzítő neve</value>
 	</item>
 	<item>
 		<key>Encoder software used</key>
-		<value />
+		<value>Rögzítő szoftver</value>
 	</item>
 	<item>
 		<key>File format</key>
-		<value />
+		<value>Fájlformátum</value>
 	</item>
 	<item>
 		<key>File type</key>
-		<value />
+		<value>Fájltípus</value>
 	</item>
 	<item>
 		<key>Format</key>
-		<value />
+		<value>Típus</value>
 	</item>
 	<item>
 		<key>Frequency</key>
-		<value />
+		<value>Gyakoriság</value>
 	</item>
 	<item>
 		<key>Genre</key>
-		<value />
+		<value>Műfaj</value>
 	</item>
 	<item>
 		<key>Groupname</key>
-		<value />
+		<value>Csoport neve</value>
 	</item>
 	<item>
 		<key>ISRC number</key>
-		<value />
+		<value>ISRC-szám</value>
 	</item>
 	<item>
 		<key>Label</key>
-		<value />
+		<value>Kiadó</value>
 	</item>
 	<item>
 		<key>Language</key>
-		<value />
+		<value>Nyelv</value>
 	</item>
 	<item>
 		<key>Length</key>
-		<value />
+		<value>Hossz</value>
 	</item>
 	<item>
 		<key>Length&lt;br&gt;&lt;small&gt;Enter zero for Live Stream&lt;/small&gt;</key>
-		<value />
+		<value>Hossz
+Élő internetes adásnál írjon nullát</value>
 	</item>
 	<item>
 		<key>Login</key>
@@ -151,178 +152,178 @@
 	</item>
 	<item>
 		<key>Lyricist</key>
-		<value />
+		<value>Szövegíró</value>
 	</item>
 	<item>
 		<key>Lyrics</key>
-		<value />
+		<value>Dalszöveg</value>
 	</item>
 	<item>
 		<key>Maximum length of scratchpad</key>
-		<value />
+		<value>Gyorslista maximális hossza</value>
 	</item>
 	<item>
 		<key>Media file</key>
-		<value />
+		<value>Hangfájl</value>
 	</item>
 	<item>
 		<key>Metadata</key>
-		<value />
+		<value>Metaadat</value>
 	</item>
 	<item>
 		<key>Mood</key>
-		<value />
+		<value>Hangulat</value>
 	</item>
 	<item>
 		<key>New password</key>
-		<value />
+		<value>Új jelszó</value>
 	</item>
 	<item>
 		<key>Old password</key>
-		<value />
+		<value>Régi jelszó</value>
 	</item>
 	<item>
 		<key>Operator</key>
-		<value />
+		<value>Logikai művelet</value>
 	</item>
 	<item>
 		<key>Orchestra or band</key>
-		<value />
+		<value>Zenekar vagy együttes</value>
 	</item>
 	<item>
 		<key>Original artist</key>
-		<value />
+		<value>Eredeti előadó</value>
 	</item>
 	<item>
 		<key>Original lyricist</key>
-		<value />
+		<value>Eredeti szövegíró</value>
 	</item>
 	<item>
 		<key>Password</key>
-		<value />
+		<value>Jelszó</value>
 	</item>
 	<item>
 		<key>Playlist</key>
-		<value />
+		<value>Műsor</value>
 	</item>
 	<item>
 		<key>Radio station name</key>
-		<value />
+		<value>Rádiöállomás neve</value>
 	</item>
 	<item>
 		<key>Radio station web page</key>
-		<value />
+		<value>Rádiöállomás honlapja</value>
 	</item>
 	<item>
 		<key>Rating</key>
-		<value />
+		<value>Értékelés</value>
 	</item>
 	<item>
 		<key>Repeat password</key>
-		<value />
+		<value>Jelszó még egyszer</value>
 	</item>
 	<item>
 		<key>Report date/time</key>
-		<value />
+		<value>A tudósítás dátuma, időpontja</value>
 	</item>
 	<item>
 		<key>Report location</key>
-		<value />
+		<value>A tudósítás helyszíne</value>
 	</item>
 	<item>
 		<key>Report organizations</key>
-		<value />
+		<value>A tudósításban szereplő szervezetek</value>
 	</item>
 	<item>
 		<key>Reset</key>
-		<value />
+		<value>Visszaállítani</value>
 	</item>
 	<item>
 		<key>Reset criteria</key>
-		<value />
+		<value>Keresési feltételek visszaállítása</value>
 	</item>
 	<item>
 		<key>Rows per page</key>
-		<value />
+		<value>Sorok száma oldalanként</value>
 	</item>
 	<item>
 		<key>Sample rate</key>
-		<value />
+		<value>Mintavételi gyakoriság</value>
 	</item>
 	<item>
 		<key>Search</key>
-		<value />
+		<value>Keresés</value>
 	</item>
 	<item>
 		<key>Search library</key>
-		<value />
+		<value>Keresés a könyvtárban</value>
 	</item>
 	<item>
 		<key>Snap to hour</key>
-		<value />
+		<value>Egész órához igazítás</value>
 	</item>
 	<item>
 		<key>Snap to next</key>
-		<value />
+		<value>Utána következő műsorhoz igazítás</value>
 	</item>
 	<item>
 		<key>Snap to previous</key>
-		<value />
+		<value>Előtte levő műsorhoz igazítás</value>
 	</item>
 	<item>
 		<key>Station URL</key>
-		<value />
+		<value>Rádióállomás honlapja</value>
 	</item>
 	<item>
 		<key>Station logo</key>
-		<value />
+		<value>Rádióállomás logója</value>
 	</item>
 	<item>
 		<key>Station logo path</key>
-		<value />
+		<value>Rádióállomás logo helye</value>
 	</item>
 	<item>
 		<key>Station name</key>
-		<value />
+		<value>Rádióállomás neve</value>
 	</item>
 	<item>
 		<key>Stream URL</key>
-		<value />
+		<value>Élő internetes adás címe (URL-je)</value>
 	</item>
 	<item>
 		<key>Subject</key>
-		<value />
+		<value>Tárgy</value>
 	</item>
 	<item>
 		<key>Submit</key>
-		<value />
+		<value>Mehet</value>
 	</item>
 	<item>
 		<key>Test</key>
-		<value />
+		<value>Próba</value>
 	</item>
 	<item>
 		<key>Time</key>
-		<value />
+		<value>Idő</value>
 	</item>
 	<item>
 		<key>Title</key>
-		<value />
+		<value>Cím</value>
 	</item>
 	<item>
 		<key>Track number</key>
-		<value />
+		<value>Hányadik szám</value>
 	</item>
 	<item>
 		<key>Type</key>
-		<value />
+		<value>Típus</value>
 	</item>
 	<item>
 		<key>Username</key>
-		<value />
+		<value>Felhasználónév</value>
 	</item>
 	<item>
 		<key>Year</key>
-		<value />
+		<value>Év</value>
 	</item>
 </translations>

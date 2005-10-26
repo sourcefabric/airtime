@@ -2,6 +2,54 @@
 <translations>
 	<Id>nl_NL</Id>
 	<item>
+		<key>April</key>
+		<value>april</value>
+	</item>
+	<item>
+		<key>August</key>
+		<value>augustus</value>
+	</item>
+	<item>
+		<key>December</key>
+		<value>december</value>
+	</item>
+	<item>
+		<key>February</key>
+		<value>februari</value>
+	</item>
+	<item>
+		<key>January</key>
+		<value>januari</value>
+	</item>
+	<item>
+		<key>July</key>
+		<value>juli</value>
+	</item>
+	<item>
+		<key>June</key>
+		<value>juni</value>
+	</item>
+	<item>
+		<key>March</key>
+		<value>maart</value>
+	</item>
+	<item>
+		<key>May</key>
+		<value>mei</value>
+	</item>
+	<item>
+		<key>November</key>
+		<value>november</value>
+	</item>
+	<item>
+		<key>October</key>
+		<value>oktober</value>
+	</item>
+	<item>
+		<key>September</key>
+		<value>september</value>
+	</item>
+	<item>
 		<key>Access</key>
 		<value>Toegang</value>
 	</item>
@@ -50,10 +98,6 @@
 		<value />
 	</item>
 	<item>
-		<key>April</key>
-		<value>april</value>
-	</item>
-	<item>
 		<key>Are you sure to delete $1 selected files?</key>
 		<value />
 	</item>
@@ -92,10 +136,6 @@
 	<item>
 		<key>Audioclip</key>
 		<value />
-	</item>
-	<item>
-		<key>August</key>
-		<value>augustus</value>
 	</item>
 	<item>
 		<key>Back to overview</key>
@@ -190,10 +230,6 @@
 		<value>Dag</value>
 	</item>
 	<item>
-		<key>December</key>
-		<value>december</value>
-	</item>
-	<item>
 		<key>Delete</key>
 		<value>Verwijderen</value>
 	</item>
@@ -228,10 +264,6 @@
 	<item>
 		<key>Fade</key>
 		<value>Fade</value>
-	</item>
-	<item>
-		<key>February</key>
-		<value>februari</value>
 	</item>
 	<item>
 		<key>File List</key>
@@ -270,18 +302,6 @@
 		<value>Item</value>
 	</item>
 	<item>
-		<key>January</key>
-		<value>januari</value>
-	</item>
-	<item>
-		<key>July</key>
-		<value>juli</value>
-	</item>
-	<item>
-		<key>June</key>
-		<value>juni</value>
-	</item>
-	<item>
 		<key>Library Search</key>
 		<value>Zoeken in bibliotheek</value>
 	</item>
@@ -308,14 +328,6 @@
 	<item>
 		<key>Manage group members</key>
 		<value>Beheer groepsleden</value>
-	</item>
-	<item>
-		<key>March</key>
-		<value>maart</value>
-	</item>
-	<item>
-		<key>May</key>
-		<value>mei</value>
 	</item>
 	<item>
 		<key>Media Library</key>
@@ -394,20 +406,12 @@
 		<value>Niets over</value>
 	</item>
 	<item>
-		<key>November</key>
-		<value>november</value>
-	</item>
-	<item>
 		<key>Now Playing</key>
 		<value />
 	</item>
 	<item>
 		<key>OK</key>
 		<value />
-	</item>
-	<item>
-		<key>October</key>
-		<value>oktober</value>
 	</item>
 	<item>
 		<key>Open last Playlist</key>
@@ -516,10 +520,6 @@
 	<item>
 		<key>Search</key>
 		<value>Zoeken</value>
-	</item>
-	<item>
-		<key>September</key>
-		<value>september</value>
 	</item>
 	<item>
 		<key>Show Info</key>
