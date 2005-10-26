@@ -162,6 +162,9 @@ function translationForm($p_request)
 				    	<?php echo LanguageMenu(LOCALIZER::getAllLanguages(NULL, $g_localizerConfig['MAINTENANCE']), $localizerTargetLanguage); ?>
 				        </select>
 					</td>
+					<td>
+					   <input type="button" value="Download" onclick="location.href='lang/<?php echo "$localizerTargetLanguage/$screenDropDownSelection.xml"; ?>'">
+					</td>
 				</tr>
 				</table>
 			</td>

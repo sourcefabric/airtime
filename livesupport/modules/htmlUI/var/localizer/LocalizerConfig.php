@@ -27,7 +27,7 @@ $g_localizerConfig['DEFAULT_LANGUAGE'] = 'default_DEFAULT';
 $g_localizerConfig['FILENAME_PREFIX'] = 'locals';
 
 // Order keys alphabetically?
-$g_localizerConfig['ORDER_KEYS'] = TRUE;
+$g_localizerConfig['ORDER_KEYS'] = FALSE;
 
 // Delete unsed key from non-default language files on sync?
 $g_localizerConfig['DELETE_UNUSED_ON_SYNC'] = TRUE; 

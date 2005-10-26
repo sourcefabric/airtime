@@ -41,14 +41,29 @@
 		<NativeName>Español (CO)</NativeName>
 	</item>
 	<item>
+		<Id>fr_FR</Id>
+		<Name>French</Name>
+		<NativeName>Français (FR)</NativeName>
+	</item>
+	<item>
 		<Id>hu_HU</Id>
 		<Name>Hungarian (HU)</Name>
 		<NativeName>Magyar (HU)</NativeName>
 	</item>
 	<item>
+		<Id>it_IT</Id>
+		<Name>Italian</Name>
+		<NativeName>Italiano (IT)</NativeName>
+	</item>
+	<item>
 		<Id>nl_NL</Id>
 		<Name>Dutch (NL)</Name>
 		<NativeName>Nederlands (NL)</NativeName>
+	</item>
+	<item>
+		<Id>pl_PL</Id>
+		<Name>Polish (PL)</Name>
+		<NativeName>Polski (PL)</NativeName>
 	</item>
 	<item>
 		<Id>ru_RU</Id>
