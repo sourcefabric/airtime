@@ -79,7 +79,7 @@
 	</item>
 	<item>
 		<key>Group &quot;$1&quot; added.</key>
-		<value />
+		<value>Groep &quot;$1&quot; toegevoegd.</value>
 	</item>
 	<item>
 		<key>Invalid or incomplete form data.</key>
@@ -135,15 +135,15 @@
 	</item>
 	<item>
 		<key>Playlist not found in database.</key>
-		<value />
+		<value>Playlist niet in het gegevensbestand gevonden.</value>
 	</item>
 	<item>
 		<key>Scheduler did not start. Check setting of &quot;UI_SCHEDULER_DAEMON_CMD&quot; in ui_conf.php. File &quot;/tmp/scheduler.log&quot; could be helpful.</key>
-		<value />
+		<value>Scheduler is niet gestart.  Controleer in ui_conf.php de &quot;UI_SCHEDULER_DAEMON_CMD&quot; instelling. Log bestand &quot;/tmp/scheduler.log&quot; aangemaakt, misschien zou het nuttig kunnen zijn.</value>
 	</item>
 	<item>
 		<key>Scheduler is running.</key>
-		<value />
+		<value>De Scheduler loopt.</value>
 	</item>
 	<item>
 		<key>Settings saved.</key>
@@ -195,7 +195,7 @@
 	</item>
 	<item>
 		<key>User &quot;$1&quot; added.</key>
-		<value />
+		<value>Gebruiker &quot;$1&quot; is toegevoegd.</value>
 	</item>
 	<item>
 		<key>User or group &quot;$1&quot; already exists.</key>

@@ -55,7 +55,7 @@
 	</item>
 	<item>
 		<key>Action</key>
-		<value />
+		<value>Actie</value>
 	</item>
 	<item>
 		<key>Add Audio</key>
@@ -75,11 +75,11 @@
 	</item>
 	<item>
 		<key>Add files to ScratchPad</key>
-		<value />
+		<value>Voeg bestanden aan ScratchPad toe</value>
 	</item>
 	<item>
 		<key>Add files to open Playlist</key>
-		<value />
+		<value>Voeg bestanden aan de open Playlist toe</value>
 	</item>
 	<item>
 		<key>Add selected</key>
@@ -95,31 +95,31 @@
 	</item>
 	<item>
 		<key>Add to playlist</key>
-		<value />
+		<value>Aan playlist toevoegen.</value>
 	</item>
 	<item>
 		<key>Are you sure to delete $1 selected files?</key>
-		<value />
+		<value>Bent u er zeker van om de geselecteerde bestanden $1 te verwijderen?</value>
 	</item>
 	<item>
 		<key>Are you sure to delete file &quot;$1&quot;?</key>
-		<value />
+		<value>Bent u er zeker van het bestand &quot;$1&quot; te verwijderen?</value>
 	</item>
 	<item>
 		<key>Are you sure to delete open Playlist?</key>
-		<value />
+		<value>Bent u er zeker van de open Playlist te verwijderen?</value>
 	</item>
 	<item>
 		<key>Are you sure to discard all changes?</key>
-		<value>Wilt U alle wijzigingen negeren?</value>
+		<value>Wilt u alle wijzigingen negeren?</value>
 	</item>
 	<item>
 		<key>Are you sure to logout?</key>
-		<value />
+		<value>Wilt u uitloggen?</value>
 	</item>
 	<item>
 		<key>Are you sure to remove &quot;$1&quot;?</key>
-		<value />
+		<value>Wilt u &quot;$1&quot; verwijderen?</value>
 	</item>
 	<item>
 		<key>Are you sure to remove playlist &quot;$1&quot;?</key>
@@ -135,7 +135,7 @@
 	</item>
 	<item>
 		<key>Audioclip</key>
-		<value />
+		<value>Audioclip</value>
 	</item>
 	<item>
 		<key>Back to overview</key>
@@ -155,7 +155,7 @@
 	</item>
 	<item>
 		<key>Cannot connect to Scheduler</key>
-		<value />
+		<value>Kan niet met de Scheduler verbinden</value>
 	</item>
 	<item>
 		<key>Change Fadein</key>
@@ -167,11 +167,11 @@
 	</item>
 	<item>
 		<key>Change Fades</key>
-		<value />
+		<value>Fades aanpassen</value>
 	</item>
 	<item>
 		<key>Change Password</key>
-		<value />
+		<value>Wijzig wachtwoord</value>
 	</item>
 	<item>
 		<key>Change Transition</key>
@@ -183,7 +183,7 @@
 	</item>
 	<item>
 		<key>Change password for: $1</key>
-		<value />
+		<value>Wijzig wachtwoord voor:  $1</value>
 	</item>
 	<item>
 		<key>Clear</key>
@@ -195,23 +195,23 @@
 	</item>
 	<item>
 		<key>Close</key>
-		<value />
+		<value>Sluiten</value>
 	</item>
 	<item>
 		<key>Close Playlist</key>
-		<value />
+		<value>Sluit Playlist</value>
 	</item>
 	<item>
 		<key>Connection to $1 port $2 $3</key>
-		<value />
+		<value>Verbinden met $1 via poort $2 $3</value>
 	</item>
 	<item>
 		<key>Count</key>
-		<value />
+		<value>Teller</value>
 	</item>
 	<item>
 		<key>Creator</key>
-		<value />
+		<value>Schrijver</value>
 	</item>
 	<item>
 		<key>Current Members</key>
@@ -219,11 +219,11 @@
 	</item>
 	<item>
 		<key>Daily View</key>
-		<value />
+		<value>Dagelijks</value>
 	</item>
 	<item>
 		<key>Data</key>
-		<value />
+		<value>Gegevens</value>
 	</item>
 	<item>
 		<key>Day</key>
@@ -239,7 +239,7 @@
 	</item>
 	<item>
 		<key>Delete files</key>
-		<value />
+		<value>Verwijder bestanden</value>
 	</item>
 	<item>
 		<key>Description</key>
@@ -259,7 +259,7 @@
 	</item>
 	<item>
 		<key>Edit Playlist</key>
-		<value />
+		<value>Playlist bewerken</value>
 	</item>
 	<item>
 		<key>Fade</key>
@@ -295,7 +295,7 @@
 	</item>
 	<item>
 		<key>Insert playlist here</key>
-		<value />
+		<value>Playlist hier invoegen</value>
 	</item>
 	<item>
 		<key>Item</key>
@@ -311,7 +311,7 @@
 	</item>
 	<item>
 		<key>Listen</key>
-		<value />
+		<value>Luister</value>
 	</item>
 	<item>
 		<key>Login</key>
@@ -323,7 +323,7 @@
 	</item>
 	<item>
 		<key>Manage Group: $1</key>
-		<value />
+		<value>Groep $1 beheren</value>
 	</item>
 	<item>
 		<key>Manage group members</key>
@@ -339,7 +339,7 @@
 	</item>
 	<item>
 		<key>Metadata XML</key>
-		<value />
+		<value>Metadata XML</value>
 	</item>
 	<item>
 		<key>Mo</key>
@@ -375,7 +375,7 @@
 	</item>
 	<item>
 		<key>New Playlist using this files</key>
-		<value />
+		<value>Deze bestanden in nieuwe Playlist gebruiken</value>
 	</item>
 	<item>
 		<key>New empty Playlist</key>
@@ -383,7 +383,7 @@
 	</item>
 	<item>
 		<key>New playlist using this files</key>
-		<value />
+		<value>Deze bestanden in nieuwe Playlist gebruiken</value>
 	</item>
 	<item>
 		<key>No Entry</key>
@@ -407,11 +407,11 @@
 	</item>
 	<item>
 		<key>Now Playing</key>
-		<value />
+		<value>Now Playing</value>
 	</item>
 	<item>
 		<key>OK</key>
-		<value />
+		<value>OK</value>
 	</item>
 	<item>
 		<key>Open last Playlist</key>
@@ -423,7 +423,7 @@
 	</item>
 	<item>
 		<key>Playing Next</key>
-		<value />
+		<value>Playing Next</value>
 	</item>
 	<item>
 		<key>Playlist</key>
@@ -431,7 +431,7 @@
 	</item>
 	<item>
 		<key>Playlist Editor</key>
-		<value />
+		<value>Playlist Editor</value>
 	</item>
 	<item>
 		<key>Playlist Metadata</key>
@@ -443,7 +443,7 @@
 	</item>
 	<item>
 		<key>Preferences</key>
-		<value />
+		<value>Eigenschappen</value>
 	</item>
 	<item>
 		<key>Range</key>
@@ -459,11 +459,11 @@
 	</item>
 	<item>
 		<key>Remove files</key>
-		<value />
+		<value>Bestanden verwijderen</value>
 	</item>
 	<item>
 		<key>Remove from ScratchPad</key>
-		<value />
+		<value>Verwijder uit scratchPad</value>
 	</item>
 	<item>
 		<key>Remove from group</key>
@@ -471,11 +471,11 @@
 	</item>
 	<item>
 		<key>Remove from playlist</key>
-		<value />
+		<value>Verwijder uit playlist</value>
 	</item>
 	<item>
 		<key>Remove playlist</key>
-		<value />
+		<value>Playlist verwijderen</value>
 	</item>
 	<item>
 		<key>Remove selected</key>
@@ -483,7 +483,7 @@
 	</item>
 	<item>
 		<key>Reorder Playlist</key>
-		<value />
+		<value>Playlist sorteren</value>
 	</item>
 	<item>
 		<key>Revert to Saved</key>
@@ -503,7 +503,7 @@
 	</item>
 	<item>
 		<key>Schedule</key>
-		<value />
+		<value>Plannen</value>
 	</item>
 	<item>
 		<key>Scheduler</key>
@@ -523,7 +523,7 @@
 	</item>
 	<item>
 		<key>Show Info</key>
-		<value />
+		<value>Informatie weergeven</value>
 	</item>
 	<item>
 		<key>Signed in</key>
@@ -531,7 +531,7 @@
 	</item>
 	<item>
 		<key>Start Scheduler</key>
-		<value />
+		<value>Scheduler starten</value>
 	</item>
 	<item>
 		<key>Station Settings</key>
@@ -543,15 +543,15 @@
 	</item>
 	<item>
 		<key>Station settings</key>
-		<value />
+		<value>Eigenschappen</value>
 	</item>
 	<item>
 		<key>Stream has wrong content type &lt;font color=&quot;red&quot;&gt;$1&lt;/font&gt;.</key>
-		<value />
+		<value>De Stream heeft verkeerd inhoudstype &lt;font color=&quot;red&quot;&gt;$1&lt;/font&gt;.</value>
 	</item>
 	<item>
 		<key>Stream is wanted type &lt;font color=&quot;green&quot;&gt;$1&lt;/font&gt;.</key>
-		<value />
+		<value>Voor de stream is type &lt;font color=&quot;green&quot;&gt;$1&lt;/font&gt; gewenst.</value>
 	</item>
 	<item>
 		<key>Su</key>
@@ -599,15 +599,15 @@
 	</item>
 	<item>
 		<key>URL is &lt;font color=&quot;green&quot;&gt;valid&lt;/font&gt;.</key>
-		<value />
+		<value>De URL is &lt;font color=&quot;green&quot;&gt;valid&lt;/font&gt;.</value>
 	</item>
 	<item>
 		<key>URL seems &lt;font color=&quot;red&quot;&gt;invalid&lt;/font&gt;. Returned error-code: $1.</key>
-		<value />
+		<value>De URL blijkt &lt;font color=&quot;red&quot;&gt;invalid&lt;/font&gt;. Foutmelding  $1 ontvangen.</value>
 	</item>
 	<item>
 		<key>Use to create playlist</key>
-		<value />
+		<value>Deze gebruiken om playlist te creëren</value>
 	</item>
 	<item>
 		<key>User/Group Management</key>
@@ -619,7 +619,7 @@
 	</item>
 	<item>
 		<key>Voice</key>
-		<value />
+		<value>Items</value>
 	</item>
 	<item>
 		<key>We</key>
@@ -627,7 +627,7 @@
 	</item>
 	<item>
 		<key>Webstream</key>
-		<value />
+		<value>Webstream</value>
 	</item>
 	<item>
 		<key>Wednesday</key>
@@ -647,15 +647,15 @@
 	</item>
 	<item>
 		<key>_Name of translator</key>
-		<value />
+		<value>Frans van Berckel</value>
 	</item>
 	<item>
 		<key>_Native language name</key>
-		<value />
+		<value>Nederlands</value>
 	</item>
 	<item>
 		<key>audioclip</key>
-		<value />
+		<value>audioclip</value>
 	</item>
 	<item>
 		<key>calendar week</key>
@@ -679,7 +679,7 @@
 	</item>
 	<item>
 		<key>in use by: $1</key>
-		<value />
+		<value>Is in gebruik bij: $1</value>
 	</item>
 	<item>
 		<key>login</key>
@@ -719,11 +719,11 @@
 	</item>
 	<item>
 		<key>playlist</key>
-		<value />
+		<value>playlist</value>
 	</item>
 	<item>
 		<key>previous</key>
-		<value />
+		<value>Vorige</value>
 	</item>
 	<item>
 		<key>s</key>
@@ -735,14 +735,14 @@
 	</item>
 	<item>
 		<key>tomorrow</key>
-		<value />
+		<value>morgen</value>
 	</item>
 	<item>
 		<key>webstream</key>
-		<value />
+		<value>webstream</value>
 	</item>
 	<item>
 		<key>yesterday</key>
-		<value />
+		<value>gisteren</value>
 	</item>
 </translations>

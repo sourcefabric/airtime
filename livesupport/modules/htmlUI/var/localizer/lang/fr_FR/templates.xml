@@ -3,419 +3,419 @@
 	<Id>fr_FR</Id>
 	<item>
 		<key>April</key>
-		<value />
+		<value>Avril</value>
 	</item>
 	<item>
 		<key>August</key>
-		<value />
+		<value>Août</value>
 	</item>
 	<item>
 		<key>December</key>
-		<value />
+		<value>Décembre</value>
 	</item>
 	<item>
 		<key>February</key>
-		<value />
+		<value>Février</value>
 	</item>
 	<item>
 		<key>January</key>
-		<value />
+		<value>Janvier</value>
 	</item>
 	<item>
 		<key>July</key>
-		<value />
+		<value>Juillet</value>
 	</item>
 	<item>
 		<key>June</key>
-		<value />
+		<value>Juin</value>
 	</item>
 	<item>
 		<key>March</key>
-		<value />
+		<value>Mars</value>
 	</item>
 	<item>
 		<key>May</key>
-		<value />
+		<value>Mai</value>
 	</item>
 	<item>
 		<key>November</key>
-		<value />
+		<value>Novembre</value>
 	</item>
 	<item>
 		<key>October</key>
-		<value />
+		<value>Octobre</value>
 	</item>
 	<item>
 		<key>September</key>
-		<value />
+		<value>Septembre</value>
 	</item>
 	<item>
 		<key>Access</key>
-		<value />
+		<value>Accès</value>
 	</item>
 	<item>
 		<key>Action</key>
-		<value />
+		<value>Action</value>
 	</item>
 	<item>
 		<key>Add Audio</key>
-		<value />
+		<value>Ajouter un fichier</value>
 	</item>
 	<item>
 		<key>Add Group</key>
-		<value />
+		<value>Ajouter un groupe</value>
 	</item>
 	<item>
 		<key>Add Members</key>
-		<value />
+		<value>Ajouter des membres</value>
 	</item>
 	<item>
 		<key>Add User</key>
-		<value />
+		<value>Ajouter un utilisateur</value>
 	</item>
 	<item>
 		<key>Add files to ScratchPad</key>
-		<value />
+		<value>Ajouter des fichiers à la collection</value>
 	</item>
 	<item>
 		<key>Add files to open Playlist</key>
-		<value />
+		<value>Ajouter des fichiers à la playlist ouverte</value>
 	</item>
 	<item>
 		<key>Add selected</key>
-		<value />
+		<value>Ajouter les morceaux choisis</value>
 	</item>
 	<item>
 		<key>Add to ScratchPad</key>
-		<value />
+		<value>Ajouter à la collection</value>
 	</item>
 	<item>
 		<key>Add to group</key>
-		<value />
+		<value>Ajouter au groupe</value>
 	</item>
 	<item>
 		<key>Add to playlist</key>
-		<value />
+		<value>Ajouter à la plalist</value>
 	</item>
 	<item>
 		<key>Are you sure to delete $1 selected files?</key>
-		<value />
+		<value>Effacer les $1 fichiers choisis ?</value>
 	</item>
 	<item>
 		<key>Are you sure to delete file &quot;$1&quot;?</key>
-		<value />
+		<value>Effacer le fichier &quot;$1&quot; ?</value>
 	</item>
 	<item>
 		<key>Are you sure to delete open Playlist?</key>
-		<value />
+		<value>Effacer la playlist ouverte ?</value>
 	</item>
 	<item>
 		<key>Are you sure to discard all changes?</key>
-		<value />
+		<value>Abandonner tous les changements ?</value>
 	</item>
 	<item>
 		<key>Are you sure to logout?</key>
-		<value />
+		<value>Déconnexion ?</value>
 	</item>
 	<item>
 		<key>Are you sure to remove &quot;$1&quot;?</key>
-		<value />
+		<value>Effacer &quot;$1&quot; ?</value>
 	</item>
 	<item>
 		<key>Are you sure to remove playlist &quot;$1&quot;?</key>
-		<value />
+		<value>Effacer la playlist &quot;$1&quot; ?</value>
 	</item>
 	<item>
 		<key>Are you sure you want to change existing metadata?</key>
-		<value />
+		<value>Changer les informations existantes ?</value>
 	</item>
 	<item>
 		<key>Artist</key>
-		<value />
+		<value>Artiste</value>
 	</item>
 	<item>
 		<key>Audioclip</key>
-		<value />
+		<value>Morceau</value>
 	</item>
 	<item>
 		<key>Back to overview</key>
-		<value />
+		<value>Revenir à la navigation</value>
 	</item>
 	<item>
 		<key>Browse</key>
-		<value />
+		<value>Navigation</value>
 	</item>
 	<item>
 		<key>CW</key>
-		<value />
+		<value>CW</value>
 	</item>
 	<item>
 		<key>Cancel</key>
-		<value />
+		<value>Annuler</value>
 	</item>
 	<item>
 		<key>Cannot connect to Scheduler</key>
-		<value />
+		<value>Connexion au Scheduler imposible</value>
 	</item>
 	<item>
 		<key>Change Fadein</key>
-		<value />
+		<value>Modifier l&apos;entrée</value>
 	</item>
 	<item>
 		<key>Change Fadeout</key>
-		<value />
+		<value>Modifier la sortie</value>
 	</item>
 	<item>
 		<key>Change Fades</key>
-		<value />
+		<value>Modifier les passages</value>
 	</item>
 	<item>
 		<key>Change Password</key>
-		<value />
+		<value>Modifier votre mot de passe</value>
 	</item>
 	<item>
 		<key>Change Transition</key>
-		<value />
+		<value>Modifier les transitions</value>
 	</item>
 	<item>
 		<key>Change password</key>
-		<value />
+		<value>Modifier votre mot de passe</value>
 	</item>
 	<item>
 		<key>Change password for: $1</key>
-		<value />
+		<value>Modifier le mot de passe de: $1</value>
 	</item>
 	<item>
 		<key>Clear</key>
-		<value />
+		<value>Effacer</value>
 	</item>
 	<item>
 		<key>Clear Playlist</key>
-		<value />
+		<value>Effacer la playlist</value>
 	</item>
 	<item>
 		<key>Close</key>
-		<value />
+		<value>Fermer</value>
 	</item>
 	<item>
 		<key>Close Playlist</key>
-		<value />
+		<value>Fermer la playlist</value>
 	</item>
 	<item>
 		<key>Connection to $1 port $2 $3</key>
-		<value />
+		<value>Connexion à $1, port $2 $3</value>
 	</item>
 	<item>
 		<key>Count</key>
-		<value />
+		<value>Conter</value>
 	</item>
 	<item>
 		<key>Creator</key>
-		<value />
+		<value>Créateur</value>
 	</item>
 	<item>
 		<key>Current Members</key>
-		<value />
+		<value>Membres actuels</value>
 	</item>
 	<item>
 		<key>Daily View</key>
-		<value />
+		<value>Vue du jour</value>
 	</item>
 	<item>
 		<key>Data</key>
-		<value />
+		<value>Data</value>
 	</item>
 	<item>
 		<key>Day</key>
-		<value />
+		<value>Jour</value>
 	</item>
 	<item>
 		<key>Delete</key>
-		<value />
+		<value>Effacer</value>
 	</item>
 	<item>
 		<key>Delete Playlist</key>
-		<value />
+		<value>Effacer la playlist</value>
 	</item>
 	<item>
 		<key>Delete files</key>
-		<value />
+		<value>Effacer les fichiers</value>
 	</item>
 	<item>
 		<key>Description</key>
-		<value />
+		<value>Description</value>
 	</item>
 	<item>
 		<key>Do you want to save changes?</key>
-		<value />
+		<value>Enregistrer les changements ?</value>
 	</item>
 	<item>
 		<key>Duration</key>
-		<value />
+		<value>Durée</value>
 	</item>
 	<item>
 		<key>Edit</key>
-		<value />
+		<value>Edition</value>
 	</item>
 	<item>
 		<key>Edit Playlist</key>
-		<value />
+		<value>Edition de la playlist</value>
 	</item>
 	<item>
 		<key>Fade</key>
-		<value />
+		<value>Passage</value>
 	</item>
 	<item>
 		<key>File List</key>
-		<value />
+		<value>Liste des fichiers</value>
 	</item>
 	<item>
 		<key>File Management</key>
-		<value />
+		<value>Gestion des fichiers</value>
 	</item>
 	<item>
 		<key>Folder Structure</key>
-		<value />
+		<value>Arborescence des répertoires</value>
 	</item>
 	<item>
 		<key>Fr</key>
-		<value />
+		<value>V</value>
 	</item>
 	<item>
 		<key>Friday</key>
-		<value />
+		<value>Vendredi</value>
 	</item>
 	<item>
 		<key>Go</key>
-		<value />
+		<value>Go</value>
 	</item>
 	<item>
 		<key>Help</key>
-		<value />
+		<value>Aide</value>
 	</item>
 	<item>
 		<key>Insert playlist here</key>
-		<value />
+		<value>Insérer la playlist ici</value>
 	</item>
 	<item>
 		<key>Item</key>
-		<value />
+		<value>Elément</value>
 	</item>
 	<item>
 		<key>Library Search</key>
-		<value />
+		<value>Recherche</value>
 	</item>
 	<item>
 		<key>List Folder</key>
-		<value />
+		<value>Liste des répertoires</value>
 	</item>
 	<item>
 		<key>Listen</key>
-		<value />
+		<value>Écouter</value>
 	</item>
 	<item>
 		<key>Login</key>
-		<value />
+		<value>Connexion</value>
 	</item>
 	<item>
 		<key>Main</key>
-		<value />
+		<value>Début</value>
 	</item>
 	<item>
 		<key>Manage Group: $1</key>
-		<value />
+		<value>Gestion du groupe $1</value>
 	</item>
 	<item>
 		<key>Manage group members</key>
-		<value />
+		<value>Gestion des membres du groupe</value>
 	</item>
 	<item>
 		<key>Media Library</key>
-		<value />
+		<value>Fichiers</value>
 	</item>
 	<item>
 		<key>Members</key>
-		<value />
+		<value>Membres</value>
 	</item>
 	<item>
 		<key>Metadata XML</key>
-		<value />
+		<value>Informations XML</value>
 	</item>
 	<item>
 		<key>Mo</key>
-		<value />
+		<value>L</value>
 	</item>
 	<item>
 		<key>Monday</key>
-		<value />
+		<value>Lundi</value>
 	</item>
 	<item>
 		<key>Month</key>
-		<value />
+		<value>Mois</value>
 	</item>
 	<item>
 		<key>Monthly View</key>
-		<value />
+		<value>Vue du mois</value>
 	</item>
 	<item>
 		<key>Move</key>
-		<value />
+		<value>Déplacer</value>
 	</item>
 	<item>
 		<key>Multiple Action:</key>
-		<value />
+		<value>Action:</value>
 	</item>
 	<item>
 		<key>Music</key>
-		<value />
+		<value>Musique</value>
 	</item>
 	<item>
 		<key>New</key>
-		<value />
+		<value>Nouveau</value>
 	</item>
 	<item>
 		<key>New Playlist using this files</key>
-		<value />
+		<value>Nouvelle playlist à partir de ces fichiers</value>
 	</item>
 	<item>
 		<key>New empty Playlist</key>
-		<value />
+		<value>Nouvelle playlist vide</value>
 	</item>
 	<item>
 		<key>New playlist using this files</key>
-		<value />
+		<value>Nouvelle playlist à partir de ces fichiers</value>
 	</item>
 	<item>
 		<key>No Entry</key>
-		<value />
+		<value>Aucun élément</value>
 	</item>
 	<item>
 		<key>No group members</key>
-		<value />
+		<value>Aucun membre dans le groupe</value>
 	</item>
 	<item>
 		<key>No match found.</key>
-		<value />
+		<value>Aucun élément correspondant</value>
 	</item>
 	<item>
 		<key>No objects</key>
-		<value />
+		<value>Aucun objet</value>
 	</item>
 	<item>
 		<key>Nothing left</key>
-		<value />
+		<value>Il ne reste plus rien</value>
 	</item>
 	<item>
 		<key>Now Playing</key>
-		<value />
+		<value>Maintenant</value>
 	</item>
 	<item>
 		<key>OK</key>
-		<value />
+		<value>OK</value>
 	</item>
 	<item>
 		<key>Open last Playlist</key>
-		<value />
+		<value>Ouvrir la dernière playlist</value>
 	</item>
 	<item>
 		<key>Page</key>

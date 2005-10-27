@@ -75,7 +75,7 @@
 	</item>
 	<item>
 		<key>Creator</key>
-		<value />
+		<value>Schrijver</value>
 	</item>
 	<item>
 		<key>Date</key>
@@ -91,7 +91,7 @@
 	</item>
 	<item>
 		<key>Duration (ms)</key>
-		<value />
+		<value>Duur (ms)</value>
 	</item>
 	<item>
 		<key>Encoded by</key>
@@ -123,7 +123,7 @@
 	</item>
 	<item>
 		<key>Groupname</key>
-		<value />
+		<value>Naam van de groep</value>
 	</item>
 	<item>
 		<key>ISRC number</key>
@@ -159,15 +159,15 @@
 	</item>
 	<item>
 		<key>Maximum length of scratchpad</key>
-		<value />
+		<value>Maximaal aantal regels van het scratchpad</value>
 	</item>
 	<item>
 		<key>Media file</key>
-		<value />
+		<value>Media bestand</value>
 	</item>
 	<item>
 		<key>Metadata</key>
-		<value />
+		<value>Meta-gegevens</value>
 	</item>
 	<item>
 		<key>Mood</key>
@@ -175,11 +175,11 @@
 	</item>
 	<item>
 		<key>New password</key>
-		<value />
+		<value>Nieuwe wachtwoord</value>
 	</item>
 	<item>
 		<key>Old password</key>
-		<value />
+		<value>Oude wachtwoord</value>
 	</item>
 	<item>
 		<key>Operator</key>
@@ -219,7 +219,7 @@
 	</item>
 	<item>
 		<key>Repeat password</key>
-		<value />
+		<value>Herhaal wachtwoord nogmaals</value>
 	</item>
 	<item>
 		<key>Report date/time</key>
@@ -239,11 +239,11 @@
 	</item>
 	<item>
 		<key>Reset criteria</key>
-		<value />
+		<value>Oude waarden gebruiken</value>
 	</item>
 	<item>
 		<key>Rows per page</key>
-		<value />
+		<value>Aantal regels per pagina</value>
 	</item>
 	<item>
 		<key>Sample rate</key>
@@ -255,19 +255,19 @@
 	</item>
 	<item>
 		<key>Search library</key>
-		<value />
+		<value>Bibliotheek door zoeken</value>
 	</item>
 	<item>
 		<key>Snap to hour</key>
-		<value />
+		<value>In dit uur plaatsen</value>
 	</item>
 	<item>
 		<key>Snap to next</key>
-		<value />
+		<value>Plaats In de volgende</value>
 	</item>
 	<item>
 		<key>Snap to previous</key>
-		<value />
+		<value>Plaats in de vorige</value>
 	</item>
 	<item>
 		<key>Station URL</key>
@@ -275,15 +275,15 @@
 	</item>
 	<item>
 		<key>Station logo</key>
-		<value />
+		<value>Logo</value>
 	</item>
 	<item>
 		<key>Station logo path</key>
-		<value />
+		<value>pad naar het logo</value>
 	</item>
 	<item>
 		<key>Station name</key>
-		<value />
+		<value>Naam</value>
 	</item>
 	<item>
 		<key>Stream URL</key>
@@ -299,7 +299,7 @@
 	</item>
 	<item>
 		<key>Test</key>
-		<value />
+		<value>Testen</value>
 	</item>
 	<item>
 		<key>Time</key>

@@ -7,175 +7,175 @@
 	</item>
 	<item>
 		<key>A playlist is already opened.</key>
-		<value>Acceso denegado</value>
+		<value>Lista de reproducción ya activa.</value>
 	</item>
 	<item>
 		<key>Access denied.</key>
-		<value>Bloc de Apuntes</value>
+		<value>Acceso Denegado.</value>
 	</item>
 	<item>
 		<key>Access to home directory failed.</key>
-		<value>Falló el acceso al directorio de inicio</value>
+		<value>Falló el acceso al directorio de inicio.</value>
 	</item>
 	<item>
 		<key>Cannot create playlist.</key>
-		<value>Clip de audio guardado</value>
+		<value>No se puede generar la lista de reproducción.</value>
 	</item>
 	<item>
 		<key>Cannot delete this playlist.</key>
-		<value>No puede generar una lista de reproducción</value>
+		<value>No se puede eliminar ésta lista de reproducción.</value>
 	</item>
 	<item>
 		<key>Cannot move item.</key>
-		<value>No puede eliminar esta lista de reproducción</value>
+		<value>No se puede mover el archivo en la lista de reproducción.</value>
 	</item>
 	<item>
 		<key>Cannot remove item from playlist.</key>
-		<value>No puede mover el archivo en la lista de reproducción</value>
+		<value>No puede remover el archivo de la lista de reproducción.</value>
 	</item>
 	<item>
 		<key>Changing fade information failed.</key>
-		<value>No puede eliminar el archivo de la lista de reproducción</value>
+		<value>Fallo al cambiar la información.</value>
 	</item>
 	<item>
 		<key>Data of audiclip saved.</key>
-		<value>Lista de reproducción ya activa</value>
+		<value>Se ha guardado la Informacion del archivo de audio.</value>
 	</item>
 	<item>
 		<key>Entry $1 is already on the scratchpad. It has been moved to the top of the list.</key>
-		<value>Ejecutar</value>
+		<value>La entrada $1 ya se encontraba en el ScratchPad. Ha sido desplazada al inicio de la lista.</value>
 	</item>
 	<item>
 		<key>Entry added at $1 with ScheduleId $2.</key>
-		<value>La entrada $1 ya se encontraba en el ScratchPad. Ha sido desplazada al inicio de la lista</value>
+		<value>La entrada en $1 con ID de reproducción $2.</value>
 	</item>
 	<item>
 		<key>Entry with ScheduleId $1 removed.</key>
-		<value>La entrada en $1 con ID de reproducción $2</value>
+		<value>La entrada con ID  de reproducción $1 fue removida.</value>
 	</item>
 	<item>
 		<key>Error while saving settings.</key>
-		<value>Error al añadir elemento a la lista de reproducción</value>
+		<value>Error al grabar las preferencias del sistema.</value>
 	</item>
 	<item>
 		<key>Error while trying to add item to playlist.</key>
-		<value>Se ha eliminado la entrada con el ID de reproducción $1</value>
+		<value>Error al tratar de agregar  el archivo a la lista de reproducción.</value>
 	</item>
 	<item>
 		<key>Error while uploading logo.</key>
-		<value>Error al grabar las preferencias del Sistema</value>
+		<value>Error al subir el logo.</value>
 	</item>
 	<item>
 		<key>Error: $1</key>
-		<value>Error al subir el logo</value>
+		<value>Error: $1.</value>
 	</item>
 	<item>
 		<key>File &quot;$1&quot; has not been uploaded.</key>
-		<value>Error: $1</value>
+		<value>El archivo $1 no ha sido cargado.</value>
 	</item>
 	<item>
 		<key>Found locked playlist.</key>
-		<value>La carpeta no está vacía. Puede eliminar esta protección al hacer click en SUPR de nuevo</value>
+		<value>Se encontró una lista de reproducción bloqueada.</value>
 	</item>
 	<item>
 		<key>Group &quot;$1&quot; added.</key>
-		<value />
+		<value>Se agregó el grupo &quot;$1&quot;.</value>
 	</item>
 	<item>
 		<key>Invalid or incomplete form data.</key>
-		<value>Se encontró una lista de reproducción bloqueada</value>
+		<value>El formulario de datos está incompleto o existen datos inválidos.</value>
 	</item>
 	<item>
 		<key>Login failed.</key>
-		<value>Algunos datos son inválidos</value>
+		<value>Falló el ingreso.</value>
 	</item>
 	<item>
 		<key>Metadata saved.</key>
-		<value>Falló el ingreso</value>
+		<value>Se guardaron los datos.</value>
 	</item>
 	<item>
 		<key>No item(s) selected.</key>
-		<value>Hay un valor perdido para $1</value>
+		<value>No se ha(n) seleccionado archivo(s).</value>
 	</item>
 	<item>
 		<key>No playlists have been locked by you.</key>
-		<value>No se ha(n) seleccionado archivo(s)</value>
+		<value>Ninguna lista de reproducción ha sido bloqueada por usted.</value>
 	</item>
 	<item>
 		<key>Nothing selected.</key>
-		<value>No se ha seleccionado nada</value>
+		<value>No se ha seleccionado nada.</value>
 	</item>
 	<item>
 		<key>Old password was incorrect.</key>
-		<value>Nota: Las Preferencias de la Estación no se han configurado adecuadamente</value>
-	</item>
-	<item>
-		<key>Password changed.</key>
 		<value>La clave anterior es incorrecta</value>
 	</item>
 	<item>
+		<key>Password changed.</key>
+		<value>La clave ha sido cambiada.</value>
+	</item>
+	<item>
 		<key>Playlist &quot;$1&quot; opened.</key>
-		<value>Las claves no coinciden</value>
+		<value>Se ha abierto la lista de reproducción &quot;$1&quot;.</value>
 	</item>
 	<item>
 		<key>Playlist &quot;$1&quot; released.</key>
-		<value>Se ha abierto la lista de reproducción &quot;$1&quot;</value>
+		<value>Se ha liberado lista de reproducción &quot;$1&quot;.</value>
 	</item>
 	<item>
 		<key>Playlist &quot;$1&quot; reverted.</key>
-		<value>Se ha liberado lista de reproducción &quot;$1&quot;</value>
-	</item>
-	<item>
-		<key>Playlist &quot;$1&quot; saved.</key>
 		<value>La lista de reproducción &quot;$1&quot; fue revertida.</value>
 	</item>
 	<item>
+		<key>Playlist &quot;$1&quot; saved.</key>
+		<value>Se ha guardado la lista de reproducción &quot;$1&quot;.</value>
+	</item>
+	<item>
 		<key>Playlist has been locked by &quot;$1&quot;.</key>
-		<value>Se ha guardado la lista de reproducción &quot;$1&quot;</value>
+		<value>La lista de reproducción ha sido bloqueada por &quot;$1&quot;.</value>
 	</item>
 	<item>
 		<key>Playlist not found in database.</key>
-		<value />
+		<value>No se encontró esta lista de reproducción en la base de datos.</value>
 	</item>
 	<item>
 		<key>Scheduler did not start. Check setting of &quot;UI_SCHEDULER_DAEMON_CMD&quot; in ui_conf.php. File &quot;/tmp/scheduler.log&quot; could be helpful.</key>
-		<value />
+		<value>El programador no se inició.  Verifique el comando &quot;UI_SCHEDULER_DAEMON_CMD&quot; en ui_conf.php.  El archivo &quot;/tmp/scheduler.log&quot; podría ayudarle.</value>
 	</item>
 	<item>
 		<key>Scheduler is running.</key>
-		<value />
+		<value>El programador está corriendo.</value>
 	</item>
 	<item>
 		<key>Settings saved.</key>
-		<value>Seleccione un valor</value>
+		<value>Las preferencias fueron guardadas.</value>
 	</item>
 	<item>
 		<key>Stream data saved.</key>
-		<value>Se cambiaron los datos de flujo</value>
+		<value>Se cambiaron los datos de flujo.</value>
 	</item>
 	<item>
 		<key>The scratchpad length is not set in system preferences, so it cannot be used.</key>
-		<value>La lista de reproducción $1 ha sido bloqueada</value>
+		<value>El tamaño del block de notas no ha sido asignado en las preferencias por lo cual no puede ser utilizado.</value>
 	</item>
 	<item>
 		<key>The target is not a folder.</key>
-		<value>Se añadió el título $1</value>
+		<value>El objeto no es un folder.</value>
 	</item>
 	<item>
 		<key>There is no playlist available to unlock.</key>
-		<value>El objetivo no es un folder</value>
+		<value>No hay ninguna lista de reproducción disponible para desbloquear.</value>
 	</item>
 	<item>
 		<key>Unable to open playlist &quot;$1&quot;.</key>
-		<value>No es posible activar la lista de reproducción &quot;$1&quot;</value>
+		<value>No es posible activar la lista de reproducción &quot;$1&quot;.</value>
 	</item>
 	<item>
 		<key>Unable to release playlist.</key>
-		<value>No hay ninguna lista de reproducción disponible para desbloquear</value>
+		<value>No se pudo liberar la lista de reproducción.</value>
 	</item>
 	<item>
 		<key>Unable to revert to locked state.</key>
-		<value>No se pudo liberar la lista de reproducción</value>
+		<value>No se pudo revertir al estado de bloqueo.</value>
 	</item>
 	<item>
 		<key>Unable to set &quot;$1&quot; to value &quot;$2&quot;.</key>
@@ -183,19 +183,19 @@
 	</item>
 	<item>
 		<key>Upload of file &quot;$1&quot; was incomplete.</key>
-		<value>No se pudo revertir al estado de bloqueo</value>
+		<value>La carga del archivo $1 fue incompleta.</value>
 	</item>
 	<item>
 		<key>Uploaded file &quot;$1&quot; is bigger than LiveSupport&amp;acute;s system setting.</key>
-		<value>$1 debe ser $2.</value>
+		<value>El archivo cargado $1 es mayor que la preferencia de LiveSupport.</value>
 	</item>
 	<item>
 		<key>Uploaded file &quot;$1&quot; is bigger than setting in php.ini.</key>
-		<value>La carga del archivo $1 fue incompleta</value>
+		<value>El archivo cargado $1 es mayor que la preferencia de php.ini .</value>
 	</item>
 	<item>
 		<key>User &quot;$1&quot; added.</key>
-		<value />
+		<value>Se agregó el usuario &quot;$1&quot;.</value>
 	</item>
 	<item>
 		<key>User or group &quot;$1&quot; already exists.</key>
@@ -203,10 +203,10 @@
 	</item>
 	<item>
 		<key>Warning: station preferences have not been set up properly.</key>
-		<value>No hay una lista de reproducción activa</value>
+		<value>Nota: Las Preferencias de la Estación no se han configurado adecuadamente.</value>
 	</item>
 	<item>
 		<key>You already have an open playlist. Close it first.</key>
-		<value>El archivo cargado $1 es mayor que la preferencia de php.ini</value>
+		<value>Ya existe una lista de reproducción activa. Cierrela primero.</value>
 	</item>
 </translations>

@@ -3,326 +3,326 @@
 	<Id>pl_PL</Id>
 	<item>
 		<key>+</key>
-		<value />
+		<value>+</value>
 	</item>
 	<item>
 		<key>-</key>
-		<value />
+		<value>-</value>
 	</item>
 	<item>
 		<key>Album</key>
-		<value />
+		<value>Płyta</value>
 	</item>
 	<item>
 		<key>Artist web page</key>
-		<value />
+		<value>Strona autora</value>
 	</item>
 	<item>
 		<key>Audio file information web page</key>
-		<value />
+		<value>Strona informacyjna o utworze</value>
 	</item>
 	<item>
 		<key>Audio source web page</key>
-		<value />
+		<value>Strona informacyjna o źródle</value>
 	</item>
 	<item>
 		<key>BPM</key>
-		<value />
+		<value>BPM</value>
 	</item>
 	<item>
 		<key>Bitrate</key>
-		<value />
+		<value>Bitrate</value>
 	</item>
 	<item>
 		<key>Buy CD web page</key>
-		<value />
+		<value>Strona zakupu CD</value>
 	</item>
 	<item>
 		<key>Cancel</key>
-		<value />
+		<value>Anuluj</value>
 	</item>
 	<item>
 		<key>Catalog number</key>
-		<value />
+		<value>Numer ref.</value>
 	</item>
 	<item>
 		<key>Category</key>
-		<value />
+		<value>Rodzaj</value>
 	</item>
 	<item>
 		<key>Channels</key>
-		<value />
+		<value>Kanały</value>
 	</item>
 	<item>
 		<key>Checksum</key>
-		<value />
+		<value>Suma</value>
 	</item>
 	<item>
 		<key>Composer</key>
-		<value />
+		<value>Autor</value>
 	</item>
 	<item>
 		<key>Conductor</key>
-		<value />
+		<value>Kierownik</value>
 	</item>
 	<item>
 		<key>Contributor</key>
-		<value />
+		<value>Przyczynili się</value>
 	</item>
 	<item>
 		<key>Copyright</key>
-		<value />
+		<value>Copyright</value>
 	</item>
 	<item>
 		<key>Creator</key>
-		<value />
+		<value>Autor</value>
 	</item>
 	<item>
 		<key>Date</key>
-		<value />
+		<value>Data</value>
 	</item>
 	<item>
 		<key>Description</key>
-		<value />
+		<value>Opis</value>
 	</item>
 	<item>
 		<key>Disc number</key>
-		<value />
+		<value>Płyta numer</value>
 	</item>
 	<item>
 		<key>Duration (ms)</key>
-		<value />
+		<value>Trwa (ms)</value>
 	</item>
 	<item>
 		<key>Encoded by</key>
-		<value />
+		<value>Spakowany przez</value>
 	</item>
 	<item>
 		<key>Encoder software used</key>
-		<value />
+		<value>Spakowany za pomocą</value>
 	</item>
 	<item>
 		<key>File format</key>
-		<value />
+		<value>Format pliku</value>
 	</item>
 	<item>
 		<key>File type</key>
-		<value />
+		<value>Rozszerzenie pliku</value>
 	</item>
 	<item>
 		<key>Format</key>
-		<value />
+		<value>Format</value>
 	</item>
 	<item>
 		<key>Frequency</key>
-		<value />
+		<value>Częstotliwość</value>
 	</item>
 	<item>
 		<key>Genre</key>
-		<value />
+		<value>Rodzaj</value>
 	</item>
 	<item>
 		<key>Groupname</key>
-		<value />
+		<value>Nazwa grupy</value>
 	</item>
 	<item>
 		<key>ISRC number</key>
-		<value />
+		<value>Numer ISRC</value>
 	</item>
 	<item>
 		<key>Label</key>
-		<value />
+		<value>Etykieta</value>
 	</item>
 	<item>
 		<key>Language</key>
-		<value />
+		<value>Język</value>
 	</item>
 	<item>
 		<key>Length</key>
-		<value />
+		<value>Długość</value>
 	</item>
 	<item>
 		<key>Length&lt;br&gt;&lt;small&gt;Enter zero for Live Stream&lt;/small&gt;</key>
-		<value />
+		<value>Długość (wpisz zero dla Strumienia na żywo)</value>
 	</item>
 	<item>
 		<key>Login</key>
-		<value />
+		<value>Login</value>
 	</item>
 	<item>
 		<key>Lyricist</key>
-		<value />
+		<value>Autor</value>
 	</item>
 	<item>
 		<key>Lyrics</key>
-		<value />
+		<value>Lyrics</value>
 	</item>
 	<item>
 		<key>Maximum length of scratchpad</key>
-		<value />
+		<value>Długość maksymalna schowka</value>
 	</item>
 	<item>
 		<key>Media file</key>
-		<value />
+		<value>Plik audio</value>
 	</item>
 	<item>
 		<key>Metadata</key>
-		<value />
+		<value>Tag</value>
 	</item>
 	<item>
 		<key>Mood</key>
-		<value />
+		<value>Mood</value>
 	</item>
 	<item>
 		<key>New password</key>
-		<value />
+		<value>Nowe hasło</value>
 	</item>
 	<item>
 		<key>Old password</key>
-		<value />
+		<value>Stare hasło</value>
 	</item>
 	<item>
 		<key>Operator</key>
-		<value />
+		<value>Operator</value>
 	</item>
 	<item>
 		<key>Orchestra or band</key>
-		<value />
+		<value>Zespół</value>
 	</item>
 	<item>
 		<key>Original artist</key>
-		<value />
+		<value>Autor oryginalny</value>
 	</item>
 	<item>
 		<key>Original lyricist</key>
-		<value />
+		<value>Autor oryginalny</value>
 	</item>
 	<item>
 		<key>Password</key>
-		<value />
+		<value>Hasło</value>
 	</item>
 	<item>
 		<key>Playlist</key>
-		<value />
+		<value>Lista utworów</value>
 	</item>
 	<item>
 		<key>Radio station name</key>
-		<value />
+		<value>Nazwa stacji</value>
 	</item>
 	<item>
 		<key>Radio station web page</key>
-		<value />
+		<value>Strona stacji</value>
 	</item>
 	<item>
 		<key>Rating</key>
-		<value />
+		<value>Ocena</value>
 	</item>
 	<item>
 		<key>Repeat password</key>
-		<value />
+		<value>Powtórz hasło</value>
 	</item>
 	<item>
 		<key>Report date/time</key>
-		<value />
+		<value>Data/godzina</value>
 	</item>
 	<item>
 		<key>Report location</key>
-		<value />
+		<value>Miasto</value>
 	</item>
 	<item>
 		<key>Report organizations</key>
-		<value />
+		<value>Organizacje</value>
 	</item>
 	<item>
 		<key>Reset</key>
-		<value />
+		<value>Wyczyść</value>
 	</item>
 	<item>
 		<key>Reset criteria</key>
-		<value />
+		<value>Wyczyść kryteria</value>
 	</item>
 	<item>
 		<key>Rows per page</key>
-		<value />
+		<value>Wiersze na stronie</value>
 	</item>
 	<item>
 		<key>Sample rate</key>
-		<value />
+		<value>Sample rate</value>
 	</item>
 	<item>
 		<key>Search</key>
-		<value />
+		<value>Szukaj</value>
 	</item>
 	<item>
 		<key>Search library</key>
-		<value />
+		<value>Szukaj</value>
 	</item>
 	<item>
 		<key>Snap to hour</key>
-		<value />
+		<value>Przechwyć godzinę</value>
 	</item>
 	<item>
 		<key>Snap to next</key>
-		<value />
+		<value>Przechwyć następny</value>
 	</item>
 	<item>
 		<key>Snap to previous</key>
-		<value />
+		<value>Przechwyć poprzedni</value>
 	</item>
 	<item>
 		<key>Station URL</key>
-		<value />
+		<value>URL stacji</value>
 	</item>
 	<item>
 		<key>Station logo</key>
-		<value />
+		<value>Logo stacji</value>
 	</item>
 	<item>
 		<key>Station logo path</key>
-		<value />
+		<value>Ścieżka do loga stacji</value>
 	</item>
 	<item>
 		<key>Station name</key>
-		<value />
+		<value>Nazwa stacji</value>
 	</item>
 	<item>
 		<key>Stream URL</key>
-		<value />
+		<value>URL strumienia</value>
 	</item>
 	<item>
 		<key>Subject</key>
-		<value />
+		<value>Temat</value>
 	</item>
 	<item>
 		<key>Submit</key>
-		<value />
+		<value>Wyślij</value>
 	</item>
 	<item>
 		<key>Test</key>
-		<value />
+		<value>Test</value>
 	</item>
 	<item>
 		<key>Time</key>
-		<value />
+		<value>Godzina</value>
 	</item>
 	<item>
 		<key>Title</key>
-		<value />
+		<value>Tytuł</value>
 	</item>
 	<item>
 		<key>Track number</key>
-		<value />
+		<value>Numer utworu</value>
 	</item>
 	<item>
 		<key>Type</key>
-		<value />
+		<value>Rodzaj</value>
 	</item>
 	<item>
 		<key>Username</key>
-		<value />
+		<value>Użytkownik</value>
 	</item>
 	<item>
 		<key>Year</key>
-		<value />
+		<value>Rok</value>
 	</item>
 </translations>

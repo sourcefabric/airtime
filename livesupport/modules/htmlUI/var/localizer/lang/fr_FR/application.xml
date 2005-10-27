@@ -3,210 +3,210 @@
 	<Id>fr_FR</Id>
 	<item>
 		<key>&quot;$1&quot; uses an unsupported file type.</key>
-		<value />
+		<value>&quot;$1&quot; a un format impropre</value>
 	</item>
 	<item>
 		<key>A playlist is already opened.</key>
-		<value />
+		<value>Une playlist est déjà ouverte</value>
 	</item>
 	<item>
 		<key>Access denied.</key>
-		<value />
+		<value>Accès interdit</value>
 	</item>
 	<item>
 		<key>Access to home directory failed.</key>
-		<value />
+		<value>Impossible d&apos;accéder au répertoire maison</value>
 	</item>
 	<item>
 		<key>Cannot create playlist.</key>
-		<value />
+		<value>Impossible de créer la playlist</value>
 	</item>
 	<item>
 		<key>Cannot delete this playlist.</key>
-		<value />
+		<value>Impossible d&apos;effacer la playlist</value>
 	</item>
 	<item>
 		<key>Cannot move item.</key>
-		<value />
+		<value>Impossible de déplacer l&apos;objet</value>
 	</item>
 	<item>
 		<key>Cannot remove item from playlist.</key>
-		<value />
+		<value>Impossible d&apos;enlever l&apos;objet de la playlist</value>
 	</item>
 	<item>
 		<key>Changing fade information failed.</key>
-		<value />
+		<value>Impossible de changer les informations sur le passage</value>
 	</item>
 	<item>
 		<key>Data of audiclip saved.</key>
-		<value />
+		<value>Informations sur le fichier audio sauvegardées</value>
 	</item>
 	<item>
 		<key>Entry $1 is already on the scratchpad. It has been moved to the top of the list.</key>
-		<value />
+		<value>L&apos;élément $1est déjà dans la collection. Il a été déplacé au début de la liste</value>
 	</item>
 	<item>
 		<key>Entry added at $1 with ScheduleId $2.</key>
-		<value />
+		<value>L&apos;élément a été ajouté à $1, on numéro est $2</value>
 	</item>
 	<item>
 		<key>Entry with ScheduleId $1 removed.</key>
-		<value />
+		<value>L&apos;élément numéro $1 a été enlevé</value>
 	</item>
 	<item>
 		<key>Error while saving settings.</key>
-		<value />
+		<value>Erreur pendant l&apos;écriture des paramètres</value>
 	</item>
 	<item>
 		<key>Error while trying to add item to playlist.</key>
-		<value />
+		<value>Erreur pendant l&apos;ajout de l&apos;élément dans la playlist</value>
 	</item>
 	<item>
 		<key>Error while uploading logo.</key>
-		<value />
+		<value>Erreur pendant le chargement du logo</value>
 	</item>
 	<item>
 		<key>Error: $1</key>
-		<value />
+		<value>Erreur: $1</value>
 	</item>
 	<item>
 		<key>File &quot;$1&quot; has not been uploaded.</key>
-		<value />
+		<value>Le fichier &quot;$1&quot; n&apos;a pas été chargé</value>
 	</item>
 	<item>
 		<key>Found locked playlist.</key>
-		<value />
+		<value>Il y a des playlist bloquées</value>
 	</item>
 	<item>
 		<key>Group &quot;$1&quot; added.</key>
-		<value />
+		<value>Le groupe $1 a été ajouté</value>
 	</item>
 	<item>
 		<key>Invalid or incomplete form data.</key>
-		<value />
+		<value>Le formulaire est invalide ou incomplet</value>
 	</item>
 	<item>
 		<key>Login failed.</key>
-		<value />
+		<value>Identifiant incorrect</value>
 	</item>
 	<item>
 		<key>Metadata saved.</key>
-		<value />
+		<value>Informations sauvegardées</value>
 	</item>
 	<item>
 		<key>No item(s) selected.</key>
-		<value />
+		<value>Aucun élément choisi</value>
 	</item>
 	<item>
 		<key>No playlists have been locked by you.</key>
-		<value />
+		<value>Vous ne bloquez ucune playlist</value>
 	</item>
 	<item>
 		<key>Nothing selected.</key>
-		<value />
+		<value>Rien de choisi</value>
 	</item>
 	<item>
 		<key>Old password was incorrect.</key>
-		<value />
+		<value>L&apos;ancien mot de passe est invalide</value>
 	</item>
 	<item>
 		<key>Password changed.</key>
-		<value />
+		<value>Mot de passe changé</value>
 	</item>
 	<item>
 		<key>Playlist &quot;$1&quot; opened.</key>
-		<value />
+		<value>La playlist &quot;$1&quot; est ouverte</value>
 	</item>
 	<item>
 		<key>Playlist &quot;$1&quot; released.</key>
-		<value />
+		<value>La playlist &quot;$1&quot; est publiée</value>
 	</item>
 	<item>
 		<key>Playlist &quot;$1&quot; reverted.</key>
-		<value />
+		<value>La playlist &quot;$1&quot; est inversée</value>
 	</item>
 	<item>
 		<key>Playlist &quot;$1&quot; saved.</key>
-		<value />
+		<value>La playlist &quot;$1&quot; est sauvegardée</value>
 	</item>
 	<item>
 		<key>Playlist has been locked by &quot;$1&quot;.</key>
-		<value />
+		<value>La playlist est bloquée par &quot;$1&quot;</value>
 	</item>
 	<item>
 		<key>Playlist not found in database.</key>
-		<value />
+		<value>La playlist n&apos;a pas été trouvée</value>
 	</item>
 	<item>
 		<key>Scheduler did not start. Check setting of &quot;UI_SCHEDULER_DAEMON_CMD&quot; in ui_conf.php. File &quot;/tmp/scheduler.log&quot; could be helpful.</key>
-		<value />
+		<value>Le Scheduler n&apos;a pas été lancé. Vérifiez les options de &quot;UI_SCHEDULER_DAEMON_CMD&quot; dans ui_conf.php. Le fichier &quot;/tmp/scheduler.log&quot; peut vous être utile.</value>
 	</item>
 	<item>
 		<key>Scheduler is running.</key>
-		<value />
+		<value>Le Scheduler est lancé</value>
 	</item>
 	<item>
 		<key>Settings saved.</key>
-		<value />
+		<value>Options sauvegardées</value>
 	</item>
 	<item>
 		<key>Stream data saved.</key>
-		<value />
+		<value>Les informations du stream sont sauvegardées</value>
 	</item>
 	<item>
 		<key>The scratchpad length is not set in system preferences, so it cannot be used.</key>
-		<value />
+		<value>La longueur de la collection n&apos;est pas définie dans les options du système, il est hors service</value>
 	</item>
 	<item>
 		<key>The target is not a folder.</key>
-		<value />
+		<value>L&apos;élément cible n&apos;est pas un répertoire</value>
 	</item>
 	<item>
 		<key>There is no playlist available to unlock.</key>
-		<value />
+		<value>Il n&apos;y a pas de playlist qui puisse être débloquée</value>
 	</item>
 	<item>
 		<key>Unable to open playlist &quot;$1&quot;.</key>
-		<value />
+		<value>Impossible d&apos;ouvrir la playlist &quot;$1&quot;</value>
 	</item>
 	<item>
 		<key>Unable to release playlist.</key>
-		<value />
+		<value>Impossible de publier la playlist</value>
 	</item>
 	<item>
 		<key>Unable to revert to locked state.</key>
-		<value />
+		<value>Impossible de revenir au stade bloqué</value>
 	</item>
 	<item>
 		<key>Unable to set &quot;$1&quot; to value &quot;$2&quot;.</key>
-		<value />
+		<value>Impossible d&apos;appliquer la valeur &quot;$2&quot; à &quot;$1&quot;</value>
 	</item>
 	<item>
 		<key>Upload of file &quot;$1&quot; was incomplete.</key>
-		<value />
+		<value>La charge du fichier &quot;$1&quot; n&apos;a pas été terminée correctement</value>
 	</item>
 	<item>
 		<key>Uploaded file &quot;$1&quot; is bigger than LiveSupport&amp;acute;s system setting.</key>
-		<value />
+		<value>Le fichier &quot;$1&quot; a une taille supérieure à la limite fixée dans les options de LiveSupport</value>
 	</item>
 	<item>
 		<key>Uploaded file &quot;$1&quot; is bigger than setting in php.ini.</key>
-		<value />
+		<value>La taille du fichier &quot;$1&quot; est supérieure à la limite fixée dans php.ini</value>
 	</item>
 	<item>
 		<key>User &quot;$1&quot; added.</key>
-		<value />
+		<value>L&apos;utulisateur &quot;$1&quot; a été ajouté</value>
 	</item>
 	<item>
 		<key>User or group &quot;$1&quot; already exists.</key>
-		<value />
+		<value>L&apos;utilisateur ou le groupe &quot;$1&quot; existe déjà</value>
 	</item>
 	<item>
 		<key>Warning: station preferences have not been set up properly.</key>
-		<value />
+		<value>Attention: les options de la station n&apos;ont pas été saisies correctement</value>
 	</item>
 	<item>
 		<key>You already have an open playlist. Close it first.</key>
-		<value />
+		<value>Vous avez déjà une playlist ouverte. Fermez-la d&apos;abord</value>
 	</item>
 </translations>
