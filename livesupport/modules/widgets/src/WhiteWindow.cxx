@@ -439,8 +439,10 @@ WhiteWindow :: onResizeClicked(GdkEventButton     * event)  throw ()
                           (int) event->x_root,
                           (int) event->y_root,
                           event->time);
+        return true;
+        
+    } else {
+        return false;
     }
-
-    return false;
 }
 
