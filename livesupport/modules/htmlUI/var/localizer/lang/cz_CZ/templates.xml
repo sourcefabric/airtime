@@ -135,7 +135,7 @@
 	</item>
 	<item>
 		<key>Audioclip</key>
-		<value />
+		<value>Zvukový klip</value>
 	</item>
 	<item>
 		<key>Back to overview</key>
@@ -167,7 +167,7 @@
 	</item>
 	<item>
 		<key>Change Fades</key>
-		<value />
+		<value>Změnit přechody</value>
 	</item>
 	<item>
 		<key>Change Password</key>
@@ -207,23 +207,23 @@
 	</item>
 	<item>
 		<key>Count</key>
-		<value />
+		<value>Počet</value>
 	</item>
 	<item>
 		<key>Creator</key>
-		<value />
+		<value>Tvůrce</value>
 	</item>
 	<item>
 		<key>Current Members</key>
-		<value />
+		<value>Současní členové</value>
 	</item>
 	<item>
 		<key>Daily View</key>
-		<value />
+		<value>Pohled na den</value>
 	</item>
 	<item>
 		<key>Data</key>
-		<value />
+		<value>Data</value>
 	</item>
 	<item>
 		<key>Day</key>
@@ -244,6 +244,14 @@
 	<item>
 		<key>Description</key>
 		<value>Popis</value>
+	</item>
+	<item>
+		<key>Destination folder (relative path):</key>
+		<value />
+	</item>
+	<item>
+		<key>New folder name:</key>
+		<value />
 	</item>
 	<item>
 		<key>Do you want to save changes?</key>
@@ -315,7 +323,7 @@
 	</item>
 	<item>
 		<key>Login</key>
-		<value />
+		<value>Uživatelské jméno</value>
 	</item>
 	<item>
 		<key>Main</key>
@@ -339,7 +347,7 @@
 	</item>
 	<item>
 		<key>Metadata XML</key>
-		<value />
+		<value>Metadata XML</value>
 	</item>
 	<item>
 		<key>Mo</key>
@@ -379,7 +387,7 @@
 	</item>
 	<item>
 		<key>New empty Playlist</key>
-		<value>Nový prazdný playlist</value>
+		<value>Nový&amp;nbsp;prázdný&amp;nbsp;playlist</value>
 	</item>
 	<item>
 		<key>New playlist using this files</key>
@@ -403,7 +411,7 @@
 	</item>
 	<item>
 		<key>Nothing left</key>
-		<value />
+		<value>Nic nezbylo</value>
 	</item>
 	<item>
 		<key>Now Playing</key>
@@ -411,7 +419,7 @@
 	</item>
 	<item>
 		<key>OK</key>
-		<value />
+		<value>OK</value>
 	</item>
 	<item>
 		<key>Open last Playlist</key>
@@ -423,7 +431,7 @@
 	</item>
 	<item>
 		<key>Playing Next</key>
-		<value />
+		<value>Příští program</value>
 	</item>
 	<item>
 		<key>Playlist</key>
@@ -443,7 +451,7 @@
 	</item>
 	<item>
 		<key>Preferences</key>
-		<value />
+		<value>Možnosti</value>
 	</item>
 	<item>
 		<key>Range</key>
@@ -483,7 +491,7 @@
 	</item>
 	<item>
 		<key>Reorder Playlist</key>
-		<value />
+		<value>Přeskupit playlist</value>
 	</item>
 	<item>
 		<key>Revert to Saved</key>
@@ -503,7 +511,7 @@
 	</item>
 	<item>
 		<key>Schedule</key>
-		<value />
+		<value>Naplánovat</value>
 	</item>
 	<item>
 		<key>Scheduler</key>
@@ -539,7 +547,7 @@
 	</item>
 	<item>
 		<key>Station Time</key>
-		<value>Mistní �?as stanice</value>
+		<value>Místní čas stanice</value>
 	</item>
 	<item>
 		<key>Station settings</key>
@@ -547,11 +555,11 @@
 	</item>
 	<item>
 		<key>Stream has wrong content type &lt;font color=&quot;red&quot;&gt;$1&lt;/font&gt;.</key>
-		<value />
+		<value>Stream má špatný typ obsahu $1.</value>
 	</item>
 	<item>
 		<key>Stream is wanted type &lt;font color=&quot;green&quot;&gt;$1&lt;/font&gt;.</key>
-		<value />
+		<value>Je očekáván stream typu &lt;font color=&quot;green&quot;&gt;$1&lt;/font&gt;.</value>
 	</item>
 	<item>
 		<key>Su</key>
@@ -575,7 +583,7 @@
 	</item>
 	<item>
 		<key>Title</key>
-		<value>Titul</value>
+		<value>Název</value>
 	</item>
 	<item>
 		<key>Today</key>
@@ -599,11 +607,11 @@
 	</item>
 	<item>
 		<key>URL is &lt;font color=&quot;green&quot;&gt;valid&lt;/font&gt;.</key>
-		<value />
+		<value>URL adresa je platná</value>
 	</item>
 	<item>
 		<key>URL seems &lt;font color=&quot;red&quot;&gt;invalid&lt;/font&gt;. Returned error-code: $1.</key>
-		<value />
+		<value>URL adresa vypadá neplatně, Chybový kód je: $1.</value>
 	</item>
 	<item>
 		<key>Use to create playlist</key>
@@ -619,7 +627,7 @@
 	</item>
 	<item>
 		<key>Voice</key>
-		<value />
+		<value>Hlas</value>
 	</item>
 	<item>
 		<key>We</key>
@@ -627,7 +635,7 @@
 	</item>
 	<item>
 		<key>Webstream</key>
-		<value />
+		<value>Webstream</value>
 	</item>
 	<item>
 		<key>Wednesday</key>
@@ -647,15 +655,15 @@
 	</item>
 	<item>
 		<key>_Name of translator</key>
-		<value />
+		<value>tomash</value>
 	</item>
 	<item>
 		<key>_Native language name</key>
-		<value />
+		<value>Czech</value>
 	</item>
 	<item>
 		<key>audioclip</key>
-		<value />
+		<value>zvukový klip</value>
 	</item>
 	<item>
 		<key>calendar week</key>
@@ -667,7 +675,7 @@
 	</item>
 	<item>
 		<key>empty</key>
-		<value>prazdný</value>
+		<value>prázdný</value>
 	</item>
 	<item>
 		<key>go up</key>
@@ -731,7 +739,7 @@
 	</item>
 	<item>
 		<key>sign over</key>
-		<value />
+		<value>Přihlásit jako jiný uživatel</value>
 	</item>
 	<item>
 		<key>tomorrow</key>
@@ -739,7 +747,7 @@
 	</item>
 	<item>
 		<key>webstream</key>
-		<value />
+		<value>webstream</value>
 	</item>
 	<item>
 		<key>yesterday</key>

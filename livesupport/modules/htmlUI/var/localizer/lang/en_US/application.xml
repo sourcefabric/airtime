@@ -99,7 +99,7 @@
 	</item>
 	<item>
 		<key>No playlists have been locked by you.</key>
-		<value />
+		<value>You have not locked any playlists.</value>
 	</item>
 	<item>
 		<key>Nothing selected.</key>
@@ -203,10 +203,10 @@
 	</item>
 	<item>
 		<key>Warning: station preferences have not been set up properly.</key>
-		<value />
+		<value>Warning: Station preferences have not been set up properly.</value>
 	</item>
 	<item>
 		<key>You already have an open playlist. Close it first.</key>
-		<value />
+		<value>You already have an active playlist. Please close it first.</value>
 	</item>
 </translations>

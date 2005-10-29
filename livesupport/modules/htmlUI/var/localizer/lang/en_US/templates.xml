@@ -99,31 +99,31 @@
 	</item>
 	<item>
 		<key>Are you sure to delete $1 selected files?</key>
-		<value />
+		<value>Are you sure you want to delete $1 selected files?</value>
 	</item>
 	<item>
 		<key>Are you sure to delete file &quot;$1&quot;?</key>
-		<value />
+		<value>Are you sure you want to delete file &quot;$1&quot;?</value>
 	</item>
 	<item>
 		<key>Are you sure to delete open Playlist?</key>
-		<value />
+		<value>Are you sure you want to delete this open playlist?</value>
 	</item>
 	<item>
 		<key>Are you sure to discard all changes?</key>
-		<value />
+		<value>Are you sure you want to discard all changes?</value>
 	</item>
 	<item>
 		<key>Are you sure to logout?</key>
-		<value />
+		<value>Are you sure you want to log out?</value>
 	</item>
 	<item>
 		<key>Are you sure to remove &quot;$1&quot;?</key>
-		<value />
+		<value>Are you sure you want to remove &quot;$1&quot;?</value>
 	</item>
 	<item>
 		<key>Are you sure to remove playlist &quot;$1&quot;?</key>
-		<value />
+		<value>Are you sure you want to remove playlist &quot;$1&quot;?</value>
 	</item>
 	<item>
 		<key>Are you sure you want to change existing metadata?</key>

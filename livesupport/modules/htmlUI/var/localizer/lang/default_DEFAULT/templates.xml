@@ -246,6 +246,14 @@
 		<value>Description</value>
 	</item>
 	<item>
+		<key>Destination folder (relative path):</key>
+		<value>Destination folder (relative path):</value>
+	</item>
+    <item>
+		<key>New folder name:</key>
+		<value>New folder name:</value>
+	</item>
+	<item>
 		<key>Do you want to save changes?</key>
 		<value>Do you want to save changes?</value>
 	</item>

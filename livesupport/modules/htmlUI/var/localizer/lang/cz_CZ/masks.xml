@@ -43,7 +43,7 @@
 	</item>
 	<item>
 		<key>Catalog number</key>
-		<value>Katalogové �?íslo</value>
+		<value>Katalogové číslo</value>
 	</item>
 	<item>
 		<key>Category</key>
@@ -55,7 +55,7 @@
 	</item>
 	<item>
 		<key>Checksum</key>
-		<value>Kontrolní sou�?et</value>
+		<value>Kontrolní součet</value>
 	</item>
 	<item>
 		<key>Composer</key>
@@ -127,7 +127,7 @@
 	</item>
 	<item>
 		<key>ISRC number</key>
-		<value>SRC �?íslo</value>
+		<value>SRC číslo</value>
 	</item>
 	<item>
 		<key>Label</key>
@@ -147,7 +147,7 @@
 	</item>
 	<item>
 		<key>Login</key>
-		<value />
+		<value>Uživatelské jméno</value>
 	</item>
 	<item>
 		<key>Lyricist</key>
@@ -163,11 +163,11 @@
 	</item>
 	<item>
 		<key>Media file</key>
-		<value />
+		<value>Mediální soubor</value>
 	</item>
 	<item>
 		<key>Metadata</key>
-		<value />
+		<value>Metadata</value>
 	</item>
 	<item>
 		<key>Mood</key>
@@ -223,7 +223,7 @@
 	</item>
 	<item>
 		<key>Report date/time</key>
-		<value>Datum/�?as reportáže</value>
+		<value>Datum/čas reportáže</value>
 	</item>
 	<item>
 		<key>Report location</key>
@@ -239,7 +239,7 @@
 	</item>
 	<item>
 		<key>Reset criteria</key>
-		<value />
+		<value>Vymazat kriteria</value>
 	</item>
 	<item>
 		<key>Rows per page</key>
@@ -259,15 +259,15 @@
 	</item>
 	<item>
 		<key>Snap to hour</key>
-		<value />
+		<value>Přesunout na celou hodinu</value>
 	</item>
 	<item>
 		<key>Snap to next</key>
-		<value />
+		<value>Přisunout k dalšímu</value>
 	</item>
 	<item>
 		<key>Snap to previous</key>
-		<value />
+		<value>Přisunout k předchozímu</value>
 	</item>
 	<item>
 		<key>Station URL</key>

@@ -2,6 +2,54 @@
 <translations>
 	<Id>de_DE</Id>
 	<item>
+		<key>April</key>
+		<value>April</value>
+	</item>
+	<item>
+		<key>August</key>
+		<value>August</value>
+	</item>
+	<item>
+		<key>December</key>
+		<value>Dezember</value>
+	</item>
+	<item>
+		<key>February</key>
+		<value>Februar</value>
+	</item>
+	<item>
+		<key>January</key>
+		<value>Januar</value>
+	</item>
+	<item>
+		<key>July</key>
+		<value>Juli</value>
+	</item>
+	<item>
+		<key>June</key>
+		<value>Juni</value>
+	</item>
+	<item>
+		<key>March</key>
+		<value>März</value>
+	</item>
+	<item>
+		<key>May</key>
+		<value>Mai</value>
+	</item>
+	<item>
+		<key>November</key>
+		<value>November</value>
+	</item>
+	<item>
+		<key>October</key>
+		<value>Oktober</value>
+	</item>
+	<item>
+		<key>September</key>
+		<value>September</value>
+	</item>
+	<item>
 		<key>Access</key>
 		<value>Zugriff</value>
 	</item>
@@ -50,10 +98,6 @@
 		<value>Zur Programmliste hinzufügen</value>
 	</item>
 	<item>
-		<key>April</key>
-		<value>April</value>
-	</item>
-	<item>
 		<key>Are you sure to delete $1 selected files?</key>
 		<value>$1 Dateien wirklich löschen?</value>
 	</item>
@@ -92,10 +136,6 @@
 	<item>
 		<key>Audioclip</key>
 		<value>Audiodatei</value>
-	</item>
-	<item>
-		<key>August</key>
-		<value>August</value>
 	</item>
 	<item>
 		<key>Back to overview</key>
@@ -190,10 +230,6 @@
 		<value>Tag</value>
 	</item>
 	<item>
-		<key>December</key>
-		<value>Dezember</value>
-	</item>
-	<item>
 		<key>Delete</key>
 		<value>Löschen</value>
 	</item>
@@ -208,6 +244,14 @@
 	<item>
 		<key>Description</key>
 		<value>Beschreibung</value>
+	</item>
+	<item>
+		<key>Destination folder (relative path):</key>
+		<value>Zielordner (relativ):</value>
+	</item>
+	<item>
+		<key>New folder name:</key>
+		<value>Neuer Ordnername:</value>
 	</item>
 	<item>
 		<key>Do you want to save changes?</key>
@@ -228,10 +272,6 @@
 	<item>
 		<key>Fade</key>
 		<value>Überblenden</value>
-	</item>
-	<item>
-		<key>February</key>
-		<value>Februar</value>
 	</item>
 	<item>
 		<key>File List</key>
@@ -270,18 +310,6 @@
 		<value>Element</value>
 	</item>
 	<item>
-		<key>January</key>
-		<value>Januar</value>
-	</item>
-	<item>
-		<key>July</key>
-		<value>Juli</value>
-	</item>
-	<item>
-		<key>June</key>
-		<value>Juni</value>
-	</item>
-	<item>
 		<key>Library Search</key>
 		<value>Medien suchen</value>
 	</item>
@@ -308,14 +336,6 @@
 	<item>
 		<key>Manage group members</key>
 		<value>Verwalte Gruppenmitglieder</value>
-	</item>
-	<item>
-		<key>March</key>
-		<value>März</value>
-	</item>
-	<item>
-		<key>May</key>
-		<value>Mai</value>
 	</item>
 	<item>
 		<key>Media Library</key>
@@ -394,20 +414,12 @@
 		<value>Nichts mehr vorhanden</value>
 	</item>
 	<item>
-		<key>November</key>
-		<value>November</value>
-	</item>
-	<item>
 		<key>Now Playing</key>
 		<value>Spielt gerade</value>
 	</item>
 	<item>
 		<key>OK</key>
 		<value>OK</value>
-	</item>
-	<item>
-		<key>October</key>
-		<value>Oktober</value>
 	</item>
 	<item>
 		<key>Open last Playlist</key>
@@ -516,10 +528,6 @@
 	<item>
 		<key>Search</key>
 		<value>Suchen</value>
-	</item>
-	<item>
-		<key>September</key>
-		<value>September</value>
 	</item>
 	<item>
 		<key>Show Info</key>
@@ -647,7 +655,7 @@
 	</item>
 	<item>
 		<key>_Name of translator</key>
-		<value>Sebastian Göbel</value>
+		<value>Micz Flor, Sebastian Göbel</value>
 	</item>
 	<item>
 		<key>_Native language name</key>

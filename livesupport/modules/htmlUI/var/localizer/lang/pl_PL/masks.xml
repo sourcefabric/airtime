@@ -259,15 +259,15 @@
 	</item>
 	<item>
 		<key>Snap to hour</key>
-		<value>Przechwyć godzinę</value>
+		<value>Przesuń godzinę</value>
 	</item>
 	<item>
 		<key>Snap to next</key>
-		<value>Przechwyć następny</value>
+		<value>Przesuń do nast.</value>
 	</item>
 	<item>
 		<key>Snap to previous</key>
-		<value>Przechwyć poprzedni</value>
+		<value>Przesuń do poprz.</value>
 	</item>
 	<item>
 		<key>Station URL</key>

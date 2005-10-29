@@ -139,11 +139,11 @@
 	</item>
 	<item>
 		<key>Scheduler did not start. Check setting of &quot;UI_SCHEDULER_DAEMON_CMD&quot; in ui_conf.php. File &quot;/tmp/scheduler.log&quot; could be helpful.</key>
-		<value />
+		<value>Plánovač nebyl nastartován. Překontrolujte nastavení &quot;UI_SCHEDULER_DAEMON_CMD&quot; v souboru ui_conf.php. Užitečné informace mohou být v souboru &quot;/tmp/scheduler.log&quot;.</value>
 	</item>
 	<item>
 		<key>Scheduler is running.</key>
-		<value />
+		<value>Plánovač běží.</value>
 	</item>
 	<item>
 		<key>Settings saved.</key>
