@@ -328,8 +328,8 @@ $ui_fmask = array(
             'type'      => 'select',
             'label'     => 'Operator',
             'options'   => array(
-                            'or'    => 'Or',
-                            'and'   => 'And',
+                            'or'    => '##Or##',
+                            'and'   => '##And##',
                             )
         ),
         array(
@@ -338,9 +338,9 @@ $ui_fmask = array(
             'label'     => 'File type',
             'options'   => array(
                             UI_FILETYPE_ANY       => '*',
-                            UI_FILETYPE_AUDIOCLIP => 'Audioclip',
-                            #UI_FILETYPE_WEBSTREAM => 'Web Stream',
-                            UI_FILETYPE_PLAYLIST  => 'Playlist'
+                            UI_FILETYPE_AUDIOCLIP => '##Audioclip##',
+                            #UI_FILETYPE_WEBSTREAM => '##Webstream##',
+                            UI_FILETYPE_PLAYLIST  => '##Playlist##'
                            ),
         ),
         array(
@@ -381,9 +381,9 @@ $ui_fmask = array(
 
     'relations'     => array(
         'standard'    => array(
-                'partial'    => 'partial',
-                'full'       => 'full',
-                'prefix'     => 'prefix',
+                'partial'    => '##partial##',
+                'full'       => '##full##',
+                'prefix'     => '##prefix##',
                 '='          => '=' ,
                 '<'         => '<',
                 '<='        => '<=',
@@ -391,9 +391,9 @@ $ui_fmask = array(
                 '>='        => '>='
         ),
         1             => array(
-                'partial'    => 'partial',
-                'full'       => 'full',
-                'prefix'     => 'prefix',
+                'partial'    => '##partial##',
+                'full'       => '##full##',
+                'prefix'     => '##prefix##',
                 '='          => '='
         ),
 
@@ -455,9 +455,9 @@ $ui_fmask = array(
             'label'     => 'File type',
             'options'   => array(
                             UI_FILETYPE_ANY       => '*',
-                            UI_FILETYPE_AUDIOCLIP => 'Audioclip',
-                            #UI_FILETYPE_WEBSTREAM => 'Web Stream',
-                            UI_FILETYPE_PLAYLIST  => 'Playlist'
+                            UI_FILETYPE_AUDIOCLIP => '##Audioclip##',
+                            #UI_FILETYPE_WEBSTREAM => '##Webstream##',
+                            UI_FILETYPE_PLAYLIST  => '##Playlist##'
                            ),
             'attributes'=> array('onChange' =>  'hpopup("'.UI_HANDLER.'?act=BROWSE.setFiletype&filetype=" + this.form.filetype.value)')
         ),

@@ -2,6 +2,50 @@
 <translations>
 	<Id>es_CO</Id>
 	<item>
+		<key>5.1</key>
+		<value>5.1</value>
+	</item>
+	<item>
+		<key>And</key>
+		<value>Y</value>
+	</item>
+	<item>
+		<key>Crossfade</key>
+		<value>Mezclar y degradar</value>
+	</item>
+	<item>
+		<key>Destination folder (relative path)</key>
+		<value>Carpeta de destino (ruta relativa)</value>
+	</item>
+	<item>
+		<key>Mono</key>
+		<value>Mono</value>
+	</item>
+	<item>
+		<key>Or</key>
+		<value>O</value>
+	</item>
+	<item>
+		<key>Pause</key>
+		<value>Pausa</value>
+	</item>
+	<item>
+		<key>Stereo</key>
+		<value>Estéreo</value>
+	</item>
+	<item>
+		<key>full</key>
+		<value>lleno</value>
+	</item>
+	<item>
+		<key>partial</key>
+		<value>parcial</value>
+	</item>
+	<item>
+		<key>prefix</key>
+		<value>prefijo</value>
+	</item>
+	<item>
 		<key>April</key>
 		<value>Abril</value>
 	</item>
@@ -159,15 +203,15 @@
 	</item>
 	<item>
 		<key>Change Fadein</key>
-		<value>Cambiar la mezcla de entrada.</value>
+		<value>Cambiar el nivel de degradación de entrada.</value>
 	</item>
 	<item>
 		<key>Change Fadeout</key>
-		<value>Cambiar la mezcla de salida.</value>
+		<value>Cambiar el nivel de degradación de salida.</value>
 	</item>
 	<item>
 		<key>Change Fades</key>
-		<value>Cambiar la mezcla.</value>
+		<value>Cambiar los niveles de degradación</value>
 	</item>
 	<item>
 		<key>Change Password</key>
@@ -246,6 +290,14 @@
 		<value>Descripción</value>
 	</item>
 	<item>
+		<key>Destination folder (relative path):</key>
+		<value>Folder destino (path relativo).</value>
+	</item>
+	<item>
+		<key>New folder name:</key>
+		<value>Nuevo nombre de folder.</value>
+	</item>
+	<item>
 		<key>Do you want to save changes?</key>
 		<value>¿Desea guardar los cambios?</value>
 	</item>
@@ -263,7 +315,7 @@
 	</item>
 	<item>
 		<key>Fade</key>
-		<value>Programa de codificación utilizado</value>
+		<value>Degradar</value>
 	</item>
 	<item>
 		<key>File List</key>
@@ -647,11 +699,11 @@
 	</item>
 	<item>
 		<key>_Name of translator</key>
-		<value>_nombre del traductor</value>
+		<value>Juan M. Triana, Claudia Cruz, René Bojórquez</value>
 	</item>
 	<item>
 		<key>_Native language name</key>
-		<value>_nombre del idioma de origen</value>
+		<value>Español (CO)</value>
 	</item>
 	<item>
 		<key>audioclip</key>
@@ -731,7 +783,7 @@
 	</item>
 	<item>
 		<key>sign over</key>
-		<value>Cambio y fuera</value>
+		<value>salir del sistema</value>
 	</item>
 	<item>
 		<key>tomorrow</key>
@@ -739,7 +791,7 @@
 	</item>
 	<item>
 		<key>webstream</key>
-		<value>webstream</value>
+		<value>flujo de audio vìa web</value>
 	</item>
 	<item>
 		<key>yesterday</key>

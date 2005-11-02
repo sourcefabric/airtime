@@ -2,16 +2,108 @@
 <translations>
 	<Id>sr_CS</Id>
 	<item>
+		<key>5.1</key>
+		<value>5.1</value>
+	</item>
+	<item>
+		<key>And</key>
+		<value>I</value>
+	</item>
+	<item>
+		<key>Crossfade</key>
+		<value>Miks</value>
+	</item>
+	<item>
+		<key>Destination folder (relative path)</key>
+		<value>Ciljni direktorijum (relativna putanja)</value>
+	</item>
+	<item>
+		<key>Mono</key>
+		<value>Mono</value>
+	</item>
+	<item>
+		<key>Or</key>
+		<value>Ili</value>
+	</item>
+	<item>
+		<key>Pause</key>
+		<value>Pauza</value>
+	</item>
+	<item>
+		<key>Stereo</key>
+		<value>Stereo</value>
+	</item>
+	<item>
+		<key>full</key>
+		<value>Ceo</value>
+	</item>
+	<item>
+		<key>partial</key>
+		<value>Delimičan</value>
+	</item>
+	<item>
+		<key>prefix</key>
+		<value>Prefiks</value>
+	</item>
+	<item>
+		<key>April</key>
+		<value>April</value>
+	</item>
+	<item>
+		<key>August</key>
+		<value>Avgust</value>
+	</item>
+	<item>
+		<key>December</key>
+		<value>Decembar</value>
+	</item>
+	<item>
+		<key>February</key>
+		<value>Februar</value>
+	</item>
+	<item>
+		<key>January</key>
+		<value>Januar</value>
+	</item>
+	<item>
+		<key>July</key>
+		<value>Jul</value>
+	</item>
+	<item>
+		<key>June</key>
+		<value>Jun</value>
+	</item>
+	<item>
+		<key>March</key>
+		<value>Mart</value>
+	</item>
+	<item>
+		<key>May</key>
+		<value>Maj</value>
+	</item>
+	<item>
+		<key>November</key>
+		<value>Novembar</value>
+	</item>
+	<item>
+		<key>October</key>
+		<value>Oktobar</value>
+	</item>
+	<item>
+		<key>September</key>
+		<value>Septembar</value>
+	</item>
+	<item>
 		<key>Access</key>
 		<value>Pristup</value>
 	</item>
 	<item>
 		<key>Action</key>
-		<value />
+		<value>Radnja</value>
 	</item>
 	<item>
 		<key>Add Audio</key>
-		<value>Dodaj audio</value>
+		<value>Dodaj Audio</value>
 	</item>
 	<item>
 		<key>Add Group</key>
@@ -27,11 +119,11 @@
 	</item>
 	<item>
 		<key>Add files to ScratchPad</key>
-		<value />
+		<value>Dodaj fajlove u Pripremu</value>
 	</item>
 	<item>
 		<key>Add files to open Playlist</key>
-		<value />
+		<value>Dodaj fajlove u otvorenu Plej listu</value>
 	</item>
 	<item>
 		<key>Add selected</key>
@@ -47,23 +139,19 @@
 	</item>
 	<item>
 		<key>Add to playlist</key>
-		<value />
-	</item>
-	<item>
-		<key>April</key>
-		<value>April</value>
+		<value>Dodaj u plej listu</value>
 	</item>
 	<item>
 		<key>Are you sure to delete $1 selected files?</key>
-		<value />
+		<value>Da li ste sigurni da želite da obrišete $1 odabrane fajlove ?</value>
 	</item>
 	<item>
 		<key>Are you sure to delete file &quot;$1&quot;?</key>
-		<value />
+		<value>Da li ste sigurni da želite da obrišete fajl &quot;$1&quot;?</value>
 	</item>
 	<item>
 		<key>Are you sure to delete open Playlist?</key>
-		<value />
+		<value>Da li ste sigurni da želite da obrišete otvorenu Plej listu?</value>
 	</item>
 	<item>
 		<key>Are you sure to discard all changes?</key>
@@ -71,11 +159,11 @@
 	</item>
 	<item>
 		<key>Are you sure to logout?</key>
-		<value />
+		<value>Da li ste sigurni da želite da se odjavite?</value>
 	</item>
 	<item>
 		<key>Are you sure to remove &quot;$1&quot;?</key>
-		<value />
+		<value>Da li ste sigurni da želite da uklonite &quot;$1&quot;?</value>
 	</item>
 	<item>
 		<key>Are you sure to remove playlist &quot;$1&quot;?</key>
@@ -91,11 +179,7 @@
 	</item>
 	<item>
 		<key>Audioclip</key>
-		<value />
-	</item>
-	<item>
-		<key>August</key>
-		<value>Avgust</value>
+		<value>Audio fajl</value>
 	</item>
 	<item>
 		<key>Back to overview</key>
@@ -115,7 +199,7 @@
 	</item>
 	<item>
 		<key>Cannot connect to Scheduler</key>
-		<value />
+		<value>Ne možete da se povežete sa Rasporedom</value>
 	</item>
 	<item>
 		<key>Change Fadein</key>
@@ -127,11 +211,11 @@
 	</item>
 	<item>
 		<key>Change Fades</key>
-		<value />
+		<value>Promeni prelazni miks</value>
 	</item>
 	<item>
 		<key>Change Password</key>
-		<value />
+		<value>Promeni lozinku</value>
 	</item>
 	<item>
 		<key>Change Transition</key>
@@ -143,7 +227,7 @@
 	</item>
 	<item>
 		<key>Change password for: $1</key>
-		<value />
+		<value>Promeni lozinku za: $1</value>
 	</item>
 	<item>
 		<key>Clear</key>
@@ -155,23 +239,23 @@
 	</item>
 	<item>
 		<key>Close</key>
-		<value />
+		<value>Zatvori</value>
 	</item>
 	<item>
 		<key>Close Playlist</key>
-		<value />
+		<value>Zatvori Plej listu</value>
 	</item>
 	<item>
 		<key>Connection to $1 port $2 $3</key>
-		<value />
+		<value>Konekcija za $1 port $2 $3</value>
 	</item>
 	<item>
 		<key>Count</key>
-		<value />
+		<value>Broj</value>
 	</item>
 	<item>
 		<key>Creator</key>
-		<value />
+		<value>Autor</value>
 	</item>
 	<item>
 		<key>Current Members</key>
@@ -179,19 +263,15 @@
 	</item>
 	<item>
 		<key>Daily View</key>
-		<value />
+		<value>Dnevni pregled</value>
 	</item>
 	<item>
 		<key>Data</key>
-		<value />
+		<value>Podaci</value>
 	</item>
 	<item>
 		<key>Day</key>
 		<value>Dan</value>
-	</item>
-	<item>
-		<key>December</key>
-		<value>Decembar</value>
 	</item>
 	<item>
 		<key>Delete</key>
@@ -203,11 +283,19 @@
 	</item>
 	<item>
 		<key>Delete files</key>
-		<value />
+		<value>Obriši fajlove</value>
 	</item>
 	<item>
 		<key>Description</key>
 		<value>Opis</value>
+	</item>
+	<item>
+		<key>Destination folder (relative path):</key>
+		<value>Destinacija foldera (relativna putanja):</value>
+	</item>
+	<item>
+		<key>New folder name:</key>
+		<value>Ime novog foldera:</value>
 	</item>
 	<item>
 		<key>Do you want to save changes?</key>
@@ -223,15 +311,11 @@
 	</item>
 	<item>
 		<key>Edit Playlist</key>
-		<value />
+		<value>Obradi Plej listu</value>
 	</item>
 	<item>
 		<key>Fade</key>
 		<value>Miks</value>
-	</item>
-	<item>
-		<key>February</key>
-		<value>Februar</value>
 	</item>
 	<item>
 		<key>File List</key>
@@ -263,23 +347,11 @@
 	</item>
 	<item>
 		<key>Insert playlist here</key>
-		<value />
+		<value>Unesi Plej listu ovde</value>
 	</item>
 	<item>
 		<key>Item</key>
 		<value>Stavka</value>
-	</item>
-	<item>
-		<key>January</key>
-		<value>Januar</value>
-	</item>
-	<item>
-		<key>July</key>
-		<value>Jul</value>
-	</item>
-	<item>
-		<key>June</key>
-		<value>Jun</value>
 	</item>
 	<item>
 		<key>Library Search</key>
@@ -291,7 +363,7 @@
 	</item>
 	<item>
 		<key>Listen</key>
-		<value />
+		<value>Preslušaj</value>
 	</item>
 	<item>
 		<key>Login</key>
@@ -303,23 +375,15 @@
 	</item>
 	<item>
 		<key>Manage Group: $1</key>
-		<value />
+		<value>Uredi Grupu: $1</value>
 	</item>
 	<item>
 		<key>Manage group members</key>
 		<value>Uredi članove grupe</value>
 	</item>
 	<item>
-		<key>March</key>
-		<value>Mart</value>
-	</item>
-	<item>
-		<key>May</key>
-		<value>Maj</value>
-	</item>
-	<item>
 		<key>Media Library</key>
-		<value />
+		<value>Audioteka</value>
 	</item>
 	<item>
 		<key>Members</key>
@@ -327,7 +391,7 @@
 	</item>
 	<item>
 		<key>Metadata XML</key>
-		<value />
+		<value>Metadata XML</value>
 	</item>
 	<item>
 		<key>Mo</key>
@@ -363,7 +427,7 @@
 	</item>
 	<item>
 		<key>New Playlist using this files</key>
-		<value />
+		<value>Napravi novu Plej listu od ovih fajlova</value>
 	</item>
 	<item>
 		<key>New empty Playlist</key>
@@ -371,7 +435,7 @@
 	</item>
 	<item>
 		<key>New playlist using this files</key>
-		<value />
+		<value>Napravi novu plej listu od ovih fajlova</value>
 	</item>
 	<item>
 		<key>No Entry</key>
@@ -394,20 +458,12 @@
 		<value>Ništa nije ostalo</value>
 	</item>
 	<item>
-		<key>November</key>
-		<value>Novembar</value>
-	</item>
-	<item>
 		<key>Now Playing</key>
-		<value />
+		<value>Trenutno u programu</value>
 	</item>
 	<item>
 		<key>OK</key>
-		<value />
-	</item>
-	<item>
-		<key>October</key>
-		<value>Oktobar</value>
+		<value>U redu</value>
 	</item>
 	<item>
 		<key>Open last Playlist</key>
@@ -419,7 +475,7 @@
 	</item>
 	<item>
 		<key>Playing Next</key>
-		<value />
+		<value>Sledeće u programu</value>
 	</item>
 	<item>
 		<key>Playlist</key>
@@ -427,7 +483,7 @@
 	</item>
 	<item>
 		<key>Playlist Editor</key>
-		<value />
+		<value>Obrada Plej liste</value>
 	</item>
 	<item>
 		<key>Playlist Metadata</key>
@@ -435,11 +491,11 @@
 	</item>
 	<item>
 		<key>Playlists</key>
-		<value>Obrada plej liste</value>
+		<value>Plej liste</value>
 	</item>
 	<item>
 		<key>Preferences</key>
-		<value />
+		<value>Podešavanja</value>
 	</item>
 	<item>
 		<key>Range</key>
@@ -455,11 +511,11 @@
 	</item>
 	<item>
 		<key>Remove files</key>
-		<value />
+		<value>Ukloni fajlove</value>
 	</item>
 	<item>
 		<key>Remove from ScratchPad</key>
-		<value />
+		<value>Ukloni iz Pripreme</value>
 	</item>
 	<item>
 		<key>Remove from group</key>
@@ -467,11 +523,11 @@
 	</item>
 	<item>
 		<key>Remove from playlist</key>
-		<value />
+		<value>Ukloni iz plej liste</value>
 	</item>
 	<item>
 		<key>Remove playlist</key>
-		<value />
+		<value>Ukloni plej listu</value>
 	</item>
 	<item>
 		<key>Remove selected</key>
@@ -479,7 +535,7 @@
 	</item>
 	<item>
 		<key>Reorder Playlist</key>
-		<value />
+		<value>Preuredi Plej listu</value>
 	</item>
 	<item>
 		<key>Revert to Saved</key>
@@ -499,7 +555,7 @@
 	</item>
 	<item>
 		<key>Schedule</key>
-		<value />
+		<value>Rasporedi</value>
 	</item>
 	<item>
 		<key>Scheduler</key>
@@ -518,12 +574,8 @@
 		<value>Pretraži</value>
 	</item>
 	<item>
-		<key>September</key>
-		<value>Septembar</value>
-	</item>
-	<item>
 		<key>Show Info</key>
-		<value />
+		<value>Prikaži info</value>
 	</item>
 	<item>
 		<key>Signed in</key>
@@ -531,11 +583,11 @@
 	</item>
 	<item>
 		<key>Start Scheduler</key>
-		<value />
+		<value>Pokreni Raspored</value>
 	</item>
 	<item>
 		<key>Station Settings</key>
-		<value>Podešavanje stanice</value>
+		<value>Podešavanje&amp;nbsp;stanice</value>
 	</item>
 	<item>
 		<key>Station Time</key>
@@ -543,15 +595,15 @@
 	</item>
 	<item>
 		<key>Station settings</key>
-		<value />
+		<value>Podešavanja&amp;nbsp;stanice</value>
 	</item>
 	<item>
 		<key>Stream has wrong content type &lt;font color=&quot;red&quot;&gt;$1&lt;/font&gt;.</key>
-		<value />
+		<value>Strim ima  pogrešan sadržaj &lt;font color=&quot;red&quot;&gt;$1&lt;/font&gt;.</value>
 	</item>
 	<item>
 		<key>Stream is wanted type &lt;font color=&quot;green&quot;&gt;$1&lt;/font&gt;.</key>
-		<value />
+		<value>Strim ima željeni sadržaj &lt;font color=&quot;green&quot;&gt;$1&lt;/font&gt;.</value>
 	</item>
 	<item>
 		<key>Su</key>
@@ -599,15 +651,15 @@
 	</item>
 	<item>
 		<key>URL is &lt;font color=&quot;green&quot;&gt;valid&lt;/font&gt;.</key>
-		<value />
+		<value>URL je &lt;font color=&quot;green&quot;&gt;valid&lt;/font&gt;.</value>
 	</item>
 	<item>
 		<key>URL seems &lt;font color=&quot;red&quot;&gt;invalid&lt;/font&gt;. Returned error-code: $1.</key>
-		<value />
+		<value>URL je &lt;font color=&quot;red&quot;&gt;invalid&lt;/font&gt;. Povratni kod greške: $1.</value>
 	</item>
 	<item>
 		<key>Use to create playlist</key>
-		<value />
+		<value>Upotrebi za kreiranje plej liste.</value>
 	</item>
 	<item>
 		<key>User/Group Management</key>
@@ -619,7 +671,7 @@
 	</item>
 	<item>
 		<key>Voice</key>
-		<value />
+		<value>Govor</value>
 	</item>
 	<item>
 		<key>We</key>
@@ -627,7 +679,7 @@
 	</item>
 	<item>
 		<key>Webstream</key>
-		<value />
+		<value>Web strim</value>
 	</item>
 	<item>
 		<key>Wednesday</key>
@@ -647,15 +699,15 @@
 	</item>
 	<item>
 		<key>_Name of translator</key>
-		<value />
+		<value>_Ime prevodioca</value>
 	</item>
 	<item>
 		<key>_Native language name</key>
-		<value />
+		<value>_Naziv na maternjem jeziku</value>
 	</item>
 	<item>
 		<key>audioclip</key>
-		<value />
+		<value>audio fajl</value>
 	</item>
 	<item>
 		<key>calendar week</key>
@@ -679,7 +731,7 @@
 	</item>
 	<item>
 		<key>in use by: $1</key>
-		<value />
+		<value>koristi: $1</value>
 	</item>
 	<item>
 		<key>login</key>
@@ -707,7 +759,7 @@
 	</item>
 	<item>
 		<key>new&amp;nbsp;folder</key>
-		<value>novi folder</value>
+		<value>novi&amp;nbsp;folder</value>
 	</item>
 	<item>
 		<key>next</key>
@@ -715,15 +767,15 @@
 	</item>
 	<item>
 		<key>permissions</key>
-		<value />
+		<value>dopuštenja</value>
 	</item>
 	<item>
 		<key>playlist</key>
-		<value />
+		<value>plej lista</value>
 	</item>
 	<item>
 		<key>previous</key>
-		<value />
+		<value>prethodno</value>
 	</item>
 	<item>
 		<key>s</key>
@@ -735,14 +787,14 @@
 	</item>
 	<item>
 		<key>tomorrow</key>
-		<value />
+		<value>sutra</value>
 	</item>
 	<item>
 		<key>webstream</key>
-		<value />
+		<value>web strim</value>
 	</item>
 	<item>
 		<key>yesterday</key>
-		<value />
+		<value>juče</value>
 	</item>
 </translations>

@@ -19,15 +19,15 @@
 	</item>
 	<item>
 		<key>Cannot create playlist.</key>
-		<value>Ne možete da kreirate plej listu</value>
+		<value>Ne možete da kreirate plej listu.</value>
 	</item>
 	<item>
 		<key>Cannot delete this playlist.</key>
-		<value>Ne možete da obrišete plej listu.</value>
+		<value>Ne možete da obrišete ovu plej listu.</value>
 	</item>
 	<item>
 		<key>Cannot move item.</key>
-		<value>Ne možete da pomerite fajl u plej listi.</value>
+		<value>Ne možete da pomerite fajl.</value>
 	</item>
 	<item>
 		<key>Cannot remove item from playlist.</key>
@@ -39,7 +39,7 @@
 	</item>
 	<item>
 		<key>Data of audiclip saved.</key>
-		<value>Podaci o audio klipu su sačuvani.</value>
+		<value>Podaci o audio fajlu su sačuvani.</value>
 	</item>
 	<item>
 		<key>Entry $1 is already on the scratchpad. It has been moved to the top of the list.</key>
@@ -47,15 +47,15 @@
 	</item>
 	<item>
 		<key>Entry added at $1 with ScheduleId $2.</key>
-		<value>Podatak je unet  u $1 sa programiranim ID $2.</value>
+		<value>Podatak je unet  u $1 sa rasporedom ID $2.</value>
 	</item>
 	<item>
 		<key>Entry with ScheduleId $1 removed.</key>
-		<value>Unos sa programiranim ID $1 je uklonjen.</value>
+		<value>Unos sa rasporedom ID $1 je uklonjen.</value>
 	</item>
 	<item>
 		<key>Error while saving settings.</key>
-		<value>Greška pri snimanju sistemskih podešavanja.</value>
+		<value>Greška pri snimanju  podešavanja.</value>
 	</item>
 	<item>
 		<key>Error while trying to add item to playlist.</key>
@@ -71,7 +71,7 @@
 	</item>
 	<item>
 		<key>File &quot;$1&quot; has not been uploaded.</key>
-		<value>Fajl $1 nije aploudovan.</value>
+		<value>Fajl &quot;$1 nije aploudovan.</value>
 	</item>
 	<item>
 		<key>Found locked playlist.</key>
@@ -79,7 +79,7 @@
 	</item>
 	<item>
 		<key>Group &quot;$1&quot; added.</key>
-		<value />
+		<value>Grupa  &quot;$1&quot; je dodana.</value>
 	</item>
 	<item>
 		<key>Invalid or incomplete form data.</key>
@@ -95,11 +95,11 @@
 	</item>
 	<item>
 		<key>No item(s) selected.</key>
-		<value>Ni jedan fajl nije odabran.</value>
+		<value>Nijedan fajl nije odabran.</value>
 	</item>
 	<item>
 		<key>No playlists have been locked by you.</key>
-		<value>Nema aktivne plej liste.</value>
+		<value>Niste zaključali ni jednu plej listu.</value>
 	</item>
 	<item>
 		<key>Nothing selected.</key>
@@ -131,23 +131,23 @@
 	</item>
 	<item>
 		<key>Playlist has been locked by &quot;$1&quot;.</key>
-		<value>Plej lista je zaključana od $1.</value>
+		<value>Plej lista je zaključao &quot;$1&quot;.</value>
 	</item>
 	<item>
 		<key>Playlist not found in database.</key>
-		<value />
+		<value>Plajlista nije pronadjena u bazi podataka.</value>
 	</item>
 	<item>
 		<key>Scheduler did not start. Check setting of &quot;UI_SCHEDULER_DAEMON_CMD&quot; in ui_conf.php. File &quot;/tmp/scheduler.log&quot; could be helpful.</key>
-		<value />
+		<value>Raspored nije počeo. Proverite podešavanja &quot;UI_SCHEDULER_DAEMON_CMD&quot; u ui_conf.php. Fajl &quot;/tmp/scheduler.log&quot; bi bio od pomoći. </value>
 	</item>
 	<item>
 		<key>Scheduler is running.</key>
-		<value />
+		<value>Raspored je u funkciji.</value>
 	</item>
 	<item>
 		<key>Settings saved.</key>
-		<value>Podešavanja stanice su sačuvana.</value>
+		<value>Podešavanja  su sačuvana.</value>
 	</item>
 	<item>
 		<key>Stream data saved.</key>
@@ -171,7 +171,7 @@
 	</item>
 	<item>
 		<key>Unable to release playlist.</key>
-		<value>Ne možete da pustite Plej listu.</value>
+		<value>Ne možete da pustite plej listu.</value>
 	</item>
 	<item>
 		<key>Unable to revert to locked state.</key>
@@ -183,19 +183,19 @@
 	</item>
 	<item>
 		<key>Upload of file &quot;$1&quot; was incomplete.</key>
-		<value>Aploud fajla  $1 nije kompletan.</value>
+		<value>Aploud fajla &quot;$1&quot; nije kompletan.</value>
 	</item>
 	<item>
 		<key>Uploaded file &quot;$1&quot; is bigger than LiveSupport&amp;acute;s system setting.</key>
-		<value>Aploudovan fajl $1 je veći nego što LiveSupport sistem podržava.</value>
+		<value>Aploudovan fajl &quot;$1&quot; je veći nego što LiveSupport&amp;acute;s sistem podržava.</value>
 	</item>
 	<item>
 		<key>Uploaded file &quot;$1&quot; is bigger than setting in php.ini.</key>
-		<value>Aploudovan fajl $1 je veći od podešenog u php.ini.</value>
+		<value>Aploudovan fajl &quot;$1&quot; je veći od podešenog u php.ini.</value>
 	</item>
 	<item>
 		<key>User &quot;$1&quot; added.</key>
-		<value />
+		<value>Korisnik  &quot;$1&quot; je dodat.</value>
 	</item>
 	<item>
 		<key>User or group &quot;$1&quot; already exists.</key>
@@ -203,10 +203,10 @@
 	</item>
 	<item>
 		<key>Warning: station preferences have not been set up properly.</key>
-		<value>Obaveštenje: Podešavanja stanice nisu pravilno postavljena.</value>
+		<value>Upozorenje: podešavanja stanice nisu pravilno postavljena.</value>
 	</item>
 	<item>
 		<key>You already have an open playlist. Close it first.</key>
-		<value>Plej lista je već otvorena,  najpre je zatvorite.</value>
+		<value>Plej lista je već otvorena. Najpre je zatvorite.</value>
 	</item>
 </translations>

@@ -2,6 +2,50 @@
 <translations>
 	<Id>nl_NL</Id>
 	<item>
+		<key>5.1</key>
+		<value>5.1</value>
+	</item>
+	<item>
+		<key>And</key>
+		<value>en</value>
+	</item>
+	<item>
+		<key>Crossfade</key>
+		<value>Overgangsfade</value>
+	</item>
+	<item>
+		<key>Destination folder (relative path)</key>
+		<value>Doel map (relatieve weg):</value>
+	</item>
+	<item>
+		<key>Mono</key>
+		<value>Mono</value>
+	</item>
+	<item>
+		<key>Or</key>
+		<value>Of</value>
+	</item>
+	<item>
+		<key>Pause</key>
+		<value>Pause</value>
+	</item>
+	<item>
+		<key>Stereo</key>
+		<value>Stereo</value>
+	</item>
+	<item>
+		<key>full</key>
+		<value>volledig</value>
+	</item>
+	<item>
+		<key>partial</key>
+		<value>gedeeltelijk</value>
+	</item>
+	<item>
+		<key>prefix</key>
+		<value>parameter</value>
+	</item>
+	<item>
 		<key>April</key>
 		<value>april</value>
 	</item>
@@ -244,6 +288,14 @@
 	<item>
 		<key>Description</key>
 		<value>Omschrijving</value>
+	</item>
+	<item>
+		<key>Destination folder (relative path):</key>
+		<value>Doel map (relatieve weg):</value>
+	</item>
+	<item>
+		<key>New folder name:</key>
+		<value>Nieuwe naam van de map</value>
 	</item>
 	<item>
 		<key>Do you want to save changes?</key>

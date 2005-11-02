@@ -2,6 +2,50 @@
 <translations>
 	<Id>pl_PL</Id>
 	<item>
+		<key>5.1</key>
+		<value>5,1</value>
+	</item>
+	<item>
+		<key>And</key>
+		<value>oraz</value>
+	</item>
+	<item>
+		<key>Crossfade</key>
+		<value>Przejście</value>
+	</item>
+	<item>
+		<key>Destination folder (relative path)</key>
+		<value>Katalog docelowy (ścieżka względna)</value>
+	</item>
+	<item>
+		<key>Mono</key>
+		<value>Mono</value>
+	</item>
+	<item>
+		<key>Or</key>
+		<value>lub</value>
+	</item>
+	<item>
+		<key>Pause</key>
+		<value>Pauza</value>
+	</item>
+	<item>
+		<key>Stereo</key>
+		<value>Stereo</value>
+	</item>
+	<item>
+		<key>full</key>
+		<value>dokładnie</value>
+	</item>
+	<item>
+		<key>partial</key>
+		<value>zawiera</value>
+	</item>
+	<item>
+		<key>prefix</key>
+		<value>zaczyna się od</value>
+	</item>
+	<item>
 		<key>April</key>
 		<value>Kwiecień</value>
 	</item>
@@ -55,7 +99,7 @@
 	</item>
 	<item>
 		<key>Action</key>
-		<value>Wykonaj</value>
+		<value>Operacja</value>
 	</item>
 	<item>
 		<key>Add Audio</key>
@@ -207,7 +251,7 @@
 	</item>
 	<item>
 		<key>Count</key>
-		<value>Licz</value>
+		<value>Liczba</value>
 	</item>
 	<item>
 		<key>Creator</key>
@@ -244,6 +288,14 @@
 	<item>
 		<key>Description</key>
 		<value>Opis</value>
+	</item>
+	<item>
+		<key>Destination folder (relative path):</key>
+		<value>Katalog docelowy (ścieżka względna):</value>
+	</item>
+	<item>
+		<key>New folder name:</key>
+		<value>Nazwa nowego katalogu:</value>
 	</item>
 	<item>
 		<key>Do you want to save changes?</key>
@@ -315,7 +367,7 @@
 	</item>
 	<item>
 		<key>Login</key>
-		<value>Zaloguj</value>
+		<value>Użytkownik</value>
 	</item>
 	<item>
 		<key>Main</key>
@@ -375,7 +427,7 @@
 	</item>
 	<item>
 		<key>New Playlist using this files</key>
-		<value>Nowa lista utworów na podstawie tych plików</value>
+		<value>Nowa lista z tymi plikami</value>
 	</item>
 	<item>
 		<key>New empty Playlist</key>
@@ -383,7 +435,7 @@
 	</item>
 	<item>
 		<key>New playlist using this files</key>
-		<value>Nowa lista utworów na podstawie tych plików</value>
+		<value>Nowa lista z tymi plikami</value>
 	</item>
 	<item>
 		<key>No Entry</key>

@@ -2,6 +2,50 @@
 <translations>
 	<Id>de_DE</Id>
 	<item>
+		<key>5.1</key>
+		<value>5.1</value>
+	</item>
+	<item>
+		<key>And</key>
+		<value>Und</value>
+	</item>
+	<item>
+		<key>Crossfade</key>
+		<value>Überblendung</value>
+	</item>
+	<item>
+		<key>Destination folder (relative path)</key>
+		<value>Zielordner (relativ)</value>
+	</item>
+	<item>
+		<key>Mono</key>
+		<value>Mono</value>
+	</item>
+	<item>
+		<key>Or</key>
+		<value>Oder</value>
+	</item>
+	<item>
+		<key>Pause</key>
+		<value>Pause</value>
+	</item>
+	<item>
+		<key>Stereo</key>
+		<value>Stereo</value>
+	</item>
+	<item>
+		<key>full</key>
+		<value>voll</value>
+	</item>
+	<item>
+		<key>partial</key>
+		<value>partiell</value>
+	</item>
+	<item>
+		<key>prefix</key>
+		<value>beginnend</value>
+	</item>
+	<item>
 		<key>April</key>
 		<value>April</value>
 	</item>
@@ -247,7 +291,7 @@
 	</item>
 	<item>
 		<key>Destination folder (relative path):</key>
-		<value>Zielordner (relativ):</value>
+		<value>Zielordner (ralativer Pfad):</value>
 	</item>
 	<item>
 		<key>New folder name:</key>
@@ -371,7 +415,7 @@
 	</item>
 	<item>
 		<key>Multiple Action:</key>
-		<value>Mehrfachaktion</value>
+		<value>Mehrfachaktion:</value>
 	</item>
 	<item>
 		<key>Music</key>
@@ -539,7 +583,7 @@
 	</item>
 	<item>
 		<key>Start Scheduler</key>
-		<value />
+		<value>Scheduler starten</value>
 	</item>
 	<item>
 		<key>Station Settings</key>

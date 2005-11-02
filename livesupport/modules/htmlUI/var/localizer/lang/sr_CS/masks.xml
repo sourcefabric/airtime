@@ -19,7 +19,7 @@
 	</item>
 	<item>
 		<key>Audio file information web page</key>
-		<value>Web info strana audio fajlu</value>
+		<value>Web info strana o audio fajlu</value>
 	</item>
 	<item>
 		<key>Audio source web page</key>
@@ -71,11 +71,11 @@
 	</item>
 	<item>
 		<key>Copyright</key>
-		<value />
+		<value>Autorska prava</value>
 	</item>
 	<item>
 		<key>Creator</key>
-		<value />
+		<value>Autor</value>
 	</item>
 	<item>
 		<key>Date</key>
@@ -91,7 +91,7 @@
 	</item>
 	<item>
 		<key>Duration (ms)</key>
-		<value />
+		<value>Trajanje (ms)</value>
 	</item>
 	<item>
 		<key>Encoded by</key>
@@ -123,7 +123,7 @@
 	</item>
 	<item>
 		<key>Groupname</key>
-		<value />
+		<value>Ime grupe</value>
 	</item>
 	<item>
 		<key>ISRC number</key>
@@ -143,7 +143,7 @@
 	</item>
 	<item>
 		<key>Length&lt;br&gt;&lt;small&gt;Enter zero for Live Stream&lt;/small&gt;</key>
-		<value>Dužina (upiši nulu za Live Strim)</value>
+		<value>Dužina (upiši nulu za Strim Uživo)</value>
 	</item>
 	<item>
 		<key>Login</key>
@@ -155,19 +155,19 @@
 	</item>
 	<item>
 		<key>Lyrics</key>
-		<value>Tekst pesme</value>
+		<value>Tekst</value>
 	</item>
 	<item>
 		<key>Maximum length of scratchpad</key>
-		<value />
+		<value>Maksimalna dužina pripremne tabele</value>
 	</item>
 	<item>
 		<key>Media file</key>
-		<value />
+		<value>Media fajl</value>
 	</item>
 	<item>
 		<key>Metadata</key>
-		<value />
+		<value>Metadata</value>
 	</item>
 	<item>
 		<key>Mood</key>
@@ -175,11 +175,11 @@
 	</item>
 	<item>
 		<key>New password</key>
-		<value />
+		<value>Nova lozinka</value>
 	</item>
 	<item>
 		<key>Old password</key>
-		<value />
+		<value>Stara lozinka</value>
 	</item>
 	<item>
 		<key>Operator</key>
@@ -219,7 +219,7 @@
 	</item>
 	<item>
 		<key>Repeat password</key>
-		<value />
+		<value>Ponovi lozinku</value>
 	</item>
 	<item>
 		<key>Report date/time</key>
@@ -239,11 +239,11 @@
 	</item>
 	<item>
 		<key>Reset criteria</key>
-		<value />
+		<value>Poništi kriterijume</value>
 	</item>
 	<item>
 		<key>Rows per page</key>
-		<value />
+		<value>Redova po strani</value>
 	</item>
 	<item>
 		<key>Sample rate</key>
@@ -255,19 +255,19 @@
 	</item>
 	<item>
 		<key>Search library</key>
-		<value />
+		<value>Pretraži biblioteku</value>
 	</item>
 	<item>
 		<key>Snap to hour</key>
-		<value />
+		<value>Spoj na početak sata</value>
 	</item>
 	<item>
 		<key>Snap to next</key>
-		<value />
+		<value>Spoj sa sledećim</value>
 	</item>
 	<item>
 		<key>Snap to previous</key>
-		<value />
+		<value>Spoj sa prethodnim</value>
 	</item>
 	<item>
 		<key>Station URL</key>
@@ -275,15 +275,15 @@
 	</item>
 	<item>
 		<key>Station logo</key>
-		<value />
+		<value>Logo stanice</value>
 	</item>
 	<item>
 		<key>Station logo path</key>
-		<value />
+		<value>Putanja fajla za logo stanice</value>
 	</item>
 	<item>
 		<key>Station name</key>
-		<value />
+		<value>Ime stanice</value>
 	</item>
 	<item>
 		<key>Stream URL</key>
@@ -299,7 +299,7 @@
 	</item>
 	<item>
 		<key>Test</key>
-		<value />
+		<value>Test</value>
 	</item>
 	<item>
 		<key>Time</key>

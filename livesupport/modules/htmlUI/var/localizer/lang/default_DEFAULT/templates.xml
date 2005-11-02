@@ -2,6 +2,50 @@
 <translations>
 	<Id>default_DEFAULT</Id>
 	<item>
+		<key>5.1</key>
+		<value>5.1</value>
+	</item>
+	<item>
+		<key>And</key>
+		<value>And</value>
+	</item>
+	<item>
+		<key>Crossfade</key>
+		<value>Crossfade</value>
+	</item>
+	<item>
+		<key>Destination folder (relative path)</key>
+		<value>Destination folder (relative path)</value>
+	</item>
+	<item>
+		<key>Mono</key>
+		<value>Mono</value>
+	</item>
+	<item>
+		<key>Or</key>
+		<value>Or</value>
+	</item>
+	<item>
+		<key>Pause</key>
+		<value>Pause</value>
+	</item>
+	<item>
+		<key>Stereo</key>
+		<value>Stereo</value>
+	</item>
+	<item>
+		<key>full</key>
+		<value>full</value>
+	</item>
+	<item>
+		<key>partial</key>
+		<value>partial</value>
+	</item>
+	<item>
+		<key>prefix</key>
+		<value>prefix</value>
+	</item>
+	<item>
 		<key>April</key>
 		<value>April</value>
 	</item>
@@ -249,7 +293,7 @@
 		<key>Destination folder (relative path):</key>
 		<value>Destination folder (relative path):</value>
 	</item>
-    <item>
+	<item>
 		<key>New folder name:</key>
 		<value>New folder name:</value>
 	</item>

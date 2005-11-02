@@ -32,3 +32,14 @@ This template is just used to get additional strings into localizer
 ##November##
 ##December##
 
+##Mono##
+##Stereo##
+##5.1##
+##Or##
+##And##
+##partial##
+##full##
+##prefix##
+##Crossfade##
+##Pause##
+

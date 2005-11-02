@@ -155,11 +155,11 @@
 	</item>
 	<item>
 		<key>The scratchpad length is not set in system preferences, so it cannot be used.</key>
-		<value>El tamaño del block de notas no ha sido asignado en las preferencias por lo cual no puede ser utilizado.</value>
+		<value>El tamaño del scratchpad no ha sido asignado en las preferencias por lo cual no puede ser utilizado.</value>
 	</item>
 	<item>
 		<key>The target is not a folder.</key>
-		<value>El objeto no es un folder.</value>
+		<value>El objeto no es una carpeta.</value>
 	</item>
 	<item>
 		<key>There is no playlist available to unlock.</key>
@@ -207,6 +207,6 @@
 	</item>
 	<item>
 		<key>You already have an open playlist. Close it first.</key>
-		<value>Ya existe una lista de reproducción activa. Cierrela primero.</value>
+		<value>Usted ya posee una lista de reproducción activa. Cierrela primero.</value>
 	</item>
 </translations>

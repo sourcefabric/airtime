@@ -2,6 +2,50 @@
 <translations>
 	<Id>cz_CZ</Id>
 	<item>
+		<key>5.1</key>
+		<value>5.1</value>
+	</item>
+	<item>
+		<key>And</key>
+		<value>a</value>
+	</item>
+	<item>
+		<key>Crossfade</key>
+		<value>Přechod</value>
+	</item>
+	<item>
+		<key>Destination folder (relative path)</key>
+		<value>Destinační složka (relativní cesta)</value>
+	</item>
+	<item>
+		<key>Mono</key>
+		<value>Mono</value>
+	</item>
+	<item>
+		<key>Or</key>
+		<value>nebo</value>
+	</item>
+	<item>
+		<key>Pause</key>
+		<value>Pauzovat</value>
+	</item>
+	<item>
+		<key>Stereo</key>
+		<value>Stereo</value>
+	</item>
+	<item>
+		<key>full</key>
+		<value>přesný</value>
+	</item>
+	<item>
+		<key>partial</key>
+		<value>častečný</value>
+	</item>
+	<item>
+		<key>prefix</key>
+		<value>předpona</value>
+	</item>
+	<item>
 		<key>April</key>
 		<value>Duben</value>
 	</item>
@@ -247,11 +291,11 @@
 	</item>
 	<item>
 		<key>Destination folder (relative path):</key>
-		<value />
+		<value>Cílová složka (relativní cesta)</value>
 	</item>
 	<item>
 		<key>New folder name:</key>
-		<value />
+		<value>Jméno nové složky</value>
 	</item>
 	<item>
 		<key>Do you want to save changes?</key>

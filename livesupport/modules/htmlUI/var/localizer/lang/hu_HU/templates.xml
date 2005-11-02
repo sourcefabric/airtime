@@ -2,6 +2,50 @@
 <translations>
 	<Id>hu_HU</Id>
 	<item>
+		<key>5.1</key>
+		<value>5.1</value>
+	</item>
+	<item>
+		<key>And</key>
+		<value>és</value>
+	</item>
+	<item>
+		<key>Crossfade</key>
+		<value>Átkeverés</value>
+	</item>
+	<item>
+		<key>Destination folder (relative path)</key>
+		<value>Célmappa (relatív elérési út)</value>
+	</item>
+	<item>
+		<key>Mono</key>
+		<value>Mono</value>
+	</item>
+	<item>
+		<key>Or</key>
+		<value>vagy</value>
+	</item>
+	<item>
+		<key>Pause</key>
+		<value>Szünet</value>
+	</item>
+	<item>
+		<key>Stereo</key>
+		<value>Sztereó</value>
+	</item>
+	<item>
+		<key>full</key>
+		<value>=</value>
+	</item>
+	<item>
+		<key>partial</key>
+		<value>része</value>
+	</item>
+	<item>
+		<key>prefix</key>
+		<value>kezdete</value>
+	</item>
+	<item>
 		<key>April</key>
 		<value>április</value>
 	</item>
@@ -147,7 +191,7 @@
 	</item>
 	<item>
 		<key>CW</key>
-		<value>Wk</value>
+		<value>hét</value>
 	</item>
 	<item>
 		<key>Cancel</key>
@@ -244,6 +288,14 @@
 	<item>
 		<key>Description</key>
 		<value>Leírás</value>
+	</item>
+	<item>
+		<key>Destination folder (relative path):</key>
+		<value>Célkönyvtár (relativ utvonal)</value>
+	</item>
+	<item>
+		<key>New folder name:</key>
+		<value>Új könyvtár neve:</value>
 	</item>
 	<item>
 		<key>Do you want to save changes?</key>

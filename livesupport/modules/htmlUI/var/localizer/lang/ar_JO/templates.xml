@@ -2,6 +2,50 @@
 <translations>
 	<Id>ar_JO</Id>
 	<item>
+		<key>5.1</key>
+		<value />
+	</item>
+	<item>
+		<key>And</key>
+		<value />
+	</item>
+	<item>
+		<key>Crossfade</key>
+		<value />
+	</item>
+	<item>
+		<key>Destination folder (relative path)</key>
+		<value />
+	</item>
+	<item>
+		<key>Mono</key>
+		<value />
+	</item>
+	<item>
+		<key>Or</key>
+		<value />
+	</item>
+	<item>
+		<key>Pause</key>
+		<value />
+	</item>
+	<item>
+		<key>Stereo</key>
+		<value />
+	</item>
+	<item>
+		<key>full</key>
+		<value />
+	</item>
+	<item>
+		<key>partial</key>
+		<value />
+	</item>
+	<item>
+		<key>prefix</key>
+		<value />
+	</item>
+	<item>
 		<key>April</key>
 		<value>نيسان</value>
 	</item>

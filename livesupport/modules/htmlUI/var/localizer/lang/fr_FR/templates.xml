@@ -2,6 +2,50 @@
 <translations>
 	<Id>fr_FR</Id>
 	<item>
+		<key>5.1</key>
+		<value>5,1</value>
+	</item>
+	<item>
+		<key>And</key>
+		<value>et</value>
+	</item>
+	<item>
+		<key>Crossfade</key>
+		<value>Transition</value>
+	</item>
+	<item>
+		<key>Destination folder (relative path)</key>
+		<value>Répertoire cible (chemin relatif)</value>
+	</item>
+	<item>
+		<key>Mono</key>
+		<value>Mono</value>
+	</item>
+	<item>
+		<key>Or</key>
+		<value>ou</value>
+	</item>
+	<item>
+		<key>Pause</key>
+		<value>Pause</value>
+	</item>
+	<item>
+		<key>Stereo</key>
+		<value>Stereo</value>
+	</item>
+	<item>
+		<key>full</key>
+		<value>exact</value>
+	</item>
+	<item>
+		<key>partial</key>
+		<value>contient</value>
+	</item>
+	<item>
+		<key>prefix</key>
+		<value>commence par</value>
+	</item>
+	<item>
 		<key>April</key>
 		<value>Avril</value>
 	</item>
@@ -207,7 +251,7 @@
 	</item>
 	<item>
 		<key>Count</key>
-		<value>Conter</value>
+		<value>Total</value>
 	</item>
 	<item>
 		<key>Creator</key>
@@ -246,6 +290,14 @@
 		<value>Description</value>
 	</item>
 	<item>
+		<key>Destination folder (relative path):</key>
+		<value>Répertoire cible (chemin relatif):</value>
+	</item>
+	<item>
+		<key>New folder name:</key>
+		<value>Nom du nouveau répertoire:</value>
+	</item>
+	<item>
 		<key>Do you want to save changes?</key>
 		<value>Enregistrer les changements ?</value>
 	</item>
@@ -275,7 +327,7 @@
 	</item>
 	<item>
 		<key>Folder Structure</key>
-		<value>Arborescence des répertoires</value>
+		<value>Structure des répertoires</value>
 	</item>
 	<item>
 		<key>Fr</key>
@@ -315,7 +367,7 @@
 	</item>
 	<item>
 		<key>Login</key>
-		<value>Connexion</value>
+		<value>Utilisateur</value>
 	</item>
 	<item>
 		<key>Main</key>
@@ -419,330 +471,330 @@
 	</item>
 	<item>
 		<key>Page</key>
-		<value />
+		<value>Page</value>
 	</item>
 	<item>
 		<key>Playing Next</key>
-		<value />
+		<value>Morceau suivant</value>
 	</item>
 	<item>
 		<key>Playlist</key>
-		<value />
+		<value>Playlist</value>
 	</item>
 	<item>
 		<key>Playlist Editor</key>
-		<value />
+		<value>Edition de la playlist</value>
 	</item>
 	<item>
 		<key>Playlist Metadata</key>
-		<value />
+		<value>Informations sur la playlist</value>
 	</item>
 	<item>
 		<key>Playlists</key>
-		<value />
+		<value>Playlists</value>
 	</item>
 	<item>
 		<key>Preferences</key>
-		<value />
+		<value>Préférences</value>
 	</item>
 	<item>
 		<key>Range</key>
-		<value />
+		<value>Vue</value>
 	</item>
 	<item>
 		<key>RawAnalyze</key>
-		<value />
+		<value>RawAnalyze</value>
 	</item>
 	<item>
 		<key>Remove Selected</key>
-		<value />
+		<value>Enlever la sélection</value>
 	</item>
 	<item>
 		<key>Remove files</key>
-		<value />
+		<value>Enlever les fichiers</value>
 	</item>
 	<item>
 		<key>Remove from ScratchPad</key>
-		<value />
+		<value>Enlever de la collection</value>
 	</item>
 	<item>
 		<key>Remove from group</key>
-		<value />
+		<value>Enlever du groupe</value>
 	</item>
 	<item>
 		<key>Remove from playlist</key>
-		<value />
+		<value>Enlever de la playlist</value>
 	</item>
 	<item>
 		<key>Remove playlist</key>
-		<value />
+		<value>Enlever la playlist</value>
 	</item>
 	<item>
 		<key>Remove selected</key>
-		<value />
+		<value>Enlever la sélection</value>
 	</item>
 	<item>
 		<key>Reorder Playlist</key>
-		<value />
+		<value>Réordonner la playlist</value>
 	</item>
 	<item>
 		<key>Revert to Saved</key>
-		<value />
+		<value>Revenir à la dernière sauvegarde</value>
 	</item>
 	<item>
 		<key>Sa</key>
-		<value />
+		<value>S</value>
 	</item>
 	<item>
 		<key>Saturday</key>
-		<value />
+		<value>Samedi</value>
 	</item>
 	<item>
 		<key>Save Playlist</key>
-		<value />
+		<value>Sauvegarder la playlist</value>
 	</item>
 	<item>
 		<key>Schedule</key>
-		<value />
+		<value>Programmation</value>
 	</item>
 	<item>
 		<key>Scheduler</key>
-		<value />
+		<value>Programmation</value>
 	</item>
 	<item>
 		<key>Scheduler Navigation</key>
-		<value />
+		<value>Programmation</value>
 	</item>
 	<item>
 		<key>ScratchPad</key>
-		<value />
+		<value>Collection</value>
 	</item>
 	<item>
 		<key>Search</key>
-		<value />
+		<value>Recherche</value>
 	</item>
 	<item>
 		<key>Show Info</key>
-		<value />
+		<value>Montrer les informations</value>
 	</item>
 	<item>
 		<key>Signed in</key>
-		<value />
+		<value>Utilisateur</value>
 	</item>
 	<item>
 		<key>Start Scheduler</key>
-		<value />
+		<value>Démarrer le Scheduler</value>
 	</item>
 	<item>
 		<key>Station Settings</key>
-		<value />
+		<value>Préférences de la station</value>
 	</item>
 	<item>
 		<key>Station Time</key>
-		<value />
+		<value>Heure de la station</value>
 	</item>
 	<item>
 		<key>Station settings</key>
-		<value />
+		<value>Préférences de la station</value>
 	</item>
 	<item>
 		<key>Stream has wrong content type &lt;font color=&quot;red&quot;&gt;$1&lt;/font&gt;.</key>
-		<value />
+		<value>Le stream a un mauvais &lt;font color=&quot;red&quot;&gt;$1&lt;/font&gt;</value>
 	</item>
 	<item>
 		<key>Stream is wanted type &lt;font color=&quot;green&quot;&gt;$1&lt;/font&gt;.</key>
-		<value />
+		<value>Le stream est &lt;font color=&quot;green&quot;&gt;$1&lt;/font&gt;</value>
 	</item>
 	<item>
 		<key>Su</key>
-		<value />
+		<value>D</value>
 	</item>
 	<item>
 		<key>Sunday</key>
-		<value />
+		<value>Dimanche</value>
 	</item>
 	<item>
 		<key>Th</key>
-		<value />
+		<value>J</value>
 	</item>
 	<item>
 		<key>Thursday</key>
-		<value />
+		<value>Jeudi</value>
 	</item>
 	<item>
 		<key>Time</key>
-		<value />
+		<value>Heure</value>
 	</item>
 	<item>
 		<key>Title</key>
-		<value />
+		<value>Titre</value>
 	</item>
 	<item>
 		<key>Today</key>
-		<value />
+		<value>Aujourd&apos;hui</value>
 	</item>
 	<item>
 		<key>Tree view</key>
-		<value />
+		<value>Vue de l&apos;arborescence</value>
 	</item>
 	<item>
 		<key>Tu</key>
-		<value />
+		<value>Ma</value>
 	</item>
 	<item>
 		<key>Tuesday</key>
-		<value />
+		<value>Mardi</value>
 	</item>
 	<item>
 		<key>Type</key>
-		<value />
+		<value>Type</value>
 	</item>
 	<item>
 		<key>URL is &lt;font color=&quot;green&quot;&gt;valid&lt;/font&gt;.</key>
-		<value />
+		<value>URL est &lt;font color=&quot;green&quot;&gt;valide&lt;/font&gt;</value>
 	</item>
 	<item>
 		<key>URL seems &lt;font color=&quot;red&quot;&gt;invalid&lt;/font&gt;. Returned error-code: $1.</key>
-		<value />
+		<value>URL ne semble &lt;font color=&quot;red&quot;&gt;pas valide&lt;/font&gt;. Code erreur: $1</value>
 	</item>
 	<item>
 		<key>Use to create playlist</key>
-		<value />
+		<value>Utiliser pour créer une playlist</value>
 	</item>
 	<item>
 		<key>User/Group Management</key>
-		<value />
+		<value>Gestion des utilisateurs et groupes</value>
 	</item>
 	<item>
 		<key>User/Groups</key>
-		<value />
+		<value>Utilisateurs et Groupes</value>
 	</item>
 	<item>
 		<key>Voice</key>
-		<value />
+		<value>Voix</value>
 	</item>
 	<item>
 		<key>We</key>
-		<value />
+		<value>Me</value>
 	</item>
 	<item>
 		<key>Webstream</key>
-		<value />
+		<value>Webstream</value>
 	</item>
 	<item>
 		<key>Wednesday</key>
-		<value />
+		<value>Mercredi</value>
 	</item>
 	<item>
 		<key>Week</key>
-		<value />
+		<value>Semaine</value>
 	</item>
 	<item>
 		<key>Weekly View</key>
-		<value />
+		<value>Vue de la semaine</value>
 	</item>
 	<item>
 		<key>You need to have at least one non-open playlist on ScratchPad to schedule it.</key>
-		<value />
+		<value>Vous devez avoir au moins une playlist non ouverte dans la collection pour la programmer</value>
 	</item>
 	<item>
 		<key>_Name of translator</key>
-		<value />
+		<value>radio@potok.waw.pl</value>
 	</item>
 	<item>
 		<key>_Native language name</key>
-		<value />
+		<value>Francais</value>
 	</item>
 	<item>
 		<key>audioclip</key>
-		<value />
+		<value>Morceau</value>
 	</item>
 	<item>
 		<key>calendar week</key>
-		<value />
+		<value>calendrier</value>
 	</item>
 	<item>
 		<key>copy</key>
-		<value />
+		<value>copier</value>
 	</item>
 	<item>
 		<key>empty</key>
-		<value />
+		<value>vide</value>
 	</item>
 	<item>
 		<key>go up</key>
-		<value />
+		<value>déplacer vers le haut</value>
 	</item>
 	<item>
 		<key>h</key>
-		<value />
+		<value>h</value>
 	</item>
 	<item>
 		<key>in use by: $1</key>
-		<value />
+		<value>utilisé par: $1</value>
 	</item>
 	<item>
 		<key>login</key>
-		<value />
+		<value>Connexion</value>
 	</item>
 	<item>
 		<key>logout</key>
-		<value />
+		<value>Déconnexion</value>
 	</item>
 	<item>
 		<key>m</key>
-		<value />
+		<value>m</value>
 	</item>
 	<item>
 		<key>move</key>
-		<value />
+		<value>déplacer</value>
 	</item>
 	<item>
 		<key>move down</key>
-		<value />
+		<value>déplacer vers le bas</value>
 	</item>
 	<item>
 		<key>move up</key>
-		<value />
+		<value>déplacer vers le haut</value>
 	</item>
 	<item>
 		<key>new&amp;nbsp;folder</key>
-		<value />
+		<value>nouveau&amp;nbsp;répertoire</value>
 	</item>
 	<item>
 		<key>next</key>
-		<value />
+		<value>suivant</value>
 	</item>
 	<item>
 		<key>permissions</key>
-		<value />
+		<value>permissions</value>
 	</item>
 	<item>
 		<key>playlist</key>
-		<value />
+		<value>playlist</value>
 	</item>
 	<item>
 		<key>previous</key>
-		<value />
+		<value>précédent</value>
 	</item>
 	<item>
 		<key>s</key>
-		<value />
+		<value>s</value>
 	</item>
 	<item>
 		<key>sign over</key>
-		<value />
+		<value>sign over</value>
 	</item>
 	<item>
 		<key>tomorrow</key>
-		<value />
+		<value>demain</value>
 	</item>
 	<item>
 		<key>webstream</key>
-		<value />
+		<value>webstream</value>
 	</item>
 	<item>
 		<key>yesterday</key>
-		<value />
+		<value>hier</value>
 	</item>
 </translations>
