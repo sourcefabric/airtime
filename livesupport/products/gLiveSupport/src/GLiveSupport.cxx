@@ -494,7 +494,7 @@ GLiveSupport :: logout(void)                                throw ()
         return false;
     }
     
-    if (!masterPanel->cancelEditedPlaylist()) {
+    if (masterPanel && !masterPanel->cancelEditedPlaylist()) {
         return false;   // do nothing if the user presses the cancel button
     }
     
