@@ -90,7 +90,7 @@ AC_SUBST(STORAGE_SERVER)
 AC_ARG_WITH([storage-server],
             AC_HELP_STRING([--with-storage-server],
                           [use storageServer in given folder]),
-            [STORAGE_SERVER=${withval}], [STORAGE_SERVER=/opt/livesupport/modules/storageServer])
+            [STORAGE_SERVER=${withval}], [STORAGE_SERVER=${prefix}/var/LiveSupport/storageServer])
 
 AC_MSG_RESULT([using storageServer at: ${STORAGE_SERVER}])
 
