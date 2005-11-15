@@ -26,8 +26,8 @@
     Location : $URL$
 
 ------------------------------------------------------------------------------*/
-#ifndef LiveSupport_Widgets_Colors_h
-#define LiveSupport_Widgets_Colors_h
+#ifndef LiveSupport_Widgets_ScrolledNotebook_h
+#define LiveSupport_Widgets_ScrolledNotebook_h
 
 #ifndef __cplusplus
 #error This is a C++ include file
@@ -40,11 +40,7 @@
 #include "configure.h"
 #endif
 
-#include <stdexcept>
-#include <map>
-
-#include "gdkmm/color.h"
-#include "gdkmm/colormap.h"
+#include "LiveSupport/Widgets/Notebook.h"
 
 
 namespace LiveSupport {
@@ -59,51 +55,40 @@ namespace Widgets {
 /* =============================================================== data types */
 
 /**
- *  A helper class to hold all the standard colors used by the LiveSupport GUI.
- *
- *  The definitions of the colors can be found in doc/gui/styleguide.pdf;
- *  the last two colors were taken from doc/gui/designs/livemode.gif.
+ *  A Widgets::Notebook subclass, which puts pages inside 
+ *  a Widgets::ScrolledWindow before appending them.
  *
  *  @author  $Author$
  *  @version $Revision$
  */
-class Colors
+class ScrolledNotebook : public Notebook
 {
     public:
         /**
-         *  The names of the colors.
+         *  Constructor.
          */
-        typedef enum  { White, Black, 
-                        LightBlue, BrightBlue, Blue, DarkBlue, 
-                        Gray, SlateGray, MediumBlueGray, DarkGray, 
-                        Orange, 
-                        MasterPanelCenterBlue, LiveModeRowBlue,
-                        WindowBackground = White }              ColorName;
-
-    private:
-        /**
-         *  The vector holding the colors.
-         */
-        static std::map<ColorName, Gdk::Color>  colors;
+        ScrolledNotebook()                                          throw ()
+            : Notebook()
+        {
+        }
 
         /**
-         *  This loads the colors.
+         *  A virtual destructor.
          */
-        static void
-        initialize(void)                                        throw ();
+        virtual
+        ~ScrolledNotebook(void)                                     throw ()
+        {
+        }
 
         /**
-         *  Whether we have been initialized yet.
+         *  Append a page to the notebook.
+         *
+         *  @param widget the widget that is the page itself.
+         *  @param label the label of the page.
          */
-        bool
-        static initialized;
-
-    public:
-        /**
-         *  Get a color by its name.
-         */
-        static const Gdk::Color&
-        getColor(const ColorName&)                              throw ();
+        virtual void
+        appendPage(Gtk::Widget            & widget,
+                   const Glib::ustring    & label)                  throw ();
 };
 
 
@@ -116,5 +101,5 @@ class Colors
 } // namespace Widgets
 } // namespace LiveSupport
 
-#endif // LiveSupport_Widgets_Colors_h
+#endif // LiveSupport_Widgets_ScrolledNotebook_h
 

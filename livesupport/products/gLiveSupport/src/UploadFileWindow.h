@@ -46,7 +46,6 @@
 #include <gtkmm/alignment.h>
 #include <gtkmm/box.h>
 #include <gtkmm/window.h>
-#include <gtkmm/scrolledwindow.h>
 
 #include "LiveSupport/Core/Ptr.h"
 #include "LiveSupport/Core/LocalizedObject.h"
@@ -55,6 +54,7 @@
 #include "LiveSupport/Widgets/ComboBoxText.h"
 #include "LiveSupport/Widgets/Notebook.h"
 #include "LiveSupport/Widgets/WhiteWindow.h"
+#include "LiveSupport/Widgets/ScrolledWindow.h"
 
 #include "GLiveSupport.h"
 #include "MasterPanelUserInfoWidget.h"
@@ -126,17 +126,17 @@ class UploadFileWindow : public WhiteWindow, public LocalizedObject
         /**
          *  The layout of the main section.
          */
-        Gtk::Table                * mainLayout;
+        Gtk::Table                * mainTable;
 
         /**
          *  The layout of the music section.
          */
-        Gtk::Table                * musicLayout;
+        Gtk::Table                * musicTable;
 
         /**
          *  The layout of the talk section.
          */
-        Gtk::Table                * talkLayout;
+        Gtk::Table                * talkTable;
 
         /**
          *  A list of the Dublin Core names of the metadata fields.
