@@ -1,7 +1,4 @@
 <?php
-if ($_SERVER['SERVER_ADDR'] !== '192.168.0.110') { 
-    error_reporting(E_ERROR);
-}
 ini_set('memory_limit', '64M'); 
 
 define('UI_PL_DRAG_ENABLED',             TRUE);

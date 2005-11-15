@@ -257,6 +257,12 @@ class uiPlaylist
     {
         unset($this->flat);
         $this->_plwalk($this->getPLArray($id));
+        
+        reset($this->flat);
+        $this->flat[key($this->flat)]['firstInList'] = true;
+        end($this->flat);
+        $this->flat[key($this->flat)]['lastInList'] = true; 
+        reset($this->flat);
 
         return $this->flat;
     }
