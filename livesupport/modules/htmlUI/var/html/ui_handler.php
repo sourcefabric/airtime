@@ -275,7 +275,9 @@ switch($_REQUEST['act']){
     break;
 
     default: 
-        if ($uiHandler->userid) $uiHandler->_retMsg('Uploaded file is bigger than system setting. See "Help", chapter "Troubleshooting" for more information.');
+        if ($uiHandler->userid) {
+            $uiHandler->_retMsg('The uploadet filer is bigger than allowed in system settings. See "Help", chapter "Troubleshooting" for more information.');
+        }
         $uiHandler->redirUrl = UI_BROWSER;
         if ($_REQUEST['is_popup'])
              $uiHandler->redirUrl .= '?popup[]=_reload_parent&popup[]=_close';
