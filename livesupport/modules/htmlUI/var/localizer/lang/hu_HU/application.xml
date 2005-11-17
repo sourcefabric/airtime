@@ -2,6 +2,10 @@
 <translations>
 	<Id>hu_HU</Id>
 	<item>
+		<key>The uploaded filer is bigger than allowed in system settings. See &quot;Help&quot;, chapter &quot;Troubleshooting&quot; for more information.</key>
+		<value>A feltöltött fájl nagyobb, mint a rendszerbeállításokban megengedett. További információt a Súgó Hibaelhárítás fejezetében találhat.</value>
+	</item>
+	<item>
 		<key>&quot;$1&quot; uses an unsupported file type.</key>
 		<value>$1: ismeretlen fájltípus.</value>
 	</item>
@@ -184,14 +188,6 @@
 	<item>
 		<key>Upload of file &quot;$1&quot; was incomplete.</key>
 		<value>A(z) $1 fájl feltöltése megszakadt.</value>
-	</item>
-	<item>
-		<key>Uploaded file &quot;$1&quot; is bigger than LiveSupport&amp;acute;s system setting.</key>
-		<value>A feltöltött $1 fájl hosszabb, mint a rendszerbeállításokban megengedett.</value>
-	</item>
-	<item>
-		<key>Uploaded file &quot;$1&quot; is bigger than setting in php.ini.</key>
-		<value>A feltöltött $1 fájl hosszabb, mint a php.ini fájlban megengedett.</value>
 	</item>
 	<item>
 		<key>User &quot;$1&quot; added.</key>

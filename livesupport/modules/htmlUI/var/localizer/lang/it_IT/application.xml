@@ -2,6 +2,10 @@
 <translations>
 	<Id>it_IT</Id>
 	<item>
+		<key>The uploaded filer is bigger than allowed in system settings. See &quot;Help&quot;, chapter &quot;Troubleshooting&quot; for more information.</key>
+		<value />
+	</item>
+	<item>
 		<key>&quot;$1&quot; uses an unsupported file type.</key>
 		<value>&quot;$1&quot; è un tipo di file non supportato.</value>
 	</item>
@@ -184,14 +188,6 @@
 	<item>
 		<key>Upload of file &quot;$1&quot; was incomplete.</key>
 		<value>Il caricamento del file &quot;$1&quot; è incompleto.</value>
-	</item>
-	<item>
-		<key>Uploaded file &quot;$1&quot; is bigger than LiveSupport&amp;acute;s system setting.</key>
-		<value>Il file &quot;$1&quot; caricato è + grosso di quanto impostato nei param. di sistema di LiveSupport&amp;acute;s</value>
-	</item>
-	<item>
-		<key>Uploaded file &quot;$1&quot; is bigger than setting in php.ini.</key>
-		<value>Il file &quot;$1&quot; caricato è più grosso di quanto impostato in php.ini</value>
 	</item>
 	<item>
 		<key>User &quot;$1&quot; added.</key>

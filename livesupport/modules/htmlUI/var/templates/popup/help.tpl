@@ -265,9 +265,10 @@ DIV.blockquote
 		assigning their access privileges 
 		</P>
 	</UL>
+	
 	<H2>Troubleshooting</H2>
 	<H3>File Upload</H3>
-	<P>If you encounter the message [i]The uploadet filer is bigger than allowed in system settings.[/i] most probably the file size is bigger than
+	<P>If you encounter the message <i>The uploadet filer is bigger than allowed in system settings.</i> most probably the file size is bigger than
 	allowed in the PHP system settings of the machine you are running
 	LiveSupport on. Please increase the settings of
 	&quot;upload_max_filesize&quot; and &quot;post_max_size&quot; in
@@ -278,9 +279,15 @@ DIV.blockquote
 	<P>LiveSupport has a mailing list for support-related questions at
 	<A HREF="mailto:ls-support@campware.org">ls-support@campware.org</A>,
 	or you can visit the LiveSupport forums at <A HREF="http://www.campware.org/" TARGET="_blank">http://www.campware.org</A></P>
-</SPAN><BR><BR>
-</P>
-
+    </P>
+    
+    {if tra('_Name of translator') !== '_Name of translator'}
+	<H2>Credits</H2>
+	<H3>Localization</H3>
+	<P>The translation to <i>##_Native language name##</i> was done by <i>##_Name of translator##</i>.
+    </P>    
+    {/if}
+    
 </div>
 </div>
 </div>

@@ -2,6 +2,10 @@
 <translations>
 	<Id>am_AM</Id>
 	<item>
+		<key>The uploaded filer is bigger than allowed in system settings. See &quot;Help&quot;, chapter &quot;Troubleshooting&quot; for more information.</key>
+		<value />
+	</item>
+	<item>
 		<key>&quot;$1&quot; uses an unsupported file type.</key>
 		<value />
 	</item>
@@ -183,14 +187,6 @@
 	</item>
 	<item>
 		<key>Upload of file &quot;$1&quot; was incomplete.</key>
-		<value />
-	</item>
-	<item>
-		<key>Uploaded file &quot;$1&quot; is bigger than LiveSupport&amp;acute;s system setting.</key>
-		<value />
-	</item>
-	<item>
-		<key>Uploaded file &quot;$1&quot; is bigger than setting in php.ini.</key>
 		<value />
 	</item>
 	<item>

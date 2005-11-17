@@ -2,6 +2,10 @@
 <translations>
 	<Id>default_DEFAULT</Id>
 	<item>
+		<key>The uploaded filer is bigger than allowed in system settings. See &quot;Help&quot;, chapter &quot;Troubleshooting&quot; for more information.</key>
+		<value>The uploaded filer is bigger than allowed in system settings. See &quot;Help&quot;, chapter &quot;Troubleshooting&quot; for more information.</value>
+	</item>
+	<item>
 		<key>&quot;$1&quot; uses an unsupported file type.</key>
 		<value>&quot;$1&quot; uses an unsupported file type.</value>
 	</item>
@@ -184,14 +188,6 @@
 	<item>
 		<key>Upload of file &quot;$1&quot; was incomplete.</key>
 		<value>Upload of file &quot;$1&quot; was incomplete.</value>
-	</item>
-	<item>
-		<key>Uploaded file &quot;$1&quot; is bigger than LiveSupport&amp;acute;s system setting.</key>
-		<value>Uploaded file &quot;$1&quot; is bigger than LiveSupport&amp;acute;s system setting.</value>
-	</item>
-	<item>
-		<key>Uploaded file &quot;$1&quot; is bigger than setting in php.ini.</key>
-		<value>Uploaded file &quot;$1&quot; is bigger than setting in php.ini.</value>
 	</item>
 	<item>
 		<key>User &quot;$1&quot; added.</key>
