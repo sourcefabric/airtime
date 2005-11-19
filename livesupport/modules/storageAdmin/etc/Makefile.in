@@ -69,8 +69,8 @@ prefix = @prefix@
 
 USR_DIR         = ${prefix}
 
-DEST_DIR    = ${USR_DIR}/usr
-PHPPART_DIR = @PHPPART_DIR@
+DEST_DIR    = ${USR_DIR}
+PHPPART_DIR = ${prefix}/var/LiveSupport/storageAdmin/var
 STORAGE_SERVER 	= @STORAGE_SERVER@
 
 PHPPART_DIR_S=$(shell ${ECHO} ${PHPPART_DIR} | ${SED} -e "s/\//\\\\\\\\\//g")
