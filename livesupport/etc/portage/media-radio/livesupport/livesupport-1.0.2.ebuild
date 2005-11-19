@@ -98,5 +98,26 @@ pkg_postinst() {
 
 	# we don't need the post-install script anymore...
 	rm -f /usr/bin/postInstallStation.sh
+
+	# an ugly hack: get rid of the temporary ${prefix} used during the
+	# ebuild sandbox installation. this usually looks like
+	# /var/tmp/portage/livesupport-<version>/image//usr
+	# which will be replaced to /usr
+	sedstr="s/\/var.*\/image\/\/usr/\/usr/"
+
+	cat /usr/etc/scheduler.xml | sed -e $sedstr > /tmp/scheduler.xml.$$
+	mv -f /tmp/scheduler.xml.$$ /usr/etc/scheduler.xml
+
+	cat /usr/etc/gLiveSupport.xml | sed -e $sedstr > /tmp/gLiveSupport.xml.$$
+	mv -f /tmp/gLiveSupport.xml.$$ /usr/etc/gLiveSupport.xml
+
+	cat /usr/var/LiveSupport/storageAdmin/var/conf.php | sed -e $sedstr > /tmp/conf.php.$$
+	mv -f /tmp/conf.php.$$ /usr/var/LiveSupport/storageAdmin/var/conf.php
+
+	cat /usr/var/LiveSupport/archiveServer/var/conf.php | sed -e $sedstr > /tmp/conf.php.$$
+	mv -f /tmp/conf.php.$$ /usr/var/LiveSupport/archiveServer/var/conf.php
+
+	cat /usr/var/LiveSupport/storageServer/var/conf.php | sed -e $sedstr > /tmp/conf.php.$$
+	mv -f /tmp/conf.php.$$ /usr/var/LiveSupport/storageServer/var/conf.php
 }
 
