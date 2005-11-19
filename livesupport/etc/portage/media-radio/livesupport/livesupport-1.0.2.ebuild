@@ -23,6 +23,8 @@ DEPEND=">=dev-db/unixODBC-2.2
 	dev-libs/openssl
 	dev-libs/libxml2
 	dev-libs/popt
+	=dev-util/cppunit-1.10.2-r1
+	>=dev-libs/icu-3.0
 	media-libs/alsa-lib
 	media-libs/libid3tag
 	media-libs/libmad
@@ -63,15 +65,6 @@ src_unpack() {
 	unpack ${A}
 	cd ${S}
 
-	# these patches are committed to the source as of 2005-09-23
-	epatch ${FILESDIR}/taglib-curl-icu.patch
-	epatch ${FILESDIR}/prefix-as-make-variable.patch
-	epatch ${FILESDIR}/storageServer-docroot.patch
-	epatch ${FILESDIR}/setup-install-dirs.patch
-	epatch ${FILESDIR}/pg_hba.patch
-	# this patch not committed
-	epatch ${FILESDIR}/postinstall-config-file.patch
-
 	# toch the tools make stamp, so that tools don't get built
 	touch tmp/tools_setup.stamp
 }
@@ -100,6 +93,10 @@ src_install() {
 pkg_postinst() {
 	/usr/bin/postInstallStation.sh --directory /usr \
 								   --www-root /var/www/localhost/htdocs \
-								   --apache-group apache
+								   --apache-group apache \
+								   --postgresql-dir /var/lib/postgresql/data
+
+	# we don't need the post-install script anymore...
+	rm -f /usr/bin/postInstallStation.sh
 }
 
