@@ -20,6 +20,7 @@ src_unpack() {
 	unpack ${A}
 	cd ${S}
 	epatch ${FILESDIR}/${P}-memleak-fix2.patch
+	# see https://bugs.kde.org/show_bug.cgi?id=112728
 	epatch ${FILESDIR}/${P}-length-in-microseconds.patch
 
 	rm -rf autom4te.cache

@@ -22,6 +22,7 @@ DEPEND="doc? ( app-doc/doxygen )
 src_unpack() {
 	unpack ${A}
 	cd ${S}
+	# see http://sourceforge.net/tracker/index.php?func=detail&aid=997006&group_id=11795&atid=311795
 	epatch ${FILESDIR}/cppunit-1.10.2-nostandalone.patch
 }
 

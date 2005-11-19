@@ -17,6 +17,7 @@ src_unpack() {
 
 	unpack ${A}
 	cd ${S}
+	# see bug report at http://bugzilla.gnome.org/show_bug.cgi?id=308619
 	epatch ${FILESDIR}/id3demuxbin-pad-free-fix.patch
 }
 

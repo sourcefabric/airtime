@@ -40,11 +40,11 @@ DEPEND=">=dev-db/unixODBC-2.2
 	>=dev-php/PEAR-Console_Getopt-1.2
 	>=dev-php/PEAR-DB-1.7.6
 	>=dev-php/PEAR-File-1.2.0
-	>=dev-php/PEAR-File_Find-0.3.1
+	>=dev-php/PEAR-File_Find-1.2.0
 	>=dev-php/PEAR-HTML_Common-1.2.1-r1
-	>=dev-php/PEAR-HTML_QuickForm-3.2.4
+	>=dev-php/PEAR-HTML_QuickForm-3.2.5
 	>=dev-php/PEAR-XML_Beautifier-1.1
-	>=dev-php/PEAR-XML_Parser-1.2.6
+	>=dev-php/PEAR-XML_Parser-1.2.7
 	>=dev-php/PEAR-XML_RPC-1.4.0
 	>=dev-php/PEAR-XML_Serializer-0.15
 	>=dev-php/PEAR-XML_Util-1.1.1

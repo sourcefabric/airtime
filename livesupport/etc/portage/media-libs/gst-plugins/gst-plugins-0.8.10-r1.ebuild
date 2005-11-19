@@ -32,10 +32,15 @@ src_unpack() {
 
 	unpack ${A}
 	cd ${S}
+	# see bug report at http://bugzilla.gnome.org/show_bug.cgi?id=314146
 	epatch ${FILESDIR}/adder-caps-property.patch
+	# see bug report at http://bugzilla.gnome.org/show_bug.cgi?id=309218
 	epatch ${FILESDIR}/adder-duration-fix.patch
+	# see bug report at http://bugzilla.gnome.org/show_bug.cgi?id=315457
 	epatch ${FILESDIR}/adder-query.patch
+	# see bug report at http://bugzilla.gnome.org/show_bug.cgi?id=308167
 	epatch ${FILESDIR}/switch-fix.patch
+	# see bug report at http://bugzilla.gnome.org/show_bug.cgi?id=308663
 	epatch ${FILESDIR}/typefind-smil.patch
 }
 

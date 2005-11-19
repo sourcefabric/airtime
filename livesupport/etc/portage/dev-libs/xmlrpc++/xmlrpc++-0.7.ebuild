@@ -18,9 +18,14 @@ src_unpack() {
 	unpack ${A}
 	cd ${PN}${PV}
 
+	# this patch makes the source up-to-date with that of the CVS version
+	# of 2004.07.13
 	epatch ${FILESDIR}/xmlrpc++-0.7-to-cvs-20040713.patch
+	# see http://sourceforge.net/tracker/index.php?func=detail&aid=990356&group_id=70654&atid=528555
 	epatch ${FILESDIR}/xmlrpc++-automake.patch
+	# see http://sourceforge.net/tracker/index.php?func=detail&aid=990676&group_id=70654&atid=528555
 	epatch ${FILESDIR}/uninitialised_XmlRpcSource_ssl_ssl.patch
+	# see http://sourceforge.net/tracker/?group_id=70654&atid=528555&func=detail&aid=1085119
 	epatch ${FILESDIR}/incorrect_XmlRpcValue_struct_tm_conversion.patch
 
 	sh autogen.sh

@@ -24,9 +24,15 @@ src_unpack() {
 	unpack ${A}
 	cd ${S}
 
+	# this patch brings the source up-to-date with the state in the CVS
+	# of 2005.04.04
 	epatch ${FILESDIR}/libodbc++-0.2.3-to-cvs-20050404.patch
+	# see
+	# http://sourceforge.net/tracker/index.php?func=detail&aid=1176652&group_id=19075&atid=319075
 	epatch ${FILESDIR}/libodbc++-no-namespace-closing-colon.patch
+	# see http://sourceforge.net/tracker/index.php?func=detail&aid=1176656&group_id=19075&atid=319075
 	epatch ${FILESDIR}/libodbc++-no-thread-dmaccess-mutex-fix.patch
+	# no patch submitted, just removes some documentation
 	epatch ${FILESDIR}/libodbc++-dont-install-some-docs.patch
 
 	# toch the programmers reference stamp, so that it is not re-generated
