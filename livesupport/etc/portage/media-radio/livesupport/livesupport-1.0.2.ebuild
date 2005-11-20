@@ -91,10 +91,10 @@ src_install() {
 }
 
 pkg_postinst() {
-	doexe /usr/bin/postInstallStation.sh --directory /usr \
-	                                     --www-root /var/www/localhost/htdocs \
-	                                     --apache-group apache \
-	                                   --postgresql-dir /var/lib/postgresql/data
+	/usr/bin/postInstallStation.sh --directory /usr \
+	                               --www-root /var/www/localhost/htdocs \
+	                               --apache-group apache \
+	                               --postgresql-dir /var/lib/postgresql/data
 
 	# we don't need the post-install script anymore...
 	rm -f /usr/bin/postInstallStation.sh
