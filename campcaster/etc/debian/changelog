@@ -1,3 +1,12 @@
+campcaster (1.2.1-1) dapper; urgency=low
+
+  * 1.2.1 bugfix release
+    bugs fixed: 2224, 2228, 2239
+    see changesets 3087, 3091, 3093, 3227
+
+ -- Ferenc Gerlits <fgerlits@campware.org>  Tue, 11 Sep 2007 17:45:57 +0200
+
+
 campcaster (1.2.0-1) dapper; urgency=low
 
   * 1.2.0 release
