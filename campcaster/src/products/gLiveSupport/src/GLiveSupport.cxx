@@ -1817,7 +1817,14 @@ GLiveSupport :: writeToSerial(Ptr<const Glib::ustring>::Ref     message)
         serialDevice = optionsContainer->getOptionItem(
                                             OptionsContainer::serialDeviceName);
     try {
+        // TODO: move this to a separate class, and make it configurable
         serialStream->Open(*serialDevice);
+        serialStream->SetBaudRate(LibSerial::SerialStreamBuf::BAUD_2400);
+        serialStream->SetCharSize(LibSerial::SerialStreamBuf::CHAR_SIZE_8);
+        serialStream->SetNumOfStopBits(1);
+        serialStream->SetParity(LibSerial::SerialStreamBuf::PARITY_NONE);
+        serialStream->SetFlowControl(
+                                LibSerial::SerialStreamBuf::FLOW_CONTROL_NONE);
         (*serialStream) << *message;
         serialStream->flush();
         serialStream->Close();
