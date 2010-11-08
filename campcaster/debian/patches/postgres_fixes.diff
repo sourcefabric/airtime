@@ -1,0 +1,90 @@
+Subject: Change pgsql setup scripts for debian postgres 8.4
+Author: Robin Gareus <robin@gareus.org>
+Last-Update: 2010-02-14
+Index: campcaster/bin/postInstallStation.sh
+===================================================================
+--- campcaster.orig/bin/postInstallStation.sh	2010-02-15 00:21:40.000000000 +0100
++++ campcaster/bin/postInstallStation.sh	2010-02-15 00:38:08.000000000 +0100
+@@ -240,22 +240,22 @@
+ #-------------------------------------------------------------------------------
+ #  Install the new pg_hba.conf file
+ #-------------------------------------------------------------------------------
+-echo "Modifying postgresql access permissions...";
+-
+-pg_config_dir=$postgresql_dir
+-pg_config_file=pg_hba.conf
+-pg_config_file_saved=pg_hba.conf.before-campcaster
+-
+-if [ -f $pg_config_dir/$pg_config_file ] ; then
+-    mv -f $pg_config_dir/$pg_config_file $pg_config_dir/$pg_config_file_saved ;
+-fi
+-cp $install_etc/$pg_config_file $pg_config_dir/$pg_config_file
+-chown root:$postgres_user $pg_config_dir/$pg_config_file
+-
+-# don't use restart for the init script, as it might return prematurely
+-# and in the later call to psql we wouldn't be able to connect
+-${postgresql_init_script} stop
+-${postgresql_init_script} start
++#echo "Modifying postgresql access permissions...";
++#
++#pg_config_dir=$postgresql_dir
++#pg_config_file=pg_hba.conf
++#pg_config_file_saved=pg_hba.conf.before-campcaster
++#
++#if [ -f $pg_config_dir/$pg_config_file ] ; then
++#    mv -f $pg_config_dir/$pg_config_file $pg_config_dir/$pg_config_file_saved ;
++#fi
++#cp $install_etc/$pg_config_file $pg_config_dir/$pg_config_file
++#chown root:$postgres_user $pg_config_dir/$pg_config_file
++#
++## don't use restart for the init script, as it might return prematurely
++## and in the later call to psql we wouldn't be able to connect
++#${postgresql_init_script} stop
++#${postgresql_init_script} start
+ 
+ 
+ #-------------------------------------------------------------------------------
+Index: campcaster/src/modules/storageServer/bin/createDatabase.sh
+===================================================================
+--- campcaster.orig/src/modules/storageServer/bin/createDatabase.sh	2010-02-15 00:22:42.000000000 +0100
++++ campcaster/src/modules/storageServer/bin/createDatabase.sh	2010-02-15 00:40:24.000000000 +0100
+@@ -176,7 +176,7 @@
+         || echo "Couldn't create database user $ls_dbuser.";
+ 
+     su - $postgres_user -c "echo \"CREATE DATABASE \\\"$ls_database\\\" \
+-                                    OWNER $ls_dbuser ENCODING 'utf-8';\" \
++                                    OWNER $ls_dbuser;\" \
+                             | psql template1" \
+         || echo "Couldn't create database $ls_database.";
+ else
+@@ -192,7 +192,7 @@
+     echo "    ENCRYPTED PASSWORD '$ls_dbpassword'";
+     echo "    CREATEDB NOCREATEUSER;";
+     echo "CREATE DATABASE \"$ls_database\"";
+-    echo "    OWNER $ls_dbuser ENCODING 'utf-8';";
++    echo "    OWNER $ls_dbuser;";
+ fi
+ 
+ 
+Index: campcaster/src/products/scheduler/bin/createDatabase.sh
+===================================================================
+--- campcaster.orig/src/products/scheduler/bin/createDatabase.sh	2010-02-15 00:23:20.000000000 +0100
++++ campcaster/src/products/scheduler/bin/createDatabase.sh	2010-02-15 00:40:34.000000000 +0100
+@@ -171,7 +171,7 @@
+         || echo "Couldn't create database user $dbuser.";
+ 
+     su - $postgres_user -c "echo \"CREATE DATABASE \\\"$database\\\" \
+-                                    OWNER $dbuser ENCODING 'utf-8';\" \
++                                    OWNER $dbuser;\" \
+                             | psql template1" \
+         || echo "Couldn't create database $database.";
+ else
+@@ -187,7 +187,7 @@
+     echo "    ENCRYPTED PASSWORD '$dbpassword'";
+     echo "    CREATEDB NOCREATEUSER;";
+     echo "CREATE DATABASE \"$database\"";
+-    echo "    OWNER $dbuser ENCODING 'utf-8';";
++    echo "    OWNER $dbuser;";
+ fi
+ 
+ 

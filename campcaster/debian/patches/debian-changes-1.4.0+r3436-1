@@ -1,0 +1,11 @@
+--- campcaster-1.4.0+r3436.orig/src/products/gLiveSupport/src/GLiveSupport.cxx
++++ campcaster-1.4.0+r3436/src/products/gLiveSupport/src/GLiveSupport.cxx
+@@ -1960,7 +1960,7 @@ GLiveSupport :: substituteRdsItem(Ptr<Gl
+                                   const std::string &       metadataKey)
+                                                                     throw ()
+ {
+-    unsigned int    pos;
++    size_t    pos;
+     while ((pos = rdsString->find(placeholder)) != std::string::npos) {
+         Ptr<const Glib::ustring>::Ref   value;
+         if (playable) {
