@@ -377,7 +377,7 @@ class XML_Beautifier
                 XML_BEAUTIFIER_ERROR_UNKNOWN_RENDERER);
         }
 
-        $renderer = &new $class($options);
+        $renderer = new $class($options);
         
         return $renderer;        
     }

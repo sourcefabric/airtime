@@ -60,7 +60,7 @@ class getID3
 
 		// Check memory
 		$memory_limit = ini_get('memory_limit');
-		if (eregi('([0-9]+)M', $memory_limit, $matches)) {
+		if (preg_match('!([0-9]+)M!', $memory_limit, $matches)) {
 			// could be stored as "16M" rather than 16777216 for example
 			$memory_limit = $matches[1] * 1048576;
 		}
@@ -188,7 +188,7 @@ class getID3
 			}
 	    	return $this->error($errormessage);
 		}
-
+/*
 		// Disable magic_quotes_runtime, if neccesary
 		$old_magic_quotes_runtime = get_magic_quotes_runtime(); // store current setting of magic_quotes_runtime
 		if ($old_magic_quotes_runtime) {
@@ -197,6 +197,7 @@ class getID3
 				return $this->error('Could not disable magic_quotes_runtime - getID3() cannot work properly with this setting enabled');
 			}
 		}
+*/
 
 		// remote files not supported
 		if (preg_match('/^(ht|f)tp:\/\//', $filename)) {
@@ -390,7 +391,7 @@ class getID3
 		$this->CleanUp();
 
 		// restore magic_quotes_runtime setting
-		set_magic_quotes_runtime($old_magic_quotes_runtime);
+		//set_magic_quotes_runtime($old_magic_quotes_runtime);
 
 		// return info array
 		return $this->info;
