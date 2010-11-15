@@ -8,7 +8,7 @@ export DH_VERBOSE=1
 	dh $@
 
 override_dh_installinit:
-	dh_installinit -u 92
+	dh_installinit $@ -u defaults 92 
 
 override_dh_auto_configure:
 	CFLAGS="$(CFLAGS)" LDFLAGS="-Wl,-z,defs" \
