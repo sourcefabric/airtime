@@ -21,10 +21,11 @@ Index: campcaster/bin/postInstallStation.sh
 Index: campcaster/etc/apache/90_php_campcaster.conf
 ===================================================================
 --- campcaster.orig/etc/apache/90_php_campcaster.conf	2010-02-15 00:28:42.000000000 +0100
-+++ campcaster/etc/apache/90_php_campcaster.conf	2010-02-15 00:29:31.000000000 +0100
-@@ -1,2 +1,8 @@
++++ campcaster/etc/apache/90_php_campcaster.conf	2010-11-17 00:41:11.000000000 +0100
+@@ -1,2 +1,9 @@
  php_value upload_max_filesize 32M
  php_value post_max_size 36M
++php_value request_order "CGP"
 +
 +Alias /campcaster /usr/share/campcaster/www
 +
