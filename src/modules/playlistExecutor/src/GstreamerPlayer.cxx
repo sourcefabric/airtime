@@ -275,6 +275,10 @@ GstreamerPlayer :: open(const std::string   fileUri, gint64 id, gint64 offset)
         m_smilHandler = new SmilHandler();
         m_smilHandler->openSmilFile(fileUri.c_str(), offset);
         AudioDescription *audioDescription = m_smilHandler->getNext();
+		if (!audioDescription) {
+			fprintf(stderr, "NULL AudioDescription!!\n");
+			return false;
+		}
 		gint64 clipOffset = m_smilHandler->getClipOffset();
         m_playContext->setClipOffset(clipOffset);
 		m_Id = audioDescription->m_Id;

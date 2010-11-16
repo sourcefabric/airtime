@@ -1302,9 +1302,10 @@ GLiveSupport :: playOutputAudio(Ptr<Playable>::Ref playable)
             case Playable::AudioClipType:
                 outputItemPlayingNow = acquireAudioClip(playable->getId());
                 if(false == outputPlayer->open(*outputItemPlayingNow->getUri(), (gint64)outputItemPlayingNow->getId()->getId(), 0L))
-				{
-					return false;
-				}
+								{
+												std::cerr << "gLiveSupport: Player could not open file." << std::endl;
+												return false;
+								}
                 outputPlayer->start();
                 std::cerr << "gLiveSupport: Live Mode playing audio clip '"
                           << *playable->getTitle()
@@ -1313,7 +1314,11 @@ GLiveSupport :: playOutputAudio(Ptr<Playable>::Ref playable)
     
             case Playable::PlaylistType:
                 outputItemPlayingNow = acquirePlaylist(playable->getId());
-                outputPlayer->open(*outputItemPlayingNow->getUri(), (gint64)outputItemPlayingNow->getId()->getId(), 0L);
+                if (false == outputPlayer->open(*outputItemPlayingNow->getUri(), (gint64)outputItemPlayingNow->getId()->getId(), 0L)) 
+								{
+												std::cerr << "gLiveSupport: Player could not open playlist." << std::endl;
+												return false;
+								}
                 outputPlayer->start();
                 std::cerr << "gLiveSupport: Live Mode playing playlist '"
                           << *playable->getTitle()
@@ -1438,6 +1443,11 @@ GLiveSupport :: playCueAudio(Ptr<Playable>::Ref playable)
                                                 throw (std::logic_error,
                                                        std::runtime_error)
 {
+    if (!playable) {
+			std::cerr << "gLiveSupport: Cue-Player failed: non-playable item." << std::endl;
+			return; 
+		} 
+
     if (cueItemPlayingNow) {
         stopCueAudio();     // stop the audio player and
     }                       // release old resources
@@ -1446,7 +1456,11 @@ GLiveSupport :: playCueAudio(Ptr<Playable>::Ref playable)
         switch (playable->getType()) {
             case Playable::AudioClipType:
                 cueItemPlayingNow = acquireAudioClip(playable->getId());
-                cuePlayer->open(*cueItemPlayingNow->getUri(), (gint64)cueItemPlayingNow->getId()->getId(), 0L);
+                if (false==cuePlayer->open(*cueItemPlayingNow->getUri(), (gint64)cueItemPlayingNow->getId()->getId(), 0L))
+								{
+												std::cerr << "gLiveSupport: Cue-Player could not open file." << std::endl;
+												return;
+								}
                 cuePlayer->start();
                 std::cerr << "gLiveSupport: Cue playing audio clip '"
                           << *playable->getTitle()
@@ -1455,7 +1469,11 @@ GLiveSupport :: playCueAudio(Ptr<Playable>::Ref playable)
     
             case Playable::PlaylistType:
                 cueItemPlayingNow = acquirePlaylist(playable->getId());
-                cuePlayer->open(*cueItemPlayingNow->getUri(), (gint64)cueItemPlayingNow->getId()->getId(), 0L);
+                if(false==cuePlayer->open(*cueItemPlayingNow->getUri(), (gint64)cueItemPlayingNow->getId()->getId(), 0L))
+								{
+												std::cerr << "gLiveSupport: Cue-Player could not open file." << std::endl;
+												return;
+								}
                 cuePlayer->start();
                 std::cerr << "gLiveSupport: Cue playing playlist '"
                           << *playable->getTitle()
@@ -1772,13 +1790,17 @@ GLiveSupport :: playTestSoundOnCue(Ptr<const Glib::ustring>::Ref  oldDevice,
             cuePlayer->close();
         }
         cuePlayer->setAudioDevice(*newDevice);
-        cuePlayer->open(*testAudioUrl, 0L, 0L);
-        cuePlayer->start();
-        Ptr<time_duration>::Ref     sleepT(new time_duration(microseconds(10)));
-        while (cuePlayer->isPlaying()) {
-            runMainLoop();
-            TimeConversion::sleep(sleepT);
-        }
+        if (cuePlayer->open(*testAudioUrl, 0L, 0L))
+				{
+					cuePlayer->start();
+					Ptr<time_duration>::Ref     sleepT(new time_duration(microseconds(10)));
+					while (cuePlayer->isPlaying()) {
+							runMainLoop();
+							TimeConversion::sleep(sleepT);
+					}
+				} else {
+					std::cerr << "gLiveSupport: Audio device failed." << std::endl;
+				}
     } catch (std::runtime_error &e) {
         // "invalid device" error from open(); do nothing
     } catch (std::logic_error &e) {
