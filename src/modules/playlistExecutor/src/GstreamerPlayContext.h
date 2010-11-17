@@ -138,15 +138,20 @@ public:
 
     void playContext(){
         GstStateChangeReturn st = gst_element_set_state (m_pipeline, GST_STATE_PLAYING);
+        
+		//enforce PLAYING state in case this was an asynch state change
+		//this is essential for seek to succeed
+		if(GST_STATE_CHANGE_ASYNC == st)
+		{
+			fprintf(stderr,"SYNC STATE CHANGE...\n");
+			GstState state, pending;
+			gst_element_get_state (m_pipeline, &state, &pending, 2000000000);//just in case, do not wait for more than 2 sec				
+			if (state!=GST_STATE_PLAYING) {
+			  fprintf(stderr,"NOT YET PLAYING!!\n");
+			}
+		}
 		if(NULL != m_audioDescription)
 		{
-			//enforce PLAYING state in case this was an asynch state change
-			//this is essential for seek to succeed
-			if(GST_STATE_CHANGE_ASYNC == st)
-			{
-				GstState state, pending;
-				gst_element_get_state (m_pipeline, &state, &pending, 2000000000);//just in case, do not wait for more than 2 sec				
-			}
 			gst_element_seek(m_pipeline, 1.0, GST_FORMAT_TIME, GST_SEEK_FLAG_FLUSH, GST_SEEK_TYPE_SET, 
 				std::max(m_clipOffset, m_audioDescription->m_clipBegin)*GST_NSECOND, GST_SEEK_TYPE_SET, m_audioDescription->m_clipEnd*GST_NSECOND);
 			m_clipOffset = 0;//reset clipOffset after it's been used
