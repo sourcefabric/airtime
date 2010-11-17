@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Campcaster Studio
+GenericName=Campcaster Studio GUI Client
+Comment=Control your radio station
+Icon=campcaster
+Exec=campcaster-studio
+Terminal=false
+Categories=Application;AudioVideo;Audio;
