@@ -162,6 +162,7 @@ install: configure_apache
 	${MKDIR} ${USR_VAR_DIR}/Campcaster/htmlUI/var/templates/system
 	${MKDIR} ${USR_VAR_DIR}/Campcaster/htmlUI/var/templates/playlist
 	${MKDIR} ${USR_VAR_DIR}/Campcaster/htmlUI/var/templates/subjects
+	${MKDIR} ${USR_VAR_DIR}/Campcaster/htmlUI/var/templates/twitter
 	${MKDIR} ${USR_VAR_DIR}/Campcaster/htmlUI/var/install
 
 	${CP} ${VAR_DIR}/redirect.php ${USR_VAR_DIR}/Campcaster/index.php
@@ -216,6 +217,8 @@ install: configure_apache
 	      ${USR_VAR_DIR}/Campcaster/htmlUI/var/templates/playlist
 	${CP} ${VAR_DIR}/templates/subjects/*.tpl \
 	      ${USR_VAR_DIR}/Campcaster/htmlUI/var/templates/subjects
+	${CP} ${VAR_DIR}/templates/twitter/*.tpl \
+	      ${USR_VAR_DIR}/Campcaster/htmlUI/var/templates/twitter
 
 	${CP} ${VAR_DIR}/install/install.php ${USR_VAR_DIR}/Campcaster/htmlUI/var/install/
 	${CP} ${VAR_DIR}/install/uninstall.php ${USR_VAR_DIR}/Campcaster/htmlUI/var/install/
