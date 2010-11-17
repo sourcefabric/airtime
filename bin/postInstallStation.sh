@@ -240,22 +240,22 @@ rm -f $group_tmp_file;
 #-------------------------------------------------------------------------------
 #  Install the new pg_hba.conf file
 #-------------------------------------------------------------------------------
-echo "Modifying postgresql access permissions...";
-
-pg_config_dir=$postgresql_dir
-pg_config_file=pg_hba.conf
-pg_config_file_saved=pg_hba.conf.before-campcaster
-
-if [ -f $pg_config_dir/$pg_config_file ] ; then
-    mv -f $pg_config_dir/$pg_config_file $pg_config_dir/$pg_config_file_saved ;
-fi
-cp $install_etc/$pg_config_file $pg_config_dir/$pg_config_file
-chown root:$postgres_user $pg_config_dir/$pg_config_file
-
-# don't use restart for the init script, as it might return prematurely
-# and in the later call to psql we wouldn't be able to connect
-${postgresql_init_script} stop
-${postgresql_init_script} start
+#echo "Modifying postgresql access permissions...";
+#
+#pg_config_dir=$postgresql_dir
+#pg_config_file=pg_hba.conf
+#pg_config_file_saved=pg_hba.conf.before-campcaster
+#
+#if [ -f $pg_config_dir/$pg_config_file ] ; then
+#    mv -f $pg_config_dir/$pg_config_file $pg_config_dir/$pg_config_file_saved ;
+#fi
+#cp $install_etc/$pg_config_file $pg_config_dir/$pg_config_file
+#chown root:$postgres_user $pg_config_dir/$pg_config_file
+#
+## don't use restart for the init script, as it might return prematurely
+## and in the later call to psql we wouldn't be able to connect
+#${postgresql_init_script} stop
+#${postgresql_init_script} start
 
 
 #-------------------------------------------------------------------------------

@@ -171,7 +171,7 @@ if [ "x$dbserver" == "xlocalhost" ]; then
         || echo "Couldn't create database user $dbuser.";
 
     su - $postgres_user -c "echo \"CREATE DATABASE \\\"$database\\\" \
-                                    OWNER $dbuser ENCODING 'utf-8';\" \
+                                    OWNER $dbuser;\" \
                             | psql template1" \
         || echo "Couldn't create database $database.";
 else
@@ -187,7 +187,7 @@ else
     echo "    ENCRYPTED PASSWORD '$dbpassword'";
     echo "    CREATEDB NOCREATEUSER;";
     echo "CREATE DATABASE \"$database\"";
-    echo "    OWNER $dbuser ENCODING 'utf-8';";
+    echo "    OWNER $dbuser;";
 fi
 
 

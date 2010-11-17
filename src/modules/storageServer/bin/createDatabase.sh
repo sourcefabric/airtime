@@ -176,7 +176,7 @@ if [ "x$ls_dbserver" == "xlocalhost" ]; then
         || echo "Couldn't create database user $ls_dbuser.";
 
     su - $postgres_user -c "echo \"CREATE DATABASE \\\"$ls_database\\\" \
-                                    OWNER $ls_dbuser ENCODING 'utf-8';\" \
+                                    OWNER $ls_dbuser;\" \
                             | psql template1" \
         || echo "Couldn't create database $ls_database.";
 else
@@ -192,7 +192,7 @@ else
     echo "    ENCRYPTED PASSWORD '$ls_dbpassword'";
     echo "    CREATEDB NOCREATEUSER;";
     echo "CREATE DATABASE \"$ls_database\"";
-    echo "    OWNER $ls_dbuser ENCODING 'utf-8';";
+    echo "    OWNER $ls_dbuser;";
 fi
 
 
