@@ -305,6 +305,7 @@ private:
         // and ALSA can emulate it.
         // const bool oss = m_audioDevice.find("/dev") == 0;
         const bool autosink = m_audioDevice.find("auto") == 0;
+        const bool gconfsink = m_audioDevice.find("gconf") == 0;
 
         m_sink = gst_bin_new ("audiobin");
         if(m_sink == NULL){
@@ -314,7 +315,9 @@ private:
         audiopad = gst_element_get_pad (conv, "sink");
 
         // set the string to be sent to gstreamer. the option here is to set it to autoaudiosink.
-        GstElement *sink = (autosink ? gst_element_factory_make("autoaudiosink", NULL) : gst_element_factory_make("alsasink", NULL));
+        GstElement *sink = (autosink ? gst_element_factory_make("autoaudiosink", NULL) :
+			   (gconfsink? gst_element_factory_make("gconfaudiosink", NULL):
+				       gst_element_factory_make("alsasink", NULL)));
         if(sink == NULL){
             return false;
         }
