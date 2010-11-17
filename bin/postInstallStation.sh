@@ -401,8 +401,9 @@ echo "done"
 echo "Creating symlinks...";
 
 # create symlink for the PHP pages in apache's document root
-rm -f $www_root/campcaster
-ln -s $install_var_ls $www_root/campcaster
+#rm -f $www_root/campcaster
+#ln -s $install_var_ls $www_root/campcaster
+#debian: skip this -> done via apache-config in 90_php_campcaster.conf
 
 
 #-------------------------------------------------------------------------------
