@@ -168,7 +168,9 @@ int main (  int     argc,
         exit(EXIT_FAILURE);
     }
 
+#ifdef DEBUG
     std::cerr << "using config file '" << configFileName << '\'' << std::endl;
+#endif
 
     Ptr<SchedulerDaemon>::Ref   daemon = SchedulerDaemon::getInstance();
 
