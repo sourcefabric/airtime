@@ -93,7 +93,7 @@ force_stop() {
 case "$1" in
   start)
         echo -n "Starting $DESC: "
-        $DAEMON $DAEMON_OPTS start 2>/dev/null
+        $DAEMON $DAEMON_OPTS start &>/dev/null
         if running ; then
             echo "$NAME."
         else
