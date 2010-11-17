@@ -1982,7 +1982,7 @@ GLiveSupport :: substituteRdsItem(Ptr<Glib::ustring>::Ref   rdsString,
                                   const std::string &       metadataKey)
                                                                     throw ()
 {
-    unsigned int    pos;
+    size_t    pos;
     while ((pos = rdsString->find(placeholder)) != std::string::npos) {
         Ptr<const Glib::ustring>::Ref   value;
         if (playable) {
