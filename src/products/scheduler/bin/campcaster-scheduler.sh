@@ -33,17 +33,15 @@
 #-------------------------------------------------------------------------------
 #  Determine directories, files
 #-------------------------------------------------------------------------------
-reldir=`dirname $0`/..
-basedir=`cd $reldir; pwd;`
-bindir=$basedir/bin
-etcdir=$basedir/etc
-libdir=$basedir/lib
-vardir=$basedir/var/Campcaster/scheduler/var
-
+bindir=/usr/lib/campcaster/bin
+etcdir=/etc
+libdir=/usr/lib/campcaster/
+vardir=/usr/share/campcaster/www/scheduler/var
 
 #-------------------------------------------------------------------------------
 #  Set up the environment
 #-------------------------------------------------------------------------------
+export PATH=$bindir:$PATH
 export LD_LIBRARY_PATH=$libdir:$LD_LIBRARY_PATH
 export GST_REGISTRY=$etcdir/gst-registry.xml
 scheduler_exe=$bindir/campcaster-scheduler

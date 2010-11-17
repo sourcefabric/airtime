@@ -36,14 +36,6 @@
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
-#  Determine directories, files
-#-------------------------------------------------------------------------------
-reldir=`dirname $0`/..
-basedir=`cd $reldir; pwd;`
-bindir=$basedir/bin
-
-
-#-------------------------------------------------------------------------------
 #  Print the usage information for this script.
 #-------------------------------------------------------------------------------
 printUsage()
@@ -186,11 +178,11 @@ ls_database=$database
 postgres_user=postgres
 
 install_bin=$installdir/bin
-install_etc=$installdir/etc
-install_lib=$installdir/lib
-install_usr=$installdir/usr
-install_var=$installdir/var
-install_var_ls=$install_var/Campcaster
+install_etc=/etc
+install_shr=/usr/share/campcaster/www/
+install_tpl=/usr/share/campcaster/etc/
+install_var_ls=/var/lib/campcaster/
+storagedir=$install_var_ls/storageServer
 
 
 #-------------------------------------------------------------------------------
@@ -286,7 +278,6 @@ ${install_bin}/createOdbcDataSource.sh --database=${ls_database} \
 #  Check whether the storage server directory has been replaced with a mount
 #  point for an NFS share.
 #-------------------------------------------------------------------------------
-storagedir=$installdir/var/storageServer
 storage_is_local=yes
 if [ "`mount | grep -o \"on $storagedir \"`" = "on $storagedir " ]; then
     storage_is_local=no
@@ -296,6 +287,33 @@ fi
 #-------------------------------------------------------------------------------
 #  Setup directory permissions
 #-------------------------------------------------------------------------------
+
+echo "Setting up links in /var..."
+
+linkvardir()
+{
+  mkdir -p $install_var_ls/$1
+  test -L $install_shr/$1 || (\
+    ls $install_shr/$1/* &>/dev/null && \
+    cp -af $install_shr/$1/* $install_var_ls/$1/ )
+  rm -rf $install_shr/$1
+  ln -fs $install_var_ls/$1 $install_shr/$1
+}
+
+linkvardir archiveServer/var/stor
+linkvardir archiveServer/var/access
+linkvardir archiveServer/var/trans
+
+linkvardir storageServer/var/stor
+linkvardir storageServer/var/access
+linkvardir storageServer/var/trans
+
+linkvardir htmlUI/var/templates_c
+linkvardir htmlUI/var/html/img
+
+mkdir -p $install_var_ls/archiveServer/var/stor/buffer
+mkdir -p $install_var_ls/storageServer/var/stor/buffer
+
 echo "Setting up directory permissions..."
 
 chgrp $apache_group $install_var_ls/archiveServer/var/stor
@@ -340,7 +358,7 @@ do
     if [ -d $APACHE_DDIR ]; then
         echo "Y"
         AP_DDIR_FOUND=yes
-        cp $basedir/etc/apache/$CONFFILE $APACHE_DDIR
+        cp $install_tpl/$CONFFILE $APACHE_DDIR
         break
     else
         echo "N"
@@ -350,7 +368,7 @@ if [ "$AP_DDIR_FOUND" != "yes" ]; then
     echo "###############################"
     echo " Could not configure Apache"
     echo "  include following file into apache config manually:"
-    echo "  $basedir/etc/apache/$CONFFILE"
+    echo "  $install_tpl/etc/apache/$CONFFILE"
     echo "###############################"
 fi
 echo "done"
@@ -394,7 +412,7 @@ echo "Initializing database...";
 
 if [ "$storage_is_local" = "yes" ]; then
     # create PHP-related database tables
-    cd $install_var_ls/storageServer/var/install
+    cd $install_shr/storageServer/var/install
     # workaround for #2059; restore to "exit 1" after the ticket is closed
     php -q install.php || exit 1;
     #php -q install.php || true
@@ -402,7 +420,7 @@ if [ "$storage_is_local" = "yes" ]; then
 fi
 
 # create PHP-related database tables
-cd $install_var_ls/archiveServer/var/install
+cd $install_shr/archiveServer/var/install
 # workaround for ticket #2059; restore to "exit 1" after the ticket is closed
 php -q install.php || exit 1;
 #php -q install.php || true
@@ -421,7 +439,7 @@ if [ "$storage_is_local" = "yes" ]; then
     grep -q 'ls_scheduler_storage_pass' $install_etc/campcaster-scheduler.xml
     if [ $? = 0 ]; then
         SCHEDULER_STORAGE_PASS=`pwgen -N1 -c -n -s`
-        php -q $install_var_ls/storageServer/var/install/campcaster-user.php \
+        php -q $install_shr/storageServer/var/install/campcaster-user.php \
             --addupdate scheduler ${SCHEDULER_STORAGE_PASS}
         sed -i -e "s/ls_scheduler_storage_pass/${SCHEDULER_STORAGE_PASS}/" \
             $install_etc/campcaster-scheduler.xml
@@ -433,7 +451,7 @@ fi
 #-------------------------------------------------------------------------------
 echo "Initializing twitter cron...";
 
-cd $install_var_ls/htmlUI/var/install
+cd $install_shr/htmlUI/var/install
 # workaround for #2059; restore to "exit 1" after the ticket is closed
 php -q install.php || exit 1;
 #php -q install.php || true
@@ -441,7 +459,7 @@ cd -
 
 # We need the scheduler password here too
 sed -i -e "s/change_me/${SCHEDULER_STORAGE_PASS}/" \
-            $install_var_ls/htmlUI/var/html/ui_twitterCron.php
+            $install_shr/htmlUI/var/ui_twitterCron.php
 
 
 
@@ -449,7 +467,7 @@ sed -i -e "s/change_me/${SCHEDULER_STORAGE_PASS}/" \
 #  Update the database, if necessary
 #-------------------------------------------------------------------------------
 if [ "$storage_is_local" = "yes" ]; then
-    php -q $install_var_ls/storageServer/var/install/upgrade/upgrade.php
+    php -q $install_shr/storageServer/var/install/upgrade/upgrade.php
 fi
 
 

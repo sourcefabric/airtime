@@ -53,12 +53,12 @@ $CC_CONFIG = array(
     'StationPrefsGr'=> 'StationPrefs',
     'AllGr'         => 'All',
     'TrashName'     => 'trash_',
-    'storageDir'    => dirname(__FILE__).'/../../storageServer/var/stor',
-    'bufferDir'     => dirname(__FILE__).'/../../storageServer/var/stor/buffer',
-    'transDir'      => dirname(__FILE__).'/../../storageServer/var/trans',
-    'accessDir'     => dirname(__FILE__).'/../../storageServer/var/access',
+    'storageDir'    => 'ls_shr_www/storageServer/var/stor',
+    'bufferDir'     => 'ls_shr_www/storageServer/var/stor/buffer',
+    'transDir'      => 'ls_shr_www/storageServer/var/trans',
+    'accessDir'     => 'ls_shr_www/storageServer/var/access',
     'pearPath'      => 'ls_lib_dir/pear',
-    'cronDir'       => dirname(__FILE__).'/../../storageServer/var/cron',
+    'cronDir'       => 'ls_shr_www/storageServer/var/cron',
     'isArchive'     =>  FALSE,
     'validate'      =>  TRUE,
     'useTrash'      =>  TRUE,
@@ -113,9 +113,10 @@ $CC_CONFIG = array(
 
     /* =================================================== cron configuration */
     'cronUserName'      => 'ls_apache_group',
-    'lockfile'          => dirname(__FILE__).'/cron/cron.lock',
-    'cronfile'          => dirname(__FILE__).'/cron/croncall.php',
-    'paramdir'          => dirname(__FILE__).'/cron/params',
+    'lockfile'          => '/var/lock/campcaster-cron.lock',
+    'cronfile'          => 'ls_shr_www/storageServer/var/cron/croncall.php',
+    'paramdir'          => '/var/cache/campcaster/cronparams',
+
 );
 
 // Add database table names

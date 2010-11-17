@@ -56,7 +56,7 @@ PACKAGE_VERSION = @PACKAGE_VERSION@
 
 USR_DIR     = ${prefix}
 USR_BIN_DIR = ${USR_DIR}/bin
-USR_DOC_DIR = ${USR_DIR}/doc
+USR_DOC_DIR = ${USR_DIR}/share/doc/campcaster
 USR_ETC_DIR = ${USR_DIR}/etc
 USR_LIB_DIR = ${USR_DIR}/lib
 USR_VAR_DIR = ${USR_DIR}/var
@@ -241,10 +241,10 @@ ${TMP_DIR}/modules_setup.stamp:
             --with-apache-group=${APACHE_GROUP} \
             --with-www-docroot=${WWW_DOCROOT} \
             --with-configure-apache=${CONFIGURE_APACHE} \
-            --with-storage-server=${prefix}/var/Campcaster/storageServer \
+            --with-storage-server=/usr/share/campcaster/www/storageServer \
             PACKAGE_VERSION=${PACKAGE_VERSION}
 	cd ${STORAGE_ADMIN_DIR} && ./configure --prefix=${prefix} \
-            --with-storage-server=${prefix}/var/Campcaster/storageServer \
+            --with-storage-server=/usr/share/campcaster/www/storageServer \
             --with-phppart-dir=${prefix}/var/Campcaster/storageAdmin \
             PACKAGE_VERSION=${PACKAGE_VERSION}
 	cd ${STORAGE_SERVER_DIR} && \

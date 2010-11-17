@@ -79,7 +79,11 @@ APACHE_GROUP = @APACHE_GROUP@
 WWW_DOCROOT  = @WWW_DOCROOT@
 STORAGE_SERVER = @STORAGE_SERVER@
 
-REPLACE_SED_STRING="s\storage_server\${STORAGE_SERVER}\;"
+STORAGE_SERVER_S=$(shell ${ECHO} "${STORAGE_SERVER}" | ${SED} -e "s/\//\\\\\\\\\//g")
+HTMLUI_DIR_S=$(shell ${ECHO} "${STORAGE_SERVER}/../htmlUI/var" | ${SED} -e "s/\//\\\\\\\\\//g")
+
+REPLACE_SED_STRING="s/storage_server/${STORAGE_SERVER_S}/;\
+                   s/htmlui_dir/${HTMLUI_DIR_S}/;"
 
 
 #-------------------------------------------------------------------------------

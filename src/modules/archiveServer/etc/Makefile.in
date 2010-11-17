@@ -91,11 +91,13 @@ DB_PASSWORD    = @DB_PASSWORD@
 PHP_URL_PREFIX = @URL_PREFIX@
 
 
-USR_LIB_DIR_S=$(shell ${ECHO} ${USR_LIB_DIR} | ${SED} -e "s/\//\\\\\\\\\//g")
+SHR_WWW_DIR_S=$(shell ${ECHO} /usr/share/campcaster/www | ${SED} -e "s/\//\\\\\\\\\//g")
+USR_LIB_DIR_S=$(shell ${ECHO} /usr/lib/campcaster | ${SED} -e "s/\//\\\\\\\\\//g")
 PHP_URL_PREFIX_S=$(shell ${ECHO} ${PHP_URL_PREFIX} | ${SED} -e "s/\//\\\\\\\\\//g")
 
 REPLACE_SED_STRING="s/ls_lib_dir/${USR_LIB_DIR_S}/; \
               s/ls_dbuser/${DB_USER}/; \
+              s/ls_shr_www/${SHR_WWW_DIR_S}/; \
               s/ls_dbpassword/${DB_PASSWORD}/; \
               s/ls_dbserver/${DB_SERVER}/; \
               s/ls_database/${DATABASE}/; \

@@ -124,7 +124,7 @@
 
     <xmlRpcDaemon xmlRpcHost  = "ls_scheduler_host"
                   xmlRpcPort  = "ls_scheduler_port"
-                  pidFileName = "ls_tmp_dir/scheduler.pid"
+                  pidFileName = "ls_pid_dir/campcaster.pid"
     />
 </scheduler>
 

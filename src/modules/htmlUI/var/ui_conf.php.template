@@ -152,9 +152,9 @@ $CC_CONFIG = array_merge($CC_CONFIG,
     )
 );
 
-require_once(dirname(__FILE__).'/ui_base.inc.php');
-require_once('../../../storageServer/var/GreenBox.php');
-require_once(dirname(__FILE__).'/formmask/generic.inc.php');
+require_once('htmlui_dir/ui_base.inc.php');
+require_once('storage_server/var/GreenBox.php');
+require_once('htmlui_dir/formmask/generic.inc.php');
 
 require_once('DB.php');
 require_once('HTML/QuickForm.php');

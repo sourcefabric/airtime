@@ -35,13 +35,7 @@
 #  Determine directories, files
 #-------------------------------------------------------------------------------
 
-reldir=`dirname $0`/..
-phpdir=ls_storageAdmin_phppart_dir
-if [ "$phpdir" == "ls_storageAdmin_phppart_dir" ]
-then
-    phpdir=`cd $reldir/var; pwd`
-fi
-filelistpathname=.
+phpdir=/usr/share/campcaster/www/storageAdmin/var/
 
 #-------------------------------------------------------------------------------
 #  Print the usage information for this script.

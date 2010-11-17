@@ -41,8 +41,7 @@ if [ "$phpdir" == "ls_storageAdmin_phppart_dir" ]
 then
     phpdir=`cd $reldir/var; pwd`
 fi
-mkdir -p $reldir/tmp
-tmpmaindir=`cd $reldir/tmp; pwd`
+tmpmaindir=/tmp
 dbxml="db.xml"
 datestr=`date '+%Y%m%d%H%M%S'`
 xmltar="xmls.tar"

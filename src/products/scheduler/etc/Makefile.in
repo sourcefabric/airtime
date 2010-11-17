@@ -82,6 +82,8 @@ ALIB_XML_RPC_PREFIX=xmlrpc/xrLocStor.php
 POSTGRES_USER=postgres
 
 USR_LIB_DIR_S=$(shell ${ECHO} ${USR_LIB_DIR} | ${SED} -e "s/\//\\\\\\\\\//g")
+STORAGE_PID_DIR_S=$(shell ${ECHO} /var/run/ | \
+                        ${SED} -e "s/\//\\\\\\\\\//g")
 STORAGE_TMP_DIR_S=$(shell ${ECHO} ${STORAGE_TMP_DIR} | \
                         ${SED} -e "s/\//\\\\\\\\\//g")
 PHP_URL_PREFIX_S=$(shell ${ECHO} ${PHP_URL_PREFIX} | \
@@ -101,6 +103,7 @@ REPLACE_SED_STRING="s/ls_lib_dir/${USR_LIB_DIR_S}/; \
               s/ls_php_port/${WWW_PORT}/; \
               s/ls_alib_xmlRpcPrefix/${ALIB_XML_RPC_PREFIX_S}/; \
               s/ls_tmp_dir/${STORAGE_TMP_DIR_S}/; \
+              s/ls_pid_dir/${STORAGE_PID_DIR_S}/; \
               s/ls_audio_output_device/${AUDIO_OUT_S}/; \
               s/ls_scheduler_host/${HOSTNAME}/; \
               s/ls_scheduler_port/${SCHEDULER_PORT}/;"

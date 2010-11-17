@@ -3,7 +3,7 @@
  * ArchiveServer configuration file
  */
 
-include(dirname(__FILE__)."/../../storageServer/var/campcaster_version.php");
+include("/etc/campcaster/storageServer/campcaster_version.php");
 
 /**
  *  configuration structure:
@@ -48,10 +48,10 @@ $CC_CONFIG = array(
     'AdminsGr'      => 'Admins',
     'StationPrefsGr'=> '',
     'AllGr'         => 'All',
-    'storageDir'    =>  dirname(__FILE__).'/../../archiveServer/var/stor',
-    'bufferDir'     =>  dirname(__FILE__).'/../../archiveServer/var/stor/buffer',
-    'transDir'      =>  dirname(__FILE__).'/../../archiveServer/var/trans',
-    'accessDir'     =>  dirname(__FILE__).'/../../archiveServer/var/access',
+    'storageDir'    =>  'ls_shr_www/archiveServer/var/stor',
+    'bufferDir'     =>  'ls_shr_www/archiveServer/var/stor/buffer',
+    'transDir'      =>  'ls_shr_www/archiveServer/var/trans',
+    'accessDir'     =>  'ls_shr_www/archiveServer/var/access',
     'pearPath'      =>  'ls_lib_dir/pear',
     'isArchive'     =>  TRUE,
     'validate'      =>  TRUE,

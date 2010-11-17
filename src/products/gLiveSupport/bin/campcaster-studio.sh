@@ -34,17 +34,15 @@
 #-------------------------------------------------------------------------------
 #  Determine directories, files
 #-------------------------------------------------------------------------------
-reldir=`dirname $0`/..
-basedir=`cd $reldir; pwd;`
-bindir=$basedir/bin
-etcdir=$basedir/etc
-libdir=$basedir/lib
-tmpdir=$basedir/tmp
+bindir=/usr/lib/campcaster/bin/
+etcdir=/etc
+libdir=/usr/lib/campcaster/
 
 
 #-------------------------------------------------------------------------------
 #  Set up the environment
 #-------------------------------------------------------------------------------
+export PATH=$bindir:$PATH
 export LD_LIBRARY_PATH=$libdir:$LD_LIBRARY_PATH
 export GST_REGISTRY=$etcdir/gst-registry.xml
 studio_exe=$bindir/campcaster-studio

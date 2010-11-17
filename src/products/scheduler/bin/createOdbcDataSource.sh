@@ -37,14 +37,7 @@
 #-------------------------------------------------------------------------------
 #  Determine directories, files
 #-------------------------------------------------------------------------------
-reldir=`dirname $0`/..
-basedir=`cd $reldir; pwd;`
-bindir=$basedir/bin
-etcdir=$basedir/etc
-docdir=$basedir/doc
-tmpdir=$basedir/tmp
-usrdir=$basedir/usr
-
+etcdir=/usr/share/campcaster/etc/
 
 #-------------------------------------------------------------------------------
 #  Print the usage information for this script.

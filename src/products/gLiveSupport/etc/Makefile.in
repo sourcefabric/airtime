@@ -67,6 +67,7 @@ USR_INCLUDE_DIR = ${USR_DIR}/include
 USR_LIB_DIR     = ${USR_DIR}/lib
 USR_VAR_DIR     = ${USR_DIR}/var
 STORAGE_TMP_DIR = "/tmp"
+REAL_SHR_DIR    = "/usr/share/campcaster/www"
 
 HOSTNAME       = @HOSTNAME@
 WWW_PORT       = @WWW_PORT@
@@ -81,9 +82,10 @@ AUDIO_CUE      = "@AUDIO_CUE@"
 PHP_URL_PREFIX=campcaster
 ALIB_XML_RPC_PREFIX=xmlrpc/xrLocStor.php
 SCHEDULER_XML_RPC_PREFIX=RC2
-SCHEDULER_DAEMON_COMMAND="sudo ${USR_BIN_DIR}/campcaster-scheduler.sh"
+SCHEDULER_DAEMON_COMMAND="sudo /etc/init.d/campcaster"
 
-USR_VAR_DIR_S=$(shell ${ECHO} ${USR_VAR_DIR} | ${SED} -e "s/\//\\\\\\\\\//g")
+
+USR_VAR_DIR_S=$(shell ${ECHO} ${REAL_SHR_DIR} | ${SED} -e "s/\//\\\\\\\\\//g")
 PHP_URL_PREFIX_S=$(shell ${ECHO} ${PHP_URL_PREFIX} | \
                                             ${SED} -e "s/\//\\\\\\\\\//g")
 ALIB_XML_RPC_PREFIX_S=$(shell ${ECHO} ${ALIB_XML_RPC_PREFIX} | \
