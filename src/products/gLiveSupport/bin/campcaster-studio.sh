@@ -43,7 +43,7 @@ libdir=/usr/lib/campcaster/
 #  Set up the environment
 #-------------------------------------------------------------------------------
 export PATH=$bindir:$PATH
-export LD_LIBRARY_PATH=$libdir:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$libdir${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
 export GST_REGISTRY=$etcdir/gst-registry.xml
 studio_exe=$bindir/campcaster-studio
 

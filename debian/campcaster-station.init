@@ -17,7 +17,7 @@ CAMPCASTER_LIB=/usr/lib/campcaster/
 CAMPCASTER_ETC=/etc
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:$CAMPCASTER_BIN
-LD_LIBRARY_PATH=$CAMPCASTER_LIB:$LD_LIBRARY_PATH
+LD_LIBRARY_PATH=${CAMPCASTER_LIB}${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
 DAEMON=$CAMPCASTER_BIN/campcaster-scheduler
 NAME=campcaster
 DESC="campcaster scheduler"

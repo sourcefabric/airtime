@@ -48,7 +48,7 @@ usrdir=`cd $basedir/../../../usr; pwd;`
 #-------------------------------------------------------------------------------
 #  Set up the environment
 #-------------------------------------------------------------------------------
-export LD_LIBRARY_PATH=$usrdir/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$usrdir/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
 
 if [ -x $bindir/campcaster-scheduler ]; then
     scheduler_exe=$bindir/campcaster-scheduler
