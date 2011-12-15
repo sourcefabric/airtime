@@ -15,12 +15,12 @@ if (!file_exists(AirtimeIni::CONF_FILE_AIRTIME)) {
     echo "Most likely this means that Airtime is not installed, so there is nothing to do.".PHP_EOL.PHP_EOL;
     exit();
 }
-require_once(AirtimeInstall::GetAirtimeSrcDir().'/application/configs/constants.php');
+require_once(__DIR__.'/airtime-constants.php');
 require_once(AirtimeInstall::GetAirtimeSrcDir().'/application/configs/conf.php');
 
 echo PHP_EOL;
 echo "* Uninstalling Airtime ".AIRTIME_VERSION.PHP_EOL;
-AirtimeInstall::UninstallPhpCode();
+//AirtimeInstall::UninstallPhpCode();
 
 //------------------------------------------------------------------------
 // Delete the database
@@ -28,10 +28,16 @@ AirtimeInstall::UninstallPhpCode();
 // before this function, even if you called $CC_DBC->disconnect(), there will
 // still be a connection to the database and you wont be able to delete it.
 //------------------------------------------------------------------------
-echo " * Dropping the database '".$CC_CONFIG['dsn']['database']."'...".PHP_EOL;
 
-// check if DB exists
-$command = "echo \"DROP DATABASE IF EXISTS ".$CC_CONFIG['dsn']['database']."\" | su postgres -c psql";
+//close connection for any process id using airtime database since we are about to drop the database.
+$sql = "SELECT pg_cancel_backend(procpid) FROM pg_stat_activity WHERE datname = 'airtime';";
+$command = "echo \"$sql\" | su postgres -c psql";
+@exec($command, $output);
+
+echo " * Dropping the database '".$CC_CONFIG["dsn"]["database"]."'...".PHP_EOL;
+
+//dropdb returns 1 if other sessions are using the database, otherwise returns 0
+$command = "su postgres -c \"dropdb ".$CC_CONFIG["dsn"]["database"]."\"";
 
 @exec($command, $output, $dbDeleteFailed);
 
@@ -77,11 +83,11 @@ if ($results == 0) {
     echo "   * Nothing to delete.".PHP_EOL;
 }
 
-AirtimeInstall::RemoveSymlinks();
-AirtimeInstall::UninstallBinaries();
-AirtimeInstall::RemoveLogDirectories();
-AirtimeIni::RemoveMonitFile();
-
-@unlink('/etc/cron.d/airtime-crons');
+//AirtimeInstall::RemoveSymlinks();
+//AirtimeInstall::UninstallBinaries();
+//AirtimeInstall::RemoveLogDirectories();
+//AirtimeInstall::removeVirtualEnvDistributeFile();
+//AirtimeIni::RemoveMonitFile();
+//@unlink('/etc/cron.d/airtime-crons');
 
 /* FINISHED AIRTIME PHP UNINSTALLER */

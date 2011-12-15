@@ -9,8 +9,8 @@ class Application_Model_Dashboard
         //after the last item in the schedule table, then return the show's
         //name. Else return the last item from the schedule.
 
-        $showInstance = ShowInstance::GetLastShowInstance($p_timeNow);
-        $row = Schedule::GetLastScheduleItem($p_timeNow);
+        $showInstance = Application_Model_ShowInstance::GetLastShowInstance($p_timeNow);
+        $row = Application_Model_Schedule::GetLastScheduleItem($p_timeNow);
 
         if (is_null($showInstance)){
             if (count($row) == 0){
@@ -26,21 +26,21 @@ class Application_Model_Dashboard
                 if ($showInstance->isRecorded()){
                     //last item is a show instance
                     return array("name"=>$showInstance->getName(),
-                                "starts"=>$showInstance->getShowStart(),
-                                "ends"=>$showInstance->getShowEnd());
+                                "starts"=>$showInstance->getShowInstanceStart(),
+                                "ends"=>$showInstance->getShowInstanceEnd());
                 } else {
                     return null;
                 }
             } else {
                 //return the one that started later.
-                if ($row[0]["starts"] >= $showInstance->getShowStart()){
+                if ($row[0]["starts"] >= $showInstance->getShowInstanceStart()){
                     return array("name"=>$row[0]["artist_name"]." - ".$row[0]["track_title"],
                             "starts"=>$row[0]["starts"],
                             "ends"=>$row[0]["ends"]);
                 } else {
                     return array("name"=>$showInstance->getName(),
-                                "starts"=>$showInstance->getShowStart(),
-                                "ends"=>$showInstance->getShowEnd());
+                                "starts"=>$showInstance->getShowInstanceStart(),
+                                "ends"=>$showInstance->getShowInstanceEnd());
                 }
             }
         }
@@ -53,10 +53,10 @@ class Application_Model_Dashboard
         //name. Else return the last item from the schedule.
 
         $row = array();
-        $showInstance = ShowInstance::GetCurrentShowInstance($p_timeNow);
+        $showInstance = Application_Model_ShowInstance::GetCurrentShowInstance($p_timeNow);
         if (!is_null($showInstance)){
             $instanceId = $showInstance->getShowInstanceId();
-            $row = Schedule::GetCurrentScheduleItem($p_timeNow, $instanceId);
+            $row = Application_Model_Schedule::GetCurrentScheduleItem($p_timeNow, $instanceId);
         }
         if (is_null($showInstance)){
             if (count($row) == 0){
@@ -75,8 +75,8 @@ class Application_Model_Dashboard
                 //last item is a show instance
                 if ($showInstance->isRecorded()){
                     return array("name"=>$showInstance->getName(),
-                                "starts"=>$showInstance->getShowStart(),
-                                "ends"=>$showInstance->getShowEnd(),
+                                "starts"=>$showInstance->getShowInstanceStart(),
+                                "ends"=>$showInstance->getShowInstanceEnd(),
                                 "media_item_played"=>false,
                                 "record"=>true);
                 } else {
@@ -98,8 +98,8 @@ class Application_Model_Dashboard
         //after the last item in the schedule table, then return the show's
         //name. Else return the last item from the schedule.
 
-        $showInstance = ShowInstance::GetNextShowInstance($p_timeNow);
-        $row = Schedule::GetNextScheduleItem($p_timeNow);
+        $showInstance = Application_Model_ShowInstance::GetNextShowInstance($p_timeNow);
+        $row = Application_Model_Schedule::GetNextScheduleItem($p_timeNow);
 
         if (is_null($showInstance)){
             if (count($row) == 0){
@@ -114,22 +114,22 @@ class Application_Model_Dashboard
                 if ($showInstance->isRecorded()){
                     //last item is a show instance
                     return array("name"=>$showInstance->getName(),
-                                "starts"=>$showInstance->getShowStart(),
-                                "ends"=>$showInstance->getShowEnd());
+                                "starts"=>$showInstance->getShowInstanceStart(),
+                                "ends"=>$showInstance->getShowInstanceEnd());
                 } else {
                     return null;
                 }
             } else {
                 //return the one that starts sooner.
                 
-                if ($row[0]["starts"] <= $showInstance->getShowStart()){
+                if ($row[0]["starts"] <= $showInstance->getShowInstanceStart()){
                     return array("name"=>$row[0]["artist_name"]." - ".$row[0]["track_title"],
                             "starts"=>$row[0]["starts"],
                             "ends"=>$row[0]["ends"]);
                 } else {
                     return array("name"=>$showInstance->getName(),
-                                "starts"=>$showInstance->getShowStart(),
-                                "ends"=>$showInstance->getShowEnd());
+                                "starts"=>$showInstance->getShowInstanceStart(),
+                                "ends"=>$showInstance->getShowInstanceEnd());
                 }
             }
         }

@@ -13,10 +13,10 @@ class Application_Form_AddShowWho extends Zend_Form_SubForm
 		)); 
 
 		$options = array();
-		$hosts = User::getHosts();
+		$hosts = Application_Model_User::getHosts();
 
 		foreach ($hosts as $host) {
-			$options[$host['value']] = $host['label'];
+			$options[$host['index']] = $host['label'];
 		}
 
 		//Add hosts selection

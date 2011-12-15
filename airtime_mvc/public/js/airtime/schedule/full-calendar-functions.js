@@ -4,7 +4,18 @@
 *
 */
 
-function scheduleRefetchEvents() {
+function scheduleRefetchEvents(json) {
+    if(json.show_error == true){
+        alert("The show instance doesn't exist anymore!")
+    }
+    if(json.show_id) {
+    	var dialog_id = parseInt($("#add_show_id").val(), 10);
+    	
+    	//if you've deleted the show you are currently editing, close the add show dialog.
+    	if (dialog_id === json.show_id) {
+    		$("#add-show-close").click();
+    	}
+    }
     $("#schedule_calendar").fullCalendar( 'refetchEvents' );
 }
 
@@ -48,6 +59,17 @@ function removeAddShowButton(){
     span.remove();
 }
 
+function pad(number, length) {
+    
+    var str = '' + number;
+    while (str.length < length) {
+        str = '0' + str;
+    }
+   
+    return str;
+
+}
+
 function makeTimeStamp(date){
 	var sy, sm, sd, h, m, s, timestamp;
 	sy = date.getFullYear();
@@ -57,15 +79,24 @@ function makeTimeStamp(date){
 	m = date.getMinutes();
 	s = date.getSeconds();
 
-	timestamp = sy+"-"+ sm +"-"+ sd +" "+ h +":"+ m +":"+ s;
+	timestamp = sy+"-"+ pad(sm, 2) +"-"+ pad(sd, 2) +" "+ pad(h, 2) +":"+ pad(m, 2) +":"+ pad(s, 2);
 	return timestamp;
+}
+
+function pad(number, length) {
+    var str = '' + number;
+    while (str.length < length) {
+        str = '0' + str;
+    }
+
+    return str;
 }
 
 function dayClick(date, allDay, jsEvent, view) {
     var now, today, selected, chosenDate, chosenTime;
 
-    now = new Date();
-
+    now = adjustDateToServerDate(new Date(), serverTimezoneOffset);
+        
     if(view.name === "month") {
         today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
         selected = new Date(date.getFullYear(), date.getMonth(), date.getDate());
@@ -84,58 +115,23 @@ function dayClick(date, allDay, jsEvent, view) {
             $(span).prev().remove();
             $(span).remove();
         }
-
-        chosenDate = selected.getFullYear();
-
-        var month = selected.getMonth() + 1;
-        if(month < 10) {
-            chosenDate = chosenDate+'-0'+month;
-        }
-        else {
-            chosenDate = chosenDate+'-'+month;
-        }
-
-        var day = selected.getDate();
-        if(day < 10) {
-            chosenDate = chosenDate+'-0'+day;
-        }
-        else {
-            chosenDate = chosenDate+'-'+day;
-        }
-
-        var min = selected.getMinutes();
-        var hours = selected.getHours();
-        if(min < 10){
-            chosenTime = hours+":0"+min;
-        }
-        else {
-            chosenTime = hours+":"+min;
-        }
         
-        if(hours < 10){
-        	chosenTime = "0"+chosenTime;
-        }
+        // 1 hr
+        var duration = 60 * 60* 1000;
         
-        var endHour = hours + 1;
-        var chosenEndTime;
+        var endDateTime = new Date(selected.getTime() + duration);
         
-        if(min < 10){
-        	chosenEndTime = endHour+":0"+min;
-        }
-        else {
-        	chosenEndTime = endHour+":"+min;
-        }
-        
-        if(endHour < 10){
-        	chosenEndTime = "0"+chosenEndTime;
-        }
+        chosenDate = selected.getFullYear() + '-' + pad(selected.getMonth()+1,2) + '-' + pad(selected.getDate(),2);
+        chosenTime = pad(selected.getHours(),2) + ':' + pad(selected.getMinutes(),2);
+        var endDateFormat = endDateTime.getFullYear() + '-' + pad(endDateTime.getMonth()+1,2) + '-' + pad(endDateTime.getDate(),2);
+        var endTimeFormat = pad(endDateTime.getHours(),2) + ':' + pad(endDateTime.getMinutes(),2);
 
         $("#add_show_start_date").val(chosenDate);
-        $("#add_show_end_date_no_repeat").val(chosenDate);
-        $("#add_show_end_date").datepicker("option", "minDate", chosenDate);
-        $("#add_show_end_date").val(chosenDate);
+        $("#add_show_end_date_no_repeat").val(endDateFormat);
+        $("#add_show_end_date").datepicker("option", "minDate", endDateFormat);
+        $("#add_show_end_date").val(endDateFormat);
         $("#add_show_start_time").val(chosenTime);
-        $("#add_show_end_time").val(chosenEndTime);
+        $("#add_show_end_time").val(endTimeFormat);
         $("#add_show_duration").val('1h');
         $("#schedule-show-when").show();
 
@@ -170,6 +166,10 @@ function viewDisplay( view ) {
                     .fullCalendar('destroy')
                     .fullCalendar(opt)
                     .fullCalendar( 'gotoDate', date );
+                
+                //save slotMin value to db
+                var url = '/Schedule/set-time-interval/format/json';
+		$.post(url, {timeInterval: slotMin});
             });
 
         var topLeft = $(view.element).find("table.fc-agenda-days > thead th:first");
@@ -187,6 +187,10 @@ function viewDisplay( view ) {
     if(($("#add-show-form").length == 1) && ($("#add-show-form").css('display')=='none') && ($('.fc-header-left > span').length == 5)) {
         makeAddShowButton();
     }
+    
+    //save view name to db
+    var url = '/Schedule/set-time-scale/format/json';
+    $.post(url, {timeScale: view.name});
 }
 
 function eventRender(event, element, view) {
@@ -208,43 +212,64 @@ function eventRender(event, element, view) {
 	}
 
     //add the record/rebroadcast icons if needed.
-
     //record icon (only if not on soundcloud, will always be true for future events)
     if((view.name === 'agendaDay' || view.name === 'agendaWeek') && event.record === 1 && event.soundcloud_id === -1) {
 
-		$(element).find(".fc-event-time").before('<span class="small-icon recording"></span>');
+		$(element).find(".fc-event-time").before('<span id="'+event.id+'" class="small-icon recording"></span>');
 	}
     if(view.name === 'month' && event.record === 1 && event.soundcloud_id === -1) {
 
-		$(element).find(".fc-event-title").after('<span class="small-icon recording"></span>');
+		$(element).find(".fc-event-title").after('<span id="'+event.id+'" class="small-icon recording"></span>');
 	}
     //rebroadcast icon
     if((view.name === 'agendaDay' || view.name === 'agendaWeek') && event.rebroadcast === 1) {
 
-		$(element).find(".fc-event-time").before('<span class="small-icon rebroadcast"></span>');
+		$(element).find(".fc-event-time").before('<span id="'+event.id+'" class="small-icon rebroadcast"></span>');
 	}
     if(view.name === 'month' && event.rebroadcast === 1) {
 
-		$(element).find(".fc-event-title").after('<span class="small-icon rebroadcast"></span>');
+		$(element).find(".fc-event-title").after('<span id="'+event.id+'" class="small-icon rebroadcast"></span>');
 	}
     //soundcloud icon
-    if((view.name === 'agendaDay' || view.name === 'agendaWeek') && event.soundcloud_id !== -1 && event.record === 1) {
+    if((view.name === 'agendaDay' || view.name === 'agendaWeek') && event.soundcloud_id > 0 && event.record === 1) {
 
-		$(element).find(".fc-event-time").before('<span class="small-icon soundcloud"></span>');
+		$(element).find(".fc-event-time").before('<span id="'+event.id+'" class="small-icon soundcloud"></span>');
 	}
-    if(view.name === 'month' && event.soundcloud_id !== -1 && event.record === 1) {
+    if(view.name === 'month' && event.soundcloud_id > 0 && event.record === 1) {
 
-		$(element).find(".fc-event-title").after('<span class="small-icon soundcloud"></span>');
+		$(element).find(".fc-event-title").after('<span id="'+event.id+'" class="small-icon soundcloud"></span>');
 	}
+    
+    //progress icon
+    if((view.name === 'agendaDay' || view.name === 'agendaWeek') && event.soundcloud_id === -2 && event.record === 1) {
+
+        $(element).find(".fc-event-time").before('<span id="'+event.id+'" class="small-icon progress"></span>');
+    }
+    if(view.name === 'month' && event.soundcloud_id === -2 && event.record === 1) {
+
+        $(element).find(".fc-event-title").after('<span id="'+event.id+'" class="small-icon progress"></span>');
+    }
+    
+    //error icon
+    if((view.name === 'agendaDay' || view.name === 'agendaWeek') && event.soundcloud_id === -3 && event.record === 1) {
+
+        $(element).find(".fc-event-time").before('<span id="'+event.id+'" class="small-icon sc-error"></span>');
+    }
+    if(view.name === 'month' && event.soundcloud_id === -3 && event.record === 1) {
+
+        $(element).find(".fc-event-title").after('<span id="'+event.id+'" class="small-icon sc-error"></span>');
+    }
 }
 
 function eventAfterRender( event, element, view ) {
-
     $(element)
 		.jjmenu("click",
 			[{get:"/Schedule/make-context-menu/format/json/id/#id#"}],
 			{id: event.id},
 			{xposition: "mouse", yposition: "mouse"});
+    $(element).find(".small-icon").live('mouseover',function(){
+        addQtipToSCIcons($(this));
+    })
 }
 
 function eventDrop(event, dayDelta, minuteDelta, allDay, revertFunc, jsEvent, ui, view) {
@@ -255,6 +280,9 @@ function eventDrop(event, dayDelta, minuteDelta, allDay, revertFunc, jsEvent, ui
 	$.post(url,
 		{day: dayDelta, min: minuteDelta, showInstanceId: event.id},
 		function(json){
+		    if(json.show_error == true){
+                alertShowErrorAndReload();
+            }
 			if(json.error) {
                 alert(json.error);
 				revertFunc();
@@ -268,14 +296,17 @@ function eventResize( event, dayDelta, minuteDelta, revertFunc, jsEvent, ui, vie
 	url = '/Schedule/resize-show/format/json';
 
 	$.post(url,
-		{day: dayDelta, min: minuteDelta, showInstanceId: event.id},
+		{day: dayDelta, min: minuteDelta, showId: event.showId},
 		function(json){
+		    if(json.show_error == true){
+                alertShowErrorAndReload();
+            }
 			if(json.error) {
                 alert(json.error);
 				revertFunc();
 			}
 
-            scheduleRefetchEvents();
+            scheduleRefetchEvents(json);
 		});
 }
 
@@ -293,3 +324,104 @@ function getFullCalendarEvents(start, end, callback) {
 		callback(json.events);
 	});
 }
+
+function checkSCUploadStatus(){
+    var url = '/Library/get-upload-to-soundcloud-status/format/json';
+    $("span[class*=progress]").each(function(){
+        var id = $(this).attr("id");
+        $.post(url, {format: "json", id: id, type:"show"}, function(json){
+            if(json.sc_id > 0){
+                $("span[id="+id+"]").removeClass("progress").addClass("soundcloud");
+            }else if(json.sc_id == "-3"){
+                $("span[id="+id+"]").removeClass("progress").addClass("sc-error");
+            }
+        });
+    })
+}
+
+function addQtipToSCIcons(ele){
+    var id = $(ele).attr("id");
+    if($(ele).hasClass("progress")){
+        $(ele).qtip({
+            content: {
+                text: "Uploading in progress..."
+            },
+            position:{
+                adjust: {
+                resize: true,
+                method: "flip flip"
+                },
+                at: "right center",
+                my: "left top",
+                viewport: $(window)
+            },
+            show: {
+                ready: true // Needed to make it show on first mouseover event
+            }
+        })
+    }else if($(ele).hasClass("soundcloud")){
+        $(ele).qtip({
+            content: {
+                text: "Retreiving data from the server...",
+                ajax: {
+                    url: "/Library/get-upload-to-soundcloud-status",
+                    type: "post",
+                    data: ({format: "json", id : id, type: "file"}),
+                    success: function(json, status){
+                        this.set('content.text', "The soundcloud id for this file is: "+json.sc_id)
+                    }
+                }
+            },
+            position:{
+                adjust: {
+                resize: true,
+                method: "flip flip"
+                },
+                at: "right center",
+                my: "left top",
+                viewport: $(window)
+            },
+            show: {
+                ready: true // Needed to make it show on first mouseover event
+            }
+        })
+    }else if($(ele).hasClass("sc-error")){
+        $(ele).qtip({
+            content: {
+                text: "Retreiving data from the server...",
+                ajax: {
+                    url: "/Library/get-upload-to-soundcloud-status",
+                    type: "post",
+                    data: ({format: "json", id : id, type: "show"}),
+                    success: function(json, status){
+                        this.set('content.text', "There was error while uploading to soundcloud.<br>"+"Error code: "+json.error_code+
+                                "<br>"+"Error msg: "+json.error_msg+"<br>")
+                    }
+                }
+            },
+            position:{
+                adjust: {
+                resize: true,
+                method: "flip flip"
+                },
+                at: "right center",
+                my: "left top",
+                viewport: $(window)
+            },
+            show: {
+                ready: true // Needed to make it show on first mouseover event
+            }
+        })
+    }
+}
+
+//Alert the error and reload the page
+//this function is used to resolve concurrency issue
+function alertShowErrorAndReload(){
+  alert("The show instance doesn't exist anymore!");
+  window.location.reload();
+}
+
+$(document).ready(function(){
+    setInterval( "checkSCUploadStatus()", 5000 );
+})

@@ -88,6 +88,10 @@
     <column name="subject" phpName="DbSubject" type="VARCHAR" size="512" required="false"/>
     <column name="contributor" phpName="DbContributor" type="VARCHAR" size="512" required="false"/>
     <column name="language" phpName="DbLanguage" type="VARCHAR" size="512" required="false"/>
+    <column name="soundcloud_id" phpName="DbSoundcloudId" type="Integer" required="false"/>
+    <column name="soundcloud_error_code" phpName="DbSoundcloudErrorCode" type="Integer" required="false"/>
+    <column name="soundcloud_error_msg" phpName="DbSoundcloudErrorMsg" type="VARCHAR" size="512" required="false"/>
+    <column name="soundcloud_link_to_file" phpName="DbSoundcloudLinkToFile" type="VARCHAR" size="4096" required="false"/>
     <foreign-key foreignTable="cc_subjs" name="cc_files_editedby_fkey">
       <reference local="editedby" foreign="id"/>
     </foreign-key>
@@ -144,8 +148,12 @@
     <column name="rebroadcast" phpName="DbRebroadcast" type="TINYINT" required="false" defaultValue="0"/>
     <column name="instance_id" phpName="DbOriginalShow" type="INTEGER" required="false"/>
     <column name="file_id" phpName="DbRecordedFile" type="INTEGER" required="false"/>
-    <column name="soundcloud_id" phpName="DbSoundCloudId" type="INTEGER" required="false"/>
     <column name="time_filled" phpName="DbTimeFilled" type="TIME" />
+    <!-- The purpose of the modified_instance column is to mark a show instance that was
+     deleted when it was part of repeating show. This is useful because the way shows work,
+     instances can be regenerated if we edit the show, which is unwanted behaviour. This column serves
+     to ensure that we don't regenerate the instance. -->
+    <column name="modified_instance" phpName="DbModifiedInstance" type="BOOLEAN" required="true" defaultValue="false" />
     <behavior name="aggregate_column">
       <parameter name="name" value="time_filled" />
       <parameter name="foreign_table" value="cc_schedule" />
@@ -166,6 +174,7 @@
 	<column name="first_show" phpName="DbFirstShow" type="DATE" required="true"/>
 	<column name="last_show" phpName="DbLastShow" type="DATE" required="false"/>
 	<column name="start_time" phpName="DbStartTime" type="TIME" required="true"/>
+	<column name="timezone" phpName="DbTimezone" type="VARCHAR" required="true"/>
 	<column name="duration" phpName="DbDuration" type="VARCHAR" required="true"/>
 	<column name="day" phpName="DbDay" type="TINYINT" required="false"/>
     <column name="repeat_type" phpName="DbRepeatType" type="TINYINT" required="true"/>
@@ -260,6 +269,10 @@
     <column name="schedule_group_played" phpName="DbScheduleGroupPlayed" type="BOOLEAN" required="false" defaultValue="0"/>
     <column name="media_item_played" phpName="DbMediaItemPlayed" type="BOOLEAN" required="false" defaultValue="0"/>
     <column name="instance_id" phpName="DbInstanceId" type="INTEGER" required="true"/>
+    <!-- This foreign key is still useful even though it may seem we don't ever delete cc_show_instances anymore.
+        We will do delete them in some cases (when editing a show and changing the repeating days of the week
+        for example. \
+        TLDR: Don't delete this foreign key constraint. -->
     <foreign-key foreignTable="cc_show_instances" name="cc_show_inst_fkey" onDelete="CASCADE">
       <reference local="instance_id" foreign="id"/>
     </foreign-key>
@@ -304,6 +317,7 @@
     <column name="skype_contact" phpName="DbSkypeContact" type="VARCHAR" required="false"/>
     <column name="jabber_contact" phpName="DbJabberContact" type="VARCHAR" required="false"/>
     <column name="email" phpName="DbEmail" type="VARCHAR" required="false"/>
+    <column name="login_attempts" phpName="DbLoginAttempts" type="INTEGER" required="false" defaultValue="0"/>
     <unique name="cc_subjs_id_idx">
       <unique-column name="id"/>
     </unique>
@@ -314,5 +328,18 @@
   <table name="cc_country" phpName="CcCountry">
     <column name="isocode" phpName="DbIsoCode" primaryKey="true" type="CHAR" size="3" required="true"/>
     <column name="name" phpName="DbName" type="VARCHAR" size="255" required="true"/>
+  </table>
+  <table name="cc_stream_setting" phpName="CcStreamSetting">
+    <column name="keyname" phpName="DbKeyName" primaryKey="true" type="VARCHAR" size="64" required="true"/>
+    <column name="value" phpName="DbValue" type="VARCHAR" size="255" required="false"/>
+    <column name="type" phpName="DbType" type="VARCHAR" size="16" required="true"/>
+  </table>
+  <table name="cc_login_attempts" phpName="CcLoginAttempts">
+    <column name="ip" phpName="DbIP" primaryKey="true" type="VARCHAR" size="32" required="true"/>
+    <column name="attempts" phpName="DbAttempts" type="INTEGER" required="false" defaultValue="0"/>
+  </table>
+  <table name="cc_service_register" phpName="CcServiceRegister">
+    <column name="name" phpName="DbName" primaryKey="true" type="VARCHAR" size="32" required="true" />
+    <column name="ip" phpName="DbIp" type="VARCHAR" size="18" required="true"/>
   </table>
 </database>

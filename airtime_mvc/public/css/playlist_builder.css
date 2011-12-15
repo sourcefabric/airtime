@@ -2,6 +2,7 @@
 	width: 40%;
 	min-height: 475px;
 	padding: 8px;
+	padding-bottom: 0px;
 	font-size: 16px;
 }
 
@@ -24,7 +25,10 @@
 }
 
 #side_playlist button {
-	font-size: 12px;
+    float: left;
+    font-size: 12px;
+    height: 28px;
+    margin: 0 7px 20px 0;
 }
 
 #side_playlist input, 
@@ -39,10 +43,11 @@
 #spl_sortable {
 	list-style: none;
 	padding:0;
-	height: 300px;
-	overflow: auto;
+	padding-bottom:50px;
 	width:100%;
+	min-height: 320px;
 	margin-top:0;
+	margin-bottom:0;
 }
 
 #side_playlist li {
@@ -87,7 +92,9 @@
 	padding: 0 5px 0 0;
 	color: #D5D5D5;
 }
-
+.ui-state-active .spl_artist, .ui-state-active .spl_offset {
+    color: #606060 !important;
+}
 /*#spl_editor {
 	height: 50px;
 }*/
@@ -370,6 +377,7 @@
     -webkit-box-shadow: inset 0px 2px 2px rgba(0, 0, 0, 0.1);
     box-shadow: inset 0px 2px 2px rgba(0, 0, 0, 0.1);
 	width:95%;
+	margin-bottom:10px;
 }
 
 #side_playlist .zend_form {
@@ -440,4 +448,6 @@ fieldset > legend {
 #side_playlist .zend_form input, #side_playlist .zend_form textarea {
     width: auto;
 }
-	
+#fieldset-metadate_change {
+	clear:both;
+}

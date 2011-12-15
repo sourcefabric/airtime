@@ -18,19 +18,26 @@ class NowplayingController extends Zend_Controller_Action
         $baseUrl = $request->getBaseUrl();
 
         $this->view->headScript()->appendFile($baseUrl.'/js/datatables/js/jquery.dataTables.min.js','text/javascript');
+        
+        //nowplayingdatagrid.js requires this variable, so that datePicker widget can be offset to server time instead of client time
+        $this->view->headScript()->appendScript("var timezoneOffset = ".date("Z")."; //in seconds");
         $this->view->headScript()->appendFile($baseUrl.'/js/airtime/nowplaying/nowplayingdatagrid.js','text/javascript');
+        
         $this->view->headScript()->appendFile($baseUrl.'/js/airtime/nowplaying/nowview.js','text/javascript');
         
         $refer_sses = new Zend_Session_Namespace('referrer');
         $userInfo = Zend_Auth::getInstance()->getStorage()->read();
-        $user = new User($userInfo->id);
+        $user = new Application_Model_User($userInfo->id);
         
         if ($request->isPost()) {
             $form = new Application_Form_RegisterAirtime();
         
             $values = $request->getPost();
-            if ($values["Publicise"] != 1){
+            if ($values["Publicise"] != 1 && $form->isValid($values)){
                 Application_Model_Preference::SetSupportFeedback($values["SupportFeedback"]);
+                if(isset($values["Privacy"])){
+                    Application_Model_Preference::SetPrivacyPolicyCheck($values["Privacy"]);
+                }
                 // unset session
                 Zend_Session::namespaceUnset('referrer');
             }
@@ -49,10 +56,12 @@ class NowplayingController extends Zend_Controller_Action
                 Application_Model_Preference::SetStationDescription($values["Description"]);
                 Application_Model_Preference::SetStationLogo($imagePath);
                 Application_Model_Preference::SetSupportFeedback($values["SupportFeedback"]);
+                if(isset($values["Privacy"])){
+                    Application_Model_Preference::SetPrivacyPolicyCheck($values["Privacy"]);
+                }
                 // unset session
                 Zend_Session::namespaceUnset('referrer');
             }else{
-                var_dump($form->getMessages());
                 $logo = Application_Model_Preference::GetStationLogo();
                 if($logo){
                     $this->view->logoImg = $logo;
@@ -85,12 +94,13 @@ class NowplayingController extends Zend_Controller_Action
         $this->view->entries = Application_Model_Nowplaying::GetDataGridData($viewType, $dateString);
         
     }
-
+/*
     public function livestreamAction()
     {
         //use bare bones layout (no header bar or menu)
         $this->_helper->layout->setLayout('bare');
     }
+*/
 
     public function dayViewAction()
     {
@@ -98,7 +108,11 @@ class NowplayingController extends Zend_Controller_Action
         $baseUrl = $request->getBaseUrl();
 
         $this->view->headScript()->appendFile($baseUrl.'/js/datatables/js/jquery.dataTables.min.js','text/javascript');
+        
+        //nowplayingdatagrid.js requires this variable, so that datePicker widget can be offset to server time instead of client time
+        $this->view->headScript()->appendScript("var timezoneOffset = ".date("Z")."; //in seconds");
         $this->view->headScript()->appendFile($baseUrl.'/js/airtime/nowplaying/nowplayingdatagrid.js','text/javascript');
+        
         $this->view->headScript()->appendFile($baseUrl.'/js/airtime/nowplaying/dayview.js','text/javascript');
     }
 
@@ -106,8 +120,7 @@ class NowplayingController extends Zend_Controller_Action
     {
         // unset session
         Zend_Session::namespaceUnset('referrer');
-    	$now = date("Y-m-d H:i:s");
-    	Application_Model_Preference::SetRemindMeDate($now);
+    	Application_Model_Preference::SetRemindMeDate();
     	die();
     }
     

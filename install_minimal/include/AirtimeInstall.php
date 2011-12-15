@@ -1,12 +1,14 @@
 <?php
+set_include_path(__DIR__.'/../../airtime_mvc/library' . PATH_SEPARATOR . get_include_path());
+require_once('Zend/Loader/Autoloader.php');
 //Pear classes.
 set_include_path(__DIR__.'/../../airtime_mvc/library/pear' . PATH_SEPARATOR . get_include_path());
-require_once('DB.php');
+require_once('pear/DB.php');
 
 class AirtimeInstall
 {
     const CONF_DIR_BINARIES = "/usr/lib/airtime";
-    const CONF_DIR_WWW = "/var/www/airtime";
+    const CONF_DIR_WWW = "/usr/share/airtime";
     const CONF_DIR_LOG = "/var/log/airtime";
 
     public static $databaseTablesCreated = false;
@@ -43,7 +45,7 @@ class AirtimeInstall
             $values = parse_ini_file('/etc/airtime/airtime.conf', true);
         }
         else {
-            echo "New Airtime Install.".PHP_EOL;
+            //echo "New Airtime Install.".PHP_EOL;
             return null;
         }
 
@@ -56,7 +58,7 @@ class AirtimeInstall
 
         $CC_DBC = DB::connect($CC_CONFIG['dsn'], FALSE);
         if (PEAR::isError($CC_DBC)) {
-            echo "New Airtime Install.".PHP_EOL;
+            //echo "New Airtime Install.".PHP_EOL;
             return null;
         }
         else {
@@ -162,7 +164,7 @@ class AirtimeInstall
             echo "* Giving Apache permission to access $rp".PHP_EOL;
             $success = chgrp($rp, $CC_CONFIG["webServerUser"]);
             $success = chown($rp, "www-data");
-            $success = chmod($rp, 02777);
+            $success = chmod($rp, 02770);
         }
     }
 
@@ -170,7 +172,7 @@ class AirtimeInstall
     {
         global $CC_CONFIG;
 
-        echo "* Creating Airtime database user".PHP_EOL;
+        echo " * Creating Airtime database user".PHP_EOL;
 
         $username = $CC_CONFIG['dsn']['username'];
         $password = $CC_CONFIG['dsn']['password'];
@@ -178,14 +180,14 @@ class AirtimeInstall
 
         @exec($command, $output, $results);
         if ($results == 0) {
-            echo "* Database user '{$CC_CONFIG['dsn']['username']}' created.".PHP_EOL;
+            echo "  * Database user '{$CC_CONFIG['dsn']['username']}' created.".PHP_EOL;
         } else {
             if (count($output) > 0) {
-                echo "* Could not create user '{$CC_CONFIG['dsn']['username']}': ".PHP_EOL;
+                echo "  * Could not create user '{$CC_CONFIG['dsn']['username']}': ".PHP_EOL;
                 echo implode(PHP_EOL, $output);
             }
             else {
-                echo "* Database user '{$CC_CONFIG['dsn']['username']}' already exists.".PHP_EOL;
+                echo "  * Database user '{$CC_CONFIG['dsn']['username']}' already exists.".PHP_EOL;
             }
         }
     }
@@ -195,7 +197,7 @@ class AirtimeInstall
     {
         global $CC_CONFIG;
 
-        echo "* Creating Airtime database".PHP_EOL;
+        echo " * Creating Airtime database".PHP_EOL;
 
         $database = $CC_CONFIG['dsn']['database'];
         $username = $CC_CONFIG['dsn']['username'];
@@ -204,14 +206,14 @@ class AirtimeInstall
 
         @exec($command, $output, $results);
         if ($results == 0) {
-            echo "* Database '{$CC_CONFIG['dsn']['database']}' created.".PHP_EOL;
+            echo "  * Database '{$CC_CONFIG['dsn']['database']}' created.".PHP_EOL;
         } else {
             if (count($output) > 0) {
-                echo "* Could not create database '{$CC_CONFIG['dsn']['database']}': ".PHP_EOL;
+                echo "  * Could not create database '{$CC_CONFIG['dsn']['database']}': ".PHP_EOL;
                 echo implode(PHP_EOL, $output);
             }
             else {
-                echo "* Database '{$CC_CONFIG['dsn']['database']}' already exists.".PHP_EOL;
+                echo "  * Database '{$CC_CONFIG['dsn']['database']}' already exists.".PHP_EOL;
             }
         }
 
@@ -227,17 +229,17 @@ class AirtimeInstall
         // Install postgres scripting language
         $langIsInstalled = $CC_DBC->GetOne('SELECT COUNT(*) FROM pg_language WHERE lanname = \'plpgsql\'');
         if ($langIsInstalled == '0') {
-            echo "* Installing Postgres scripting language".PHP_EOL;
+            echo " * Installing Postgres scripting language".PHP_EOL;
             $sql = "CREATE LANGUAGE 'plpgsql'";
             AirtimeInstall::InstallQuery($sql, false);
         } else {
-            echo "* Postgres scripting language already installed".PHP_EOL;
+            echo "  * Postgres scripting language already installed".PHP_EOL;
         }
     }
 
     public static function CreateDatabaseTables()
     {
-        echo "* Creating database tables".PHP_EOL;
+        echo " * Creating database tables".PHP_EOL;
 
         // Put Propel sql files in Database
         //$command = AirtimeInstall::CONF_DIR_WWW."/library/propel/generator/bin/propel-gen ".AirtimeInstall::CONF_DIR_WWW."/build/ insert-sql";
@@ -287,6 +289,20 @@ class AirtimeInstall
         $uniqueId = md5(uniqid("", true));
 
         $sql = "INSERT INTO cc_pref (keystr, valstr) VALUES ('uniqueId', '$uniqueId')";
+        $result = $CC_DBC->query($sql);
+        if (PEAR::isError($result)) {
+            return false;
+        }
+        return true;
+    }
+    
+    public static function SetDefaultTimezone()
+    {
+        global $CC_DBC;
+        
+        $defaultTimezone = exec("cat /etc/timezone");
+
+        $sql = "INSERT INTO cc_pref (keystr, valstr) VALUES ('timezone', '$defaultTimezone')";
         $result = $CC_DBC->query($sql);
         if (PEAR::isError($result)) {
             return false;
@@ -345,6 +361,10 @@ class AirtimeInstall
         echo "* Installing airtime-user".PHP_EOL;
         $dir = AirtimeInstall::CONF_DIR_BINARIES."/utils/airtime-user";
         exec("ln -s $dir /usr/bin/airtime-user");
+
+        echo "* Installing airtime-log".PHP_EOL;
+        $dir = AirtimeInstall::CONF_DIR_BINARIES."/utils/airtime-log";
+        exec("ln -s $dir /usr/bin/airtime-log");
     }
 
     public static function RemoveSymlinks()
@@ -352,6 +372,9 @@ class AirtimeInstall
         exec("rm -f /usr/bin/airtime-import");
         exec("rm -f /usr/bin/airtime-update-db-settings");
         exec("rm -f /usr/bin/airtime-check-system");
+        exec("rm -f /usr/bin/airtime-user");
+        exec("rm -f /usr/bin/airtime-log");
+        exec("rm -f /usr/bin/airtime-clean-storage");
     }
 
     public static function InstallPhpCode()
@@ -410,8 +433,6 @@ class AirtimeInstall
     public static function CreateZendPhpLogFile(){
         global $CC_CONFIG;
 
-        echo "* Creating logs directory ".AirtimeInstall::CONF_DIR_LOG.PHP_EOL;
-
         $path = AirtimeInstall::CONF_DIR_LOG;
         $file = $path.'/zendphp.log';
         if (!file_exists($path)){
@@ -432,6 +453,7 @@ class AirtimeInstall
     }
 
     public static function CreateCronFile(){
+        echo "* Creating Cron File".PHP_EOL;
         // Create CRON task to run every day.  Time of day is initialized to a random time.
         $hour = rand(0,23);
         $minute = rand(0,59);
@@ -439,5 +461,42 @@ class AirtimeInstall
         $fp = fopen('/etc/cron.d/airtime-crons','w');
         fwrite($fp, "$minute $hour * * * root /usr/lib/airtime/utils/phone_home_stat\n");
         fclose($fp);
+    }
+    
+    public static function removeVirtualEnvDistributeFile(){
+        echo "* Removing distribute-0.6.10.tar.gz".PHP_EOL;
+        if(file_exists('/usr/share/python-virtualenv/distribute-0.6.10.tar.gz')){
+            exec("rm -f /usr/share/python-virtualenv/distribute-0.6.10.tar.gz");
+        }
+    }
+    
+    public static function printUsage($opts)
+    {
+        $msg = $opts->getUsageMessage();
+        echo PHP_EOL."Usage: airtime-install [options]";
+        echo substr($msg, strpos($msg, "\n")).PHP_EOL;
+    }
+    
+    public static function getOpts()
+    {
+        try {
+            $autoloader = Zend_Loader_Autoloader::getInstance();
+            $opts = new Zend_Console_Getopt(
+                array(
+                    'help|h' => 'Displays usage information.',
+                    'overwrite|o' => 'Overwrite any existing config files.',
+                    'preserve|p' => 'Keep any existing config files.',
+                    'no-db|n' => 'Turn off database install.',
+                    'reinstall|r' => 'Force a fresh install of this Airtime Version',
+                    'webonly|w' => 'Install only web files'
+                )
+            );
+            $opts->parse();
+        } catch (Zend_Console_Getopt_Exception $e) {
+            print $e->getMessage() .PHP_EOL;
+            AirtimeInstall::printUsage($opts);
+            return NULL;
+        }
+        return $opts;
     }
 }

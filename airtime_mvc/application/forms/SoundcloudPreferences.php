@@ -1,4 +1,6 @@
 <?php
+require_once 'customvalidators/ConditionalNotEmpty.php';
+require_once 'customvalidators/PasswordNotEmpty.php';
 
 class Application_Form_SoundcloudPreferences extends Zend_Form_SubForm
 {
@@ -11,36 +13,73 @@ class Application_Form_SoundcloudPreferences extends Zend_Form_SubForm
 
         //enable soundcloud uploads
         $this->addElement('checkbox', 'UseSoundCloud', array(
-            'label'      => 'Upload Recorded Shows To SoundCloud',
+            'label'      => 'Automatically Upload Recorded Shows',
             'required'   => false,
-            'value' => Application_Model_Preference::GetDoSoundCloudUpload(),
+            'value' => Application_Model_Preference::GetAutoUploadRecordedShowToSoundcloud(),
             'decorators' => array(
                 'ViewHelper'
             )
-		));
+        ));
+
+        //enable soundcloud uploads option
+        $this->addElement('checkbox', 'UploadToSoundcloudOption', array(
+            'label'      => 'Enable SoundCloud Upload',
+            'required'   => false,
+            'value' => Application_Model_Preference::GetUploadToSoundcloudOption(),
+            'decorators' => array(
+                'ViewHelper'
+            )
+        ));
+        
+        //enable downloadable for soundcloud
+        $this->addElement('checkbox', 'SoundCloudDownloadbleOption', array(
+            'label'      => 'Automatically Mark Files "Downloadable" on SoundCloud',
+            'required'   => false,
+            'value' => Application_Model_Preference::GetSoundCloudDownloadbleOption(),
+            'decorators' => array(
+                'ViewHelper'
+            )
+        ));
 
         //SoundCloud Username
         $this->addElement('text', 'SoundCloudUser', array(
             'class'      => 'input_text',
-            'label'      => 'SoundCloud Email:',
-            'required'   => false,
+            'label'      => 'SoundCloud Email',
             'filters'    => array('StringTrim'),
+            'autocomplete' => 'off',
             'value' => Application_Model_Preference::GetSoundCloudUser(),
             'decorators' => array(
                 'ViewHelper'
+            ),
+            
+            // By default, 'allowEmpty' is true. This means that our custom
+            // validators are going to be skipped if this field is empty,
+            // which is something we don't want
+            'allowEmpty' => false,
+            'validators' => array(
+                new ConditionalNotEmpty(array('UploadToSoundcloudOption'=>'1'))
             )
         ));
 
         //SoundCloud Password
         $this->addElement('password', 'SoundCloudPassword', array(
             'class'      => 'input_text',
-            'label'      => 'SoundCloud Password:',
-            'required'   => false,
+            'label'      => 'SoundCloud Password',
             'filters'    => array('StringTrim'),
+            'autocomplete' => 'off',
             'value' => Application_Model_Preference::GetSoundCloudPassword(),
             'decorators' => array(
                 'ViewHelper'
-            )
+            ),
+            
+            // By default, 'allowEmpty' is true. This means that our custom
+            // validators are going to be skipped if this field is empty,
+            // which is something we don't want
+            'allowEmpty' => false,
+            'validators' => array(
+                new ConditionalNotEmpty(array('UploadToSoundcloudOption'=>'1'))
+            ),
+            'renderPassword' => true 
         ));
 
          // Add the description element

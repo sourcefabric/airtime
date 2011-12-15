@@ -28,6 +28,8 @@ class ScheduleController extends Zend_Controller_Action
                     ->addActionContext('get-form', 'json')
                     ->addActionContext('upload-to-sound-cloud', 'json')
                     ->addActionContext('content-context-menu', 'json')
+                    ->addActionContext('set-time-scale', 'json')
+                    ->addActionContext('set-time-interval', 'json')
                     ->initContext();
 
 		$this->sched_sess = new Zend_Session_Namespace("schedule");
@@ -44,55 +46,67 @@ class ScheduleController extends Zend_Controller_Action
         $this->view->headScript()->appendFile($baseUrl.'/js/fullcalendar/fullcalendar.js','text/javascript');
         $this->view->headScript()->appendFile($baseUrl.'/js/timepicker/jquery.ui.timepicker-0.0.6.js','text/javascript');
 		$this->view->headScript()->appendFile($baseUrl.'/js/colorpicker/js/colorpicker.js','text/javascript');
+
+        //full-calendar-functions.js requires this variable, so that datePicker widget can be offset to server time instead of client time
+        $this->view->headScript()->appendScript("var timezoneOffset = ".date("Z")."; //in seconds");
     	$this->view->headScript()->appendFile($baseUrl.'/js/airtime/schedule/full-calendar-functions.js','text/javascript');
-		$this->view->headScript()->appendFile($baseUrl.'/js/airtime/schedule/add-show.js','text/javascript');
+
+        $this->view->headScript()->appendFile($baseUrl.'/js/airtime/schedule/add-show.js','text/javascript');
     	$this->view->headScript()->appendFile($baseUrl.'/js/airtime/schedule/schedule.js','text/javascript');
+    	$this->view->headScript()->appendFile($baseUrl.'/js/meioMask/jquery.meio.mask.js','text/javascript');
 
 		$this->view->headLink()->appendStylesheet($baseUrl.'/css/jquery-ui-timepicker.css');
         $this->view->headLink()->appendStylesheet($baseUrl.'/css/fullcalendar.css');
 		$this->view->headLink()->appendStylesheet($baseUrl.'/css/colorpicker/css/colorpicker.css');
 		$this->view->headLink()->appendStylesheet($baseUrl.'/css/add-show.css');
         $this->view->headLink()->appendStylesheet($baseUrl.'/css/contextmenu.css');
-        
-        Schedule::createNewFormSections($this->view);
+
+        Application_Model_Schedule::createNewFormSections($this->view);
 
         $userInfo = Zend_Auth::getInstance()->getStorage()->read();
-        $user = new User($userInfo->id);
+        $user = new Application_Model_User($userInfo->id);
         $this->view->isAdmin = $user->isAdmin();
         $this->view->isProgramManager = $user->isUserType('P');
     }
 
     public function eventFeedAction()
     {
-        $start = $this->_getParam('start', null);
-		$end = $this->_getParam('end', null);
+        $start = new DateTime($this->_getParam('start', null));
+        $start->setTimezone(new DateTimeZone("UTC"));
+        $end = new DateTime($this->_getParam('end', null));
+        $end->setTimezone(new DateTimeZone("UTC"));
 
 		$userInfo = Zend_Auth::getInstance()->getStorage()->read();
-        $user = new User($userInfo->id);
+        $user = new Application_Model_User($userInfo->id);
         if($user->isUserType(array(UTYPE_ADMIN, UTYPE_PROGRAM_MANAGER)))
             $editable = true;
         else
             $editable = false;
 
-		$this->view->events = Show::getFullCalendarEvents($start, $end, $editable);
+		$this->view->events = Application_Model_Show::getFullCalendarEvents($start, $end, $editable);
     }
 
     public function moveShowAction()
     {
         $deltaDay = $this->_getParam('day');
-		$deltaMin = $this->_getParam('min');
-		$showInstanceId = $this->_getParam('showInstanceId');
+        $deltaMin = $this->_getParam('min');
+        $showInstanceId = $this->_getParam('showInstanceId');
 
         $userInfo = Zend_Auth::getInstance()->getStorage()->read();
-        $user = new User($userInfo->id);
+        $user = new Application_Model_User($userInfo->id);
 
         if($user->isUserType(array(UTYPE_ADMIN, UTYPE_PROGRAM_MANAGER))) {
-		    $show = new ShowInstance($showInstanceId);
-		    $error = $show->moveShow($deltaDay, $deltaMin);
+            try{
+                $showInstance = new Application_Model_ShowInstance($showInstanceId);
+            }catch(Exception $e){
+                $this->view->show_error = true;
+                return false;
+            }
+            $error = $showInstance->moveShow($deltaDay, $deltaMin);
         }
 
-		if(isset($error))
-			$this->view->error = $error;
+        if(isset($error))
+            $this->view->error = $error;
 
     }
 
@@ -100,18 +114,24 @@ class ScheduleController extends Zend_Controller_Action
     {
         $deltaDay = $this->_getParam('day');
 		$deltaMin = $this->_getParam('min');
-		$showInstanceId = $this->_getParam('showInstanceId');
+		$showId = $this->_getParam('showId');
 
         $userInfo = Zend_Auth::getInstance()->getStorage()->read();
-        $user = new User($userInfo->id);
+        $user = new Application_Model_User($userInfo->id);
 
-        if($user->isUserType(array(UTYPE_ADMIN, UTYPE_PROGRAM_MANAGER))) {
-		    $show = new ShowInstance($showInstanceId);
+        if ($user->isUserType(array(UTYPE_ADMIN, UTYPE_PROGRAM_MANAGER))) {
+            try{
+                $show = new Application_Model_Show($showId);
+            }catch(Exception $e){
+                $this->view->show_error = true;
+                return false;
+            }
 		    $error = $show->resizeShow($deltaDay, $deltaMin);
         }
 
-		if(isset($error))
+		if (isset($error)) {
 			$this->view->error = $error;
+		}
     }
 
     public function deleteShowAction()
@@ -119,11 +139,21 @@ class ScheduleController extends Zend_Controller_Action
         $showInstanceId = $this->_getParam('id');
 
 		$userInfo = Zend_Auth::getInstance()->getStorage()->read();
-		$user = new User($userInfo->id);
+		$user = new Application_Model_User($userInfo->id);
 
-        if($user->isUserType(array(UTYPE_ADMIN, UTYPE_PROGRAM_MANAGER))) {
-		    $show = new ShowInstance($showInstanceId);
-		    $show->deleteShow();
+        if ($user->isUserType(array(UTYPE_ADMIN, UTYPE_PROGRAM_MANAGER))) {
+
+            try {
+		      $showInstance = new Application_Model_ShowInstance($showInstanceId);
+            }
+            catch(Exception $e){
+                $this->view->show_error = true;
+                return false;
+            }
+
+		    $showInstance->delete();
+
+		    $this->view->show_id = $showInstance->getShowId();
         }
     }
 
@@ -131,60 +161,43 @@ class ScheduleController extends Zend_Controller_Action
     {
         global $CC_CONFIG;
         $show_instance = $this->_getParam('id');
-        $show_inst = new ShowInstance($show_instance);
+        try{
+            $show_inst = new Application_Model_ShowInstance($show_instance);
+        }catch(Exception $e){
+            $this->view->show_error = true;
+            return false;
+        }
 
         $file = $show_inst->getRecordedFile();
-
-        if(is_null($file)) {
-            $this->view->error = "Recorded file does not exist";
-            return;
-        }
-
-        $show_name = $show_inst->getName();
-        $show_genre = $show_inst->getGenre();
-        $show_start_time = $show_inst->getShowStart();
-
-        if(Application_Model_Preference::GetDoSoundCloudUpload())
-        {
-            for($i=0; $i<$CC_CONFIG['soundcloud-connection-retries']; $i++) {
-
-                $show = new Show($show_inst->getShowId());
-                $description = $show->getDescription();
-                $hosts = $show->getHosts();
-
-                $tags = array_merge($hosts, array($show_name));
-
-                try {
-                    $soundcloud = new ATSoundcloud();
-                    $soundcloud_id = $soundcloud->uploadTrack($file->getFilePath(), $file->getName(), $description, $tags, $show_start_time, $show_genre);
-                    $show_inst->setSoundCloudFileId($soundcloud_id);
-                    $this->view->soundcloud_id = $soundcloud_id;
-                    break;
-                }
-                catch (Services_Soundcloud_Invalid_Http_Response_Code_Exception $e) {
-                    $code = $e->getHttpCode();
-                    if(!in_array($code, array(0, 100))) {
-                        break;
-                    }
-                }
-
-                sleep($CC_CONFIG['soundcloud-connection-wait']);
-            }
-        }
+        $id = $file->getId();
+        $res = exec("/usr/lib/airtime/utils/soundcloud-uploader $id > /dev/null &");
+        // we should die with ui info
+        die();
     }
 
     public function makeContextMenuAction()
     {
         $id = $this->_getParam('id');
-        $today_timestamp = date("Y-m-d H:i:s");
+        $epochNow = time();
 
         $userInfo = Zend_Auth::getInstance()->getStorage()->read();
-        $user = new User($userInfo->id);
-        $show = new ShowInstance($id);
+        $user = new Application_Model_User($userInfo->id);
+        try{
+            $show = new Application_Model_ShowInstance($id);
+        }catch(Exception $e){
+            $this->view->show_error = true;
+            return false;
+        }
+
 
 		$params = '/format/json/id/#id#';
-		
-		if (strtotime($today_timestamp) < strtotime($show->getShowStart())) {
+
+        $showStartDateHelper = Application_Model_DateHelper::ConvertToLocalDateTime($show->getShowInstanceStart());
+        $showEndDateHelper = Application_Model_DateHelper::ConvertToLocalDateTime($show->getShowInstanceEnd());
+
+        $menu = array();
+
+		if ($epochNow < $showStartDateHelper->getTimestamp()) {
 
             if ($user->isUserType(array(UTYPE_ADMIN, UTYPE_PROGRAM_MANAGER, UTYPE_HOST),$show->getShowId()) && !$show->isRecorded() && !$show->isRebroadcast()) {
 
@@ -202,25 +215,30 @@ class ScheduleController extends Zend_Controller_Action
                     'callback' => 'window["buildContentDialog"]'), 'title' => 'Show Content');
         }
 
-        if (strtotime($show->getShowEnd()) <= strtotime($today_timestamp)
-            && is_null($show->getSoundCloudFileId())
+        if ($showEndDateHelper->getTimestamp() <= $epochNow
             && $show->isRecorded()
-            && Application_Model_Preference::GetDoSoundCloudUpload()) {
-            $menu[] = array('action' => array('type' => 'fn',
-                'callback' => "window['uploadToSoundCloud']($id)"),
-                'title' => 'Upload to Soundcloud');
+            && Application_Model_Preference::GetUploadToSoundcloudOption()) {
+                if(is_null($show->getSoundCloudFileId())){
+                    $menu[] = array('action' => array('type' => 'fn',
+                        'callback' => "window['uploadToSoundCloud']($id)"),
+                        'title' => 'Upload to SoundCloud');
+                }else{
+                    $menu[] = array('action' => array('type' => 'fn',
+                        'callback' => "window['uploadToSoundCloud']($id)"),
+                        'title' => 'Re-upload to SoundCloud');
+                }
         }
 
 
-        if (strtotime($show->getShowStart()) <= strtotime($today_timestamp) &&
-                strtotime($today_timestamp) < strtotime($show->getShowEnd()) &&
+        if ($showStartDateHelper->getTimestamp() <= $epochNow &&
+                $epochNow < $showEndDateHelper->getTimestamp() &&
                 $user->isUserType(array(UTYPE_ADMIN, UTYPE_PROGRAM_MANAGER))) {
                 $menu[] = array('action' => array('type' => 'fn',
                     'callback' => "window['confirmCancelShow']($id)"),
                     'title' => 'Cancel Current Show');
         }
 
-		if (strtotime($today_timestamp) < strtotime($show->getShowStart())) {
+        if ($epochNow < $showStartDateHelper->getTimestamp()) {
 
             if ($user->isUserType(array(UTYPE_ADMIN, UTYPE_PROGRAM_MANAGER))) {
 
@@ -228,13 +246,15 @@ class ScheduleController extends Zend_Controller_Action
                         'callback' => 'window["beginEditShow"]'), 'title' => 'Edit Show');
                 $menu[] = array('action' => array('type' => 'ajax', 'url' => '/Schedule/delete-show'.$params,
                         'callback' => 'window["scheduleRefetchEvents"]'), 'title' => 'Delete This Instance');
-                $menu[] = array('action' => array('type' => 'ajax', 'url' => '/Schedule/cancel-show'.$params,
-                        'callback' => 'window["scheduleRefetchEvents"]'), 'title' => 'Delete This Instance and All Following');
+                if ($show->getShow()->isRepeating()) {
+                    $menu[] = array('action' => array('type' => 'ajax', 'url' => '/Schedule/cancel-show'.$params,
+                            'callback' => 'window["scheduleRefetchEvents"]'), 'title' => 'Delete This Instance and All Following');
+                }
             }
-		}
-		
-		//returns format jjmenu is looking for.
-		die(json_encode($menu));
+        }
+
+        //returns format jjmenu is looking for.
+        die(json_encode($menu));
     }
 
     public function scheduleShowAction()
@@ -248,8 +268,13 @@ class ScheduleController extends Zend_Controller_Action
 		}
 
 		$userInfo = Zend_Auth::getInstance()->getStorage()->read();
-        $user = new User($userInfo->id);
-		$show = new ShowInstance($showInstanceId);
+        $user = new Application_Model_User($userInfo->id);
+        try{
+		  $show = new Application_Model_ShowInstance($showInstanceId);
+        }catch(Exception $e){
+            $this->view->show_error = true;
+            return false;
+        }
 
         if($user->isUserType(array(UTYPE_ADMIN, UTYPE_PROGRAM_MANAGER, UTYPE_HOST),$show->getShowId())) {
 		    $show->scheduleShow(array($plId));
@@ -267,8 +292,13 @@ class ScheduleController extends Zend_Controller_Action
     {
         $showInstanceId = $this->_getParam('id');
         $userInfo = Zend_Auth::getInstance()->getStorage()->read();
-        $user = new User($userInfo->id);
-        $show = new ShowInstance($showInstanceId);
+        $user = new Application_Model_User($userInfo->id);
+        try{
+            $show = new Application_Model_ShowInstance($showInstanceId);
+        }catch(Exception $e){
+            $this->view->show_error = true;
+            return false;
+        }
 
         if($user->isUserType(array(UTYPE_ADMIN, UTYPE_PROGRAM_MANAGER, UTYPE_HOST),$show->getShowId()))
             $show->clearShow();
@@ -276,19 +306,44 @@ class ScheduleController extends Zend_Controller_Action
 
     public function getCurrentPlaylistAction()
     {
-        $this->view->entries = Schedule::GetPlayOrderRange();
+
+        $range = Application_Model_Schedule::GetPlayOrderRange();
+
+        /* Convert all UTC times to localtime before sending back to user. */
+        if (isset($range["previous"])){
+            $range["previous"]["starts"] = Application_Model_DateHelper::ConvertToLocalDateTimeString($range["previous"]["starts"]);
+            $range["previous"]["ends"] = Application_Model_DateHelper::ConvertToLocalDateTimeString($range["previous"]["ends"]);
+        }
+        if (isset($range["current"])){
+            $range["current"]["starts"] = Application_Model_DateHelper::ConvertToLocalDateTimeString($range["current"]["starts"]);
+            $range["current"]["ends"] = Application_Model_DateHelper::ConvertToLocalDateTimeString($range["current"]["ends"]);
+        }
+        if (isset($range["next"])){
+            $range["next"]["starts"] = Application_Model_DateHelper::ConvertToLocalDateTimeString($range["next"]["starts"]);
+            $range["next"]["ends"] = Application_Model_DateHelper::ConvertToLocalDateTimeString($range["next"]["ends"]);
+        }
+
+        Application_Model_Show::ConvertToLocalTimeZone($range["currentShow"], array("starts", "ends", "start_timestamp", "end_timestamp"));
+        Application_Model_Show::ConvertToLocalTimeZone($range["nextShow"], array("starts", "ends", "start_timestamp", "end_timestamp"));
+
+        $this->view->entries = $range;
     }
 
     public function findPlaylistsAction()
     {
         $post = $this->getRequest()->getPost();
+        try{
+            $show = new Application_Model_ShowInstance($this->sched_sess->showInstanceId);
+        }catch(Exception $e){
+            $this->view->show_error = true;
+            return false;
+        }
 
-		$show = new ShowInstance($this->sched_sess->showInstanceId);
 		$playlists = $show->searchPlaylistsForShow($post);
 		foreach( $playlists['aaData'] as &$data){
 		    // calling two functions to format time to 1 decimal place
-            $sec = Playlist::playlistTimeToSeconds($data[4]);
-            $data[4] = Playlist::secondsToPlaylistTime($sec); 
+            $sec = Application_Model_Playlist::playlistTimeToSeconds($data[4]);
+            $data[4] = Application_Model_Playlist::secondsToPlaylistTime($sec);
 		}
 
 		//for datatables
@@ -302,8 +357,13 @@ class ScheduleController extends Zend_Controller_Action
 		$search = $this->_getParam('search', null);
 
 		$userInfo = Zend_Auth::getInstance()->getStorage()->read();
-        $user = new User($userInfo->id);
-        $show = new ShowInstance($showInstanceId);
+        $user = new Application_Model_User($userInfo->id);
+        try{
+            $show = new Application_Model_ShowInstance($showInstanceId);
+        }catch(Exception $e){
+            $this->view->show_error = true;
+            return false;
+        }
 
         if($user->isUserType(array(UTYPE_ADMIN, UTYPE_PROGRAM_MANAGER, UTYPE_HOST),$show->getShowId())) {
 		    $show->removeGroupFromShow($group_id);
@@ -321,22 +381,18 @@ class ScheduleController extends Zend_Controller_Action
         $showInstanceId = $this->_getParam('id');
         $this->sched_sess->showInstanceId = $showInstanceId;
 
-        $show = new ShowInstance($showInstanceId);
-        $start_timestamp = $show->getShowStart();
-		$end_timestamp = $show->getShowEnd();
-
-        //check to make sure show doesn't overlap.
-        if(Show::getShows($start_timestamp, $end_timestamp, array($showInstanceId))) {
-            $this->view->error = "cannot schedule an overlapping show.";
-            return;
+        try{
+            $show = new Application_Model_ShowInstance($showInstanceId);
+        }catch(Exception $e){
+            $this->view->show_error = true;
+            return false;
         }
 
-        $start = explode(" ", $start_timestamp);
-        $end = explode(" ", $end_timestamp);
-        $startTime = explode(":", $start[1]);
-        $endTime = explode(":", $end[1]);
-        $dateInfo_s = getDate(strtotime($start_timestamp));
-        $dateInfo_e = getDate(strtotime($end_timestamp));
+        $start_timestamp = $show->getShowInstanceStart();
+		$end_timestamp = $show->getShowInstanceEnd();
+
+        $dateInfo_s = getDate(strtotime(Application_Model_DateHelper::ConvertToLocalDateTimeString($start_timestamp)));
+        $dateInfo_e = getDate(strtotime(Application_Model_DateHelper::ConvertToLocalDateTimeString($end_timestamp)));
 
 		$this->view->showContent = $show->getShowContent();
 		$this->view->timeFilled = $show->getTimeScheduled();
@@ -350,8 +406,8 @@ class ScheduleController extends Zend_Controller_Action
         $this->view->e_wday = $dateInfo_e['weekday'];
         $this->view->e_month = $dateInfo_e['month'];
         $this->view->e_day = $dateInfo_e['mday'];
-        $this->view->startTime = sprintf("%d:%02d", $startTime[0], $startTime[1]);
-        $this->view->endTime = sprintf("%d:%02d", $endTime[0], $endTime[1]);
+        $this->view->startTime = sprintf("%02d:%02d", $dateInfo_s['hours'], $dateInfo_s['minutes']);
+        $this->view->endTime = sprintf("%02d:%02d", $dateInfo_e['hours'], $dateInfo_e['minutes']);
 
 		$this->view->chosen = $this->view->render('schedule/scheduled-content.phtml');
 		$this->view->dialog = $this->view->render('schedule/schedule-show-dialog.phtml');
@@ -361,18 +417,31 @@ class ScheduleController extends Zend_Controller_Action
     public function showContentDialogAction()
     {
         $showInstanceId = $this->_getParam('id');
-		$show = new ShowInstance($showInstanceId);
+        try{
+            $show = new Application_Model_ShowInstance($showInstanceId);
+        }catch(Exception $e){
+            $this->view->show_error = true;
+            return false;
+        }
 
         $originalShowId = $show->isRebroadcast();
         if (!is_null($originalShowId)){
-            $originalShow = new ShowInstance($originalShowId);
+            try{
+                $originalShow = new Application_Model_ShowInstance($originalShowId);
+            }catch(Exception $e){
+                $this->view->show_error = true;
+                return false;
+            }
             $originalShowName = $originalShow->getName();
-            $originalShowStart = $originalShow->getShowStart();
+            $originalShowStart = $originalShow->getShowInstanceStart();
 
-            $timestamp  = strtotime($originalShowStart);
+            //convert from UTC to user's timezone for display.
+            $originalDateTime = new DateTime($originalShowStart, new DateTimeZone("UTC"));
+            $originalDateTime->setTimezone(new DateTimeZone(date_default_timezone_get()));
+            //$timestamp  = Application_Model_DateHelper::ConvertToLocalDateTimeString($originalDateTime->format("Y-m-d H:i:s"));
             $this->view->additionalShowInfo =
                 "Rebroadcast of show \"$originalShowName\" from "
-                .date("l, F jS", $timestamp)." at ".date("G:i", $timestamp);
+                .$originalDateTime->format("l, F jS")." at ".$originalDateTime->format("G:i");
         }
 		$this->view->showContent = $show->getShowListContent();
         $this->view->dialog = $this->view->render('schedule/show-content-dialog.phtml');
@@ -382,43 +451,41 @@ class ScheduleController extends Zend_Controller_Action
     public function editShowAction()
     {
         $userInfo = Zend_Auth::getInstance()->getStorage()->read();
-        $user = new User($userInfo->id);
+        $user = new Application_Model_User($userInfo->id);
         if(!$user->isUserType(array(UTYPE_ADMIN, UTYPE_PROGRAM_MANAGER))) {
             return;
         }
 
+        $isSaas = Application_Model_Preference::GetPlanLevel() == 'disabled'?false:true;
+
         $showInstanceId = $this->_getParam('id');
+        try{
+            $showInstance = new Application_Model_ShowInstance($showInstanceId);
+        }catch(Exception $e){
+            $this->view->show_error = true;
+            return false;
+        }
 
         $formWhat = new Application_Form_AddShowWhat();
 		$formWho = new Application_Form_AddShowWho();
 		$formWhen = new Application_Form_AddShowWhen();
 		$formRepeats = new Application_Form_AddShowRepeats();
 		$formStyle = new Application_Form_AddShowStyle();
-        $formRecord = new Application_Form_AddShowRR();
-        $formAbsoluteRebroadcast = new Application_Form_AddShowAbsoluteRebroadcastDates();
-        $formRebroadcast = new Application_Form_AddShowRebroadcastDates();
 
 		$formWhat->removeDecorator('DtDdWrapper');
 		$formWho->removeDecorator('DtDdWrapper');
 		$formWhen->removeDecorator('DtDdWrapper');
 		$formRepeats->removeDecorator('DtDdWrapper');
 		$formStyle->removeDecorator('DtDdWrapper');
-        $formRecord->removeDecorator('DtDdWrapper');
-        $formAbsoluteRebroadcast->removeDecorator('DtDdWrapper');
-        $formRebroadcast->removeDecorator('DtDdWrapper');
 
         $this->view->what = $formWhat;
 	    $this->view->when = $formWhen;
 	    $this->view->repeats = $formRepeats;
 	    $this->view->who = $formWho;
 	    $this->view->style = $formStyle;
-        $this->view->rr = $formRecord;
-        $this->view->absoluteRebroadcast = $formAbsoluteRebroadcast;
-        $this->view->rebroadcast = $formRebroadcast;
         $this->view->addNewShow = false;
 
-        $showInstance = new ShowInstance($showInstanceId);
-        $show = new Show($showInstance->getShowId());
+        $show = new Application_Model_Show($showInstance->getShowId());
 
         $formWhat->populate(array('add_show_id' => $show->getId(),
                     'add_show_name' => $show->getName(),
@@ -426,10 +493,16 @@ class ScheduleController extends Zend_Controller_Action
                     'add_show_genre' => $show->getGenre(),
                     'add_show_description' => $show->getDescription()));
 
-        $formWhen->populate(array('add_show_start_date' => $show->getStartDate(),
-                                  'add_show_start_time' => DateHelper::removeSecondsFromTime($show->getStartTime()),
-        						  'add_show_end_date_no_repeat' => $show->getEndDate(),
-        						  'add_show_end_time'	=> DateHelper::removeSecondsFromTime($show->getEndTime()),
+        $startsDateTime = new DateTime($show->getStartDate()." ".$show->getStartTime(), new DateTimeZone("UTC"));
+        $endsDateTime = new DateTime($show->getEndDate()." ".$show->getEndTime(), new DateTimeZone("UTC"));
+
+        $startsDateTime->setTimezone(new DateTimeZone(date_default_timezone_get()));
+        $endsDateTime->setTimezone(new DateTimeZone(date_default_timezone_get()));
+
+        $formWhen->populate(array('add_show_start_date' => $startsDateTime->format("Y-m-d"),
+                                  'add_show_start_time' => $startsDateTime->format("H:i"),
+        						  'add_show_end_date_no_repeat' => $endsDateTime->format("Y-m-d"),
+        						  'add_show_end_time'	=> $endsDateTime->format("H:i"),
                                   'add_show_duration' => $show->getDuration(true),
                                   'add_show_repeats' => $show->isRepeating() ? 1 : 0));
 
@@ -437,46 +510,23 @@ class ScheduleController extends Zend_Controller_Action
             $formWhen->getElement('add_show_start_date')->setOptions(array('disabled' => true));
         }
 
+        //need to get the days of the week in the php timezone (for the front end).
         $days = array();
         $showDays = CcShowDaysQuery::create()->filterByDbShowId($showInstance->getShowId())->find();
         foreach($showDays as $showDay){
-            array_push($days, $showDay->getDbDay());
+            $showStartDay = new DateTime($showDay->getDbFirstShow(), new DateTimeZone($showDay->getDbTimezone()));
+            $showStartDay->setTimezone(new DateTimeZone(date_default_timezone_get()));
+            array_push($days, $showStartDay->format('w'));
         }
 
-        $displayedEndDate = new DateTime($show->getRepeatingEndDate());
+        $displayedEndDate = new DateTime($show->getRepeatingEndDate(), new DateTimeZone($showDays[0]->getDbTimezone()));
         $displayedEndDate->sub(new DateInterval("P1D"));//end dates are stored non-inclusively.
-        $displayedEndDate = $displayedEndDate->format("Y-m-d");
+        $displayedEndDate->setTimezone(new DateTimeZone(date_default_timezone_get()));
 
         $formRepeats->populate(array('add_show_repeat_type' => $show->getRepeatType(),
                                     'add_show_day_check' => $days,
-                                    'add_show_end_date' => $displayedEndDate,
+                                    'add_show_end_date' => $displayedEndDate->format("Y-m-d"),
                                     'add_show_no_end' => ($show->getRepeatingEndDate() == '')));
-
-        $formRecord->populate(array('add_show_record' => $show->isRecorded(),
-                                'add_show_rebroadcast' => $show->isRebroadcast()));
-        $formRecord->getElement('add_show_record')->setOptions(array('disabled' => true));
-
-
-
-        $rebroadcastsRelative = $show->getRebroadcastsRelative();
-        $rebroadcastFormValues = array();
-        $i = 1;
-        foreach ($rebroadcastsRelative as $rebroadcast){
-            $rebroadcastFormValues["add_show_rebroadcast_date_$i"] = $rebroadcast['day_offset'];
-            $rebroadcastFormValues["add_show_rebroadcast_time_$i"] = DateHelper::removeSecondsFromTime($rebroadcast['start_time']);
-            $i++;
-        }
-        $formRebroadcast->populate($rebroadcastFormValues);
-
-        $rebroadcastsAbsolute = $show->getRebroadcastsAbsolute();
-        $rebroadcastAbsoluteFormValues = array();
-        $i = 1;
-        foreach ($rebroadcastsAbsolute as $rebroadcast){
-            $rebroadcastAbsoluteFormValues["add_show_rebroadcast_date_absolute_$i"] = $rebroadcast['start_date'];
-            $rebroadcastAbsoluteFormValues["add_show_rebroadcast_time_absolute_$i"] = DateHelper::removeSecondsFromTime($rebroadcast['start_time']);
-            $i++;
-        }
-        $formAbsoluteRebroadcast->populate($rebroadcastAbsoluteFormValues);
 
         $hosts = array();
         $showHosts = CcShowHostsQuery::create()->filterByDbShow($showInstance->getShowId())->find();
@@ -484,17 +534,56 @@ class ScheduleController extends Zend_Controller_Action
             array_push($hosts, $showHost->getDbHost());
         }
         $formWho->populate(array('add_show_hosts' => $hosts));
-
-
         $formStyle->populate(array('add_show_background_color' => $show->getBackgroundColor(),
                                     'add_show_color' => $show->getColor()));
+
+        if(!$isSaas){
+            $formRecord = new Application_Form_AddShowRR();
+            $formAbsoluteRebroadcast = new Application_Form_AddShowAbsoluteRebroadcastDates();
+            $formRebroadcast = new Application_Form_AddShowRebroadcastDates();
+
+            $formRecord->removeDecorator('DtDdWrapper');
+            $formAbsoluteRebroadcast->removeDecorator('DtDdWrapper');
+            $formRebroadcast->removeDecorator('DtDdWrapper');
+
+            $this->view->rr = $formRecord;
+            $this->view->absoluteRebroadcast = $formAbsoluteRebroadcast;
+            $this->view->rebroadcast = $formRebroadcast;
+
+            $formRecord->populate(array('add_show_record' => $show->isRecorded(),
+                                'add_show_rebroadcast' => $show->isRebroadcast()));
+
+            $formRecord->getElement('add_show_record')->setOptions(array('disabled' => true));
+
+
+
+            $rebroadcastsRelative = $show->getRebroadcastsRelative();
+            $rebroadcastFormValues = array();
+            $i = 1;
+            foreach ($rebroadcastsRelative as $rebroadcast){
+                $rebroadcastFormValues["add_show_rebroadcast_date_$i"] = $rebroadcast['day_offset'];
+                $rebroadcastFormValues["add_show_rebroadcast_time_$i"] = Application_Model_DateHelper::removeSecondsFromTime($rebroadcast['start_time']);
+                $i++;
+            }
+            $formRebroadcast->populate($rebroadcastFormValues);
+
+            $rebroadcastsAbsolute = $show->getRebroadcastsAbsolute();
+            $rebroadcastAbsoluteFormValues = array();
+            $i = 1;
+            foreach ($rebroadcastsAbsolute as $rebroadcast){
+                $rebroadcastAbsoluteFormValues["add_show_rebroadcast_date_absolute_$i"] = $rebroadcast['start_date'];
+                $rebroadcastAbsoluteFormValues["add_show_rebroadcast_time_absolute_$i"] = $rebroadcast['start_time'];
+                $i++;
+            }
+            $formAbsoluteRebroadcast->populate($rebroadcastAbsoluteFormValues);
+        }
 
         $this->view->newForm = $this->view->render('schedule/add-show-form.phtml');
         $this->view->entries = 5;
     }
 
-    public function getFormAction(){    
-        Schedule::createNewFormSections($this->view);
+    public function getFormAction(){
+        Application_Model_Schedule::createNewFormSections($this->view);
         $this->view->form = $this->view->render('schedule/add-show-form.phtml');
     }
 
@@ -508,15 +597,17 @@ class ScheduleController extends Zend_Controller_Action
             $data[$j["name"]] = $j["value"];
         }
 
-        $show = new Show($data['add_show_id']);
+        $show = new Application_Model_Show($data['add_show_id']);
 
         $startDateModified = true;
- 	 	if ($data['add_show_id'] != -1 && !array_key_exists('add_show_start_date', $data)){
-     	 	//show is being updated and changing the start date was disabled, since the
-     	 	//array key does not exist. We need to repopulate this entry from the db.
-     	 	$data['add_show_start_date'] = $show->getStartDate();
-     	 	$startDateModified = false;
- 	 	}
+        if ($data['add_show_id'] != -1 && !array_key_exists('add_show_start_date', $data)){
+            //show is being updated and changing the start date was disabled, since the
+            //array key does not exist. We need to repopulate this entry from the db.
+            //The start date will be return in UTC time, so lets convert it to local time.
+            $dt = Application_Model_DateHelper::ConvertToLocalDateTime($show->getStartDate());
+            $data['add_show_start_date'] = $dt->format("Y-m-d");
+            $startDateModified = false;
+        }
 
         $data['add_show_hosts'] =  $this->_getParam('hosts');
         $data['add_show_day_check'] =  $this->_getParam('days');
@@ -525,23 +616,20 @@ class ScheduleController extends Zend_Controller_Action
             $data['add_show_day_check'] = null;
         }
 
+        $isSaas = Application_Model_Preference::GetPlanLevel() == 'disabled'?false:true;
+        $record = false;
+
         $formWhat = new Application_Form_AddShowWhat();
 		$formWho = new Application_Form_AddShowWho();
 		$formWhen = new Application_Form_AddShowWhen();
 		$formRepeats = new Application_Form_AddShowRepeats();
 		$formStyle = new Application_Form_AddShowStyle();
-        $formRecord = new Application_Form_AddShowRR();
-        $formAbsoluteRebroadcast = new Application_Form_AddShowAbsoluteRebroadcastDates();
-        $formRebroadcast = new Application_Form_AddShowRebroadcastDates();
 
 		$formWhat->removeDecorator('DtDdWrapper');
 		$formWho->removeDecorator('DtDdWrapper');
 		$formWhen->removeDecorator('DtDdWrapper');
 		$formRepeats->removeDecorator('DtDdWrapper');
 		$formStyle->removeDecorator('DtDdWrapper');
-        $formRecord->removeDecorator('DtDdWrapper');
-        $formAbsoluteRebroadcast->removeDecorator('DtDdWrapper');
-        $formRebroadcast->removeDecorator('DtDdWrapper');
 
 		$what = $formWhat->isValid($data);
 		$when = $formWhen->isValid($data);
@@ -549,8 +637,8 @@ class ScheduleController extends Zend_Controller_Action
             $when = $formWhen->checkReliantFields($data, $startDateModified);
         }
 
-        
-        //The way the following code works is that is parses the hour and 
+
+        //The way the following code works is that is parses the hour and
         //minute from a string with the format "1h 20m" or "2h" or "36m".
         //So we are detecting whether an hour or minute value exists via strpos
         //and then parse appropriately. A better way to do this in the future is
@@ -558,10 +646,10 @@ class ScheduleController extends Zend_Controller_Action
         //have to do this extra String parsing.
         $hPos = strpos($data["add_show_duration"], 'h');
         $mPos = strpos($data["add_show_duration"], 'm');
-        
+
         $hValue = 0;
         $mValue = 0;
-        
+
         if($hPos !== false){
         	$hValue = trim(substr($data["add_show_duration"], 0, $hPos));
         }
@@ -569,85 +657,135 @@ class ScheduleController extends Zend_Controller_Action
             $hPos = $hPos === FALSE ? 0 : $hPos+1;
         	$mValue = trim(substr($data["add_show_duration"], $hPos, -1 ));
         }
-        
+
         $data["add_show_duration"] = $hValue.":".$mValue;
-        
+
+        if(!$isSaas){
+            $formRecord = new Application_Form_AddShowRR();
+            $formAbsoluteRebroadcast = new Application_Form_AddShowAbsoluteRebroadcastDates();
+            $formRebroadcast = new Application_Form_AddShowRebroadcastDates();
+
+            $formRecord->removeDecorator('DtDdWrapper');
+            $formAbsoluteRebroadcast->removeDecorator('DtDdWrapper');
+            $formRebroadcast->removeDecorator('DtDdWrapper');
+
+            //If show is a new show (not updated), then get
+            //isRecorded from POST data. Otherwise get it from
+            //the database since the user is not allowed to
+            //update this option.
+            if ($data['add_show_id'] != -1){
+                $data['add_show_record'] = $show->isRecorded();
+                $record = $formRecord->isValid($data);
+                $formRecord->getElement('add_show_record')->setOptions(array('disabled' => true));
+            } else {
+                $record = $formRecord->isValid($data);
+            }
+        }
+
         if($data["add_show_repeats"]) {
 		    $repeats = $formRepeats->isValid($data);
             if($repeats) {
                 $repeats = $formRepeats->checkReliantFields($data);
             }
+            if(!$isSaas){
+                $formAbsoluteRebroadcast->reset();
+                //make it valid, results don't matter anyways.
+                $rebroadAb = 1;
 
-            $formAbsoluteRebroadcast->reset();
-            //make it valid, results don't matter anyways.
-            $rebroadAb = 1;
-
-            if ($data["add_show_rebroadcast"]) {
-                $rebroad = $formRebroadcast->isValid($data);
-                if($rebroad) {
-                    $rebroad = $formRebroadcast->checkReliantFields($data);
+                if ($data["add_show_rebroadcast"]) {
+                    $rebroad = $formRebroadcast->isValid($data);
+                    if($rebroad) {
+                        $rebroad = $formRebroadcast->checkReliantFields($data);
+                    }
                 }
-            }
-            else {
-                $rebroad = 1;
+                else {
+                    $rebroad = 1;
+                }
             }
         }
         else {
-            $formRebroadcast->reset();
-             //make it valid, results don't matter anyways.
             $repeats = 1;
-            $rebroad = 1;
+            if(!$isSaas){
+                $formRebroadcast->reset();
+                 //make it valid, results don't matter anyways.
+                $rebroad = 1;
 
-            if ($data["add_show_rebroadcast"]) {
-                $rebroadAb = $formAbsoluteRebroadcast->isValid($data);
-                if($rebroadAb) {
-                    $rebroadAb = $formAbsoluteRebroadcast->checkReliantFields($data);
+                if ($data["add_show_rebroadcast"]) {
+                    $rebroadAb = $formAbsoluteRebroadcast->isValid($data);
+                    if($rebroadAb) {
+                        $rebroadAb = $formAbsoluteRebroadcast->checkReliantFields($data);
+                    }
                 }
-            }
-            else {
-                $rebroadAb = 1;
+                else {
+                    $rebroadAb = 1;
+                }
             }
         }
 
 		$who = $formWho->isValid($data);
 		$style = $formStyle->isValid($data);
+        if ($what && $when && $repeats && $who && $style) {
+            if(!$isSaas){
+                if($record && $rebroadAb && $rebroad){
+                    $userInfo = Zend_Auth::getInstance()->getStorage()->read();
+                    $user = new Application_Model_User($userInfo->id);
+                    if ($user->isUserType(array(UTYPE_ADMIN, UTYPE_PROGRAM_MANAGER))) {
+                        Application_Model_Show::create($data);
+                    }
 
-        //If show is a new show (not updated), then get
-        //isRecorded from POST data. Otherwise get it from
-        //the database since the user is not allowed to
-        //update this option.
-        $record = false;
-        if ($data['add_show_id'] != -1){
-            $data['add_show_record'] = $show->isRecorded();
-            $record = $formRecord->isValid($data);
-            $formRecord->getElement('add_show_record')->setOptions(array('disabled' => true));
-        } else {
-            $record = $formRecord->isValid($data);
-        }
+                    //send back a new form for the user.
+                    Application_Model_Schedule::createNewFormSections($this->view);
 
-        if ($what && $when && $repeats && $who && $style && $record && $rebroadAb && $rebroad) {
-            $userInfo = Zend_Auth::getInstance()->getStorage()->read();
-            $user = new User($userInfo->id);
-			if ($user->isUserType(array(UTYPE_ADMIN, UTYPE_PROGRAM_MANAGER))) {
-                Show::create($data);
+                    $this->view->newForm = $this->view->render('schedule/add-show-form.phtml');
+                }else{
+                    $this->view->what = $formWhat;
+                    $this->view->when = $formWhen;
+                    $this->view->repeats = $formRepeats;
+                    $this->view->who = $formWho;
+                    $this->view->style = $formStyle;
+                    $this->view->rr = $formRecord;
+                    $this->view->absoluteRebroadcast = $formAbsoluteRebroadcast;
+                    $this->view->rebroadcast = $formRebroadcast;
+                    $this->view->addNewShow = true;
+
+                    //the form still needs to be "update" since
+                    //the validity test failed.
+                    if ($data['add_show_id'] != -1){
+                        $this->view->addNewShow = false;
+                    }
+                    if (!$startDateModified){
+                        $formWhen->getElement('add_show_start_date')->setOptions(array('disabled' => true));
+                    }
+
+                    $this->view->form = $this->view->render('schedule/add-show-form.phtml');
+
+                }
+            }else{
+                $userInfo = Zend_Auth::getInstance()->getStorage()->read();
+                $user = new Application_Model_User($userInfo->id);
+                if ($user->isUserType(array(UTYPE_ADMIN, UTYPE_PROGRAM_MANAGER))) {
+                    Application_Model_Show::create($data);
+                }
+
+                //send back a new form for the user.
+                Application_Model_Schedule::createNewFormSections($this->view);
+
+                $this->view->newForm = $this->view->render('schedule/add-show-form.phtml');
             }
-            
-            //send back a new form for the user.
-            Schedule::createNewFormSections($this->view);
-
-            $this->view->newForm = $this->view->render('schedule/add-show-form.phtml');
 		}
-        else {        
+        else {
             $this->view->what = $formWhat;
             $this->view->when = $formWhen;
             $this->view->repeats = $formRepeats;
             $this->view->who = $formWho;
             $this->view->style = $formStyle;
-            $this->view->rr = $formRecord;
-            $this->view->absoluteRebroadcast = $formAbsoluteRebroadcast;
-            $this->view->rebroadcast = $formRebroadcast;
+            if(!$isSaas){
+                $this->view->rr = $formRecord;
+                $this->view->absoluteRebroadcast = $formAbsoluteRebroadcast;
+                $this->view->rebroadcast = $formRebroadcast;
+            }
             $this->view->addNewShow = true;
-        
+
             //the form still needs to be "update" since
             //the validity test failed.
             if ($data['add_show_id'] != -1){
@@ -664,28 +802,43 @@ class ScheduleController extends Zend_Controller_Action
     public function cancelShowAction()
     {
         $userInfo = Zend_Auth::getInstance()->getStorage()->read();
-        $user = new User($userInfo->id);
+        $user = new Application_Model_User($userInfo->id);
 
         if($user->isUserType(array(UTYPE_ADMIN, UTYPE_PROGRAM_MANAGER))) {
 		    $showInstanceId = $this->_getParam('id');
 
-            $showInstance = new ShowInstance($showInstanceId);
-            $show = new Show($showInstance->getShowId());
+		    try {
+                $showInstance = new Application_Model_ShowInstance($showInstanceId);
+		    }
+		    catch(Exception $e){
+                $this->view->show_error = true;
+                return false;
+            }
+            $show = new Application_Model_Show($showInstance->getShowId());
 
-            $show->cancelShow($showInstance->getShowStart());
+            $show->cancelShow($showInstance->getShowInstanceStart());
+
+            $this->view->show_id = $showInstance->getShowId();
         }
     }
 
     public function cancelCurrentShowAction()
     {
         $userInfo = Zend_Auth::getInstance()->getStorage()->read();
-        $user = new User($userInfo->id);
+        $user = new Application_Model_User($userInfo->id);
 
         if($user->isUserType(array(UTYPE_ADMIN, UTYPE_PROGRAM_MANAGER))) {
             $showInstanceId = $this->_getParam('id');
-            $show = new ShowInstance($showInstanceId);
-            $show->clearShow();
-            $show->deleteShow();
+            try{
+                $showInstance = new Application_Model_ShowInstance($showInstanceId);
+            }catch(Exception $e){
+                $this->view->show_error = true;
+                return false;
+            }
+            $showInstance->clearShow();
+            $showInstance->delete();
+            // send 'cancel-current-show' command to pypo
+            Application_Model_RabbitMq::SendMessageToPypo("cancel_current_show", array());
         }
     }
 
@@ -702,14 +855,31 @@ class ScheduleController extends Zend_Controller_Action
         $id = $this->_getParam('id');
 
         $file_id = $this->_getParam('id', null);
-        $file = StoredFile::Recall($file_id);
+        $file = Application_Model_StoredFile::Recall($file_id);
 
-        $url = $file->getFileURL().'/api_key/'.$CC_CONFIG["apiKey"][0].'/download/true';
+        $baseUrl = $this->getRequest()->getBaseUrl();
+        $url = $file->getRelativeFileUrl($baseUrl).'/download/true';
         $menu[] = array('action' => array('type' => 'gourl', 'url' => $url),
             				'title' => 'Download');
 
         //returns format jjmenu is looking for.
         die(json_encode($menu));
+    }
+
+    /**
+     * Sets the user specific preference for which time scale to use in Calendar.
+     * This is only being used by schedule.js at the moment.
+     */
+    public function setTimeScaleAction() {
+    	Application_Model_Preference::SetCalendarTimeScale($this->_getParam('timeScale'));
+    }
+
+/**
+     * Sets the user specific preference for which time interval to use in Calendar.
+     * This is only being used by schedule.js at the moment.
+     */
+    public function setTimeIntervalAction() {
+    	Application_Model_Preference::SetCalendarTimeInterval($this->_getParam('timeInterval'));
     }
 }
 

@@ -1,14 +1,19 @@
 <?php
 
+require_once 'customfilters/ImageSize.php';
+
 class Application_Form_SupportSettings extends Zend_Form
 {
-
+    private $isSass;
+    
     public function init()
     {
-		$country_list = Application_Model_Preference::GetCountryList();
-		
+        $country_list = Application_Model_Preference::GetCountryList();
+        $isSass = Application_Model_Preference::GetPlanLevel() == 'disabled'?false:true;
+        $this->isSass = $isSass;
+        
         $this->setDecorators(array(
-            array('ViewScript', array('viewScript' => 'form/support-setting.phtml')),
+            array('ViewScript', array('viewScript' => 'form/support-setting.phtml', "isSaas" => $isSass)),
             array('File', array('viewScript' => 'form/support-setting.phtml', 'placement' => false)))
         );
         
@@ -99,72 +104,78 @@ class Application_Form_SupportSettings extends Zend_Form
 				->setRequired(false)
 				->setDecorators(array('File'))
 				->addValidator('Count', false, 1)
-				->addValidator('Extension', false, 'jpg,png,gif')
-				->addValidator('ImageSize', false, array(
-					'minwidth'	=> 200,
-					'minheight'	=> 200,
-					'maxwidth'	=> 600,
-					'maxheight'	=>	600));
+				->addValidator('Extension', false, 'jpg,jpeg,png,gif')
+				->addFilter('ImageSize');
+		$upload->setAttrib('accept', 'image/*');
 		$this->addElement($upload);
 		
-        //enable support feedback
-        $this->addElement('checkbox', 'SupportFeedback', array(
-            'label'      => 'Send support feedback',
-            'required'   => false,
-            'value' => Application_Model_Preference::GetSupportFeedback(),
-            'decorators' => array(
-                'ViewHelper'
-            )
-		));
-
-		// checkbox for publicise
-        $checkboxPublicise = new Zend_Form_Element_Checkbox("Publicise");
-        $checkboxPublicise->setLabel('Promote my station on Sourcefabric.org')
-                          ->setRequired(false)
-                          ->setDecorators(array('ViewHelper'))
-                          ->setValue(Application_Model_Preference::GetPublicise());
-        if(Application_Model_Preference::GetSupportFeedback() == '0'){
-            $checkboxPublicise->setAttrib("disabled", "disabled");
+		if(!$isSass){
+            //enable support feedback
+            $this->addElement('checkbox', 'SupportFeedback', array(
+                'label'      => 'Send support feedback',
+                'required'   => false,
+                'value' => Application_Model_Preference::GetSupportFeedback(),
+                'decorators' => array(
+                    'ViewHelper'
+                )
+    		));
+    
+    		// checkbox for publicise
+            $checkboxPublicise = new Zend_Form_Element_Checkbox("Publicise");
+            $checkboxPublicise->setLabel('Promote my station on Sourcefabric.org')
+                              ->setRequired(false)
+                              ->setDecorators(array('ViewHelper'))
+                              ->setValue(Application_Model_Preference::GetPublicise());
+            if(Application_Model_Preference::GetSupportFeedback() == '0'){
+                $checkboxPublicise->setAttrib("disabled", "disabled");
+            }
+            $this->addElement($checkboxPublicise);
+    		
+    		// text area for sending detail
+            $this->addElement('textarea', 'SendInfo', array(
+            	'class'		=> 'sending_textarea',
+            	'required'   => false,
+                'filters'    => array('StringTrim'),
+            	'readonly'	=> true,
+            	'cols'     => 61,
+            	'rows'		=> 5,
+                'value' => Application_Model_Preference::GetSystemInfo(),
+                'decorators' => array(
+                    'ViewHelper'
+                )
+            ));
+            
+            // checkbox for privacy policy
+            $checkboxPrivacy = new Zend_Form_Element_Checkbox("Privacy");
+            $checkboxPrivacy->setLabel("By checking this box, I agree to Sourcefabric's <a id=\"link_to_privacy\" href=\"http://www.sourcefabric.org/en/about/policy/\" onclick=\"window.open(this.href); return false;\">privacy policy</a>.")
+                ->setDecorators(array('ViewHelper'));
+            $this->addElement($checkboxPrivacy);
         }
-        $this->addElement($checkboxPublicise);
-		
-		// text area for sending detail
-        $this->addElement('textarea', 'SendInfo', array(
-        	'class'		=> 'sending_textarea',
-        	'required'   => false,
-            'filters'    => array('StringTrim'),
-        	'readonly'	=> true,
-        	'cols'     => 61,
-        	'rows'		=> 5,
-            'value' => Application_Model_Preference::GetSystemInfo(),
-            'decorators' => array(
-                'ViewHelper'
-            )
-        ));
-        
-        // checkbox for privacy policy
-        $checkboxPrivacy = new Zend_Form_Element_Checkbox("Privacy");
-        $checkboxPrivacy->setLabel("By checking this box, I agree to Sourcefabric's <a id=\"link_to_privacy\" href=\"http://www.sourcefabric.org/en/about/policy/\" onclick=\"window.open(this.href); return false;\">privacy policy</a>.")
-            ->setDecorators(array('ViewHelper'));
-        $this->addElement($checkboxPrivacy);
         
         // submit button
         $submit = new Zend_Form_Element_Submit("submit");
         $submit->class = 'ui-button ui-state-default right-floated';
         $submit->setIgnore(true)
-                ->setLabel("Submit")
+                ->setLabel("Save")
                 ->setDecorators(array('ViewHelper'));
         $this->addElement($submit);
     }
     
-    // overwriting isValid function
+    // overriding isValid function
     public function isValid ($data)
     {
         $isValid = parent::isValid($data);
-        $checkPrivacy = $this->getElement('Privacy');
-        if($data["SupportFeedback"] == "1" && $data["Privacy"] != "1"){
-            $checkPrivacy->addError("You have to agree to privacy policy.");
-            $isValid = false;
+        if(!$this->isSass){
+            if($data['Publicise'] != 1){
+                $isValid = true;
+            }
+            if(isset($data["Privacy"])){
+                $checkPrivacy = $this->getElement('Privacy');
+                if($data["SupportFeedback"] == "1" && $data["Privacy"] != "1"){
+                    $checkPrivacy->addError("You have to agree to privacy policy.");
+                    $isValid = false;
+                }
+            }
         }
         return $isValid;
     }

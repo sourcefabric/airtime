@@ -8,12 +8,16 @@
 
 set_include_path(__DIR__.'/../../../airtime_mvc/library' . PATH_SEPARATOR . get_include_path());
 set_include_path(__DIR__.'/../../../airtime_mvc/library/pear' . PATH_SEPARATOR . get_include_path());
-set_include_path(__DIR__.'/../../../airtime_mvc/application/models' . PATH_SEPARATOR . get_include_path());
 require_once 'conf.php';
 require_once 'DB.php';
 
 require_once 'propel/runtime/lib/Propel.php';
-Propel::init(__DIR__."/../../../airtime_mvc/application/configs/airtime-conf.php");
+
+set_include_path(__DIR__.'/propel' . PATH_SEPARATOR . get_include_path());
+Propel::init(__DIR__."/propel/airtime-conf.php");
+
+date_default_timezone_set(exec("cat /etc/timezone"));
+
 
 const CONF_DIR_BINARIES = "/usr/lib/airtime";
 
@@ -21,13 +25,6 @@ class AirtimeInstall{
 
     const CONF_DIR_LOG = "/var/log/airtime";
     const CONF_DIR_BINARIES = "/usr/lib/airtime";
-
-    public static function CreateSymlinksToUtils()
-    {
-        echo "* Installing airtime-user".PHP_EOL;
-        $dir = AirtimeInstall::CONF_DIR_BINARIES."/utils/airtime-user";
-        exec("ln -s $dir /usr/bin/airtime-user");
-    }
 
     public static function CreateZendPhpLogFile(){
         global $CC_CONFIG;
@@ -62,6 +59,10 @@ class AirtimeInstall{
         echo "* Installing airtime-check-system".PHP_EOL;
         $dir = CONF_DIR_BINARIES."/utils/airtime-check-system";
         exec("ln -s $dir /usr/bin/airtime-check-system");
+
+        echo "* Installing airtime-user".PHP_EOL;
+        $dir = AirtimeInstall::CONF_DIR_BINARIES."/utils/airtime-user";
+        exec("ln -s $dir /usr/bin/airtime-user");
     }
 
     public static function RemoveSymlinks()
@@ -69,6 +70,8 @@ class AirtimeInstall{
         exec("rm -f /usr/bin/airtime-import");
         exec("rm -f /usr/bin/airtime-update-db-settings");
         exec("rm -f /usr/bin/airtime-check-system");
+        exec("rm -f /usr/bin/airtime-user");
+        exec("rm -f /usr/bin/airtime-clean-storage ");
     }
 
     public static function DbTableExists($p_name)
@@ -85,21 +88,25 @@ class AirtimeInstall{
     public static function BypassMigrations($dir, $version)
     {
         $appDir = AirtimeInstall::GetAirtimeSrcDir();
-        $command = "php $appDir/library/doctrine/migrations/doctrine-migrations.phar ".
+        $SCRIPTPATH = __DIR__;
+        $command = "php --php-ini $SCRIPTPATH/../../airtime-php.ini ".
+                    "$appDir/library/doctrine/migrations/doctrine-migrations.phar ".
                     "--configuration=$dir/../../DoctrineMigrations/migrations.xml ".
                     "--db-configuration=$appDir/library/doctrine/migrations/migrations-db.php ".
                     "--no-interaction --add migrations:version $version";
-        system($command);
+        passthru($command);
     }
 
     public static function MigrateTablesToVersion($dir, $version)
     {
         $appDir = AirtimeInstall::GetAirtimeSrcDir();
-        $command = "php $appDir/library/doctrine/migrations/doctrine-migrations.phar ".
+        $SCRIPTPATH = __DIR__;
+        $command = "php --php-ini $SCRIPTPATH/../../airtime-php.ini ".
+                    "$appDir/library/doctrine/migrations/doctrine-migrations.phar ".
                     "--configuration=$dir/../../DoctrineMigrations/migrations.xml ".
                     "--db-configuration=$appDir/library/doctrine/migrations/migrations-db.php ".
                     "--no-interaction migrations:migrate $version";
-        system($command);
+        passthru($command);
     }
 
     public static function CreateCronFile(){
@@ -549,7 +556,8 @@ class Airtime190Upgrade{
 
     public static function InstallAirtimePhpServerCode($phpDir)
     {
-
+        // delete old files
+        exec("rm -rf ".$phpDir);
         $AIRTIME_SRC = realpath(__DIR__.'/../../../airtime_mvc');
 
         echo "* Installing PHP code to ".$phpDir.PHP_EOL;
@@ -576,15 +584,6 @@ class Airtime190Upgrade{
         exec($command);
     }
 
-
-    public static function removeOldAirtimeImport(){
-        exec('rm -f "/usr/bin/airtime-import"');
-    }
-
-    public static function updateAirtimeImportSymLink(){
-        $dir = "/usr/lib/airtime/utils/airtime-import/airtime-import";
-        exec("ln -s $dir /usr/bin/airtime-import");
-    }
 
     public static function execSqlQuery($sql){
         global $CC_DBC;
@@ -682,7 +681,10 @@ class Airtime190Upgrade{
            ->findOne();
 
         /* Handle Database Changes. */
-        $stor_dir = realpath($values['general']['base_files_dir']."/stor")."/";
+
+        $pi = pathinfo($values['general']['base_files_dir']);
+        $stor_dir = $pi["dirname"].DIRECTORY_SEPARATOR.$pi["basename"].DIRECTORY_SEPARATOR."stor".DIRECTORY_SEPARATOR;
+        
         echo "* Inserting stor directory location $stor_dir into music_dirs table".PHP_EOL;
         $propel_stor_dir->setDirectory($stor_dir);
         $propel_stor_dir->save();
@@ -761,12 +763,14 @@ AirtimeInstall::CreateZendPhpLogFile();
 exec("/usr/bin/airtime-pypo-stop");
 exec("/usr/bin/airtime-show-recorder-stop");
 
-exec("svc -d /etc/service/pypo");
-exec("svc -d /etc/service/pypo/log");
-exec("svc -d /etc/service/pypo-liquidsoap");
-exec("svc -d /etc/service/pypo-liquidsoap/log");
-exec("svc -d /etc/service/recorder");
-exec("svc -d /etc/service/recorder/log");
+exec("svc -dx /etc/service/pypo");
+exec("svc -dx /etc/service/pypo/log");
+exec("svc -dx /etc/service/pypo-liquidsoap");
+exec("svc -dx /etc/service/pypo-liquidsoap/log");
+exec("svc -dx /etc/service/recorder");
+exec("svc -dx /etc/service/recorder/log");
+exec("killall supervise");
+exec("killall liquidsoap");
 
 $pathnames = array("/usr/bin/airtime-pypo-start",
                 "/usr/bin/airtime-pypo-stop",
@@ -801,8 +805,9 @@ Airtime190Upgrade::CopyUtils();
 /* James made a new airtime-import script, lets remove the old airtime-import php script,
  *install the new airtime-import.py script and update the /usr/bin/symlink.
  */
-Airtime190Upgrade::removeOldAirtimeImport();
-Airtime190Upgrade::updateAirtimeImportSymLink();
+// we don't need thses functions anymore as it's done in CreateSymlinksToUtils()
+/*Airtime190Upgrade::removeOldAirtimeImport();
+Airtime190Upgrade::updateAirtimeImportSymLink();*/
 
 Airtime190Upgrade::connectToDatabase();
 
@@ -822,6 +827,7 @@ AirtimeInstall::SetUniqueId();
 AirtimeInstall::SetImportTimestamp();
 
 AirtimeIni::CreateMonitFile();
+exec("/etc/init.d/monit start");
 
 AirtimeInstall::CreateSymlinksToUtils();
 

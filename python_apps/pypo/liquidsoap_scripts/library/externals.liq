@@ -1,14 +1,54 @@
 # Decoders, enabled when the binary is detected and the os is not Win32.
 
-# Get_mime is not always defined
-# so we define a default in this case..
-my_get_mime = fun (_) -> ""
-%ifdef get_mime
-my_get_mime = get_mime
-%endif
-get_mime = my_get_mime
-
 %ifdef add_decoder
+# Enable external Musepack decoder. Requires the 
+# mpcdec binary in the path. Does not work on 
+# Win32.
+def enable_external_mpc_decoder() =
+  # A list of know extensions and content-type for Musepack.
+  # Values from http://en.wikipedia.org/wiki/Musepack 
+  mpc_mimes = [ "audio/x-musepack", "audio/musepack" ]
+  mpc_filexts = [ "mpc", "mp+", "mpp" ]
+
+  def test_mpc(file) =
+    def get_channels(file) =
+      int_of_string(
+        list.hd(
+          get_process_lines("mpcdec -i #{quote(file)} 2>&1 \
+                             | grep channels | cut -d' ' -f 2")))
+    end
+    # Get the file's mime
+    mime = get_mime(file)
+    # Test mime
+    if list.mem(mime,mpc_mimes) then
+      get_channels(file)
+    else
+      # Otherwise test file extension
+      ret = string.extract(pattern='\.(.+)$',file)
+      if list.length(ret) != 0 then
+         ext = ret["1"]
+         if list.mem(ext,mpc_filexts) then
+           get_channels(file)
+         else
+            0
+         end   
+       else
+         get_channels(file)
+       end
+    end
+  end
+
+  if test_process("which mpcdec") then
+    log(level=3,"Found mpcdec binary: enabling musepack external decoder.")
+    mpcdec_p = fun(f) -> "mpcdec #{quote(f)} - 2>/dev/null"
+    add_oblivious_decoder(name="MPCDEC",description="Decode files using the mpcdec \
+                musepack decoder binary",test=test_mpc,mpcdec_p)
+  else
+    log(level=3,"Did not find mpcdec binary: musepack decoder disabled.")
+  end
+
+end 
+
 # Enable external FLAC decoders. Requires flac binary
 # in the path for audio decoding and metaflac binary for 
 # metadata. Does not work on Win32. Default: disabled.
@@ -38,7 +78,7 @@ def enable_external_flac_decoder() =
         end
       end
     end
-    add_decoder(name="FLAC",description="Decode files using the flac \
+    add_decoder(name="EXTERNAL_FLAC",description="Decode files using the flac \
                 decoder binary.", test=test_flac,flac_p)
   else
     log(level=3,"Did not find flac binary: flac decoder disabled.")
@@ -65,7 +105,7 @@ def enable_external_flac_decoder() =
    end
    list.fold(f,[],ret)
    end
-   add_metadata_resolver("FLAC",flac_meta)
+   add_metadata_resolver("EXTERNAL_FLAC",flac_meta)
   else
     log(level=3,"Did not find metaflac binary: flac metadata resolver disabled.")
   end
@@ -134,7 +174,7 @@ def enable_external_faad_decoder() =
         0
       end
     end
-    add_oblivious_decoder(name="FAAD",description="Decode files using \
+    add_oblivious_decoder(name="EXTERNAL_FAAD",description="Decode files using \
                           the faad binary.", test=test_faad, faad_p)
     def faad_meta(file) =
       if faad_test(file) then
@@ -154,7 +194,7 @@ def enable_external_faad_decoder() =
         []
       end
     end
-    add_metadata_resolver("FAAD",faad_meta)
+    add_metadata_resolver("EXTERNAL_FAAD",faad_meta)
   else
     log(level=3,"Did not find faad binary: faad decoder disabled.")
   end
@@ -164,6 +204,7 @@ end
 # Standard function for displaying metadata.
 # Shows artist and title, using "Unknown" when a field is empty.
 # @param m Metadata packet to be displayed.
+# @category String
 def string_of_metadata(m)
   artist = m["artist"]
   title  = m["title"]
@@ -177,6 +218,7 @@ end
 # @param ~position Position of the text (top|middle|bottom).
 # @param ~font     Font used (xfontsel is your friend...)
 # @param ~display  Function used to display a metadata packet.
+# @category Source / Track Processing
 def osd_metadata(~color="green",~position="top",
         ~font="-*-courier-*-r-*-*-*-240-*-*-*-*-*-*",
         ~display=string_of_metadata,
@@ -195,6 +237,7 @@ end
 # @param ~time    Timeout in milliseconds.
 # @param ~display Function used to display a metadata packet.
 # @param ~title   Title of the notification message.
+# @category Source / Track Processing
 def notify_metadata(~urgency="low",~icon="stock_smiley-22",~time=3000,
            ~display=string_of_metadata,
            ~title="Liquidsoap: new track",s)
@@ -211,6 +254,7 @@ end
 # @param ~restart_on_error restart on exit with error.
 # @param ~buffer Duration of the pre-buffered data.
 # @param ~max Maximum duration of the buffered data.
+# @category Source / Input
 def input.mplayer(~id="input.mplayer",
          ~restart=true,~restart_on_error=false,
          ~buffer=0.2,~max=10.,s) =

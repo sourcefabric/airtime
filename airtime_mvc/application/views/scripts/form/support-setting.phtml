@@ -1,4 +1,5 @@
 <fieldset class="padded">
+<?php if( !$this->isSaas ){?>
     <dl class="zend_form">
         <dd id="SupportFeedback-element" style="width:90%;">
             <div class="info-text">Help Airtime improve by letting us know you are using it. This info
@@ -17,7 +18,7 @@
         </dd>
         <dd id="publicize-element" style="width:90%;">
             <div class="info-text">Click the box below to advertise your station on 
-            <a id="link_to_whos_using" href="http://sourcefabric.org/en/products/airtime_whosusing" onclick="window.open(this.href); return false">Sourcefabric.org</a>.
+            <a id="link_to_whos_using" href="http://sourcefabric.org/en/airtime/whosusing" onclick="window.open(this.href); return false">Sourcefabric.org</a>.
              In order to promote your station, "Send support feedback" must be enabled. This data will be collected in addition to the support feedback.</div>
             <label class="optional" for="Publicise">
                 <?php echo $this->element->getElement('Publicise') ?>
@@ -32,8 +33,9 @@
             <?php endif; ?> 
         </dd>
     </dl>
-        <div class="info-text" style="clear: both;padding: 4px 0 4px 15px;"><p> Note: In order to promote your station, "Send support feedback" must be enabled</p></div>
-    <dl id="public-info" style="display:none;">
+    <div class="info-text" style="clear: both;padding: 4px 0 4px 15px;"><p> Note: In order to promote your station, "Send support feedback" must be enabled</p></div>
+    <?php }?>
+    <dl id="public-info" style="display:<?php echo !$this->isSaas?"none":"block"?>;">
         <dt id="stationName-label" class="block-display">
             <label class="required" for="stationName"><?php echo $this->element->getElement('stationName')->getLabel() ?>
                 <span class="info-text-small">(Required)</span>:
@@ -134,11 +136,11 @@
         </dt>
         <dd id="Logo-element" class="block-display clearfix">
             <?php if($this->element->getView()->logoImg){?>
-            <div id="Logo-img-container"><img id="logo-img" onload='resizeImg(this);' src="data:image/png;base64,<?php echo $this->element->getView()->logoImg ?>" /></div>
+            <div id="Logo-img-container"><img id="logo-img" onload='resizeImg(this, 450, 450);' src="data:image/png;base64,<?php echo $this->element->getView()->logoImg ?>" /></div>
             <?php }?>
             
             <?php echo $this->element->getElement('Logo') ?>
-            <div class="info-text"><p>Min. size: 200x200 Max. size: 600x600</p></div>
+            <div class="info-text"><p>Note: Anything larger than 600x600 will be resized.</p></div>
             <?php if($this->element->getElement('Logo')->hasErrors()) : ?>
                 <ul class='errors'>
                     <?php foreach($this->element->getElement('Logo')->getMessages() as $error): ?>
@@ -148,7 +150,7 @@
             <?php endif; ?>
         </dd>
     </dl>
-
+<?php if( !$this->isSaas ){?>
     <div id="show_what_sending" style="display: block;">
         <fieldset class="display_field toggle closed">
         <legend style="cursor: pointer;"><span class="ui-icon ui-icon-triangle-2-n-s"></span>Show me what I am sending </legend>
@@ -157,18 +159,24 @@
             </dl>
         </fieldset>
     </div>
+    
     <div>
         <br>
-        <label class="optional" for="Privacy">
-            <?php echo $this->element->getElement('Privacy') ?>
-            <?php echo $this->element->getElement('Privacy')->getLabel() ?>
-        </label>
-        <?php if($this->element->getElement('Privacy')->hasErrors()) : ?>
-            <ul class='errors'>
-                <?php foreach($this->element->getElement('Privacy')->getMessages() as $error): ?>
-                    <li><?php echo $error; ?></li>
-                <?php endforeach; ?>
-            </ul>
-        <?php endif; ?>
+        <?php if(!$this->element->getView()->privacyChecked){?>
+            <label class="optional" for="Privacy">
+                <?php echo $this->element->getElement('Privacy') ?>
+                <?php echo $this->element->getElement('Privacy')->getLabel() ?>
+            </label>
+            <?php if($this->element->getElement('Privacy')->hasErrors()) : ?>
+                <ul class='errors'>
+                    <?php foreach($this->element->getElement('Privacy')->getMessages() as $error): ?>
+                        <li><?php echo $error; ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
+        <?php }else{?>
+            <a id="link_to_terms_and_condition" href="http://www.sourcefabric.org/en/about/policy/" onclick="window.open(this.href); return false;">Terms and Conditions</a>
+        <?php }?>
     </div>
+<?php } ?>
 </fieldset>

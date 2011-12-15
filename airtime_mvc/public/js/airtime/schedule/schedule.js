@@ -4,6 +4,8 @@
 *
 */
 
+var serverTimezoneOffset = 0;
+
 function closeDialog(event, ui) {
 	$("#schedule_calendar").fullCalendar( 'refetchEvents' );
 	$(this).remove();
@@ -72,6 +74,9 @@ function setScheduleDialogEvents(dialog) {
 		$.post(url, 
 			{format: "json", groupId: groupId},
 			function(json){
+			    if(json.show_error == true){
+                    alertShowErrorAndReload();
+                }
 				var dialog = $("#schedule_playlist_dialog");
 
 				setScheduleDialogHtml(json);
@@ -101,7 +106,9 @@ function dtDrawCallback() {
 }
 
 function makeScheduleDialog(dialog, json) {
-
+    if(json.show_error == true){
+        alertShowErrorAndReload();
+    }
 	dialog.find('#schedule_playlists').dataTable( {
 		"bProcessing": true,
 		"bServerSide": true,
@@ -149,6 +156,9 @@ function makeScheduleDialog(dialog, json) {
 				$.post(url, 
 					{plId: pl_id, search: search},
 					function(json){
+					    if(json.show_error == true){
+					        alertShowErrorAndReload();
+					    }
 						var dialog = $("#schedule_playlist_dialog");
 
 						setScheduleDialogHtml(json);
@@ -169,7 +179,7 @@ function confirmCancelShow(show_instance_id){
         var url = "/Schedule/cancel-current-show/id/"+show_instance_id;
         $.ajax({
           url: url,
-          success: function(data){scheduleRefetchEvents();}
+          success: function(data){scheduleRefetchEvents(data);}
         });
     }
 }
@@ -178,23 +188,21 @@ function uploadToSoundCloud(show_instance_id){
     
     var url = "/Schedule/upload-to-sound-cloud";
     var span = $(window.triggerElement).find(".recording");
-
-    span.removeClass("recording")
-        .addClass("progress");
-
+    
     $.post(url,
         {id: show_instance_id, format: "json"},
-        function(data){
-            if(data.error) {
-                span.removeClass("progress")
-                    .addClass("recording");
-
-                alert(data.error);
-                return;
-            }
-            scheduleRefetchEvents();
+        function(json){
+            scheduleRefetchEvents(json);
     });
-
+    
+    if(span.length == 0){
+        span = $(window.triggerElement).find(".soundcloud");
+        span.removeClass("soundcloud")
+        .addClass("progress")
+    }else{
+        span.removeClass("recording")
+        .addClass("progress");
+    }
 }
 
 //used by jjmenu
@@ -207,6 +215,9 @@ function getId() {
 //end functions used by jjmenu
 
 function buildContentDialog(json){
+    if(json.show_error == true){
+        alertShowErrorAndReload();
+    }
 	var dialog = $(json.dialog);
 	
 	var viewportwidth;
@@ -262,7 +273,9 @@ function buildContentDialog(json){
 
 function buildScheduleDialog(json){
 	var dialog;
-
+	if(json.show_error == true){
+	    alertShowErrorAndReload();
+	}
     if(json.error) {
         alert(json.error);
         return;
@@ -288,22 +301,38 @@ function buildScheduleDialog(json){
     checkShowLength();
 }
 
-function buildEditDialog(json){
 
+/**
+ * Use user preference for time scale; defaults to month if preference was never set
+ */
+function getTimeScalePreference(data) {
+    return data.calendarInit.timeScale;
 }
 
-$(window).load(function() {
-    var mainHeight = document.documentElement.clientHeight - 200 - 50;
+/**
+ * Use user preference for time interval; defaults to 30m if preference was never set
+ */
+function getTimeIntervalPreference(data) {
+    return parseInt(data.calendarInit.timeInterval);
+}
 
+function createFullCalendar(data){
+
+    serverTimezoneOffset = data.calendarInit.timezoneOffset;
+
+    var mainHeight = document.documentElement.clientHeight - 200 - 50;
+    
     $('#schedule_calendar').fullCalendar({
         header: {
-			left: 'prev, next, today',
-			center: 'title',
-			right: 'agendaDay, agendaWeek, month'
-		}, 
-		defaultView: 'month',
-		editable: false,
-		allDaySlot: false,
+            left: 'prev, next, today',
+            center: 'title',
+            right: 'agendaDay, agendaWeek, month'
+        }, 
+        defaultView: getTimeScalePreference(data),
+        slotMinutes: getTimeIntervalPreference(data),
+        firstDay: data.calendarInit.weekStartDay,
+        editable: false,
+        allDaySlot: false,
         axisFormat: 'H:mm',
         timeFormat: {
             agenda: 'H:mm{ - H:mm}',
@@ -312,17 +341,29 @@ $(window).load(function() {
         contentHeight: mainHeight,
         theme: true,
         lazyFetching: false,
+        serverTimestamp: parseInt(data.calendarInit.timestamp, 10),
+        serverTimezoneOffset: parseInt(data.calendarInit.timezoneOffset, 10),
        
-		events: getFullCalendarEvents,
+        events: getFullCalendarEvents,
 
-		//callbacks (in full-calendar-functions.js)
+        //callbacks (in full-calendar-functions.js)
         viewDisplay: viewDisplay,
-		dayClick: dayClick,
-		eventRender: eventRender,
-		eventAfterRender: eventAfterRender,
-		eventDrop: eventDrop,
-		eventResize: eventResize 
+        dayClick: dayClick,
+        eventRender: eventRender,
+        eventAfterRender: eventAfterRender,
+        eventDrop: eventDrop,
+        eventResize: eventResize 
     });
-    
-});
+}
 
+//Alert the error and reload the page
+//this function is used to resolve concurrency issue
+function alertShowErrorAndReload(){
+    alert("The show instance doesn't exist anymore!");
+    window.location.reload();
+}
+
+$(window).load(function() {
+	$.ajax({ url: "/Api/calendar-init/format/json", dataType:"json", success:createFullCalendar
+            , error:function(jqXHR, textStatus, errorThrown){}});
+});

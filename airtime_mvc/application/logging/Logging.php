@@ -16,4 +16,16 @@ class Logging {
     public static function setLogPath($path){
         self::$_path = $path;
     }
+    
+    public static function log($p_msg){
+        $logger = self::getLogger();
+        $logger->info($p_msg);
+    }
+    
+    public static function debug($p_msg){
+        if (APPLICATION_ENV == "development"){
+            $logger = self::getLogger();
+            $logger->debug($p_msg);            
+        }
+    }
 }

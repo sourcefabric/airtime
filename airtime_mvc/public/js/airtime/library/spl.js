@@ -2,6 +2,11 @@
 //Side Playlist Functions
 //--------------------------------------------------------------------------------------------------------------------------------
 
+function stopAudioPreview() {
+	// stop any preview playing
+	$('#jquery_jplayer_1').jPlayer('stop');
+}
+
 function isTimeValid(time) {
 	var regExpr = new RegExp("^\\d{2}[:]\\d{2}[:]\\d{2}([.]\\d{1,6})?$");
 
@@ -10,17 +15,6 @@ function isTimeValid(time) {
     }
 
 	return true;
-}
-
-function changeClipLength(pos, json) {
-
-	$("#spl_"+pos).find(".spl_playlength")
-		.empty()
-		.append(json.response.cliplength);
-
-	$("#spl_length")
-		.empty()
-		.append(json.response.length);
 }
 
 function showError(el, error) {
@@ -39,39 +33,47 @@ function hideError(el) {
 function changeCueIn(event) {
     event.stopPropagation();
 
-	var pos, url, cueIn, div;
+	var pos, url, cueIn, li, unqid;
 
 	span = $(this);
 	pos = span.parent().attr("id").split("_").pop();
 	url = "/Playlist/set-cue";
 	cueIn = span.text().trim();
+	li = span.parent().parent().parent().parent();
+	unqid = li.attr("unqid");
 
 	if(!isTimeValid(cueIn)){
         showError(span, "please put in a time '00:00:00 (.000000)'");
         return;
 	}
 
-	$.post(url, {format: "json", cueIn: cueIn, pos: pos}, function(json){
-
-        if(json.response.error) {
+	$.post(url, {format: "json", cueIn: cueIn, pos: pos, type: event.type}, function(json){
+	   
+        if(json.response !== undefined && json.response.error) {
             showError(span, json.response.error);
 			return;
 		}
-
-        changeClipLength(pos, json);
-        hideError(span);
+        
+        setSPLContent(json);
+        
+        li = $('#side_playlist li[unqid='+unqid+']');
+        li.find(".cue-edit").toggle();
+    	highlightActive(li);
+    	highlightActive(li.find('.spl_cue'));
 	});
 }
 
 function changeCueOut(event) {
     event.stopPropagation();
 
-	var pos, url, cueOut, div;
+	var pos, url, cueOut, li, unqid;
 
 	span = $(this);
 	pos = span.parent().attr("id").split("_").pop();
 	url = "/Playlist/set-cue";
 	cueOut = span.text().trim();
+	li = span.parent().parent().parent().parent();
+	unqid = li.attr("unqid");
 
 	if(!isTimeValid(cueOut)){
         showError(span, "please put in a time '00:00:00 (.000000)'");
@@ -79,26 +81,32 @@ function changeCueOut(event) {
 	}
 
 	$.post(url, {format: "json", cueOut: cueOut, pos: pos}, function(json){
-
-		if(json.response.error) {
+	   
+		if(json.response !== undefined && json.response.error) {
             showError(span, json.response.error);
 			return;
 		}
 
-        changeClipLength(pos, json);
-        hideError(span);
+		setSPLContent(json);
+        
+        li = $('#side_playlist li[unqid='+unqid+']');
+        li.find(".cue-edit").toggle();
+    	highlightActive(li);
+    	highlightActive(li.find('.spl_cue'));
 	});
 }
 
 function changeFadeIn(event) {
     event.stopPropagation();
 
-	var pos, url, fadeIn, div;
+	var pos, url, fadeIn, li, unqid;
 
 	span = $(this);
 	pos = span.parent().attr("id").split("_").pop();
 	url = "/Playlist/set-fade";
 	fadeIn = span.text().trim();
+	li = span.parent().parent().parent().parent();
+	unqid = li.attr("unqid");
 
 	if(!isTimeValid(fadeIn)){
         showError(span, "please put in a time '00:00:00 (.000000)'");
@@ -106,23 +114,31 @@ function changeFadeIn(event) {
 	}
 
 	$.post(url, {format: "json", fadeIn: fadeIn, pos: pos}, function(json){
-		if(json.response.error) {
+		
+		if(json.response !== undefined && json.response.error) {
+            showError(span, json.response.error);
 			return;
 		}
 
-         hideError(span);
+		setSPLContent(json);
+        
+        li = $('#side_playlist li[unqid='+unqid+']');
+        li.find('.crossfade').toggle();
+        highlightActive(li.find('.spl_fade_control'));
 	});
 }
 
 function changeFadeOut(event) {
     event.stopPropagation();
 
-	var pos, url, fadeOut, div;
+	var pos, url, fadeOut, li, unqid;
 
 	span = $(this);
 	pos = span.parent().attr("id").split("_").pop();
 	url = "/Playlist/set-fade";
 	fadeOut = span.text().trim();
+	li = span.parent().parent().parent().parent();
+	unqid = li.attr("unqid");
 
 	if(!isTimeValid(fadeOut)){
         showError(span, "please put in a time '00:00:00 (.000000)'");
@@ -130,11 +146,16 @@ function changeFadeOut(event) {
 	}
 
 	$.post(url, {format: "json", fadeOut: fadeOut, pos: pos}, function(json){
-		if(json.response.error) {
+		if(json.response !== undefined && json.response.error) {
+            showError(span, json.response.error);
 			return;
 		}
 
-         hideError(span);
+		setSPLContent(json);
+        
+        li = $('#side_playlist li[unqid='+unqid+']');
+        li.find('.crossfade').toggle();
+        highlightActive(li.find('.spl_fade_control'));
 	});
 }
 
@@ -146,96 +167,49 @@ function submitOnEnter(event) {
 	}
 }
 
-function setCueEvents(el) {
-
-    $(el).find(".spl_cue_in span:last").blur(changeCueIn);
-	$(el).find(".spl_cue_out span:last").blur(changeCueOut);
-
-    $(el).find(".spl_cue_in span:first, .spl_cue_out span:first")
-        .keydown(submitOnEnter);
-}
-
-function setFadeEvents(el) {
-
-    $(el).find(".spl_fade_in span:first").blur(changeFadeIn);
-	$(el).find(".spl_fade_out span:first").blur(changeFadeOut);
-
-    $(el).find(".spl_fade_in span:first, .spl_fade_out span:first")
-        .keydown(submitOnEnter);
-}
-
 function highlightActive(el) {
 
 	$(el).addClass("ui-state-active");
 }
 
-function openFadeEditor(event) {
-	event.stopPropagation();
+function unHighlightActive(el) {
 
-    var pos, url, li;
+	$(el).removeClass("ui-state-active");
+}
+
+function openFadeEditor(event) {
+	var pos, url, li;
+	
+	event.stopPropagation();  
 
     li = $(this).parent().parent();
-	pos = parseInt(li.attr("id").split("_").pop());
+    li.find(".crossfade").toggle();
 
 	if($(this).hasClass("ui-state-active")) {
-		$(this).removeClass("ui-state-active");
-
-        $("#crossfade_"+pos+"-"+(pos+1))
-			.empty()
-			.hide();
-
-		return;
+		unHighlightActive(this);
 	}
-
-	url = '/Playlist/set-fade';
-
-	highlightActive(this);
-
-	$.get(url, {format: "json", pos: pos}, function(json){
-
-		$("#crossfade_"+(pos)+"-"+(pos+1))
-			.empty()
-			.append(json.html)
-			.show();
-
-        setFadeEvents(li);
-	});
+	else {
+		highlightActive(this);
+	}
 }
 
 function openCueEditor(event) {
+	var pos, url, li, icon;
+	
 	event.stopPropagation();
 
-	var pos, url, li, icon;
+	icon = $(this);
+	li = $(this).parent().parent().parent(); 
+    li.find(".cue-edit").toggle();
 
-	li = $(this).parent().parent().parent();
-    icon = $(this);
-    pos = li.attr("id").split("_").pop();
-
-	if(li.hasClass("ui-state-active")) {
-		li.removeClass("ui-state-active");
-        icon.attr("class", "spl_cue ui-state-default");
-
-        $("#cues_"+pos)
-			.empty()
-			.hide();
-
-		return;
+	if (li.hasClass("ui-state-active")) {
+		unHighlightActive(li);
+		unHighlightActive(icon);
 	}
-
-    icon.attr("class", "spl_cue ui-state-default ui-state-active");
-	url = '/Playlist/set-cue';
-
-	highlightActive(li);
-
-	$.get(url, {format: "json", pos: pos}, function(json){
-
-		$("#cues_"+pos)
-			.empty()
-			.append(json.html)
-			.show();
-
-        setCueEvents(li);
-	});
+	else {
+		highlightActive(li);
+		highlightActive(icon);
+	}
 }
 
 function redrawDataTablePage() {
@@ -245,27 +219,27 @@ function redrawDataTablePage() {
 }
 
 function setSPLContent(json) {
-
+    if(json.playlist_error == true){
+        alertPlaylistErrorAndReload();
+    }
+    
 	if(json.message) {
 		alert(json.message);
 		return;
 	}
 
-	$('#spl_name > a').empty()
+	$('#spl_name > a')
+		.empty()
 		.append(json.name);
-	$('#spl_length').empty()
+	$('#spl_length')
+		.empty()
 		.append(json.length);
     $('#fieldset-metadate_change textarea')
         .empty()
         .val(json.description);
-	$('#spl_sortable').empty()
+	$('#spl_sortable')
+		.empty()
 		.append(json.html);
-	$("#spl_editor")
-		.empty();
-
-	$("#spl_sortable .ui-icon-closethick").click(deleteSPLItem);
-	$(".spl_fade_control").click(openFadeEditor);
-	$(".spl_cue").click(openCueEditor);
 
 	//redraw the library list
 	redrawDataTablePage();
@@ -302,7 +276,8 @@ function addSPLItem(event, ui){
 }
 
 function deleteSPLItem(event){
-    event.stopPropagation();
+    event.stopPropagation(); 
+    stopAudioPreview();
 
 	var url, pos;
 
@@ -326,6 +301,9 @@ function moveSPLItem(event, ui) {
 }
 
 function noOpenPL(json) {
+    if(json.playlist_error == true){
+        alertPlaylistErrorAndReload();
+    }
 	$("#side_playlist")
 		.empty()
 		.append(json.html);
@@ -335,77 +313,31 @@ function noOpenPL(json) {
 		.click(newSPL);
 }
 
-function closeSPL() {
-	var url;
-	
-	// stop playing any preview
-	$('#jquery_jplayer_1').jPlayer('stop');
-
-	url = '/Playlist/close/format/json';
-
-	$.post(url, noOpenPL);
-}
-
-function createPlaylistMetaForm(json) {
-    var submit, form;
-
-    form = $(json.form);
-    form.find("fieldset").addClass("simple-formblock metadata");
-
-    form.find("input, textarea")
-        .keydown(function(event){
-            //enter was pressed
-            if(event.keyCode === 13) {
-                event.preventDefault();
-	            $("#new_playlist_submit").click();
-            }
-        })
-
-    form.find("#new_playlist_submit")
-		.button()
-		.click(function(event){
-            event.preventDefault();
-
-			var url, data;
-
-			url = '/Playlist/metadata/format/json';
-			data = $("#side_playlist form").serialize();
-
-			$.post(url, data, function(json){
-				openDiffSPL(json);
-				//redraw the library list
-				redrawDataTablePage();
-			})
-
-		});
-
-	$("#side_playlist")
-		.empty()
-		.append(form);
-
-	currentlyOpenedSplId = json.pl_id;
-}
-
 function newSPL() {
 	var url;
 
-	// stop any preview playing
-	$('#jquery_jplayer_1').jPlayer('stop');
-	
+	stopAudioPreview();
 	url = '/Playlist/new/format/json';
 
-	$.post(url, createPlaylistMetaForm);
+	$.post(url, function(json){
+		openDiffSPL(json);
+		
+		//redraw the library list
+		redrawDataTablePage();
+	});
 }
 
 function deleteSPL() {
 	var url;
-
-	// stop any preview playing
-	$('#jquery_jplayer_1').jPlayer('stop');
+	
+	stopAudioPreview();
 	
 	url = '/Playlist/delete-active/format/json';
 
 	$.post(url, function(json){
+	    if(json.playlist_error == true){
+            alertPlaylistErrorAndReload();
+        }
 		noOpenPL(json);
 		//redraw the library list
 		redrawDataTablePage();
@@ -413,14 +345,16 @@ function deleteSPL() {
 }
 
 function openDiffSPL(json) {
-
+	
+    if(json.playlist_error == true){
+        alertPlaylistErrorAndReload();
+    }
 	$("#side_playlist")
 		.empty()
 		.append(json.html);
 
 	currentlyOpenedSplId = json.pl_id;
-
-		setUpSPL();
+	setUpSPL();
 }
 
 function editName() {
@@ -430,18 +364,23 @@ function editName() {
     $("#playlist_name_input")
         .removeClass('element_hidden')
         .val(playlistName)
-        .blur(function(){
-            var input = $(this);
-            var url;
-	        url = '/Playlist/set-playlist-name';
+        .keydown(function(event){
+        	if(event.keyCode === 13) {
+                event.preventDefault();
+                var input = $(this);
+                var url;
+    	        url = '/Playlist/set-playlist-name';
 
-	        $.post(url, {format: "json", name: input.val()}, function(json){
-                input.addClass('element_hidden');
-                nameElement.text(json.playlistName);
-                redrawDataTablePage();
-	        });
+    	        $.post(url, {format: "json", name: input.val()}, function(json){
+    	            if(json.playlist_error == true){
+    	                alertPlaylistErrorAndReload();
+    	            }
+                    input.addClass('element_hidden');
+                    nameElement.text(json.playlistName);
+                    redrawDataTablePage();
+    	        });
+        	}
         })
-        .keydown(submitOnEnter)
         .focus();
 }
 
@@ -456,10 +395,6 @@ function setUpSPL() {
 		.button()
 		.click(newSPL);
 
-	$("#spl_close")
-		.button()
-		.click(closeSPL);
-
     $("#spl_crossfade").click(function(){
 
         if($(this).hasClass("ui-state-active")) {
@@ -472,6 +407,9 @@ function setUpSPL() {
             var url = '/Playlist/set-playlist-fades';
 
 	        $.get(url, {format: "json"}, function(json){
+	            if(json.playlist_error == true){
+                    alertPlaylistErrorAndReload();
+                }
                 $("#spl_fade_in_main").find("span")
                     .empty()
                     .append(json.fadeIn);
@@ -503,7 +441,14 @@ function setUpSPL() {
         url = '/Playlist/set-playlist-description';
 
         $.post(url, {format: "json", description: description}, function(json){
-            textarea.val(json.playlistDescription);
+            if(json.playlist_error == true){
+                alertPlaylistErrorAndReload();
+            }
+            else{
+                textarea.val(json.playlistDescription);
+            }
+            
+            $("#fieldset-metadate_change").addClass("closed");
         });
     });
 
@@ -513,7 +458,14 @@ function setUpSPL() {
         url = '/Playlist/set-playlist-description';
 
         $.post(url, {format: "json"}, function(json){
-            textarea.val(json.playlistDescription);
+            if(json.playlist_error == true){
+                alertPlaylistErrorAndReload();
+            }
+            else{
+                textarea.val(json.playlistDescription);
+            }
+            
+            $("#fieldset-metadate_change").addClass("closed");
         });
     });
 
@@ -532,6 +484,9 @@ function setUpSPL() {
 	    }
 
 	    $.post(url, {format: "json", fadeIn: fadeIn}, function(json){
+	        if(json.playlist_error == true){
+                alertPlaylistErrorAndReload();
+            }
 		    if(json.response.error) {
 			    return;
 		    }
@@ -555,6 +510,9 @@ function setUpSPL() {
 	    }
 
 	    $.post(url, {format: "json", fadeOut: fadeOut}, function(json){
+	        if(json.playlist_error == true){
+                alertPlaylistErrorAndReload();
+            }
 		    if(json.response.error) {
 			    return;
 		    }
@@ -574,16 +532,63 @@ function setUpSPL() {
 	$("#spl_delete")
 		.button()
 		.click(deleteSPL);
-
-	$("#spl_sortable .ui-icon-closethick").click(deleteSPLItem);
-	$(".spl_fade_control").click(openFadeEditor);
-	$(".spl_cue").click(openCueEditor);
+		
 
 	$("#spl_sortable").droppable();
 	$("#spl_sortable" ).bind( "drop", addSPLItem);
 }
 
+//sets events dynamically for playlist entries (each row in the playlist)
+function setPlaylistEntryEvents(el) {
+	
+	$(el).delegate("#spl_sortable .ui-icon-closethick", 
+    		{"click": deleteSPLItem});
+	
+	$(el).delegate(".spl_fade_control", 
+    		{"click": openFadeEditor});
+	
+	$(el).delegate(".spl_cue", 
+			{"click": openCueEditor});
+}
+
+//sets events dynamically for the cue editor.
+function setCueEvents(el) {
+
+    $(el).delegate(".spl_cue_in span", 
+    		{"focusout": changeCueIn, 
+    		"keydown": submitOnEnter});
+    
+    $(el).delegate(".spl_cue_out span", 
+    		{"focusout": changeCueOut, 
+    		"keydown": submitOnEnter});
+}
+
+//sets events dynamically for the fade editor.
+function setFadeEvents(el) {
+
+    $(el).delegate(".spl_fade_in span", 
+    		{"focusout": changeFadeIn, 
+    		"keydown": submitOnEnter});
+    
+    $(el).delegate(".spl_fade_out span", 
+    		{"focusout": changeFadeOut, 
+    		"keydown": submitOnEnter});
+}
+
+// Alert the error and reload the page
+// this function is used to resolve concurrency issue
+function alertPlaylistErrorAndReload(){
+    alert("The playlist doesn't exist anymore!");
+    window.location.reload();
+}
+
 $(document).ready(function() {
 	var currentlyOpenedSplId;
-	setUpSPL();
+	var playlist = $("#side_playlist");
+	
+	setUpSPL(playlist);
+	
+	setPlaylistEntryEvents(playlist);
+	setCueEvents(playlist);
+	setFadeEvents(playlist);
 });

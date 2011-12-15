@@ -257,7 +257,7 @@ def test_process(command)
 end
 
 # Split an url of the form foo?arg=bar&arg2=bar2
-# into ("foo",[("arg","bar"),("arg2","bar2")]
+# into ("foo",[("arg","bar"),("arg2","bar2")]).
 # @category String
 # @param uri Url to split
 def url.split(uri) = 
@@ -278,11 +278,11 @@ def url.split(uri) =
 end
 
 # Register a server/telnet command to 
-# update a source's metadata. Returns 
+# update a source's metadata. Returns
 # a new source, which will receive the 
-# updated metadata. Semantics is the 
-# same as pre 1.0 insert_metadata operator, 
-# i.e. @insert key1="val1",key2="val2",..@
+# updated metadata. It behaves just like
+# the pre-1.0 insert_metadata() operator, 
+# i.e. insert key1="val1",key2="val2",...
 # @category Source / Track Processing
 # @param ~id Force the value of the source ID.
 def server.insert_metadata(~id="",s) = 
@@ -341,34 +341,6 @@ def server.rms(~id="",s) =
   s
 end
 
-# Get the base name of a path.
-# Implemented using the corresponding shell command.
-# @category System
-# @param s Path
-def basename(s)
-  lines = get_process_lines("basename #{quote(s)}")
-  if list.length(lines) > 0 then
-    list.hd(lines)
-  else
-    # Don't know what to do.. output s
-    s
-  end
-end
-
-# Get the directory name of a path.
-# Implemented using the corresponding shell command.
-# @category System
-# @param s Path
-# @param ~default Value returned in case of error.
-def dirname(~default="/nonexistent",s)
-  lines = get_process_lines("dirname #{quote(s)}")
-  if list.length(lines) > 0 then
-    list.hd(lines)
-  else
-    default
-  end
-end
-
 # Read some value from standard input (console).
 # @category System
 # @param ~hide Hide typed characters (for passwords).
@@ -384,9 +356,17 @@ def read(~hide=false)
   s
 end
 
-file.mime_default = fun (_) -> ""
+# Dummy implementation of file.mime
+# @category System
+def file.mime_default(_)
+  ""
+end
 %ifdef file.mime
-file.mime_default = file.mime
+# Alias of file.mime (because it is available)
+# @category System
+def file.mime_default(file)
+ file.mime(file)
+end
 %endif
 
 # Generic mime test. First try to use file.mime if it exist.
@@ -678,9 +658,9 @@ end
 add_protocol("replay_gain", replaygain_protocol)
 
 # Enable replay gain metadata resolver. This resolver will
-# process any file decoded by liquidsoap and add a @replay_gain@
+# process any file decoded by liquidsoap and add a replay_gain
 # metadata when this value could be computed. For a finer-grained
-# replay gain processing, use the @replay_gain@ protocol.
+# replay gain processing, use the replay_gain protocol.
 # @category Liquidsoap
 # @param ~extract_replaygain The extraction program
 def enable_replaygain_metadata(

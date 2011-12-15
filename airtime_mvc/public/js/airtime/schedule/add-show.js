@@ -19,11 +19,10 @@ function startDpSelect(dateText, inst) {
 
 function endDpSelect(dateText, inst) {
 	var time, date;
-
+    
 	time = dateText.split("-");
 	date = new Date(time[0], time[1] - 1, time[2]);
 
-	//$("#add_show_start_date").datepicker( "option", "maxDate", date);
 	if (inst.input)
         inst.input.trigger('change');
 }
@@ -32,7 +31,7 @@ function createDateInput(el, onSelect) {
 	var date;
 
 	el.datepicker({
-			minDate: new Date(),
+			minDate: adjustDateToServerDate(new Date(), timezoneOffset),
 			onSelect: onSelect,
 			dateFormat: 'yy-mm-dd'
 		});
@@ -40,7 +39,7 @@ function createDateInput(el, onSelect) {
 
 function autoSelect(event, ui) {
 
-	$("#add_show_hosts-"+ui.item.value).attr("checked", "checked");
+    $("#add_show_hosts-"+ui.item.index).attr("checked", "checked");
 	event.preventDefault();
 }
 
@@ -50,16 +49,30 @@ function findHosts(request, callback) {
 	url = "/User/get-hosts";
 	search = request.term;
 
+	var noResult = new Array();
+    noResult[0] = new Array();
+    noResult[0]['value'] = $("#add_show_hosts_autocomplete").val();
+    noResult[0]['label'] = "No result found";
+    noResult[0]['index'] = null;
+    
 	$.post(url,
 		{format: "json", term: search},
 
 		function(json) {
-			callback(json.hosts);
+		    if(json.hosts.length<1){
+	            callback(noResult);
+	        }else{
+	            callback(json.hosts);
+	        }
 		});
 
 }
 
 function beginEditShow(data){
+    if(data.show_error == true){
+        alertShowErrorAndReload();
+        return false;
+    }
     $("#add-show-form")
         .empty()
         .append(data.newForm);
@@ -174,7 +187,7 @@ function setAddShowEvents() {
     });
 
     form.find('input[name^="add_show_rebroadcast_date_absolute"]').datepicker({
-		minDate: new Date(),
+		minDate: adjustDateToServerDate(new Date(), timezoneOffset),
 		dateFormat: 'yy-mm-dd'
 	});
     form.find('input[name^="add_show_rebroadcast_time"]').timepicker({
@@ -228,6 +241,12 @@ function setAddShowEvents() {
 		select: autoSelect,
         delay: 200
 	});
+	
+	form.find("#add_show_hosts_autocomplete").keypress(function(e){
+        if( e.which == 13 ){
+            return false;
+        }
+    })
 
 	form.find("#schedule-show-style input").ColorPicker({
         onChange: function (hsb, hex, rgb, el) {
@@ -310,7 +329,7 @@ function setAddShowEvents() {
                         .append(json.newForm);
 
                     setAddShowEvents();
-                    scheduleRefetchEvents();
+                    scheduleRefetchEvents(json);
                 }
             });
 		});
@@ -325,7 +344,7 @@ function setAddShowEvents() {
 		var endTime = $('#add_show_end_time').val().split(':');
         var endDateTime = new Date(endDate[0], parseInt(endDate[1], 10)-1, endDate[2], endTime[0], endTime[1], 0, 0);
 
-		if(startDateTime.getTime() > endDateTime.getTime()){
+		if(startDateTime.getTime() >= endDateTime.getTime()){
 		    var duration = $('#add_show_duration').val();
 	        // parse duration
 		    var time = 0;
@@ -374,7 +393,10 @@ function setAddShowEvents() {
 	function calculateDuration(endDateTime, startDateTime){
 		var duration;
 		var durationSeconds = (endDateTime.getTime() - startDateTime.getTime())/1000;
-		if(durationSeconds != 0){
+		if(isNaN(durationSeconds)){
+		    duration = '1h';
+		}
+		else if(durationSeconds != 0){
 			var durationHour = parseInt(durationSeconds/3600, 10);
 			var durationMin = parseInt((durationSeconds%3600)/60, 10);
 			duration = (durationHour == 0 ? '' : durationHour+'h'+' ')+(durationMin == 0 ? '' : durationMin+'m');
@@ -416,12 +438,26 @@ function showErrorSections() {
         $("#schedule-record-rebroadcast").show();
         $("#add_show_rebroadcast_relative").show();
     }
+    $('input:text').setMask()
 }
 
 $(document).ready(function() {
-
+    $.mask.masks = $.extend($.mask.masks,{
+        date:{ mask: '9999-19-39'},
+        time:{ mask: '29:69'}
+    })
+    
+    $('input:text').setMask()
 	//setAddShowEvents();
 });
+
+//Alert the error and reload the page
+//this function is used to resolve concurrency issue
+function alertShowErrorAndReload(){
+    alert("The show instance doesn't exist anymore!");
+    window.location.reload();
+}
+
 
 $(window).resize(function(){
 	var windowWidth = $(this).width();
@@ -430,11 +466,24 @@ $(window).resize(function(){
         var calendarWidth = 100-(($("#schedule-add-show").width() + (16 * 4))/windowWidth*100);
         var widthPercent = parseInt(calendarWidth)+"%";
         $("#schedule_calendar").css("width", widthPercent);
-        $("#schedule_calendar").fullCalendar('render');
 	}
+	
+	// 200 px for top dashboard and 50 for padding on main content
+	// this calculation was copied from schedule.js line 326
+	var mainHeight = document.documentElement.clientHeight - 200 - 50;
+	$('#schedule_calendar').fullCalendar('option', 'contentHeight', mainHeight)
+	$("#schedule_calendar").fullCalendar('render');
+	
 });
 
 $(window).load(function() {
-
+    $.mask.masks = $.extend($.mask.masks,{
+        date:{ mask: '9999-19-39'},
+        time:{ mask: '29:69'}
+    })
+    
+    $('input:text').setMask()
+    
 	setAddShowEvents();
+	
 });
