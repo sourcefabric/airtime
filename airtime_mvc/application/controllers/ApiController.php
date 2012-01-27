@@ -225,7 +225,7 @@ class ApiController extends Zend_Controller_Action
 
             //echo json_encode($result);
             header("Content-type: text/javascript");
-            echo $_GET['callback'].'('.json_encode($result).')';
+            echo isset($_GET['callback']) ? . $_GET['callback'].'('.json_encode($result).')' : json_encode($result);
         } else {
             header('HTTP/1.0 401 Unauthorized');
             print 'You are not allowed to access this resource. ';
@@ -258,7 +258,7 @@ class ApiController extends Zend_Controller_Action
             }
 
             header("Content-type: text/javascript");
-            echo $_GET['callback'].'('.json_encode($result).')';
+            echo isset($_GET['callback']) ? . $_GET['callback'].'('.json_encode($result).')' : json_encode($result);
         } else {
             header('HTTP/1.0 401 Unauthorized');
             print 'You are not allowed to access this resource. ';
