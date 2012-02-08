@@ -14,9 +14,6 @@ SCRIPTPATH=`dirname $SCRIPT`
 
 AIRTIMEROOT=$SCRIPTPATH/../../
 
-#virtualenv_bin="/usr/lib/airtime/airtime_virtualenv/bin/"
-#. ${virtualenv_bin}activate
-
 set +e
 if [ "$DO_UPGRADE" -eq "0" ]; then 
     php --php-ini ${SCRIPTPATH}/../airtime-php.ini ${SCRIPTPATH}/airtime-install.php $@

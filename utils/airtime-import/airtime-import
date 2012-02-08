@@ -1,8 +1,5 @@
 #!/bin/bash
 
-virtualenv_bin="/usr/lib/airtime/airtime_virtualenv/bin/"
-. ${virtualenv_bin}activate
-
 invokePwd=$PWD
 
 airtime_import_path="/usr/lib/airtime/utils/airtime-import/"

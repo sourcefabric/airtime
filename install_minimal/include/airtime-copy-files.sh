@@ -14,7 +14,6 @@ fi
 ## /etc/cron.d/
 ## /etc/init.d/
 ## /etc/monit/conf.d/
-# /usr/lib/airtime/airtime_virtualenv
 ## /usr/lib/airtime/api_clients
 ## /usr/lib/airtime/media-monitor
 # /srv/airtime/stor
