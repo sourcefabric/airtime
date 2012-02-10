@@ -7,13 +7,13 @@ if [ `whoami` != 'root' ]; then
     exit 1
 fi
 
-set +e
-DEB=$(dpkg -s airtime 2> /dev/null | grep Status)
-set -e
-if [[ "$DEB" = "Status: install ok installed" ]]; then
-    echo -e "\nDebian package of Airtime detected. Please use the debian package to upgrade.\n"
-    exit 1
-fi
+#set +e
+#DEB=$(dpkg -s airtime 2> /dev/null | grep Status)
+#set -e
+#if [[ "$DEB" = "Status: install ok installed" ]]; then
+#    echo -e "\nDebian package of Airtime detected. Please use the debian package to upgrade.\n"
+#    exit 1
+#fi
 
 showhelp () {
     echo "Usage: airtime-install [options]
