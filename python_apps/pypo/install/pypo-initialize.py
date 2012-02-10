@@ -80,12 +80,12 @@ try:
     (codename, fullname) = get_os_codename()
     print " Found %s (%s) on %s architecture" % (fullname, codename, arch) 
     
-    print " * Installing Liquidsoap binary"
-    if (os.path.exists("%s/liquidsoap_%s_%s"%(PATH_LIQUIDSOAP_BIN, codename, arch))):
-        shutil.copy("%s/liquidsoap_%s_%s"%(PATH_LIQUIDSOAP_BIN, codename, arch), "%s/liquidsoap"%PATH_LIQUIDSOAP_BIN)
-    else:
-        print "Unsupported system architecture."
-        sys.exit(1)
+    #print " * Installing Liquidsoap binary"
+    #if (os.path.exists("%s/liquidsoap_%s_%s"%(PATH_LIQUIDSOAP_BIN, codename, arch))):
+    #    shutil.copy("%s/liquidsoap_%s_%s"%(PATH_LIQUIDSOAP_BIN, codename, arch), "%s/liquidsoap"%PATH_LIQUIDSOAP_BIN)
+    #else:
+        #print "Unsupported system architecture."
+        #sys.exit(1)
         
     #generate liquidsoap config file
     #access the DB and generate liquidsoap.cfg under /etc/airtime/
