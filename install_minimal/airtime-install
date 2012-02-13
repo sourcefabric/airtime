@@ -123,6 +123,18 @@ elif [ "$result" -eq "3" ]; then
     exit 1
 fi
 
+#We don't want any of our python services running if we are doing an upgrade/reinstall.
+#They will be automatically restarted later on.
+if [ -e /etc/init.d/airtime-media-monitor ]; then
+    /etc/init.d/airtime-media-monitor stop > /dev/null 2>&1
+fi
+if [ -e /etc/init.d/airtime-playout ]; then
+    /etc/init.d/airtime-playout stop > /dev/null 2>&1
+fi
+if [ -e /etc/init.d/airtime-show-recorder ]; then
+    /etc/init.d/airtime-show-recorder stop > /dev/null 2>&1
+fi
+
 
 #export these variables to make them available in sub bash scripts
 export DO_UPGRADE
@@ -160,6 +172,8 @@ $SCRIPTPATH/include/airtime-initialize.sh $@
 
 
 /usr/lib/airtime/utils/rabbitmq-update-pid.sh > /dev/null
+
+touch /usr/share/airtime/public/index.php
 
 if [ "$python_service" -eq "0" ]; then
     #only run airtime-check-system if all components were installed
