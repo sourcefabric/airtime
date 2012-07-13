@@ -1,6 +1,9 @@
 2.1.3 - July 4th, 2012
   * Changes
     * Clarify inputs and output labels under stream settings
+    * You may now double-click to add files to playlist/show
+    * Shows now have their color generated from the show name by default
+    * Upcoming shows jQuery widget supports new parameter specifying how many shows should appear
   * Bug Fixes
     * Fix playout engine crashing in rare cases after the system is restarted
     * Fix entries in the Calendar unable to have multiple icons (recorded icon, soundcloud icon etc.)
