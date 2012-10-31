@@ -12,11 +12,8 @@ import urllib
 import urllib2
 import logging
 import json
-from urlparse import urlparse
 import base64
 from configobj import ConfigObj
-import string
-import traceback
 
 AIRTIME_VERSION = "2.2.0"
 
@@ -79,10 +76,30 @@ class ApiRequest(object):
     def __init__(self, name, url):
         self.name = name
         self.url  = url
-    def __call__(self, **kwargs):
+        self.__req = None
+    def __call__(self,_post_data=None, **kwargs):
+        # TODO : get rid of god damn urllib and replace everything with
+        # grequests or requests at least
         final_url = self.url.params(**kwargs).url()
-        response  = urllib2.urlopen(final_url).read()
-        return response
+        if _post_data is not None: _post_data = urllib.urlencode(_post_data)
+        req = urllib2.Request(final_url, _post_data)
+        response  = urllib2.urlopen(req).read()
+        # Ghetto hack for now because we don't the content type we are getting
+        # (Pointless to look at mime since it's not being set correctly always)
+        try: return json.loads(response)
+        except ValueError: return response
+
+    def req(self, *args, **kwargs):
+        self.__req = lambda : self(*args, **kwargs)
+        return self
+
+    def retry(self, n, delay=5):
+        """Try to send request n times. If after n times it fails then
+        we finally raise exception"""
+        for i in range(0,n-1):
+            try: return self.__req()
+            except Exception: time.sleep(delay)
+        return self.__req()
 
 class RequestProvider(object):
     """ Creates the available ApiRequest instance that can be read from
@@ -129,128 +146,21 @@ class AirtimeApiClient(object):
                 config_path=AirtimeApiClient.default_config )
 
     def __init__(self, logger=None,config_path='/etc/airtime/api_client.cfg'):
-        if logger is None:
-            self.logger = logging
-        else:
-            self.logger = logger
+        if logger is None: self.logger = logging
+        else: self.logger = logger
 
         # loading config file
         try:
             self.config = ConfigObj(config_path)
+            self.services = RequestProvider(self.config)
         except Exception, e:
             self.logger.error('Error loading config file: %s', e)
             sys.exit(1)
 
-    def get_response_from_server(self, url, attempts=-1):
-        logger = self.logger
-        successful_response = False
-
-        while not successful_response:
-            try:
-                response = urllib2.urlopen(url).read()
-                successful_response = True
-            except IOError, e:
-                logger.error('Error Authenticating with remote server: %s %s', e, url)
-                if isinstance(url, urllib2.Request):
-                    logger.debug(url.get_full_url())
-                else:
-                    logger.debug(url)
-            except Exception, e:
-                logger.error('Couldn\'t connect to remote server. Is it running?')
-                logger.error("%s" % e)
-                if isinstance(url, urllib2.Request):
-                    logger.debug(url.get_full_url())
-                else:
-                    logger.debug(url)
-
-            #If the user passed in a positive attempts number then that means
-            #attempts will roll over 0 and we stop. If attempts was initially negative,
-            #then we have unlimited attempts
-            if attempts > 0:
-                attempts = attempts - 1
-                if attempts == 0:
-                    successful_response = True
-
-            if not successful_response:
-                logger.error("Error connecting to server, waiting 5 seconds and trying again.")
-                time.sleep(5)
-
-        return response
-
-    def get_response_into_file(self, url, block=True):
-        """
-        This function will query the server and download its response directly
-        into a temporary file. This is useful in the situation where the
-        response from the server can be huge and we don't want to store it into
-        memory (potentially causing Python to use hundreds of MB's of memory).
-        By writing into a file we can then open this file later, and read data
-        a little bit at a time and be very mem efficient.
-
-        The return value of this function is the path of the temporary file.
-        Unless specified using block = False, this function will block until a
-        successful HTTP 200 response is received.
-        """
-
-        logger = self.logger
-        successful_response = False
-
-        while not successful_response:
-            try:
-                path = urllib.urlretrieve(url)[0]
-                successful_response = True
-            except IOError, e:
-                logger.error('Error Authenticating with remote server: %s', e)
-                if not block:
-                    raise
-            except Exception, e:
-                logger.error('Couldn\'t connect to remote server. Is it running?')
-                logger.error("%s" % e)
-                if not block:
-                    raise
-
-            if not successful_response:
-                logger.error("Error connecting to server, waiting 5 seconds and trying again.")
-                time.sleep(5)
-
-        return path
-
-
-
     def __get_airtime_version(self):
-        logger = self.logger
-        url= self.construct_url("version_url")
-
-        logger.debug("Trying to contact %s", url)
-
-        version = -1
-        try:
-            data = self.get_response_from_server(url)
-            logger.debug("Data: %s", data)
-            response_json = json.loads(data)
-            version = response_json['version']
-            logger.debug("Airtime Version %s detected", version)
-        except Exception, e:
-            logger.error("Unable to detect Airtime Version - %s", e)
-            return -1
-
-        return version
-
-    # TODO : this isn't being used anywhere. consider removing this method
-    def test(self):
-        logger = self.logger
-        items = self.get_schedule()[1]
-        schedule = items["playlists"]
-        logger.debug("Number of playlists found: %s", str(len(schedule)))
-        count = 1
-        for pkey in sorted(schedule.iterkeys()):
-            logger.debug("Playlist #%s", str(count))
-            count += 1
-            playlist = schedule[pkey]
-            for item in playlist["medias"]:
-                filename = urlparse(item["uri"])
-                filename = filename.query[5:]
-                self.get_media(item["uri"], filename)
-
+        # TODO : maybe fix this function to drop an exception?
+        try: return self.services.version_url()
+        except Exception: return -1
 
     def is_server_compatible(self, verbose=True):
         logger = self.logger
@@ -273,96 +183,30 @@ class AirtimeApiClient(object):
 
 
     def get_schedule(self):
-        logger = self.logger
-
-        # Construct the URL
-        export_url = self.construct_url("export_url")
-        logger.info("Fetching schedule from %s", export_url)
-
-        response = ""
-        try:
-            response_json = self.get_response_from_server(export_url)
-            response = json.loads(response_json)
-            success = True
-        except Exception, e:
-            logger.error(e)
-            success = False
-
-        return success, response
-
-
-    def get_media(self, uri, dst):
-        logger = self.logger
-
-        try:
-            src = uri + "/api_key/%%api_key%%"
-            logger.info("try to download from %s to %s", src, dst)
-            src = src.replace("%%api_key%%", self.config["api_key"])
-            # check if file exists already before downloading again
-            headers = urllib.urlretrieve(src, dst)[1]
-            logger.info(headers)
-        except Exception, e:
-            logger.error("%s", e)
+        # TODO : properly refactor this routine
+        # For now thre return type is a little fucked for compatibility reasons
+        try: return (True, self.services.export_url())
+        except: (False, "")
 
     def notify_liquidsoap_started(self):
-        logger = self.logger
+        return self.services.notify_liquidsoap_started()
 
-        try:
-            url = self.construct_url("notify_liquidsoap_started")
-
-            self.get_response_from_server(url, attempts=5)
-        except Exception, e:
-            logger.error("Exception: %s", str(e))
-
-
-    """
-    This is a callback from liquidsoap, we use this to notify about the
-    currently playing *song*.  We get passed a JSON string which we handed to
-    liquidsoap in get_liquidsoap_data().
-    """
     def notify_media_item_start_playing(self, media_id):
-        logger = self.logger
-        response = ''
-        try:
-            url = self.construct_url("update_start_playing_url")
-            url = url.replace("%%media_id%%", str(media_id))
-            logger.debug(url)
+        """ This is a callback from liquidsoap, we use this to notify
+        about the currently playing *song*. We get passed a JSON string
+        which we handed to liquidsoap in get_liquidsoap_data(). """
+        return self.services.update_start_playing_url(media_id=media_id)
 
-            response = self.get_response_from_server(url, attempts = 5)
-            response = json.loads(response)
-            logger.info("API-Status %s", response['status'])
-            logger.info("API-Message %s", response['message'])
-
-        except Exception, e:
-            logger.error("Exception: %s", e)
-
-        return response
-
+    # TODO : get this routine out of here it doesn't belong at all here
     def get_liquidsoap_data(self, pkey, schedule):
         playlist = schedule[pkey]
         data = dict()
-        try:
-            data["schedule_id"] = playlist['id']
-        except Exception:
-            data["schedule_id"] = 0
+        try: data["schedule_id"] = playlist['id']
+        except Exception: data["schedule_id"] = 0
         return data
 
     def get_shows_to_record(self):
-        logger = self.logger
-        response = None
-        try:
-            url = self.construct_url("show_schedule_url")
-            logger.debug(url)
-            response = self.get_response_from_server(url)
-
-            response = json.loads(response)
-            logger.info("shows %s", response)
-
-        except Exception, e:
-            logger.error("Exception: %s", e)
-            response = None
-
-        return response
+        return self.services.show_schedule_url()
 
     def upload_recorded_show(self, data, headers):
         logger = self.logger
@@ -398,26 +242,8 @@ class AirtimeApiClient(object):
         return response
 
     def check_live_stream_auth(self, username, password, dj_type):
-        """
-        TODO: Why are we using print statements here? Possibly use logger that
-        is directed to stdout. -MK
-        """
-
-        response = ''
-        try:
-            url = self.construct_url("check_live_stream_auth")
-            url = url.replace("%%username%%", username)
-            url = url.replace("%%djtype%%", dj_type)
-            url = url.replace("%%password%%", password)
-
-            response = self.get_response_from_server(url)
-            response = json.loads(response)
-        except Exception, e:
-            print "Exception: %s", e
-            print "traceback: %s", traceback.format_exc()
-            response = None
-
-        return response
+        return self.services.check_live_stream_auth(
+            username=username, password=password, dj_type=dj_type)
 
     def construct_url(self,config_action_key):
         """Constructs the base url for every request"""
@@ -430,54 +256,7 @@ class AirtimeApiClient(object):
         return url
 
     def setup_media_monitor(self):
-        logger = self.logger
-        response = None
-        try:
-            url = self.construct_url("media_setup_url")
-            response = self.get_response_from_server(url)
-            response = json.loads(response)
-            logger.info("Connected to Airtime Server. Json Media Storage Dir: %s", response)
-        except Exception, e:
-            response = None
-            logger.error("Exception: %s", e)
-        return response
-
-    def update_media_metadata(self, md, mode, is_record=False):
-        logger = self.logger
-        response = None
-        try:
-            url = self.construct_url("update_media_url")
-            url = url.replace("%%mode%%", mode)
-
-            self.logger.info("Requesting url %s" % url)
-
-            md = convert_dict_value_to_utf8(md)
-
-            data = urllib.urlencode(md)
-            req = urllib2.Request(url, data)
-
-            response = self.get_response_from_server(req)
-            logger.info("update media %s, filepath: %s, mode: %s", response, md['MDATA_KEY_FILEPATH'], mode)
-            self.logger.info("Received response:")
-            self.logger.info(response)
-            try: response = json.loads(response)
-            except ValueError:
-                logger.info("Could not parse json from response: '%s'" % response)
-
-            if("error" not in response and is_record):
-                url = self.construct_url("upload_recorded")
-                url = url.replace("%%fileid%%", str(response[u'id']))
-                url = url.replace("%%showinstanceid%%", str(md['MDATA_KEY_TRACKNUMBER']))
-
-                response = self.get_response_from_server(url)
-                response = json.loads(response)
-                logger.info("associate recorded %s", response)
-        except Exception, e:
-            response = None
-            logger.error('Exception: %s', e)
-            logger.error("traceback: %s", traceback.format_exc())
-
-        return response
+        return self.services.media_setup_url()
 
     def send_media_monitor_requests(self, action_list, dry=False):
         """
@@ -488,7 +267,6 @@ class AirtimeApiClient(object):
         says whether the show was recorded or not. The value of this key
         does not matter, only if it's present or not.
         """
-        url = self.construct_url('reload_metadata_group')
         # We are assuming that action_list is a list of dictionaries such
         # that every dictionary represents the metadata of a file along
         # with a special mode key that is the action to be executed by the
@@ -516,11 +294,7 @@ class AirtimeApiClient(object):
         # controller not to actually do any changes
         if dry: md_list['dry'] = 1
         self.logger.info("Pumping out %d requests..." % len(valid_actions))
-        data = urllib.urlencode(md_list)
-        req = urllib2.Request(url, data)
-        response = self.get_response_from_server(req)
-        response = json.loads(response)
-        return response
+        return self.services.reload_metadata_group(_post_data=md_list)
 
     #returns a list of all db files for a given directory in JSON format:
     #{"files":["path/to/file1", "path/to/file2"]}
@@ -530,15 +304,11 @@ class AirtimeApiClient(object):
         logger = self.logger
         try:
             all_files = u"1" if all_files else u"0"
-            url = self.construct_url("list_all_db_files")
-            url = url.replace("%%dir_id%%", dir_id)
-            url = url.replace("%%all%%", all_files)
-            response = self.get_response_from_server(url)
-            response = json.loads(response)
+            response = self.services.list_all_db_files(dir_id=dir_id,
+                                                       all=all_files)
         except Exception, e:
             response = {}
             logger.error("Exception: %s", e)
-
         try:
             return response["files"]
         except KeyError:
@@ -547,168 +317,52 @@ class AirtimeApiClient(object):
             return []
 
     def list_all_watched_dirs(self):
-        # Does this include the stor directory as well?
-        logger = self.logger
-        try:
-            url = self.construct_url("list_all_watched_dirs")
-
-            response = self.get_response_from_server(url)
-            response = json.loads(response)
-        except Exception, e:
-            response = None
-            logger.error("Exception: %s", e)
-            self.logger.debug(traceback.format_exc())
-
-        return response
+        return self.services.list_all_watched_dirs()
 
     def add_watched_dir(self, path):
-        logger = self.logger
-        try:
-            url = self.construct_url("add_watched_dir")
-            url = url.replace("%%path%%", base64.b64encode(path))
-
-            response = self.get_response_from_server(url)
-            response = json.loads(response)
-        except Exception, e:
-            response = None
-            logger.error("Exception: %s", e)
-
-        return response
+        return self.services.add_watched_dir(path=base64.b64encode(path))
 
     def remove_watched_dir(self, path):
-        logger = self.logger
-        try:
-            url = self.construct_url("remove_watched_dir")
-            url = url.replace("%%path%%", base64.b64encode(path))
-
-            response = self.get_response_from_server(url)
-            response = json.loads(response)
-        except Exception, e:
-            response = None
-            logger.error("Exception: %s", e)
-
-        return response
+        return self.services.remove_watched_dir(path=base64.b64encode(path))
 
     def set_storage_dir(self, path):
-        logger = self.logger
-        try:
-            url = self.construct_url("set_storage_dir")
-            url = url.replace("%%path%%", base64.b64encode(path))
-
-            response = self.get_response_from_server(url)
-            response = json.loads(response)
-        except Exception, e:
-            response = None
-            logger.error("Exception: %s", e)
-
-        return response
+        return self.services.set_storage_dir(path=base64.b64encode(path))
 
     def get_stream_setting(self):
         logger = self.logger
-        try:
-            url = self.construct_url("get_stream_setting")
-            response = self.get_response_from_server(url)
-            response = json.loads(response)
+        try: return self.services.get_stream_setting()
         except Exception, e:
-            response = None
             logger.error("Exception: %s", e)
+            return None
 
-        return response
-
-    """
-    Purpose of this method is to contact the server with a "Hey its me!"
-    message.  This will allow the server to register the component's (component
-    = media-monitor, pypo etc.) ip address, and later use it to query monit via
-    monit's http service, or download log files via a http server.
-    """
     def register_component(self, component):
-        logger = self.logger
-        try:
-            url = self.construct_url("register_component")
-            url = url.replace("%%component%%", component)
-            self.get_response_from_server(url)
-        except Exception, e:
-            logger.error("Exception: %s", e)
+        """ Purpose of this method is to contact the server with a "Hey its
+        me!" message. This will allow the server to register the component's
+        (component = media-monitor, pypo etc.) ip address, and later use it
+        to query monit via monit's http service, or download log files via a
+        http server. """
+        return self.services.register_component(component=component)
 
     def notify_liquidsoap_status(self, msg, stream_id, time):
         logger = self.logger
         try:
-            url = self.construct_url("update_liquidsoap_status")
-            msg = msg.replace('/', ' ')
             encoded_msg = urllib.quote(msg, '')
-            url = url.replace("%%msg%%", encoded_msg)
-            url = url.replace("%%stream_id%%", stream_id)
-            url = url.replace("%%boot_time%%", time)
-
-            self.get_response_from_server(url, attempts = 5)
+            self.update_liquidsoap_status.req(msg=encoded_msg, stream_id=stream_id,
+                                          boot_time=time).retry(5)
         except Exception, e:
             logger.error("Exception: %s", e)
 
     def notify_source_status(self, sourcename, status):
-        logger = self.logger
         try:
-            url = self.construct_url("update_source_status")
-            url = url.replace("%%sourcename%%", sourcename)
-            url = url.replace("%%status%%", status)
-
-            self.get_response_from_server(url, attempts = 5)
+            logger = self.logger
+            return self.services.update_source_status.req(sourcename=sourcename,
+                                                      status=status).retry(5)
         except Exception, e:
             logger.error("Exception: %s", e)
 
-    """
-    This function updates status of mounted file system information on airtime
-    """
-    def update_file_system_mount(self, added_dir, removed_dir):
-        logger = self.logger
-        try:
-            url = self.construct_url("update_fs_mount")
-
-            added_data_string = string.join(added_dir, ',')
-            removed_data_string = string.join(removed_dir, ',')
-
-            map = [("added_dir", added_data_string), ("removed_dir", removed_data_string)]
-
-            data = urllib.urlencode(map)
-
-            req = urllib2.Request(url, data)
-            response = self.get_response_from_server(req)
-
-            logger.info("update file system mount: %s", json.loads(response))
-        except Exception, e:
-            logger.error('Exception: %s', e)
-            logger.error("traceback: %s", traceback.format_exc())
-
-    """
-        When watched dir is missing(unplugged or something) on boot up, this
-        function will get called and will call appropriate function on Airtime.
-    """
-    def handle_watched_dir_missing(self, dir):
-        logger = self.logger
-        try:
-            url = self.construct_url("handle_watched_dir_missing")
-            url = url.replace("%%dir%%", base64.b64encode(dir))
-
-            response = self.get_response_from_server(url)
-            logger.info("update file system mount: %s", json.loads(response))
-        except Exception, e:
-            logger.error('Exception: %s', e)
-            logger.error("traceback: %s", traceback.format_exc())
-
     def get_bootstrap_info(self):
-        """
-        Retrive infomations needed on bootstrap time
-        """
-        logger = self.logger
-        try:
-            url = self.construct_url("get_bootstrap_info")
-            response = self.get_response_from_server(url)
-            response = json.loads(response)
-            logger.info("Bootstrap info retrieved %s", response)
-        except Exception, e:
-            response = None
-            logger.error('Exception: %s', e)
-            logger.error("traceback: %s", traceback.format_exc())
-        return response
+        """ Retrive infomations needed on bootstrap time """
+        return self.services.get_bootstrap_info()
 
     def get_files_without_replay_gain_value(self, dir_id):
         """
@@ -716,36 +370,16 @@ class AirtimeApiClient(object):
         calculated. This list of files is downloaded into a file and the path
         to this file is the return value.
         """
-
         #http://localhost/api/get-files-without-replay-gain/dir_id/1
-
-        logger = self.logger
-        try:
-            url = self.construct_url("get_files_without_replay_gain")
-            url = url.replace("%%dir_id%%", dir_id)
-            response = self.get_response_from_server(url)
-
-            logger.info("update file system mount: %s", response)
-            response = json.loads(response)
-            #file_path = self.get_response_into_file(url)
-        except Exception, e:
-            response = None
-            logger.error('Exception: %s', e)
-            logger.error("traceback: %s", traceback.format_exc())
-
-        return response
+        return self.services.get_files_without_replay_gain(dir_id=dir_id)
 
     def update_replay_gain_values(self, pairs):
         """
         'pairs' is a list of pairs in (x, y), where x is the file's database
         row id and y is the file's replay_gain value in dB
         """
-        #http://localhost/api/update-replay-gain-value/
-        url = self.construct_url("update_replay_gain_value")
-        data = urllib.urlencode({'data': json.dumps(pairs)})
-        request = urllib2.Request(url, data)
-
-        self.logger.debug(self.get_response_from_server(request))
+        self.logger.debug(self.services.update_replay_gain_value(
+            _post_data={'data': json.dumps(pairs)}))
 
 
     def notify_webstream_data(self, data, media_id):
@@ -753,13 +387,5 @@ class AirtimeApiClient(object):
         Update the server with the latest metadata we've received from the
         external webstream
         """
-        try:
-            url = self.construct_url("notify_webstream_data")
-            url = url.replace("%%media_id%%", str(media_id))
-            data = urllib.urlencode({'data': data})
-            self.logger.debug(url)
-            request = urllib2.Request(url, data)
-
-            self.logger.info(self.get_response_from_server(request, attempts = 5))
-        except Exception, e:
-            self.logger.error("Exception: %s", e)
+        self.logger.info( self.notify_webstream_data.req(
+            _post_data={'data':data}, media_id=str(media_id)).retry(5))
