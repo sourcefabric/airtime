@@ -360,7 +360,7 @@ SQL;
         }
 
         // set file_exists falg to false
-        $this->_file->setDbFileExists(false);
+        $this->_file->setDbHidden(true);
         $this->_file->save();
     }
 
@@ -1021,6 +1021,10 @@ SELECT filepath AS fp
 FROM CC_FILES AS f
 WHERE f.directory = :dir_id 
 SQL;
+
+        # TODO : the option $all is deprecated now and is always true.
+        # refactor code where it's still being passed
+        $all = true;
                 
         if (!$all) {
             $sql .= " AND f.file_exists = 'TRUE'";
@@ -1160,10 +1164,14 @@ SQL;
             ->save();
     }
 
-    public function getFileExistsFlag()
-    {
-        return $this->_file->getDbFileExists();
-    }
+    
+    // This method seems to be unsued everywhere so I've commented it out
+    // If it's absence does not have any effect then it will be completely 
+    // removed soon
+    //public function getFileExistsFlag()
+    //{
+        //return $this->_file->getDbFileExists();
+    //}
 
     public function getFileOwnerId()
     {
