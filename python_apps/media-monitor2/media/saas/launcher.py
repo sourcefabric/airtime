@@ -1,14 +1,22 @@
-import os
+import os, sys
+import logging
+import logging.config
 
-from media.saas.thread import InstanceThread, user, apc
-from media.monitor.log import Loggable
-from media.monitor.exceptions import CouldNotCreateIndexFile
-from media.monitor.toucher          import ToucherThread
-from media.monitor.airtime          import AirtimeNotifier, \
-                                           AirtimeMessageReceiver
-from media.monitor.watchersyncer    import WatchSyncer
-from media.monitor.eventdrainer     import EventDrainer
-from media.monitor.manager          import Manager
+import media.monitor.pure          as mmp
+
+from media.monitor.exceptions    import FailedToObtainLocale, FailedToSetLocale
+from media.monitor.log           import get_logger, setup_logging
+from std_err_override            import LogWriter
+from media.saas.thread           import InstanceThread, user, apc, getsig
+from media.monitor.log           import Loggable
+from media.monitor.exceptions    import CouldNotCreateIndexFile
+from media.monitor.toucher       import ToucherThread
+from media.monitor.airtime       import AirtimeNotifier, AirtimeMessageReceiver
+from media.monitor.watchersyncer import WatchSyncer
+from media.monitor.eventdrainer  import EventDrainer
+from media.monitor.manager       import Manager
+from media.monitor.syncdb        import AirtimeDB
+from media.saas.airtimeinstance  import AirtimeInstance
 
 class MM2(InstanceThread, Loggable):
 
@@ -36,13 +44,20 @@ class MM2(InstanceThread, Loggable):
         manager = Manager()
         apiclient = apc()
         config = user().mm_config
-        watch_syncer = WatchSyncer(signal='watch',
+        watch_syncer = WatchSyncer(signal=getsig('watch'),
                                    chunking_number=config['chunking_number'],
                                    timeout=config['request_max_wait'])
         airtime_receiver = AirtimeMessageReceiver(config,manager)
         airtime_notifier = AirtimeNotifier(config, airtime_receiver)
 
-        store = apiclient.setup_media_monitor()
+
+        adb = AirtimeDB(apiclient)
+        store = {
+                u'stor' : adb.storage_path(),
+                u'watched_dirs' : adb.list_watched(),
+        }
+
+        self.logger.info("initializing mm with directories: %s" % str(store))
 
         self.logger.info(
                 "Initing with the following airtime response:%s" % str(store))
@@ -73,3 +88,38 @@ class MM2(InstanceThread, Loggable):
         apiclient.register_component('media-monitor')
 
         manager.loop()
+
+def launch_instance(name, root, global_cfg, apc_cfg):
+    cfg = {
+        'api_client'    : apc_cfg,
+        'media_monitor' : global_cfg,
+    }
+    ai = AirtimeInstance(name, root, cfg)
+    MM2(ai).start()
+
+def setup_global(log):
+    """ setup unicode and other stuff """
+    log.info("Attempting to set the locale...")
+    try: mmp.configure_locale(mmp.get_system_locale())
+    except FailedToSetLocale as e:
+        log.info("Failed to set the locale...")
+        sys.exit(1)
+    except FailedToObtainLocale as e:
+        log.info("Failed to obtain the locale form the default path: \
+                '/etc/default/locale'")
+        sys.exit(1)
+    except Exception as e:
+        log.info("Failed to set the locale for unknown reason. \
+                Logging exception.")
+        log.info(str(e))
+
+def setup_logger(log_config, logpath):
+    logging.config.fileConfig(log_config)
+    #need to wait for Python 2.7 for this..
+    #logging.captureWarnings(True)
+    logger = logging.getLogger()
+    LogWriter.override_std_err(logger)
+    logfile = unicode(logpath)
+    setup_logging(logfile)
+    log = get_logger()
+    return log
