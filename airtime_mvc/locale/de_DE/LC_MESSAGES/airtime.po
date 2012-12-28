@@ -20,7 +20,7 @@ msgstr ""
 
 #: airtime_mvc/application/configs/navigation.php:12
 msgid "Now Playing"
-msgstr "Aktuelle Wiedergabe"
+msgstr "Jetzt läuft"
 
 #: airtime_mvc/application/configs/navigation.php:19
 msgid "Add Media"
@@ -45,7 +45,7 @@ msgstr "Einstellungen"
 
 #: airtime_mvc/application/configs/navigation.php:50
 msgid "Users"
-msgstr "Nutzer"
+msgstr "Benutzer"
 
 #: airtime_mvc/application/configs/navigation.php:57
 msgid "Media Folders"
@@ -58,7 +58,7 @@ msgstr "Streams"
 #: airtime_mvc/application/configs/navigation.php:70
 #: airtime_mvc/application/controllers/PreferenceController.php:134
 msgid "Support Feedback"
-msgstr "Hilfe Feedback"
+msgstr "Support Feedback"
 
 #: airtime_mvc/application/configs/navigation.php:76
 #: airtime_mvc/application/views/scripts/systemstatus/index.phtml:5
@@ -71,7 +71,7 @@ msgstr "Playout Log"
 
 #: airtime_mvc/application/configs/navigation.php:90
 msgid "Listener Stats"
-msgstr "User-Statistik"
+msgstr "Hörer Statistik"
 
 #: airtime_mvc/application/configs/navigation.php:99
 #: airtime_mvc/application/views/scripts/error/error.phtml:13
@@ -84,12 +84,12 @@ msgstr "Erste Schritte"
 
 #: airtime_mvc/application/configs/navigation.php:111
 msgid "User Manual"
-msgstr "Betriebsanleitung"
+msgstr "Bedienungsanleitung"
 
 #: airtime_mvc/application/configs/navigation.php:116
 #: airtime_mvc/application/views/scripts/dashboard/about.phtml:2
 msgid "About"
-msgstr "über"
+msgstr "Über"
 
 #: airtime_mvc/application/layouts/scripts/bare.phtml:5
 #: airtime_mvc/application/views/scripts/dashboard/stream-player.phtml:2
@@ -113,15 +113,15 @@ msgstr "Airtime Copyright © Sourcefabric o.p.s. Alle Rechte vorbehalten. %s ver
 #: airtime_mvc/application/models/StoredFile.php:797
 #: airtime_mvc/application/controllers/LocaleController.php:277
 msgid "Track preview"
-msgstr "Medien Preview"
+msgstr "Track vorhören"
 
 #: airtime_mvc/application/models/StoredFile.php:799
 msgid "Playlist preview"
-msgstr "Playlist Preview"
+msgstr "Playlist vorhören"
 
 #: airtime_mvc/application/models/StoredFile.php:802
 msgid "Webstream preview"
-msgstr "Webstream Preview"
+msgstr "Webstream vorhören"
 
 #: airtime_mvc/application/models/StoredFile.php:804
 msgid "Smart Block"
@@ -129,7 +129,7 @@ msgstr "Smart Block"
 
 #: airtime_mvc/application/models/StoredFile.php:937
 msgid "Failed to create 'organize' directory."
-msgstr "Konnte zu 'organisieren' Verzeichnis zu erstellen."
+msgstr "Konnte 'organisieren' Verzeichnis nicht erstellen."
 
 #: airtime_mvc/application/models/StoredFile.php:950
 #, php-format
@@ -138,11 +138,11 @@ msgstr "Die Datei wurde nicht hochgeladen, es gibt %s MB Speicherplatz auf der F
 
 #: airtime_mvc/application/models/StoredFile.php:959
 msgid "This file appears to be corrupted and will not be added to media library."
-msgstr "Diese Datei scheint beschädigt zu werden und wird nicht auf Medien-Bibliothek hinzugefügt werden."
+msgstr "Diese Datei scheint beschädigt zu sein und wird nicht zur Medien-Bibliothek hinzugefügt werden."
 
 #: airtime_mvc/application/models/StoredFile.php:995
 msgid "The file was not uploaded, this error can occur if the computer hard drive does not have enough disk space or the stor directory does not have correct write permissions."
-msgstr "Die Datei wurde nicht hochgeladen, kann dieser Fehler auftreten, wenn die Festplatte des Computers nicht genügend Speicherplatz oder die Lagerung Verzeichnis keine richtigen Schreibrechte."
+msgstr "Die Datei wurde nicht hochgeladen. Dieser Fehler kann auftreten, wenn die Festplatte des Computers nicht genügend Speicherplatz oder das Verzeichnis (stor) keine benötigte Schreibrechte hat."
 
 #: airtime_mvc/application/models/Preference.php:469
 msgid "Select Country"
@@ -156,12 +156,12 @@ msgstr "%s ist bereits beobachtet."
 #: airtime_mvc/application/models/MusicDir.php:164
 #, php-format
 msgid "%s contains nested watched directory: %s"
-msgstr "%s enthält verschachtelt überwachten Verzeichnis: %s"
+msgstr "%s enthält verschachteltes überwachtes Verzeichnis: %s"
 
 #: airtime_mvc/application/models/MusicDir.php:168
 #, php-format
 msgid "%s is nested within existing watched directory: %s"
-msgstr "%s : wird innerhalb der bestehenden überwachten Verzeichnis verschachtelt %s"
+msgstr "%s : wird innerhalb des bestehenden überwachten Verzeichnisses verschachtelt %s"
 
 #: airtime_mvc/application/models/MusicDir.php:189
 #: airtime_mvc/application/models/MusicDir.php:363
@@ -172,17 +172,17 @@ msgstr "%s ist kein gültiges Verzeichnis."
 #: airtime_mvc/application/models/MusicDir.php:231
 #, php-format
 msgid "%s is already set as the current storage dir or in the watched folders list"
-msgstr "%s ist bereits als Stromspeicher dir oder im überwachten Ordner-Liste gesetzt"
+msgstr "%s ist bereits als Speicher Verzeichnis oder in der überwachten Ordner-Liste gesetzt"
 
 #: airtime_mvc/application/models/MusicDir.php:381
 #, php-format
 msgid "%s is already set as the current storage dir or in the watched folders list."
-msgstr "%s ist bereits als Stromspeicher dir oder im überwachten Ordner-Liste gesetzt."
+msgstr "%s ist bereits als Speicher Verzeichnis oder in der überwachten Ordner-Liste gesetzt."
 
 #: airtime_mvc/application/models/MusicDir.php:424
 #, php-format
 msgid "%s doesn't exist in the watched list."
-msgstr "%s nicht in der beobachtete Liste vorhanden."
+msgstr "%s ist nicht in der beobachteten Ordner-Liste vorhanden."
 
 #: airtime_mvc/application/models/Playlist.php:724
 #: airtime_mvc/application/models/Block.php:757
@@ -194,52 +194,52 @@ msgstr "Cue in und Cue-out sind null."
 #: airtime_mvc/application/models/Block.php:803
 #: airtime_mvc/application/models/Block.php:824
 msgid "Can't set cue in to be larger than cue out."
-msgstr "Kann nicht Cue in größer zu sein als Cue-out."
+msgstr "Cue in kann nicht größer sein als Cue-out."
 
 #: airtime_mvc/application/models/Playlist.php:761
 #: airtime_mvc/application/models/Playlist.php:802
 #: airtime_mvc/application/models/Block.php:792
 #: airtime_mvc/application/models/Block.php:848
 msgid "Can't set cue out to be greater than file length."
-msgstr "Kann nicht gesetzt Cue-out größer als Dateilänge."
+msgstr "Cue-out kann nicht größer sein als die Dateilänge."
 
 #: airtime_mvc/application/models/Playlist.php:795
 #: airtime_mvc/application/models/Block.php:859
 msgid "Can't set cue out to be smaller than cue in."
-msgstr "Kann nicht gesetzt Cue-out kleiner als Cue in."
+msgstr "Cue-out kann nicht kleiner sein als Cue in."
 
 #: airtime_mvc/application/models/Show.php:180
 msgid "Shows can have a max length of 24 hours."
-msgstr "Shows können eine maximale Länge von 24 Stunden."
+msgstr "Shows können nur eine maximale Länge von 24 Stunden haben."
 
 #: airtime_mvc/application/models/Show.php:211
 #: airtime_mvc/application/forms/AddShowWhen.php:120
 msgid "End date/time cannot be in the past"
-msgstr "End Datum / Uhrzeit kann nicht in der Vergangenheit liegen"
+msgstr "Ende Datum / Uhrzeit kann nicht in der Vergangenheit liegen"
 
 #: airtime_mvc/application/models/Show.php:222
 msgid ""
 "Cannot schedule overlapping shows.\n"
 "Note: Resizing a repeating show affects all of its repeats."
 msgstr ""
-"Kann nicht planen überlappenden zeigt.\n"
-"Hinweis: Größenänderung ein sich wiederholendes Show wirkt sich auf alle ihre Wiederholungen."
+"Überlappenden Shows köönnen nicht geplant werden.\n"
+"Hinweis: Größenänderungen an einer sich wiederholender Show wirkt sich auf alle ihre Wiederholungen aus."
 
 #: airtime_mvc/application/models/Webstream.php:157
 msgid "Length needs to be greater than 0 minutes"
-msgstr "Länge muss größer als 0 Minuten"
+msgstr "Länge muss größer als 0 Minuten sein."
 
 #: airtime_mvc/application/models/Webstream.php:162
 msgid "Length should be of form \"00h 00m\""
-msgstr "Länge sollte der Form \"00h 00m\""
+msgstr "Länge sollte in der Form \"00h 00m\" sein"
 
 #: airtime_mvc/application/models/Webstream.php:175
 msgid "URL should be of form \"http://domain\""
-msgstr "URL sollte der Form \"http://domain\" sein"
+msgstr "URL sollte in der Form \"http://domain\" sein"
 
 #: airtime_mvc/application/models/Webstream.php:178
 msgid "URL should be 512 characters or less"
-msgstr "URL sollte 512 Zeichen oder weniger"
+msgstr "URL sollte 512 Zeichen oder weniger sein"
 
 #: airtime_mvc/application/models/Webstream.php:184
 msgid "No MIME type found for webstream."
@@ -251,19 +251,19 @@ msgstr "Webstream Name darf nicht leer sein"
 
 #: airtime_mvc/application/models/Webstream.php:269
 msgid "Could not parse XSPF playlist"
-msgstr "Konnte nicht analysiert werden XSPF playlist"
+msgstr "XSPF Playlist konnte nicht eingelesen werden"
 
 #: airtime_mvc/application/models/Webstream.php:281
 msgid "Could not parse PLS playlist"
-msgstr "Konnte nicht analysiert werden PLS-Playlisten"
+msgstr "PLS-Playlist konnte nicht eingelesen werden"
 
 #: airtime_mvc/application/models/Webstream.php:300
 msgid "Could not parse M3U playlist"
-msgstr "Konnte nicht analysiert werden M3U-Playlist"
+msgstr "M3U-Playlist konnte nicht eingelesen werden"
 
 #: airtime_mvc/application/models/Webstream.php:314
 msgid "Invalid webstream - This appears to be a file download."
-msgstr "Ungültige Webstream - Dies scheint eine Datei herunterladen."
+msgstr "Ungültiger Webstream - Dies scheint eine Datei Download zu sein."
 
 #: airtime_mvc/application/models/Webstream.php:318
 #, php-format
@@ -272,15 +272,15 @@ msgstr "Unbekannter Stream-Typ: %s"
 
 #: airtime_mvc/application/models/ShowInstance.php:245
 msgid "Can't drag and drop repeating shows"
-msgstr "Kann nicht per Drag & Drop wiederholen Shows"
+msgstr "Kann nicht Drag & Drop sich wiederholende Shows"
 
 #: airtime_mvc/application/models/ShowInstance.php:253
 msgid "Can't move a past show"
-msgstr "Kann nicht verschoben Vergangenheit zeigen"
+msgstr "Kann eine vergangene Show nicht verschieben"
 
 #: airtime_mvc/application/models/ShowInstance.php:270
 msgid "Can't move show into past"
-msgstr "Kann sich nicht bewegen Show in die Vergangenheit"
+msgstr "Kann eine Show nicht in die Vergangenheit schieben"
 
 #: airtime_mvc/application/models/ShowInstance.php:276
 #: airtime_mvc/application/forms/AddShowWhen.php:254
@@ -289,7 +289,7 @@ msgstr "Kann sich nicht bewegen Show in die Vergangenheit"
 #: airtime_mvc/application/forms/AddShowWhen.php:297
 #: airtime_mvc/application/forms/AddShowWhen.php:302
 msgid "Cannot schedule overlapping shows"
-msgstr "Kann nicht planen überlappenden Shows"
+msgstr "Überlappende Shows können nicht geplant"
 
 #: airtime_mvc/application/models/ShowInstance.php:290
 msgid "Can't move a recorded show less than 1 hour before its rebroadcasts."
