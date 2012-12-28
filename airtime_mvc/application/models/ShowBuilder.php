@@ -41,6 +41,7 @@ class Application_Model_ShowBuilder
         "fadein"          => "",
         "fadeout"         => "",
         "image"           => false,
+        "mime"            => null,
         "color"           => "", //in hex without the '#' sign.
         "backgroundColor" => "", //in hex without the '#' sign.
     );
@@ -194,7 +195,7 @@ class Application_Model_ShowBuilder
             $dt->setTimezone(new DateTimeZone($this->timezone));
             $time = $dt->format("Y-m-d H:i");
 
-            $row["rebroadcast_title"] = "Rebroadcast of {$name} from {$time}";
+            $row["rebroadcast_title"] = sprintf(_("Rebroadcast of %s from %s"), $name, $time);
         } elseif (intval($p_item["si_record"]) === 1) {
             $row["record"] = true;
 
@@ -265,8 +266,12 @@ class Application_Model_ShowBuilder
             $row["instance"] = intval($p_item["si_id"]);
             $row["starts"]   = $schedStartDT->format("H:i:s");
             $row["ends"]     = $schedEndDT->format("H:i:s");
-
-            $formatter       = new LengthFormatter($p_item['file_length']);
+            
+            $cue_out = Application_Common_DateHelper::calculateLengthInSeconds($p_item['cue_out']);
+            $cue_in = Application_Common_DateHelper::calculateLengthInSeconds($p_item['cue_in']);
+            $run_time = $cue_out-$cue_in;
+            
+            $formatter       = new LengthFormatter(Application_Common_DateHelper::ConvertMSToHHMMSSmm($run_time*1000));
             $row['runtime']  = $formatter->format();
 
             $row["title"]    = $p_item["file_track_title"];
@@ -277,6 +282,7 @@ class Application_Model_ShowBuilder
             $row["cueout"]   = $p_item["cue_out"];
             $row["fadein"]   = round(substr($p_item["fade_in"], 6), 6);
             $row["fadeout"]  = round(substr($p_item["fade_out"], 6), 6);
+            $row["mime"]     = $p_item["file_mime"];
 
             $row["pos"]      = $this->pos++;
 
@@ -471,7 +477,7 @@ class Application_Model_ShowBuilder
             $display_items[] = $this->makeFooterRow($scheduled_items[
                 count($scheduled_items)-1]);
         }
-
+        
         return array(
             "schedule"      => $display_items,
             "showInstances" => $this->showInstances);

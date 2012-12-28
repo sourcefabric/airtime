@@ -21,11 +21,11 @@ class PreferenceController extends Zend_Controller_Action
     public function indexAction()
     {
         global $CC_CONFIG;
-
-        $isSaas = Application_Model_Preference::GetPlanLevel() == 'disabled'?false:true;
-
         $request = $this->getRequest();
-        $baseUrl = $request->getBaseUrl();
+        
+        $isSaas = Application_Model_Preference::GetPlanLevel() == 'disabled'?false:true;
+        
+        $baseUrl = Application_Common_OsPath::getBaseDir();
 
         $this->view->headScript()->appendFile($baseUrl.'/js/airtime/preferences/preferences.js?'.$CC_CONFIG['airtime_version'],'text/javascript');
         $this->view->statusMsg = "";
@@ -33,37 +33,46 @@ class PreferenceController extends Zend_Controller_Action
         $form = new Application_Form_Preferences();
 
         if ($request->isPost()) {
-            if ($form->isValid($request->getPost())) {
-                $values = $form->getValues();
+            $params = $request->getPost();
+            $postData = explode('&', $params['data']);
+            foreach($postData as $k=>$v) {
+                $v = explode('=', $v);
+                $values[$v[0]] = urldecode($v[1]);
+            }
+            if ($form->isValid($values)) {
 
-                Application_Model_Preference::SetHeadTitle($values["preferences_general"]["stationName"], $this->view);
-                Application_Model_Preference::SetDefaultFade($values["preferences_general"]["stationDefaultFade"]);
-                Application_Model_Preference::SetAllow3rdPartyApi($values["preferences_general"]["thirdPartyApi"]);
-                Application_Model_Preference::SetTimezone($values["preferences_general"]["timezone"]);
-                Application_Model_Preference::SetWeekStartDay($values["preferences_general"]["weekStartDay"]);
+                Application_Model_Preference::SetHeadTitle($values["stationName"], $this->view);
+                Application_Model_Preference::SetDefaultFade($values["stationDefaultFade"]);
+                Application_Model_Preference::SetAllow3rdPartyApi($values["thirdPartyApi"]);
+                Application_Model_Preference::SetLocale($values["locale"]);
+                Application_Model_Preference::SetTimezone($values["timezone"]);
+                Application_Model_Preference::SetWeekStartDay($values["weekStartDay"]);
 
-                if (!$isSaas) {
-                    Application_Model_Preference::SetEnableSystemEmail($values["preferences_email_server"]["enableSystemEmail"]);
-                    Application_Model_Preference::SetSystemEmail($values["preferences_email_server"]["systemEmail"]);
-                    Application_Model_Preference::SetMailServerConfigured($values["preferences_email_server"]["configureMailServer"]);
-                    Application_Model_Preference::SetMailServer($values["preferences_email_server"]["mailServer"]);
-                    Application_Model_Preference::SetMailServerEmailAddress($values["preferences_email_server"]["email"]);
-                    Application_Model_Preference::SetMailServerPassword($values["preferences_email_server"]["ms_password"]);
-                    Application_Model_Preference::SetMailServerPort($values["preferences_email_server"]["port"]);
-                    Application_Model_Preference::SetMailServerRequiresAuth($values["preferences_email_server"]["msRequiresAuth"]);
-                }
+                Application_Model_Preference::SetEnableSystemEmail($values["enableSystemEmail"]);
+                Application_Model_Preference::SetSystemEmail($values["systemEmail"]);
+                Application_Model_Preference::SetMailServerConfigured($values["configureMailServer"]);
+                Application_Model_Preference::SetMailServer($values["mailServer"]);
+                Application_Model_Preference::SetMailServerEmailAddress($values["email"]);
+                Application_Model_Preference::SetMailServerPassword($values["ms_password"]);
+                Application_Model_Preference::SetMailServerPort($values["port"]);
+                Application_Model_Preference::SetMailServerRequiresAuth($values["msRequiresAuth"]);
 
-                Application_Model_Preference::SetAutoUploadRecordedShowToSoundcloud($values["preferences_soundcloud"]["UseSoundCloud"]);
-                Application_Model_Preference::SetUploadToSoundcloudOption($values["preferences_soundcloud"]["UploadToSoundcloudOption"]);
-                Application_Model_Preference::SetSoundCloudDownloadbleOption($values["preferences_soundcloud"]["SoundCloudDownloadbleOption"]);
-                Application_Model_Preference::SetSoundCloudUser($values["preferences_soundcloud"]["SoundCloudUser"]);
-                Application_Model_Preference::SetSoundCloudPassword($values["preferences_soundcloud"]["SoundCloudPassword"]);
-                Application_Model_Preference::SetSoundCloudTags($values["preferences_soundcloud"]["SoundCloudTags"]);
-                Application_Model_Preference::SetSoundCloudGenre($values["preferences_soundcloud"]["SoundCloudGenre"]);
-                Application_Model_Preference::SetSoundCloudTrackType($values["preferences_soundcloud"]["SoundCloudTrackType"]);
-                Application_Model_Preference::SetSoundCloudLicense($values["preferences_soundcloud"]["SoundCloudLicense"]);
+                Application_Model_Preference::SetAutoUploadRecordedShowToSoundcloud($values["UseSoundCloud"]);
+                Application_Model_Preference::SetUploadToSoundcloudOption($values["UploadToSoundcloudOption"]);
+                Application_Model_Preference::SetSoundCloudDownloadbleOption($values["SoundCloudDownloadbleOption"]);
+                Application_Model_Preference::SetSoundCloudUser($values["SoundCloudUser"]);
+                Application_Model_Preference::SetSoundCloudPassword($values["SoundCloudPassword"]);
+                Application_Model_Preference::SetSoundCloudTags($values["SoundCloudTags"]);
+                Application_Model_Preference::SetSoundCloudGenre($values["SoundCloudGenre"]);
+                Application_Model_Preference::SetSoundCloudTrackType($values["SoundCloudTrackType"]);
+                Application_Model_Preference::SetSoundCloudLicense($values["SoundCloudLicense"]);
 
-                $this->view->statusMsg = "<div class='success'>Preferences updated.</div>";
+                $this->view->statusMsg = "<div class='success'>". _("Preferences updated.")."</div>";
+                $this->view->form = $form;
+                die(json_encode(array("valid"=>"true", "html"=>$this->view->render('preference/index.phtml'))));
+            } else {
+                $this->view->form = $form;
+                die(json_encode(array("valid"=>"false", "html"=>$this->view->render('preference/index.phtml'))));
             }
         }
         $this->view->form = $form;
@@ -74,47 +83,44 @@ class PreferenceController extends Zend_Controller_Action
         global $CC_CONFIG;
 
         $request = $this->getRequest();
-        $baseUrl = $request->getBaseUrl();
+
+        $baseUrl = Application_Common_OsPath::getBaseDir();
 
         $this->view->headScript()->appendFile($baseUrl.'/js/airtime/preferences/support-setting.js?'.$CC_CONFIG['airtime_version'],'text/javascript');
         $this->view->statusMsg = "";
 
-        $isSass = Application_Model_Preference::GetPlanLevel() == 'disabled'?false:true;
-
         $form = new Application_Form_SupportSettings();
         if ($request->isPost()) {
             $values = $request->getPost();
-            if ($form->isValid($values)) {
-                if (!$isSass && $values["Publicise"] != 1) {
-                    Application_Model_Preference::SetSupportFeedback($values["SupportFeedback"]);
-                    Application_Model_Preference::SetPublicise($values["Publicise"]);
-                    if (isset($values["Privacy"])) {
-                        Application_Model_Preference::SetPrivacyPolicyCheck($values["Privacy"]);
-                    }
-                } else {
-                    Application_Model_Preference::SetHeadTitle($values["stationName"], $this->view);
-                    Application_Model_Preference::SetPhone($values["Phone"]);
-                    Application_Model_Preference::SetEmail($values["Email"]);
-                    Application_Model_Preference::SetStationWebSite($values["StationWebSite"]);
-                    if (!$isSass) {
-                        Application_Model_Preference::SetSupportFeedback($values["SupportFeedback"]);
-                        Application_Model_Preference::SetPublicise($values["Publicise"]);
-                    }
 
-                    $form->Logo->receive();
-                    $imagePath = $form->Logo->getFileName();
-
-                    Application_Model_Preference::SetStationCountry($values["Country"]);
-                    Application_Model_Preference::SetStationCity($values["City"]);
-                    Application_Model_Preference::SetStationDescription($values["Description"]);
-                    Application_Model_Preference::SetStationLogo($imagePath);
-                    if (!$isSass && isset($values["Privacy"])) {
-                        Application_Model_Preference::SetPrivacyPolicyCheck($values["Privacy"]);
-                    }
+           if ($values["Publicise"] != 1) {
+                Application_Model_Preference::SetSupportFeedback($values["SupportFeedback"]);
+                Application_Model_Preference::SetPublicise($values["Publicise"]);
+                if (isset($values["Privacy"])) {
+                    Application_Model_Preference::SetPrivacyPolicyCheck($values["Privacy"]);
                 }
-                $this->view->statusMsg = "<div class='success'>Support setting updated.</div>";
+            } else if ($form->isValid($values)) {
+                Application_Model_Preference::SetHeadTitle($values["stationName"], $this->view);
+                Application_Model_Preference::SetPhone($values["Phone"]);
+                Application_Model_Preference::SetEmail($values["Email"]);
+                Application_Model_Preference::SetStationWebSite($values["StationWebSite"]);
+                Application_Model_Preference::SetSupportFeedback($values["SupportFeedback"]);
+                Application_Model_Preference::SetPublicise($values["Publicise"]);
+
+                $form->Logo->receive();
+                $imagePath = $form->Logo->getFileName();
+
+                Application_Model_Preference::SetStationCountry($values["Country"]);
+                Application_Model_Preference::SetStationCity($values["City"]);
+                Application_Model_Preference::SetStationDescription($values["Description"]);
+                Application_Model_Preference::SetStationLogo($imagePath);
+                if (isset($values["Privacy"])) {
+                    Application_Model_Preference::SetPrivacyPolicyCheck($values["Privacy"]);
+                }
             }
+            $this->view->statusMsg = "<div class='success'>"._("Support setting updated.")."</div>";
         }
+
         $logo = Application_Model_Preference::GetStationLogo();
         if ($logo) {
             $this->view->logoImg = $logo;
@@ -124,18 +130,17 @@ class PreferenceController extends Zend_Controller_Action
             $privacyChecked = true;
         }
         $this->view->privacyChecked = $privacyChecked;
-        $this->view->section_title = 'Support Feedback';
+        $this->view->section_title = _('Support Feedback');
         $this->view->form = $form;
-        //$form->render($this->view);
     }
 
     public function directoryConfigAction()
     {
         global $CC_CONFIG;
 
-        if (Application_Model_Preference::GetPlanLevel() == 'disabled') {
-            $request = $this->getRequest();
-            $baseUrl = $request->getBaseUrl();
+        if(Application_Model_Preference::GetPlanLevel() == 'disabled'){
+            
+            $baseUrl = Application_Common_OsPath::getBaseDir();
 
             $this->view->headScript()->appendFile($baseUrl.'/js/serverbrowse/serverbrowser.js?'.$CC_CONFIG['airtime_version'],'text/javascript');
             $this->view->headScript()->appendFile($baseUrl.'/js/airtime/preferences/musicdirs.js?'.$CC_CONFIG['airtime_version'],'text/javascript');
@@ -151,11 +156,11 @@ class PreferenceController extends Zend_Controller_Action
         global $CC_CONFIG;
 
         $request = $this->getRequest();
-        $baseUrl = $request->getBaseUrl();
+
+        $baseUrl = Application_Common_OsPath::getBaseDir();
 
         $this->view->headScript()->appendFile($baseUrl.'/js/airtime/preferences/streamsetting.js?'.$CC_CONFIG['airtime_version'],'text/javascript');
 
-        $isSaas = Application_Model_Preference::GetPlanLevel() == 'disabled'?false:true;
 
         // get current settings
         $temp = Application_Model_StreamSetting::getStreamSetting();
@@ -203,15 +208,40 @@ class PreferenceController extends Zend_Controller_Action
             $form->addSubForm($subform, "s".$i."_subform");
         }
         if ($request->isPost()) {
-            $values = $request->getPost();
+            $params = $request->getPost();
+            /* Parse through post data and put in format
+             * $form->isValid() is expecting it in
+             */
+            $postData = explode('&', $params['data']);
+            $s1_data = array();
+            $s2_data = array();
+            $s3_data = array();
+            foreach($postData as $k=>$v) {
+                $v = explode('=', urldecode($v));
+                if (strpos($v[0], "s1_data") !== false) {
+                    /* In this case $v[0] may be 's1_data[enable]' , for example.
+                     * We only want the 'enable' part
+                     */
+                    preg_match('/\[(.*)\]/', $v[0], $matches);
+                    $s1_data[$matches[1]] = $v[1];
+                } elseif (strpos($v[0], "s2_data") !== false) {
+                    preg_match('/\[(.*)\]/', $v[0], $matches);
+                    $s2_data[$matches[1]] = $v[1];
+                } elseif (strpos($v[0], "s3_data") !== false) {
+                   preg_match('/\[(.*)\]/', $v[0], $matches);
+                    $s3_data[$matches[1]] = $v[1];
+                } else {
+                    $values[$v[0]] = $v[1];
+                }
+            }
+            $values["s1_data"] = $s1_data;
+            $values["s2_data"] = $s2_data;
+            $values["s3_data"] = $s3_data;
 
             $error = false;
-
             if ($form->isValid($values)) {
-                if (!$isSaas) {
                     $values['output_sound_device'] = $form->getValue('output_sound_device');
                     $values['output_sound_device_type'] = $form->getValue('output_sound_device_type');
-                }
 
                 $values['icecast_vorbis_metadata'] = $form->getValue('icecast_vorbis_metadata');
                 $values['streamFormat'] = $form->getValue('streamFormat');
@@ -225,8 +255,8 @@ class PreferenceController extends Zend_Controller_Action
                 Application_Model_Preference::SetDefaultTransitionFade($values["transition_fade"]);
                 Application_Model_Preference::SetAutoTransition($values["auto_transition"]);
                 Application_Model_Preference::SetAutoSwitch($values["auto_switch"]);
+                Application_Model_Preference::setReplayGainModifier($values["replayGainModifier"]);
 
-                if (!$isSaas) {
                     if (!Application_Model_Preference::GetMasterDjConnectionUrlOverride()) {
                         $master_connection_url = "http://".$_SERVER['SERVER_NAME'].":".$values["master_harbor_input_port"]."/".$values["master_harbor_input_mount_point"];
                         if (empty($values["master_harbor_input_port"]) || empty($values["master_harbor_input_mount_point"])) {
@@ -254,7 +284,6 @@ class PreferenceController extends Zend_Controller_Action
                     Application_Model_StreamSetting::setMasterLiveStreamMountPoint($values["master_harbor_input_mount_point"]);
                     Application_Model_StreamSetting::setDjLiveStreamPort($values["dj_harbor_input_port"]);
                     Application_Model_StreamSetting::setDjLiveStreamMountPoint($values["dj_harbor_input_mount_point"]);
-                }
 
                 // store stream update timestamp
                 Application_Model_Preference::SetStreamUpdateTimestamp();
@@ -267,12 +296,23 @@ class PreferenceController extends Zend_Controller_Action
                 }
 
                 Application_Model_RabbitMq::SendMessageToPypo("update_stream_setting", $data);
-                $this->view->statusMsg = "<div class='success'>Stream Setting Updated.</div>";
+
+                $live_stream_subform->updateVariables();
+                $this->view->enable_stream_conf = Application_Model_Preference::GetEnableStreamConf();
+                $this->view->form = $form;
+                $this->view->num_stream = $num_of_stream;
+                $this->view->statusMsg = "<div class='success'>"._("Stream Setting Updated.")."</div>";
+                die(json_encode(array("valid"=>"true", "html"=>$this->view->render('preference/stream-setting.phtml'))));
+            } else {
+                $live_stream_subform->updateVariables();
+                $this->view->enable_stream_conf = Application_Model_Preference::GetEnableStreamConf();
+                $this->view->form = $form;
+                $this->view->num_stream = $num_of_stream;
+                die(json_encode(array("valid"=>"false", "html"=>$this->view->render('preference/stream-setting.phtml'))));
             }
         }
 
         $live_stream_subform->updateVariables();
-        $this->view->confirm_pypo_restart_text = "If you change the username or password values for an enabled stream the playout engine will be rebooted and your listeners will hear silence for 5-10 seconds. Changing the following fields will NOT cause a reboot: Stream Label (Global Settings), and Switch Transition Fade(s), Master Username, and Master Password (Input Stream Settings). If Airtime is recording, and if the change causes a playout engine restart, the recording will be interrupted.";
 
         $this->view->num_stream = $num_of_stream;
         $this->view->enable_stream_conf = Application_Model_Preference::GetEnableStreamConf();
@@ -288,7 +328,7 @@ class PreferenceController extends Zend_Controller_Action
 
         if (is_null($path)) {
             $element = array();
-            $element["name"] = "path should be specified";
+            $element["name"] = _("path should be specified");
             $element["isFolder"] = false;
             $element["isError"] = true;
             $result[$path] = $element;
@@ -347,13 +387,14 @@ class PreferenceController extends Zend_Controller_Action
 
     public function rescanWatchDirectoryAction()
     {
-        $dir = Application_Model_MusicDir::getDirByPath($this->getRequest()->getParam("dir"));
-        $id = $dir->getId();
-        $data = array();
-        $data['directory'] = $dir->getDirectory();
-        $data['id'] = $id;
+        $dir_path = $this->getRequest()->getParam('dir');
+        $dir = Application_Model_MusicDir::getDirByPath($dir_path);
+        $data = array( 'directory' => $dir->getDirectory(),
+                              'id' => $dir->getId());
         Application_Model_RabbitMq::SendMessageToMediaMonitor('rescan_watch', $data);
-        die();
+        Logging::info("Unhiding all files belonging to:: $dir_path");
+        $dir->unhideFiles();
+        die(); # Get rid of this ugliness later
     }
 
     public function removeWatchDirectoryAction()
@@ -382,7 +423,7 @@ class PreferenceController extends Zend_Controller_Action
         $num_of_stream = intval(Application_Model_Preference::GetNumOfStreams());
         for ($i=1; $i<=$num_of_stream; $i++) {
             $status = Application_Model_StreamSetting::getLiquidsoapError($i);
-            $status = $status == NULL?"Problem with Liquidsoap...":$status;
+            $status = $status == NULL?_("Problem with Liquidsoap..."):$status;
             if (!Application_Model_StreamSetting::getStreamEnabled($i)) {
                 $status = "N/A";
             }

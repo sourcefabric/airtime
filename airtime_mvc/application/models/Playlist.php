@@ -176,6 +176,14 @@ class Application_Model_Playlist implements Application_Model_LibraryEditable
             FROM cc_playlistcontents AS pc
             JOIN cc_files AS f ON pc.file_id=f.id
             WHERE pc.playlist_id = :playlist_id1
+SQL;
+
+        if ($filterFiles) {
+            $sql .= <<<SQL
+            AND f.file_exists = :file_exists
+SQL;
+        }
+        $sql .= <<<SQL
               AND TYPE = 0)
          UNION ALL
            (SELECT pc.id AS id,
@@ -220,7 +228,13 @@ class Application_Model_Playlist implements Application_Model_LibraryEditable
    ORDER BY temp.position;
 SQL;
 
-        $rows = Application_Common_Database::prepareAndExecute($sql, array(':playlist_id1'=>$this->id, ':playlist_id2'=>$this->id, ':playlist_id3'=>$this->id));
+        $params = array(
+            ':playlist_id1'=>$this->id, ':playlist_id2'=>$this->id, ':playlist_id3'=>$this->id);
+        if ($filterFiles) {
+            $params[':file_exists'] = $filterFiles;
+        }
+
+        $rows = Application_Common_Database::prepareAndExecute($sql, $params);
 
         $offset = 0;
         foreach ($rows as &$row) {
@@ -373,13 +387,16 @@ SQL;
         }
 
         if (isset($obj)) {
-            if (($obj instanceof CcFiles && $obj->getDbFileExists()) || $obj instanceof CcWebstream || $obj instanceof CcBlock) {
-                $entry = $this->plItem;
-                $entry["id"] = $obj->getDbId();
-                $entry["pos"] = $pos;
+            if (($obj instanceof CcFiles && $obj->visible())
+                || $obj instanceof CcWebstream ||
+                $obj instanceof CcBlock) {
+
+                $entry               = $this->plItem;
+                $entry["id"]         = $obj->getDbId();
+                $entry["pos"]        = $pos;
                 $entry["cliplength"] = $obj->getDbLength();
-                $entry["cueout"] = $obj->getDbLength();
-                $entry["ftype"] = $objType;
+                $entry["cueout"]     = $obj->getDbLength();
+                $entry["ftype"]      = $objType;
             }
 
             return $entry;
@@ -704,7 +721,7 @@ SQL;
 
         try {
             if (is_null($cueIn) && is_null($cueOut)) {
-                $errArray["error"] = "Cue in and cue out are null.";
+                $errArray["error"] = _("Cue in and cue out are null.");
 
                 return $errArray;
             }
@@ -734,14 +751,14 @@ SQL;
 
                 $sql = "SELECT :cueIn::INTERVAL > :cueOut::INTERVAL";
                 if (Application_Common_Database::prepareAndExecute($sql, array(':cueIn'=>$cueIn, ':cueOut'=>$cueOut), 'column')) {
-                    $errArray["error"] = "Can't set cue in to be larger than cue out.";
+                    $errArray["error"] = _("Can't set cue in to be larger than cue out.");
 
                     return $errArray;
                 }
 
                 $sql = "SELECT :cueOut::INTERVAL > :origLength::INTERVAL";
                 if (Application_Common_Database::prepareAndExecute($sql, array(':cueOut'=>$cueOut, ':origLength'=>$origLength), 'column')) {
-                    $errArray["error"] = "Can't set cue out to be greater than file length.";
+                    $errArray["error"] = _("Can't set cue out to be greater than file length.");
 
                     return $errArray;
                 }
@@ -757,7 +774,7 @@ SQL;
 
                 $sql = "SELECT :cueIn::INTERVAL > :oldCueOut::INTERVAL";
                 if (Application_Common_Database::prepareAndExecute($sql, array(':cueIn'=>$cueIn, ':oldCueOut'=>$oldCueOut), 'column')) {
-                    $errArray["error"] = "Can't set cue in to be larger than cue out.";
+                    $errArray["error"] = _("Can't set cue in to be larger than cue out.");
 
                     return $errArray;
                 }
@@ -775,14 +792,14 @@ SQL;
 
                 $sql = "SELECT :cueOut::INTERVAL < :oldCueIn::INTERVAL";
                 if (Application_Common_Database::prepareAndExecute($sql, array(':cueOut'=>$cueOut, ':oldCueIn'=>$oldCueIn), 'column')) {
-                    $errArray["error"] = "Can't set cue out to be smaller than cue in.";
+                    $errArray["error"] = _("Can't set cue out to be smaller than cue in.");
 
                     return $errArray;
                 }
 
                 $sql = "SELECT :cueOut::INTERVAL > :origLength::INTERVAL";
                 if (Application_Common_Database::prepareAndExecute($sql, array(':cueOut'=>$cueOut, ':origLength'=>$origLength), 'column')) {
-                    $errArray["error"] = "Can't set cue out to be greater than file length.";
+                    $errArray["error"] = _("Can't set cue out to be greater than file length.");
 
                     return $errArray;
                 }
@@ -915,6 +932,29 @@ SQL;
     public function deleteAllFilesFromPlaylist()
     {
         CcPlaylistcontentsQuery::create()->findByDbPlaylistId($this->id)->delete();
+    }
+    
+    public function shuffle()
+    {
+        $sql = <<<SQL
+SELECT max(position) from cc_playlistcontents WHERE playlist_id=:p1
+SQL;
+        $out = Application_Common_Database::prepareAndExecute($sql, array("p1"=>$this->id));
+        $maxPosition = $out[0]['max'];
+        
+        $map = range(0, $maxPosition);
+        shuffle($map);
+        
+        $currentPos = implode(',', array_keys($map));
+        $sql = "UPDATE cc_playlistcontents SET position = CASE position ";
+        foreach ($map as $current => $after) {
+            $sql .= sprintf("WHEN %d THEN %d ", $current, $after);
+        }
+        $sql .= "END WHERE position IN ($currentPos) and playlist_id=:p1";
+        
+        Application_Common_Database::prepareAndExecute($sql, array("p1"=>$this->id));
+        $result['result'] = 0;
+        return $result;
     }
 
 } // class Playlist

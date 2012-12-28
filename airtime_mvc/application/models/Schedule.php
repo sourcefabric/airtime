@@ -268,7 +268,7 @@ SQL;
 
 
         //We need to search 24 hours before and after the show times so that that we
-        //capture all of the show's contents. 
+        //capture all of the show's contents.
         $p_track_start= $p_start->sub(new DateInterval("PT24H"))->format("Y-m-d H:i:s");
         $p_track_end = $p_end->add(new DateInterval("PT24H"))->format("Y-m-d H:i:s");
 
@@ -292,7 +292,8 @@ SQL;
                 ft.artist_name AS file_artist_name,
                 ft.album_title AS file_album_title,
                 ft.length AS file_length,
-                ft.file_exists AS file_exists
+                ft.file_exists AS file_exists,
+                ft.mime AS file_mime
 SQL;
         $filesJoin = <<<SQL
        cc_schedule AS sched
@@ -319,7 +320,8 @@ SQL;
                 sub.login AS file_artist_name,
                 ws.description AS file_album_title,
                 ws.length AS file_length,
-                't'::BOOL AS file_exists
+                't'::BOOL AS file_exists,
+                ws.mime as file_mime
 SQL;
         $streamJoin = <<<SQL
       cc_schedule AS sched
@@ -661,6 +663,7 @@ SQL;
                 $data["media"][$switch_start]['start']             = $switch_start;
                 $data["media"][$switch_start]['end']               = $switch_start;
                 $data["media"][$switch_start]['event_type']        = "switch_off";
+                $data["media"][$switch_start]['type']                = "event";
                 $data["media"][$switch_start]['independent_event'] = true;
             }
         }
@@ -670,6 +673,14 @@ SQL;
     {
         $start = self::AirtimeTimeToPypoTime($item["start"]);
         $end   = self::AirtimeTimeToPypoTime($item["end"]);
+
+        list(,,,$start_hour,,) = explode("-", $start);
+        list(,,,$end_hour,,) = explode("-", $end);
+
+        $same_hour = $start_hour == $end_hour;
+        $independent_event = !$same_hour;
+        $replay_gain = is_null($item["replay_gain"]) ? "0": $item["replay_gain"];
+        $replay_gain += Application_Model_Preference::getReplayGainModifier();
 
         $schedule_item = array(
             'id'                => $media_id,
@@ -683,8 +694,8 @@ SQL;
             'start'             => $start,
             'end'               => $end,
             'show_name'         => $item["show_name"],
-            'replay_gain'       => is_null($item["replay_gain"]) ? "0": $item["replay_gain"],
-            'independent_event' => true
+            'replay_gain'       => $replay_gain,
+            'independent_event' => $independent_event, 
         );
         self::appendScheduleItem($data, $start, $schedule_item);
     }
@@ -824,26 +835,60 @@ SQL;
              
         }
     }
+    
+    /* Check if two events are less than or equal to 1 second apart
+     */
+    public static function areEventsLinked($event1, $event2) {
+        $dt1 = DateTime::createFromFormat("Y-m-d-H-i-s", $event1['start']); 
+        $dt2 = DateTime::createFromFormat("Y-m-d-H-i-s", $event2['start']); 
+
+        $seconds = $dt2->getTimestamp() - $dt1->getTimestamp();
+        return $seconds <= 1;
+    }
 
     /**
-     * Purpose of this function is to iterate through the entire
-     * schedule array that was just built and fix the data up a bit. For
-     * example, if we have two consecutive webstreams, we don't need the
-     * first webstream to shutdown the output, when the second one will
-     * just switch it back on. Preventing this behaviour stops hiccups
-     * in output sound.
+     * Streams are a 4 stage process.
+     * 1) start buffering stream 5 seconds ahead of its start time
+     * 2) at the start time tell liquidsoap to switch to this source
+     * 3) at the end time, tell liquidsoap to stop reading this stream
+     * 4) at the end time, tell liquidsoap to switch away from input.http source.
+     *
+     * When we have two streams back-to-back, some of these steps are unnecessary
+     * for the second stream. Instead of sending commands 1,2,3,4,1,2,3,4 we should
+     * send 1,2,1,2,3,4 - We don't need to tell liquidsoap to stop reading (#3), because #1
+     * of the next stream implies this when we pass in a new url. We also don't need #4.
+     *
+     * There's a special case here is well. When the back-to-back streams are the same, we
+     * can collapse the instructions 1,2,(3,4,1,2),3,4 to 1,2,3,4. We basically cut out the
+     * middle part. This function handles this. 
      */
-    private static function filterData(&$data)
+    private static function foldData(&$data)
     {
         $previous_key = null;
         $previous_val = null;
+        $previous_previous_key = null;
+        $previous_previous_val = null;
+        $previous_previous_previous_key = null;
+        $previous_previous_previous_val = null;
         foreach ($data as $k => $v) {
-            if ($v["type"] == "stream_buffer_start"
-                && !is_null($previous_val)
-                && $previous_val["type"] == "stream_output_end") {
 
+            if ($v["type"] == "stream_output_start"
+                && !is_null($previous_previous_val)
+                && $previous_previous_val["type"] == "stream_output_end"
+                && self::areEventsLinked($previous_previous_val, $v)) {
+
+                unset($data[$previous_previous_previous_key]);
+                unset($data[$previous_previous_key]);
                 unset($data[$previous_key]);
+                if ($previous_previous_val['uri'] == $v['uri']) {
+                    unset($data[$k]);
+                }
             }
+
+            $previous_previous_previous_key = $previous_previous_key;
+            $previous_previous_previous_val = $previous_previous_val;
+            $previous_previous_key = $previous_key;
+            $previous_previous_val = $previous_val;
             $previous_key = $k;
             $previous_val = $v;
         }
@@ -856,10 +901,12 @@ SQL;
         $data = array();
         $data["media"] = array();
 
+        //Harbor kick times *MUST* be ahead of schedule events, so that pypo
+        //executes them first.
         self::createInputHarborKickTimes($data, $range_start, $range_end);
         self::createScheduledEvents($data, $range_start, $range_end);
 
-        self::filterData($data["media"]);
+        self::foldData($data["media"]);
 
         return $data;
     }
@@ -880,8 +927,6 @@ SQL;
 
     public static function createNewFormSections($p_view)
     {
-        $isSaas = Application_Model_Preference::GetPlanLevel() == 'disabled'?false:true;
-
         $formWhat    = new Application_Form_AddShowWhat();
         $formWho     = new Application_Form_AddShowWho();
         $formWhen    = new Application_Form_AddShowWhen();
@@ -913,7 +958,6 @@ SQL;
 
         $formRepeats->populate(array('add_show_end_date' => date("Y-m-d")));
 
-        if (!$isSaas) {
             $formRecord = new Application_Form_AddShowRR();
             $formAbsoluteRebroadcast = new Application_Form_AddShowAbsoluteRebroadcastDates();
             $formRebroadcast = new Application_Form_AddShowRebroadcastDates();
@@ -925,7 +969,6 @@ SQL;
             $p_view->rr = $formRecord;
             $p_view->absoluteRebroadcast = $formAbsoluteRebroadcast;
             $p_view->rebroadcast = $formRebroadcast;
-        }
         $p_view->addNewShow = true;
     }
 
@@ -936,8 +979,6 @@ SQL;
      * 2.1 deadline looming, this is OK for now. -Martin */
     public static function updateShowInstance($data, $controller)
     {
-        $isSaas = (Application_Model_Preference::GetPlanLevel() != 'disabled');
-
         $formWhat    = new Application_Form_AddShowWhat();
         $formWhen    = new Application_Form_AddShowWhen();
         $formRepeats = new Application_Form_AddShowRepeats();
@@ -952,7 +993,6 @@ SQL;
         $formStyle->removeDecorator('DtDdWrapper');
         $formLive->removeDecorator('DtDdWrapper');
 
-        if (!$isSaas) {
             $formRecord = new Application_Form_AddShowRR();
             $formAbsoluteRebroadcast = new Application_Form_AddShowAbsoluteRebroadcastDates();
             $formRebroadcast = new Application_Form_AddShowRebroadcastDates();
@@ -960,7 +1000,6 @@ SQL;
             $formRecord->removeDecorator('DtDdWrapper');
             $formAbsoluteRebroadcast->removeDecorator('DtDdWrapper');
             $formRebroadcast->removeDecorator('DtDdWrapper');
-        }
         $when = $formWhen->isValid($data);
 
         if ($when && $formWhen->checkReliantFields($data, true, null, true)) {
@@ -994,7 +1033,6 @@ SQL;
             $controller->view->who     = $formWho;
             $controller->view->style   = $formStyle;
             $controller->view->live    = $formLive;
-            if (!$isSaas) {
                 $controller->view->rr = $formRecord;
                 $controller->view->absoluteRebroadcast = $formAbsoluteRebroadcast;
                 $controller->view->rebroadcast = $formRebroadcast;
@@ -1002,7 +1040,6 @@ SQL;
                 //$formRecord->disable();
                 //$formAbsoluteRebroadcast->disable();
                 //$formRebroadcast->disable();
-            }
 
             return false;
         }
@@ -1023,7 +1060,6 @@ SQL;
         $user = new Application_Model_User($userInfo->id);
         $isAdminOrPM = $user->isUserType(array(UTYPE_ADMIN, UTYPE_PROGRAM_MANAGER));
 
-        $isSaas = (Application_Model_Preference::GetPlanLevel() != 'disabled');
         $record = false;
 
         $formWhat    = new Application_Form_AddShowWhat();
@@ -1069,7 +1105,6 @@ SQL;
 
         $data["add_show_duration"] = $hValue.":".$mValue;
 
-        if (!$isSaas) {
             $formRecord = new Application_Form_AddShowRR();
             $formAbsoluteRebroadcast = new Application_Form_AddShowAbsoluteRebroadcastDates();
             $formRebroadcast = new Application_Form_AddShowRebroadcastDates();
@@ -1080,14 +1115,12 @@ SQL;
 
 
             $record = $formRecord->isValid($data);
-        }
 
         if ($data["add_show_repeats"]) {
             $repeats = $formRepeats->isValid($data);
             if ($repeats) {
                 $repeats = $formRepeats->checkReliantFields($data);
             }
-            if (!$isSaas) {
                 $formAbsoluteRebroadcast->reset();
                 //make it valid, results don't matter anyways.
                 $rebroadAb = 1;
@@ -1100,10 +1133,8 @@ SQL;
                 } else {
                     $rebroad = 1;
                 }
-            }
         } else {
             $repeats = 1;
-            if (!$isSaas) {
                 $formRebroadcast->reset();
                  //make it valid, results don't matter anyways.
                 $rebroad = 1;
@@ -1116,13 +1147,11 @@ SQL;
                 } else {
                     $rebroadAb = 1;
                 }
-            }
         }
 
         $who = $formWho->isValid($data);
         $style = $formStyle->isValid($data);
         if ($what && $when && $repeats && $who && $style && $live) {
-            if (!$isSaas) {
                 if ($record && $rebroadAb && $rebroad) {
                     if ($isAdminOrPM) {
                         Application_Model_Show::create($data);
@@ -1149,17 +1178,6 @@ SQL;
                     return false;
 
                 }
-            } else {
-                if ($isAdminOrPM) {
-                    Application_Model_Show::create($data);
-                }
-
-                //send back a new form for the user.
-                Application_Model_Schedule::createNewFormSections($controller->view);
-
-                //$controller->view->newForm = $controller->view->render('schedule/add-show-form.phtml');
-                return true;
-            }
         } else {
             $controller->view->what    = $formWhat;
             $controller->view->when    = $formWhen;
@@ -1168,11 +1186,9 @@ SQL;
             $controller->view->style   = $formStyle;
             $controller->view->live    = $formLive;
 
-            if (!$isSaas) {
                 $controller->view->rr = $formRecord;
                 $controller->view->absoluteRebroadcast = $formAbsoluteRebroadcast;
                 $controller->view->rebroadcast = $formRebroadcast;
-            }
             //$controller->view->addNewShow = !$editShow;
             //$controller->view->form = $controller->view->render('schedule/add-show-form.phtml');
             return false;

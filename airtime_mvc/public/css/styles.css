@@ -71,16 +71,16 @@ select {
     background-position:center;
 }
 #version-icon.outdated {
-	background-image:url(/css/images/icon_outdated.png);
+	background-image:url(images/icon_outdated.png);
 }
 #version-icon.update2 {
-	background-image:url(/css/images/icon_update2.png);
+	background-image:url(images/icon_update2.png);
 }
 #version-icon.update {
-	background-image:url(/css/images/icon_update.png);
+	background-image:url(images/icon_update.png);
 }
 #version-icon.uptodate {
-	background-image:url(/css/images/icon_uptodate.png);
+	background-image:url(images/icon_uptodate.png);
 }
 
 #ui-tooltip-version a {
@@ -93,24 +93,28 @@ select {
 }
 /* Version Notification Ends*/
 
+#current-user-container {
+    padding-bottom: 20px;
+}
+
 .override_help_icon, .icecast_metadata_help_icon {
         cursor: help;
         position: relative;
         
         display:inline-block; zoom:1; display:inline;
         width:14px; height:14px;
-        background:url(/css/images/icon_info.png) 0 0 no-repeat;
+        background:url(images/icon_info.png) 0 0 no-repeat;
         float:right; position:relative; top:2px; right:7px;
         line-height:16px !important;
 }
 
 .airtime_auth_help_icon, .custom_auth_help_icon, .stream_username_help_icon,
-.playlist_type_help_icon, .master_username_help_icon {
+.playlist_type_help_icon, .master_username_help_icon, .repeat_tracks_help_icon{
         cursor: help;
         position: relative;
         display:inline-block; zoom:1;
         width:14px; height:14px;
-        background:url(/css/images/icon_info.png) 0 0 no-repeat;
+        background:url(images/icon_info.png) 0 0 no-repeat;
         top:2px; right:7px; left: 3px;
         line-height:16px !important;
 }
@@ -514,6 +518,9 @@ table.library-get-file-md.table-small{
 
 
 /***** SMART BLOCK SPECIFIC STYLES BEGIN *****/
+.db-logic-label{
+    font-size:11px;
+}
 .sp-invisible{
     visibility: hidden;
 }
@@ -2931,4 +2938,20 @@ dd .stream-status {
     /* position:absolute; */
     top: 0px;
     left: 0px;
+}
+
+.edit-user-global dt {
+    width: 90px;
+    float: left;
+    margin-top: 4px;
+    margin-left: 2px;
+}
+
+.edit-user-global dd {
+    width: 230px;
+    padding-bottom: 5px;
+}
+
+.edit-user-global input {
+    width: 170px;
 }

@@ -18,12 +18,14 @@ class ShowbuilderController extends Zend_Controller_Action
 
     public function indexAction()
     {
+
         global $CC_CONFIG;
-
+        
         $request = $this->getRequest();
-        $baseUrl = $request->getBaseUrl();
-        $user = Application_Model_User::getCurrentUser();
-
+        
+        $baseUrl = Application_Common_OsPath::getBaseDir();
+        
+        $user = Application_Model_User::GetCurrentUser();
         $userType = $user->getType();
         $this->view->headScript()->appendScript("localStorage.setItem( 'user-type', '$userType' );");
 
@@ -42,7 +44,7 @@ class ShowbuilderController extends Zend_Controller_Action
         } else {
             $this->view->headScript()->appendScript("localStorage.setItem( 'datatables-timeline', '' );");
         }
-        
+
         $this->view->headScript()->appendFile($baseUrl.'/js/contextmenu/jquery.contextMenu.js?'.$CC_CONFIG['airtime_version'],'text/javascript');
         $this->view->headScript()->appendFile($baseUrl.'/js/datatables/js/jquery.dataTables.js?'.$CC_CONFIG['airtime_version'],'text/javascript');
         $this->view->headScript()->appendFile($baseUrl.'/js/datatables/plugin/dataTables.pluginAPI.js?'.$CC_CONFIG['airtime_version'],'text/javascript');
@@ -62,8 +64,7 @@ class ShowbuilderController extends Zend_Controller_Action
         $this->view->headLink()->appendStylesheet($baseUrl.'/css/datatables/css/ColVis.css?'.$CC_CONFIG['airtime_version']);
         $this->view->headLink()->appendStylesheet($baseUrl.'/css/datatables/css/ColReorder.css?'.$CC_CONFIG['airtime_version']);
 
-        $this->view->headScript()->appendFile($this->view->baseUrl('/js/airtime/library/events/library_showbuilder.js?'.$CC_CONFIG['airtime_version']),'text/javascript');
-
+        $this->view->headScript()->appendFile($baseUrl.'/js/airtime/library/events/library_showbuilder.js?'.$CC_CONFIG['airtime_version'],'text/javascript');
         $refer_sses = new Zend_Session_Namespace('referrer');
 
         if ($request->isPost()) {
@@ -173,6 +174,8 @@ class ShowbuilderController extends Zend_Controller_Action
 
     public function contextMenuAction()
     {
+        $baseUrl = Application_Common_OsPath::getBaseDir();
+
         $id = $this->_getParam('id');
         $now = floatval(microtime(true));
 
@@ -184,15 +187,15 @@ class ShowbuilderController extends Zend_Controller_Action
         $item = CcScheduleQuery::create()->findPK($id);
         $instance = $item->getCcShowInstances();
 
-        $menu["preview"] = array("name"=> "Preview", "icon" => "play");
+        $menu["preview"] = array("name"=> _("Preview"), "icon" => "play");
         //select the cursor
-        $menu["selCurs"] = array("name"=> "Select cursor","icon" => "select-cursor");
-        $menu["delCurs"] = array("name"=> "Remove cursor","icon" => "select-cursor");
+        $menu["selCurs"] = array("name"=> _("Select cursor"),"icon" => "select-cursor");
+        $menu["delCurs"] = array("name"=> _("Remove cursor"),"icon" => "select-cursor");
 
         if ($now < floatval($item->getDbEnds("U.u")) && $user->canSchedule($instance->getDbShowId())) {
 
             //remove/truncate the item from the schedule
-            $menu["del"] = array("name"=> "Remove from show", "icon" => "delete", "url" => "/showbuilder/schedule-remove");
+            $menu["del"] = array("name"=> _("Delete"), "icon" => "delete", "url" => $baseUrl."/showbuilder/schedule-remove");
         }
 
         $this->view->items = $menu;
@@ -206,7 +209,7 @@ class ShowbuilderController extends Zend_Controller_Action
         $instance = CcShowInstancesQuery::create()->findPK($id);
 
         if (is_null($instance)) {
-            $this->view->error = "show does not exist";
+            $this->view->error = _("show does not exist");
 
             return;
         }

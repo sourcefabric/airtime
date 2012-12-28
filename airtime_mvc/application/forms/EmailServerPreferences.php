@@ -4,20 +4,17 @@ require_once 'customvalidators/PasswordNotEmpty.php';
 
 class Application_Form_EmailServerPreferences extends Zend_Form_SubForm
 {
-    private $isSaas;
 
     public function init()
     {
-        $isSaas = Application_Model_Preference::GetPlanLevel() == 'disabled'?false:true;
-        $this->isSaas = $isSaas;
 
         $this->setDecorators(array(
-            array('ViewScript', array('viewScript' => 'form/preferences_email_server.phtml', "isSaas" => $isSaas))
+            array('ViewScript', array('viewScript' => 'form/preferences_email_server.phtml'))
         ));
 
         // Enable system emails
         $this->addElement('checkbox', 'enableSystemEmail', array(
-            'label' => 'Enable System Emails (Password Reset)',
+            'label' => _('Enable System Emails (Password Reset)'),
             'required' => false,
             'value' => Application_Model_Preference::GetEnableSystemEmail(),
             'decorators' => array(
@@ -27,14 +24,14 @@ class Application_Form_EmailServerPreferences extends Zend_Form_SubForm
 
         $this->addElement('text', 'systemEmail', array(
             'class' => 'input_text',
-            'label' => 'Reset Password \'From\' Email',
+            'label' => _("Reset Password 'From' Email"),
             'value' => Application_Model_Preference::GetSystemEmail(),
             'readonly' => true,
             'decorators' => array('viewHelper')
         ));
 
         $this->addElement('checkbox', 'configureMailServer', array(
-            'label' => 'Configure Mail Server',
+            'label' => _('Configure Mail Server'),
             'required' => false,
             'value' => Application_Model_Preference::GetMailServerConfigured(),
             'decorators' => array (
@@ -43,7 +40,7 @@ class Application_Form_EmailServerPreferences extends Zend_Form_SubForm
         ));
 
         $this->addElement('checkbox', 'msRequiresAuth', array(
-            'label' => 'Requires Authentication',
+            'label' => _('Requires Authentication'),
             'required' => false,
             'value' => Application_Model_Preference::GetMailServerRequiresAuth(),
             'decorators' => array(
@@ -53,7 +50,7 @@ class Application_Form_EmailServerPreferences extends Zend_Form_SubForm
 
         $this->addElement('text', 'mailServer', array(
             'class' => 'input_text',
-            'label' => 'Mail Server',
+            'label' => _('Mail Server'),
             'value' => Application_Model_Preference::GetMailServer(),
             'readonly' => true,
             'decorators' => array('viewHelper'),
@@ -67,7 +64,7 @@ class Application_Form_EmailServerPreferences extends Zend_Form_SubForm
 
         $this->addElement('text', 'email', array(
             'class' => 'input_text',
-            'label' => 'Email Address',
+            'label' => _('Email Address'),
             'value' => Application_Model_Preference::GetMailServerEmailAddress(),
             'readonly' => true,
             'decorators' => array('viewHelper'),
@@ -82,7 +79,7 @@ class Application_Form_EmailServerPreferences extends Zend_Form_SubForm
 
         $this->addElement('password', 'ms_password', array(
             'class' => 'input_text',
-            'label' => 'Password',
+            'label' => _('Password'),
             'value' => Application_Model_Preference::GetMailServerPassword(),
             'readonly' => true,
             'decorators' => array('viewHelper'),
@@ -100,7 +97,7 @@ class Application_Form_EmailServerPreferences extends Zend_Form_SubForm
         $port->class = 'input_text';
         $port->setRequired(false)
             ->setValue(Application_Model_Preference::GetMailServerPort())
-            ->setLabel('Port')
+            ->setLabel(_('Port'))
             ->setAttrib('readonly', true)
             ->setDecorators(array('viewHelper'));
 

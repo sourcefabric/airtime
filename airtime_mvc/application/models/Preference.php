@@ -189,8 +189,8 @@ class Application_Model_Preference
         $fade = self::getValue("default_fade");
 
         if ($fade === "") {
-            // the default value of the fade is 00.500000
-            return "00.500000";
+            // the default value of the fade is 00.5
+            return "00.5";
         }
 
         // we need this function to work with 2.0 version on default_fade value in cc_pref
@@ -204,9 +204,9 @@ class Application_Model_Preference
             $fade = $out;
         }
 
-        $fade = number_format($fade, 6);
+        $fade = number_format($fade, 1);
         //fades need 2 leading zeros for DateTime conversion
-        $fade = str_pad($fade, 9, "0", STR_PAD_LEFT);
+        $fade = str_pad($fade, 4, "0", STR_PAD_LEFT);
 
         return $fade;
     }
@@ -428,6 +428,16 @@ class Application_Model_Preference
     {
         return self::getValue("timezone");
     }
+    
+    public static function SetLocale($locale)
+    {
+        self::setValue("locale", $locale);
+    }
+    
+    public static function GetLocale()
+    {
+        return self::getValue("locale");
+    }
 
     public static function SetStationLogo($imagePath)
     {
@@ -456,7 +466,7 @@ class Application_Model_Preference
         $sql = "SELECT * FROM cc_country";
         $res =  $con->query($sql)->fetchAll();
         $out = array();
-        $out[""] = "Select Country";
+        $out[""] = _("Select Country");
         foreach ($res as $r) {
             $out[$r["isocode"]] = $r["name"];
         }
@@ -500,6 +510,7 @@ class Application_Model_Preference
         } else {
             $outputArray['NUM_SOUNDCLOUD_TRACKS_UPLOADED'] = NULL;
         }
+
         $outputArray['STATION_NAME'] = self::GetStationName();
         $outputArray['PHONE'] = self::GetPhone();
         $outputArray['EMAIL'] = self::GetEmail();
@@ -513,7 +524,7 @@ class Application_Model_Preference
            $url = $systemInfoArray["AIRTIME_VERSION_URL"];
            $index = strpos($url,'/api/');
            $url = substr($url, 0, $index);
-
+           
            $headerInfo = get_headers(trim($url),1);
            $outputArray['WEB_SERVER'] = $headerInfo['Server'][0];
         }
@@ -1115,7 +1126,6 @@ class Application_Model_Preference
             } else {
                 /*For now we just have this hack for debugging. We should not
                     rely on this crappy behaviour in case of failure*/
-                Logging::info("Pref: $pref_param");
                 Logging::warn("Index $x does not exist preferences");
                 Logging::warn("Defaulting to identity and printing preferences");
                 Logging::warn($ds);
@@ -1172,5 +1182,20 @@ class Application_Model_Preference
     {
         $data = self::getValue("nowplaying_screen", true);
         return ($data != "") ? unserialize($data) : null;
+    }
+    
+    public static function getReplayGainModifier(){
+        $rg_modifier = self::getValue("replay_gain_modifier");
+        
+        if ($rg_modifier === "") {
+            return "0";
+        }
+        
+        return $rg_modifier;
+    }
+    
+    public static function setReplayGainModifier($rg_modifier)
+    {
+        self::setValue("replay_gain_modifier", $rg_modifier, true);
     }
 }

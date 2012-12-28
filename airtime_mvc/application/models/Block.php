@@ -210,10 +210,23 @@ FROM cc_blockcontents AS pc
 LEFT JOIN cc_files AS f ON pc.file_id=f.id
 LEFT JOIN cc_block AS bl ON pc.block_id = bl.id
 WHERE pc.block_id = :block_id
-ORDER BY pc.position
+
 SQL;
 
-        $rows = Application_Common_Database::prepareAndExecute($sql, array(':block_id'=>$this->id));
+        if ($filterFiles) {
+            $sql .= <<<SQL
+            AND f.file_exists = :file_exists
+SQL;
+        }
+        $sql .= <<<SQL
+
+ORDER BY pc.position
+SQL;
+        $params = array(':block_id'=>$this->id);
+        if ($filterFiles) {
+            $params[':file_exists'] = $filterFiles;
+        }
+        $rows = Application_Common_Database::prepareAndExecute($sql, $params);
 
         $offset = 0;
         foreach ($rows as &$row) {
@@ -308,10 +321,12 @@ SQL;
             $length = $value." ".$modifier;
         } else {
             $hour = "00";
+            $mins = "00";
             if ($modifier == "minutes") {
+                $mins = $value;
                 if ($value >59) {
                     $hour  = intval($value/60);
-                    $value = $value%60;
+                    $mins = $value%60;
 
                 }
             } elseif ($modifier == "hours") {
@@ -345,8 +360,10 @@ SQL;
     {
         $sql = <<<SQL
 SELECT SUM(cliplength) AS LENGTH
-FROM cc_blockcontents
+FROM cc_blockcontents as bc
+JOIN cc_files as f ON bc.file_id = f.id
 WHERE block_id = :block_id
+AND f.file_exists = true
 SQL;
         $result = Application_Common_Database::prepareAndExecute($sql, array(':block_id'=>$this->id), 'all', PDO::FETCH_NUM);
         return $result[0][0];
@@ -378,7 +395,7 @@ SQL;
     {
         $file = CcFilesQuery::create()->findPK($p_item, $this->con);
 
-        if (isset($file) && $file->getDbFileExists()) {
+        if (isset($file) && $file->visible()) {
             $entry               = $this->blockItem;
             $entry["id"]         = $file->getDbId();
             $entry["pos"]        = $pos;
@@ -393,11 +410,7 @@ SQL;
 
     public function isStatic()
     {
-        if ($this->block->getDbType() == "static") {
-            return true;
-        } else {
-            return false;
-        }
+        return $this->block->getDbType() == "static";
     }
 
     /*
@@ -456,9 +469,9 @@ SQL;
                 Logging::info("Adding to block");
                 Logging::info("at position {$pos}");
             }
-
+            
             foreach ($p_items as $ac) {
-                Logging::info("Adding audio file {$ac}");
+                Logging::info("Adding audio file {$ac[0]}");
                 try {
                     if (is_array($ac) && $ac[1] == 'audioclip') {
                         $res = $this->insertBlockElement($this->buildEntry($ac[0], $pos));
@@ -743,7 +756,7 @@ SQL;
 
         try {
             if (is_null($cueIn) && is_null($cueOut)) {
-                $errArray["error"] = "Cue in and cue out are null.";
+                $errArray["error"] = _("Cue in and cue out are null.");
 
                 return $errArray;
             }
@@ -778,7 +791,7 @@ SQL;
                 );
                 $result = Application_Common_Database::prepareAndExecute($sql, $params, 'column');
                 if ($result) {
-                    $errArray["error"] = "Can't set cue out to be greater than file length.";
+                    $errArray["error"] = _("Can't set cue out to be greater than file length.");
                     return $errArray;
                 }
 
@@ -789,7 +802,7 @@ SQL;
                 );
                 $result = Application_Common_Database::prepareAndExecute($sql, $params, 'column');
                 if ($result) {
-                    $errArray["error"] = "Can't set cue in to be larger than cue out.";
+                    $errArray["error"] = _("Can't set cue in to be larger than cue out.");
                     return $errArray;
                 }
 
@@ -810,7 +823,7 @@ SQL;
                 );
                 $result = Application_Common_Database::prepareAndExecute($sql, $params, 'column');
                 if ($result) {
-                    $errArray["error"] = "Can't set cue in to be larger than cue out.";
+                    $errArray["error"] = _("Can't set cue in to be larger than cue out.");
                     return $errArray;
                 }
 
@@ -834,7 +847,7 @@ SQL;
                 );
                 $result = Application_Common_Database::prepareAndExecute($sql, $params, 'column');
                 if ($result) {
-                    $errArray["error"] = "Can't set cue out to be greater than file length.";
+                    $errArray["error"] = _("Can't set cue out to be greater than file length.");
                     return $errArray;
                 }
 
@@ -845,7 +858,7 @@ SQL;
                 );
                 $result = Application_Common_Database::prepareAndExecute($sql, $params, 'column');
                 if ($result) {
-                    $errArray["error"] = "Can't set cue out to be smaller than cue in.";
+                    $errArray["error"] = _("Can't set cue out to be smaller than cue in.");
                     return $errArray;
                 }
 
@@ -1092,6 +1105,14 @@ SQL;
         ->setDbValue($p_criteriaData['etc']['sp_limit_value'])
         ->setDbBlockId($this->id)
         ->save();
+        
+        // insert repeate track option
+        $qry = new CcBlockcriteria();
+        $qry->setDbCriteria("repeat_tracks")
+        ->setDbModifier("N/A")
+        ->setDbValue($p_criteriaData['etc']['sp_repeat_tracks'])
+        ->setDbBlockId($this->id)
+        ->save();
     }
 
     /**
@@ -1104,7 +1125,12 @@ SQL;
         $this->saveSmartBlockCriteria($p_criteria);
         $insertList = $this->getListOfFilesUnderLimit();
         $this->deleteAllFilesFromBlock();
-        $this->addAudioClips(array_keys($insertList));
+        // constrcut id array
+        $ids = array();
+        foreach ($insertList as $ele) {
+            $ids[] = $ele['id'];
+        }
+        $this->addAudioClips(array_values($ids));
         // update length in playlist contents.
         $this->updateBlockLengthInAllPlaylist();
 
@@ -1133,6 +1159,7 @@ SQL;
         $info       = $this->getListofFilesMeetCriteria();
         $files      = $info['files'];
         $limit      = $info['limit'];
+        $repeat     = $info['repeat_tracks'];
 
         $insertList = array();
         $totalTime  = 0;
@@ -1141,18 +1168,36 @@ SQL;
         // this moves the pointer to the first element in the collection
         $files->getFirst();
         $iterator = $files->getIterator();
-        while ($iterator->valid() && $totalTime < $limit['time']) {
+        
+        $isBlockFull = false;
+        
+        while ($iterator->valid()) {
             $id = $iterator->current()->getDbId();
             $length = Application_Common_DateHelper::calculateLengthInSeconds($iterator->current()->getDbLength());
-            $insertList[$id] = $length;
+            $insertList[] = array('id'=>$id, 'length'=>$length);
             $totalTime += $length;
             $totalItems++;
-
-            if ((!is_null($limit['items']) && $limit['items'] == count($insertList)) || $totalItems > 500) {
+            
+            if ((!is_null($limit['items']) && $limit['items'] == count($insertList)) || $totalItems > 500 || $totalTime > $limit['time']) {
+                $isBlockFull = true;
                 break;
             }
 
             $iterator->next();
+        }
+        
+        $sizeOfInsert = count($insertList);
+        
+        // if block is not full and reapeat_track is check, fill up more
+        while (!$isBlockFull && $repeat == 1 && $sizeOfInsert > 0) {
+            $randomEleKey = array_rand(array_slice($insertList, 0, $sizeOfInsert));
+            $insertList[] = $insertList[$randomEleKey];
+            $totalTime += $insertList[$randomEleKey]['length'];
+            $totalItems++;
+            
+            if ((!is_null($limit['items']) && $limit['items'] == count($insertList)) || $totalItems > 500 || $totalTime > $limit['time']) {
+                break;
+            }
         }
 
         return $insertList;
@@ -1161,32 +1206,32 @@ SQL;
     public function getCriteria()
     {
         $criteriaOptions = array(
-                0              => "Select criteria",
-                "album_title"  => "Album",
-                "bit_rate"     => "Bit Rate (Kbps)",
-                "bpm"          => "BPM",
-                "composer"     => "Composer",
-                "conductor"    => "Conductor",
-                "copyright"    => "Copyright",
-                "artist_name"  => "Creator",
-                "encoded_by"   => "Encoded By",
-                "genre"        => "Genre",
-                "isrc_number"  => "ISRC",
-                "label"        => "Label",
-                "language"     => "Language",
-                "mtime"        => "Last Modified",
-                "lptime"       => "Last Played",
-                "length"       => "Length",
-                "mime"         => "Mime",
-                "mood"         => "Mood",
-                "owner_id"     => "Owner",
-                "replay_gain"  => "Replay Gain",
-                "sample_rate"  => "Sample Rate (kHz)",
-                "track_title"  => "Title",
-                "track_number" => "Track Number",
-                "utime"        => "Uploaded",
-                "info_url"     => "Website",
-                "year"         => "Year"
+            0              => _("Select criteria"),
+            "album_title"  => _("Album"),
+            "bit_rate"     => _("Bit Rate (Kbps)"),
+            "bpm"          => _("BPM"),
+            "composer"     => _("Composer"),
+            "conductor"    => _("Conductor"),
+            "copyright"    => _("Copyright"),
+            "artist_name"  => _("Creator"),
+            "encoded_by"   => _("Encoded By"),
+            "genre"        => _("Genre"),
+            "isrc_number"  => _("ISRC"),
+            "label"        => _("Label"),
+            "language"     => _("Language"),
+            "mtime"        => _("Last Modified"),
+            "lptime"       => _("Last Played"),
+            "length"       => _("Length"),
+            "mime"         => _("Mime"),
+            "mood"         => _("Mood"),
+            "owner_id"     => _("Owner"),
+            "replay_gain"  => _("Replay Gain"),
+            "sample_rate"  => _("Sample Rate (kHz)"),
+            "track_title"  => _("Title"),
+            "track_number" => _("Track Number"),
+            "utime"        => _("Uploaded"),
+            "info_url"     => _("Website"),
+            "year"         => _("Year")
         );
 
         // Load criteria from db
@@ -1201,6 +1246,8 @@ SQL;
 
             if ($criteria == "limit") {
                 $storedCrit["limit"] = array("value"=>$value, "modifier"=>$modifier);
+            } else if($criteria == "repeat_tracks") {
+                $storedCrit["repeat_tracks"] = array("value"=>$value);
             } else {
                 $storedCrit["crit"][$criteria][] = array("criteria"=>$criteria, "value"=>$value, "modifier"=>$modifier, "extra"=>$extra, "display_name"=>$criteriaOptions[$criteria]);
             }
@@ -1312,10 +1359,12 @@ SQL;
             
             // check if file exists
             $qry->add("file_exists", "true", Criteria::EQUAL);
+            $qry->add("hidden", "false", Criteria::EQUAL);
             $qry->addAscendingOrderByColumn('random()');
         }
         // construct limit restriction
         $limits = array();
+        
         if (isset($storedCrit['limit'])) {
             if ($storedCrit['limit']['modifier'] == "items") {
                 $limits['time'] = 1440 * 60;
@@ -1327,10 +1376,16 @@ SQL;
                 $limits['items'] = null;
             }
         }
+        
+        $repeatTracks = 0;
+        if (isset($storedCrit['repeat_tracks'])) {
+            $repeatTracks = $storedCrit['repeat_tracks']['value'];
+        }
+        
         try {
             $out = $qry->setFormatter(ModelCriteria::FORMAT_ON_DEMAND)->find();
 
-            return array("files"=>$out, "limit"=>$limits, "count"=>$out->count());
+            return array("files"=>$out, "limit"=>$limits, "repeat_tracks"=> $repeatTracks, "count"=>$out->count());
         } catch (Exception $e) {
             Logging::info($e);
         }
@@ -1376,7 +1431,7 @@ SQL;
                 $output['etc'][$ele['name']] = $ele['value'];
             }
         }
-
+        
         return $output;
     }
     // smart block functions end

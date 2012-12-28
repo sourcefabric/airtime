@@ -8,14 +8,17 @@ function setSmartBlockEvents() {
     /********** ADD CRITERIA ROW **********/
     form.find('#criteria_add').live('click', function(){
         
-        var div = $('dd[id="sp_criteria-element"]').children('div:visible:last').next();
-        
-        div.show();
+        var div = $('dd[id="sp_criteria-element"]').children('div:visible:last');
+
+        div.find('.db-logic-label').text('and').show();
+        div = div.next().show();
+
         div.children().removeAttr('disabled');
         div = div.next();
         if (div.length === 0) {
             $(this).hide();
         }
+        
         appendAddButton();
         appendModAddButton();
         removeButtonCheck();
@@ -24,7 +27,7 @@ function setSmartBlockEvents() {
     /********** ADD MODIFIER ROW **********/
     form.find('a[id^="modifier_add"]').live('click', function(){
         var criteria_value = $(this).siblings('select[name^="sp_criteria_field"]').val();
-        
+
         //make new modifier row
         var newRow = $(this).parent().clone(),
             newRowCrit = newRow.find('select[name^="sp_criteria_field"]'),
@@ -198,7 +201,8 @@ function setSmartBlockEvents() {
 	
     /********** CHANGE PLAYLIST TYPE **********/
     form.find('dd[id="sp_type-element"]').live("change", function(){
-        setupUI();  	
+        setupUI();
+        AIRTIME.library.checkAddButton();
     });
     
     /********** CRITERIA CHANGE **********/
@@ -285,6 +289,11 @@ function reindexElements() {
     var divs = $('#smart-block-form').find('div select[name^="sp_criteria_field"]').parent(),
         index = 0,
         modIndex = 0;
+    /* Hide all logic labels
+     * We will re-add them as each row gets indexed
+     */
+    $('.db-logic-label').text('').hide();
+
     $.each(divs, function(i, div){
         if (i > 0 && index < 26) {
             
@@ -292,8 +301,14 @@ function reindexElements() {
              * a modifier row
              */
             if ($(div).find('select[name^="sp_criteria_field"]').hasClass('sp-invisible')) {
+                if ($(div).is(':visible')) {
+                    $(div).prev().find('.db-logic-label').text('or').show();
+                }
                 modIndex++;
             } else {
+                if ($(div).is(':visible')) {
+                    $(div).prev().find('.db-logic-label').text('and').show();
+                }
                 index++;
                 modIndex = 0;
             }
@@ -336,9 +351,9 @@ function setupUI() {
      * It is only active if playlist is not empty
      */
     var plContents = $('#spl_sortable').children();
-    var shuffleButton = $('button[id="shuffle_button"]');
-    
-    if (plContents.text() !== 'Empty playlist') {
+    var shuffleButton = $('button[id="shuffle_button"], button[id="playlist_shuffle_button"]');
+
+    if (!plContents.hasClass('spl_empty')) {
         if (shuffleButton.hasClass('ui-state-disabled')) {
             shuffleButton.removeClass('ui-state-disabled');
             shuffleButton.removeAttr('disabled');
@@ -363,10 +378,29 @@ function setupUI() {
     
     $(".playlist_type_help_icon").qtip({
         content: {
-            text: "A static smart block will save the criteria and generate the block content immediately. " +
-                  "This allows you to edit and view it in the Library before adding it to a show.<br /><br />" +
-                  "A dynamic smart block will only save the criteria. The block content will get generated upon " +
-                  "adding it to a show. You will not be able to view and edit the content in the Library."
+            text: $.i18n._("A static smart block will save the criteria and generate the block content immediately. This allows you to edit and view it in the Library before adding it to a show.")+"<br /><br />" +
+                  $.i18n._("A dynamic smart block will only save the criteria. The block content will get generated upon adding it to a show. You will not be able to view and edit the content in the Library.")
+        },
+        hide: {
+            delay: 500,
+            fixed: true
+        },
+        style: {
+            border: {
+                width: 0,
+                radius: 4
+            },
+            classes: "ui-tooltip-dark ui-tooltip-rounded"
+        },
+        position: {
+            my: "left bottom",
+            at: "right center"
+        },
+    });
+    
+    $(".repeat_tracks_help_icon").qtip({
+        content: {
+            text: $.i18n._("The desired block length will not be reached if Airtime cannot find enough unique tracks to match your criteria. Enable this option if you wish to allow tracks to be added multiple times to the smart block.")
         },
         hide: {
             delay: 500,
@@ -458,9 +492,9 @@ function callback(data, type) {
         var form = $('#smart-block-form');
         if (json.result == "0") {
             if (type == 'shuffle') {
-                form.find('.success').text('Smart block shuffled');
+                form.find('.success').text($.i18n._('Smart block shuffled'));
             } else if (type == 'generate') {
-            	form.find('.success').text('Smart block generated and criteria saved');
+            	form.find('.success').text($.i18n._('Smart block generated and criteria saved'));
             	//redraw library table so the length gets updated
                 dt.fnStandingRedraw();
             }
@@ -471,7 +505,7 @@ function callback(data, type) {
         AIRTIME.playlist.fnOpenPlaylist(json);
         var form = $('#smart-block-form');
         if (json.result == "0") {
-            $('#sp-success-saved').text('Smart block saved');
+            $('#sp-success-saved').text($.i18n._('Smart block saved'));
             $('#sp-success-saved').show();
         
             //redraw library table so the length gets updated
@@ -481,12 +515,6 @@ function callback(data, type) {
         form.find('#smart_block_options').removeClass("closed");
     }
     setTimeout(removeSuccessMsg, 5000);
-}
-
-function removeSuccessMsg() {
-    var $status = $('.success');
-    
-    $status.fadeOut("slow", function(){$status.empty()});
 }
 
 function appendAddButton() {
@@ -522,7 +550,7 @@ function removeButtonCheck() {
 
 function enableLoadingIcon() {
     $("#side_playlist").block({ 
-        message: "Processing...",
+        message: $.i18n._("Processing..."),
         theme: true,
         allowBodyStretch: true,
         applyPlatformOpacityRules: false
@@ -563,20 +591,20 @@ var criteriaTypes = {
 };
 
 var stringCriteriaOptions = {
-    "0" : "Select modifier",
-    "contains" : "contains",
-    "does not contain" : "does not contain",
-    "is" : "is",
-    "is not" : "is not",
-    "starts with" : "starts with",
-    "ends with" : "ends with"
+    "0" : $.i18n._("Select modifier"),
+    "contains" : $.i18n._("contains"),
+    "does not contain" : $.i18n._("does not contain"),
+    "is" : $.i18n._("is"),
+    "is not" : $.i18n._("is not"),
+    "starts with" : $.i18n._("starts with"),
+    "ends with" : $.i18n._("ends with")
 };
     
 var numericCriteriaOptions = {
-    "0" : "Select modifier",
-    "is" : "is",
-    "is not" : "is not",
-    "is greater than" : "is greater than",
-    "is less than" : "is less than",
-    "is in the range" : "is in the range"
+    "0" : $.i18n._("Select modifier"),
+    "is" : $.i18n._("is"),
+    "is not" : $.i18n._("is not"),
+    "is greater than" : $.i18n._("is greater than"),
+    "is less than" : $.i18n._("is less than"),
+    "is in the range" : $.i18n._("is in the range")
 };

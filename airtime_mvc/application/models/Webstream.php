@@ -34,7 +34,7 @@ class Application_Model_Webstream implements Application_Model_LibraryEditable
 
     public function getCreatorId()
     {
-        return $this->Webstream->getCcSubjs()->getDbId();
+        return $this->webstream->getDbCreatorId();
     }
 
     public function getLastModified($p_type)
@@ -51,7 +51,7 @@ class Application_Model_Webstream implements Application_Model_LibraryEditable
             $di = new DateInterval("PT{$hours}H{$min}M{$sec}S");
 
             return $di->format("%Hh %Im");
-        } 
+        }
 
         return "";
     }
@@ -92,7 +92,7 @@ class Application_Model_Webstream implements Application_Model_LibraryEditable
         if (count($leftOver) == 0) {
             CcWebstreamQuery::create()->findPKs($p_ids)->delete();
         } else {
-            throw new Exception("Invalid user permissions");
+            throw new WebstreamNoPermissionException;
         }
     }
 
@@ -154,12 +154,12 @@ class Application_Model_Webstream implements Application_Model_LibraryEditable
 
             if ($totalMinutes == 0) {
                 $valid['length'][0] = false;
-                $valid['length'][1] = 'Length needs to be greater than 0 minutes';
+                $valid['length'][1] = _('Length needs to be greater than 0 minutes');
             }
 
         } else {
             $valid['length'][0] = false;
-            $valid['length'][1] = 'Length should be of form "00h 00m"';
+            $valid['length'][1] = _('Length should be of form "00h 00m"');
         }
 
         $url = $parameters["url"];
@@ -172,20 +172,20 @@ class Application_Model_Webstream implements Application_Model_LibraryEditable
         $mediaUrl = null;
         if ($result == 0) {
             $valid['url'][0] = false;
-            $valid['url'][1] = 'URL should be of form "http://domain"';
+            $valid['url'][1] = _('URL should be of form "http://domain"');
         } elseif (strlen($url) > 512) {
             $valid['url'][0] = false;
-            $valid['url'][1] = 'URL should be 512 characters or less';
+            $valid['url'][1] = _('URL should be 512 characters or less');
         } else {
 
             try {
                 list($mime, $content_length_found) = self::discoverStreamMime($url);
                 if (is_null($mime)) {
-                    throw new Exception("No MIME type found for webstream.");
+                    throw new Exception(_("No MIME type found for webstream."));
                 }
                 $mediaUrl = self::getMediaUrl($url, $mime, $content_length_found);
 
-                if (preg_match("/(x-mpegurl)|(xspf\+xml)|(pls\+xml)/", $mime)) {
+                if (preg_match("/(x-mpegurl)|(xspf\+xml)|(pls\+xml)|(x-scpls)/", $mime)) {
                      list($mime, $content_length_found) = self::discoverStreamMime($mediaUrl);
                 }
             } catch (Exception $e) {
@@ -197,7 +197,7 @@ class Application_Model_Webstream implements Application_Model_LibraryEditable
         $name = $parameters["name"];
         if (strlen($name) == 0) {
             $valid['name'][0] = false;
-            $valid['name'][1] = 'Webstream name cannot be empty';
+            $valid['name'][1] = _('Webstream name cannot be empty');
         }
 
         $id = $parameters["id"];
@@ -266,7 +266,7 @@ class Application_Model_Webstream implements Application_Model_LibraryEditable
             }
         }
 
-        throw new Exception("Could not parse XSPF playlist");
+        throw new Exception(_("Could not parse XSPF playlist"));
     }
     
     private static function getPlsUrl($url)
@@ -278,7 +278,7 @@ class Application_Model_Webstream implements Application_Model_LibraryEditable
             return $ini["playlist"]["File1"];
         }
 
-        throw new Exception("Could not parse PLS playlist");
+        throw new Exception(_("Could not parse PLS playlist"));
     }
 
     private static function getM3uUrl($url)
@@ -297,7 +297,7 @@ class Application_Model_Webstream implements Application_Model_LibraryEditable
             return $lines[0];
         }
 
-        throw new Exception("Could not parse M3U playlist");
+        throw new Exception(_("Could not parse M3U playlist"));
     }
 
     private static function getMediaUrl($url, $mime, $content_length_found)
@@ -307,25 +307,64 @@ class Application_Model_Webstream implements Application_Model_LibraryEditable
             $media_url = self::getM3uUrl($url);
         } elseif (preg_match("/xspf\+xml/", $mime)) {
             $media_url = self::getXspfUrl($url);
-        } elseif (preg_match("/pls\+xml/", $mime)) {
+        } elseif (preg_match("/pls\+xml/", $mime) || preg_match("/x-scpls/", $mime)) {
             $media_url = self::getPlsUrl($url);
-        } elseif (preg_match("/(mpeg|ogg)/", $mime)) {
+        } elseif (preg_match("/(mpeg|ogg|audio\/aacp)/", $mime)) {
             if ($content_length_found) {
-                throw new Exception("Invalid webstream - This appears to be a file download.");
+                throw new Exception(_("Invalid webstream - This appears to be a file download."));
             }
             $media_url = $url;
         } else {
-            throw new Exception("Unrecognized stream type: $mime");
+            throw new Exception(sprintf(_("Unrecognized stream type: %s"), $mime));
         }
 
         return $media_url;
 
     }
 
+    /* PHP get_headers has an annoying property where if the passed in URL is 
+     * a redirect, then it goes to the new URL, and returns headers from both
+     * requests. We only want the headers from the final request. Here's an
+     * example:
+     *
+     * 0 => "HTTP/1.1 302 Moved Temporarily",
+     * 1 => "X-Powered-By: Servlet/3.0 JSP/2.2 (GlassFish Server Open Source Edition 3.1.1 Java/Sun Microsystems Inc./1.6)",
+     * 2 => "Server: GlassFish Server Open Source Edition 3.1.1",
+     * 3 => "Location: http://3043.live.streamtheworld.com:80/SAM04AAC89_SC",
+     * 4 => "Content-Type: text/html;charset=ISO-8859-1",
+     * 5 => "Content-Language: en-US",
+     * 6 => "Content-Length: 202",
+     * 7 => "Date: Thu, 27 Dec 2012 21:52:59 GMT",
+     * 8 => "Connection: close",
+     * 9 => "HTTP/1.0 200 OK",
+     * 10 => "Expires: Thu, 01 Dec 2003 16:00:00 GMT",
+     * 11 => "Cache-Control: no-cache, must-revalidate",
+     * 12 => "Pragma: no-cache",
+     * 13 => "Content-Type: audio/aacp",
+     * 14 => "icy-br: 68",
+     * 15 => "Server: MediaGateway 3.2.1-04",
+     * */
+    private static function cleanHeaders($headers) {
+        //find the position of HTTP/1  200 OK
+        //
+        $position = 0;
+        foreach ($headers as $i => $v) {
+            if (preg_match("/^HTTP.*200 OK$/i", $v)) {
+                $position = $i;
+                break;
+            }
+        }
+
+        return array_slice($headers, $position); 
+    }
+
     private static function discoverStreamMime($url)
     {
         //TODO: What if invalid URL?
         $headers = get_headers($url);
+
+        $headers = self::cleanHeaders($headers);
+
         $mime = null;
         $content_length_found = false;
         foreach ($headers as $h) {
@@ -370,3 +409,6 @@ class Application_Model_Webstream implements Application_Model_LibraryEditable
         return $webstream->getDbId();
     }
 }
+
+class WebstreamNoPermissionException extends Exception {}
+

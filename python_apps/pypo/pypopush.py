@@ -120,6 +120,10 @@ class PypoPush(Thread):
 
                 next_media_item_chain = self.get_next_schedule_chain(chains, datetime.utcnow())
                 if next_media_item_chain is not None:
+                    try:
+                        chains.remove(next_media_item_chain)
+                    except ValueError, e:
+                        self.logger.error(str(e))
                     chain_start = datetime.strptime(next_media_item_chain[0]['start'], "%Y-%m-%d-%H-%M-%S")
                     time_until_next_play = self.date_interval_to_seconds(chain_start - datetime.utcnow())
                     self.logger.debug("Blocking %s seconds until show start", time_until_next_play)
@@ -405,8 +409,9 @@ class PypoPush(Thread):
         closest_chain = None
         for chain in chains:
             chain_start = datetime.strptime(chain[0]['start'], "%Y-%m-%d-%H-%M-%S")
+            chain_end = datetime.strptime(chain[-1]['end'], "%Y-%m-%d-%H-%M-%S")
             self.logger.debug("tnow %s, chain_start %s", tnow, chain_start)
-            if (closest_start == None or chain_start < closest_start) and chain_start > tnow:
+            if (closest_start == None or chain_start < closest_start) and (chain_start > tnow or (chain_start < tnow and chain_end > tnow)):
                 closest_start = chain_start
                 closest_chain = chain
 
@@ -473,8 +478,8 @@ class PypoPush(Thread):
             self.logger.debug(msg)
             tn.write(msg)
 
-            #example: dynamic_source.read_start http://87.230.101.24:80/top100station.mp3
-            msg = 'dynamic_source.read_start %s\n' % media_item['uri'].encode('latin-1')
+            #msg = 'dynamic_source.read_start %s\n' % media_item['uri'].encode('latin-1')
+            msg = 'http.restart %s\n' % media_item['uri'].encode('latin-1')
             self.logger.debug(msg)
             tn.write(msg)
 
@@ -515,7 +520,8 @@ class PypoPush(Thread):
             self.telnet_lock.acquire()
             tn = telnetlib.Telnet(LS_HOST, LS_PORT)
 
-            msg = 'dynamic_source.read_stop_all xxx\n'
+            #msg = 'dynamic_source.read_stop_all xxx\n'
+            msg = 'http.stop\n'
             self.logger.debug(msg)
             tn.write(msg)
 
@@ -541,7 +547,8 @@ class PypoPush(Thread):
             tn = telnetlib.Telnet(LS_HOST, LS_PORT)
             #dynamic_source.stop http://87.230.101.24:80/top100station.mp3
 
-            msg = 'dynamic_source.read_stop %s\n' % media_item['row_id']
+            #msg = 'dynamic_source.read_stop %s\n' % media_item['row_id']
+            msg = 'http.stop\n'
             self.logger.debug(msg)
             tn.write(msg)
 

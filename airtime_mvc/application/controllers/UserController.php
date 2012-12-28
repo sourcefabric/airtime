@@ -10,6 +10,7 @@ class UserController extends Zend_Controller_Action
                     ->addActionContext('get-user-data-table-info', 'json')
                     ->addActionContext('get-user-data', 'json')
                     ->addActionContext('remove-user', 'json')
+                    ->addActionContext('edit-user', 'json')
                     ->initContext();
     }
 
@@ -18,7 +19,7 @@ class UserController extends Zend_Controller_Action
         global $CC_CONFIG;
 
         $request = $this->getRequest();
-        $baseUrl = $request->getBaseUrl();
+        $baseUrl = Application_Common_OsPath::getBaseDir();
 
         $js_files = array(
             '/js/datatables/js/jquery.dataTables.js?',
@@ -38,39 +39,56 @@ class UserController extends Zend_Controller_Action
         $this->view->successMessage = "";
 
         if ($request->isPost()) {
-            if ($form->isValid($request->getPost())) {
+            $params = $request->getPost();
+            $postData = explode('&', $params['data']);
+            foreach($postData as $k=>$v) {
+                $v = explode('=', $v);
+                $formData[$v[0]] = urldecode($v[1]);
+            }
 
-                $formdata = $form->getValues();
+            if ($form->isValid($formData)) {
+
                 if (isset($CC_CONFIG['demo']) && $CC_CONFIG['demo'] == 1 
-                        && $formdata['login'] == 'admin' 
-                        && $formdata['user_id'] != 0) {
-                    $this->view->successMessage = "<div class='errors'>Specific action is not allowed in demo version!</div>";
-                } elseif ($form->validateLogin($formdata)) {
-                    $user = new Application_Model_User($formdata['user_id']);
-                    $user->setFirstName($formdata['first_name']);
-                    $user->setLastName($formdata['last_name']);
-                    $user->setLogin($formdata['login']);
+                        && $formData['login'] == 'admin' 
+                        && $formData['user_id'] != 0) {
+                    $this->view->form = $form;
+                    $this->view->successMessage = "<div class='errors'>"._("Specific action is not allowed in demo version!")."</div>";
+                    die(json_encode(array("valid"=>"false", "html"=>$this->view->render('user/add-user.phtml'))));
+                } elseif ($form->validateLogin($formData)) {
+                    $user = new Application_Model_User($formData['user_id']);
+                    $user->setFirstName($formData['first_name']);
+                    $user->setLastName($formData['last_name']);
+                    $user->setLogin($formData['login']);
                     // We don't allow 6 x's as a password.
                     // The reason is because we that as a password placeholder
                     // on the client side.
-                    if ($formdata['password'] != "xxxxxx") {
-                        $user->setPassword($formdata['password']);
+                    if ($formData['password'] != "xxxxxx") {
+                        $user->setPassword($formData['password']);
                     }
-                    $user->setType($formdata['type']);
-                    $user->setEmail($formdata['email']);
-                    $user->setCellPhone($formdata['cell_phone']);
-                    $user->setSkype($formdata['skype']);
-                    $user->setJabber($formdata['jabber']);
+                    $user->setType($formData['type']);
+                    $user->setEmail($formData['email']);
+                    $user->setCellPhone($formData['cell_phone']);
+                    $user->setSkype($formData['skype']);
+                    $user->setJabber($formData['jabber']);
                     $user->save();
 
                     $form->reset();
+                    $this->view->form = $form;
 
-                    if (strlen($formdata['user_id']) == 0) {
-                        $this->view->successMessage = "<div class='success'>User added successfully!</div>";
+                    if (strlen($formData['user_id']) == 0) {
+                        $this->view->successMessage = "<div class='success'>"._("User added successfully!")."</div>";
                     } else {
-                        $this->view->successMessage = "<div class='success'>User updated successfully!</div>";
+                        $this->view->successMessage = "<div class='success'>"._("User updated successfully!")."</div>";
                     }
+                    
+                    die(json_encode(array("valid"=>"true", "html"=>$this->view->render('user/add-user.phtml'))));
+                } else {
+                    $this->view->form = $form;
+                    die(json_encode(array("valid"=>"false", "html"=>$this->view->render('user/add-user.phtml'))));
                 }
+            } else {
+                $this->view->form = $form;
+                die(json_encode(array("valid"=>"false", "html"=>$this->view->render('user/add-user.phtml'))));
             }
         }
 
@@ -96,6 +114,49 @@ class UserController extends Zend_Controller_Action
     {
         $id = $this->_getParam('id');
         $this->view->entries = Application_Model_User::GetUserData($id);
+    }
+    
+    public function editUserAction()
+    {
+        $request = $this->getRequest();
+        $form = new Application_Form_EditUser();
+        if ($request->isPost()) {
+            $params = $request->getPost();
+            $postData = explode('&', $params['data']);
+            foreach($postData as $k=>$v) {
+                $v = explode('=', $v);
+                $formData[$v[0]] = urldecode($v[1]);
+            }
+            
+            if (isset($CC_CONFIG['demo']) && $CC_CONFIG['demo'] == 1 
+                    && $formData['cu_login'] == 'admin') {
+                $this->view->form = $form;
+                $this->view->successMessage = "<div class='errors'>"._("Specific action is not allowed in demo version!")."</div>";
+                die(json_encode(array("html"=>$this->view->render('user/edit-user.phtml'))));
+            } else if ($form->isValid($formData) && 
+                       $form->validateLogin($formData['cu_login'], $formData['cu_user_id'])) {
+                $user = new Application_Model_User($formData['cu_user_id']);
+                $user->setFirstName($formData['cu_first_name']);
+                $user->setLastName($formData['cu_last_name']);
+                $user->setLogin($formData['cu_login']);
+                // We don't allow 6 x's as a password.
+                // The reason is because we use that as a password placeholder
+                // on the client side.
+                if ($formData['cu_password'] != "xxxxxx") {
+                    $user->setPassword($formData['cu_password']);
+                }
+                $user->setEmail($formData['cu_email']);
+                $user->setCellPhone($formData['cu_cell_phone']);
+                $user->setSkype($formData['cu_skype']);
+                $user->setJabber($formData['cu_jabber']);
+                $user->save();
+                $this->view->successMessage = "<div class='success'>"._("User updated successfully!")."</div>";
+            }
+            $this->view->form = $form;
+            die(json_encode(array("html"=>$this->view->render('user/edit-user.phtml'))));
+        }
+        $this->view->form = $form;
+        $this->view->html = $this->view->render('user/edit-user.phtml');
     }
 
     public function removeUserAction()

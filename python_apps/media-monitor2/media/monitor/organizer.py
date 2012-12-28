@@ -1,23 +1,21 @@
 # -*- coding: utf-8 -*-
 import media.monitor.pure   as mmp
-import media.monitor.owners as owners
 from media.monitor.handler    import ReportHandler
 from media.monitor.log        import Loggable
 from media.monitor.exceptions import BadSongFile
 from media.monitor.events     import OrganizeFile
 from pydispatch               import dispatcher
 from os.path                  import dirname
+from media.saas.thread        import getsig, user
 import os.path
 
 class Organizer(ReportHandler,Loggable):
-    """
-    Organizer is responsible to to listening to OrganizeListener events
-    and committing the appropriate changes to the filesystem. It does
-    not in any interact with WatchSyncer's even when the the WatchSyncer
-    is a "storage directory". The "storage" directory picks up all of
-    its events through pyinotify. (These events are fed to it through
-    StoreWatchListener)
-    """
+    """ Organizer is responsible to to listening to OrganizeListener
+    events and committing the appropriate changes to the filesystem.
+    It does not in any interact with WatchSyncer's even when the the
+    WatchSyncer is a "storage directory". The "storage" directory picks
+    up all of its events through pyinotify. (These events are fed to it
+    through StoreWatchListener) """
 
     # Commented out making this class a singleton because it's just a band aid
     # for the real issue. The real issue being making multiple Organizer
@@ -38,14 +36,12 @@ class Organizer(ReportHandler,Loggable):
         self.channel       = channel
         self.target_path   = target_path
         self.recorded_path = recorded_path
-        super(Organizer, self).__init__(signal=self.channel, weak=False)
+        super(Organizer, self).__init__(signal=getsig(self.channel), weak=False)
 
     def handle(self, sender, event):
-        """
-        Intercept events where a new file has been added to the organize
-        directory and place it in the correct path (starting with
-        self.target_path)
-        """
+        """ Intercept events where a new file has been added to the
+        organize directory and place it in the correct path (starting
+        with self.target_path) """
         # Only handle this event type
         assert isinstance(event, OrganizeFile), \
             "Organizer can only handle OrganizeFile events.Given '%s'" % event
@@ -67,7 +63,7 @@ class Organizer(ReportHandler,Loggable):
             def new_dir_watch(d):
                 # TODO : rewrite as return lambda : dispatcher.send(...
                 def cb():
-                    dispatcher.send(signal="add_subwatch", sender=self,
+                    dispatcher.send(signal=getsig("add_subwatch"), sender=self,
                             directory=d)
                 return cb
 
@@ -78,7 +74,7 @@ class Organizer(ReportHandler,Loggable):
             # backwards way is bewcause we are unable to encode the owner id
             # into the file itself so that the StoreWatchListener listener can
             # detect it from the file
-            owners.add_file_owner(new_path, owner_id )
+            user().owner.add_file_owner(new_path, owner_id )
 
             self.logger.info('Organized: "%s" into "%s"' %
                     (event.path, new_path))

@@ -177,7 +177,7 @@ SQL;
         $con = Propel::getConnection();
 
         if ($deltaDay > 0) {
-            return "Shows can have a max length of 24 hours.";
+            return _("Shows can have a max length of 24 hours.");
         }
         
         $utc = new DateTimeZone("UTC");
@@ -208,7 +208,7 @@ SQL;
             $newEndsDateTime   = Application_Model_ShowInstance::addDeltas($endsDateTime, $deltaDay, $deltaMin);
             
             if ($newEndsDateTime->getTimestamp() < $nowDateTime->getTimestamp()) {
-                return "End date/time cannot be in the past";
+                return _("End date/time cannot be in the past");
             }
 
             //convert our new starts/ends to UTC.
@@ -219,8 +219,8 @@ SQL;
                 $newStartsDateTime, $newEndsDateTime, true, $si->getDbId());
 
             if ($overlapping) {
-                return "Cannot schedule overlapping shows.\nNote: Resizing a repeating show ".
-                       "affects all of its repeats.";
+                return _("Cannot schedule overlapping shows.\nNote: Resizing a repeating show ".
+                       "affects all of its repeats.");
             }
         }
 
@@ -270,6 +270,13 @@ SQL;
 
         try {
             //update the status flag in cc_schedule.
+
+            /* Since we didn't use a propel object when updating
+             * cc_show_instances table we need to clear the instances
+             * so the correct information is retrieved from the db
+             */
+            CcShowInstancesPeer::clearInstancePool();
+
             $instances = CcShowInstancesQuery::create()
                 ->filterByDbEnds($current_timestamp, Criteria::GREATER_THAN)
                 ->filterByDbShowId($this->_showId)
@@ -1253,6 +1260,7 @@ SQL;
         if ($data['add_show_id'] != -1) {
             $con = Propel::getConnection(CcSchedulePeer::DATABASE_NAME);
             $con->beginTransaction();
+            
 
             //current timesamp in UTC.
             $current_timestamp = gmdate("Y-m-d H:i:s");

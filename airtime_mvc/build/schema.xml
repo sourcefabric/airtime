@@ -76,6 +76,7 @@
     <column name="soundcloud_upload_time" phpName="DbSoundCloundUploadTime" type="TIMESTAMP" size="6" required="false"/>
     <column name="replay_gain" phpName="DbReplayGain" type="NUMERIC" required="false"/>
     <column name="owner_id" phpName="DbOwnerId" type="INTEGER" required="false"/>
+    <column name="hidden" phpName="DbHidden" type="BOOLEAN" defaultValue="false"/>
     <foreign-key foreignTable="cc_subjs" phpName="FkOwner" name="cc_files_owner_fkey">
       <reference local="owner_id" foreign="id"/>
     </foreign-key>
@@ -250,7 +251,7 @@
       <parameter name="foreign_table" value="cc_blockcontents" />
       <parameter name="expression" value="SUM(cliplength)" />
     </behavior>
-    <foreign-key foreignTable="cc_subjs" name="cc_block_createdby_fkey">
+    <foreign-key foreignTable="cc_subjs" name="cc_block_createdby_fkey" onDelete="CASCADE">
       <reference local="creator_id" foreign="id"/>
     </foreign-key>
   </table>
@@ -436,5 +437,30 @@
     <foreign-key foreignTable="cc_schedule" name="cc_schedule_inst_fkey" onDelete="CASCADE">
       <reference local="instance_id" foreign="id"/>
     </foreign-key>
+  </table>
+  <table name="cc_mount_name" phpName="CcTimestamp">
+    <column name="id" phpName="DbId" primaryKey="true" type="INTEGER" autoIncrement="true" required="true" />
+    <column name="mount_name" phpName="DbMountName" type="VARCHAR" required="true" />
+  </table>
+  <table name="cc_timestamp" phpName="CcTimestamp">
+    <column name="id" phpName="DbId" primaryKey="true" type="INTEGER" autoIncrement="true" required="true" />
+    <column name="timestamp" phpName="DbTimestamp" type="TIMESTAMP" required="true" />
+  </table>
+  <table name="cc_listener_count" phpName="CcListenerCount">
+    <column name="id" phpName="DbId" primaryKey="true" type="INTEGER" autoIncrement="true" required="true" />
+    <column name="timestamp_id" phpName="DbTimestampId" type="INTEGER" required="true"/>
+    <column name="mount_name_id" phpName="DbMountNameId" type="INTEGER" required="true"/>
+    <column name="listener_count" phpName="DbListenerCount" type="INTEGER" required="true" />
+    <foreign-key foreignTable="cc_timestamp" name="cc_timestamp_inst_fkey" onDelete="CASCADE">
+      <reference local="timestamp_id" foreign="id"/>
+    </foreign-key>
+    <foreign-key foreignTable="cc_mount_name" name="cc_mount_name_inst_fkey" onDelete="CASCADE">
+      <reference local="mount_name_id" foreign="id"/>
+    </foreign-key>
+  </table>
+  <table name="cc_locale" phpName="CcLocale">
+    <column name="id" phpName="DbId" primaryKey="true" type="INTEGER" autoIncrement="true" required="true" />
+    <column name="locale_code" phpName="DbLocaleCode" type="VARCHAR" size="16" required="true" />
+    <column name="locale_lang" phpName="DbLocaleLang" type="VARCHAR" size="128" required="true" />
   </table>
 </database>

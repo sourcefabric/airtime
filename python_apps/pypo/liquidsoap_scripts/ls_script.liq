@@ -7,15 +7,11 @@ set("server.telnet", true)
 set("server.telnet.port", 1234)
 
 #Dynamic source list
-dyn_sources = ref []
+#dyn_sources = ref []
 webstream_enabled = ref false
 
 time = ref string_of(gettimeofday())
-queue = audio_to_stereo(id="queue_src", request.equeue(id="queue", length=0.5))
-queue = cue_cut(queue)
-queue = amplify(1., override="replay_gain", queue)
 
-#fallback between queue and input.harbor (for restreaming other web-streams)
 #live stream setup
 set("harbor.bind_addr", "0.0.0.0")
 
@@ -35,14 +31,17 @@ s2_namespace = ref ''
 s3_namespace = ref ''
 just_switched = ref false
 
-stream_harbor_pass = list.hd(get_process_lines('pwgen -s -N 1 -n 20'))
+#stream_harbor_pass = list.hd(get_process_lines('pwgen -s -N 1 -n 20'))
 
 %include "ls_lib.liq"
 
-web_stream = input.harbor("test-harbor", port=8999, password=stream_harbor_pass)
-web_stream = on_metadata(notify_stream, web_stream)
-output.dummy(fallible=true, web_stream)
+#web_stream = input.harbor("test-harbor", port=8999, password=stream_harbor_pass)
+#web_stream = on_metadata(notify_stream, web_stream)
+#output.dummy(fallible=true, web_stream)
 
+queue = audio_to_stereo(id="queue_src", request.equeue(id="queue", length=0.5))
+queue = cue_cut(queue)
+queue = amplify(1., override="replay_gain", queue)
 
 # the crossfade function controls fade in/out
 queue = crossfade_airtime(queue)
@@ -50,11 +49,9 @@ queue = on_metadata(notify, queue)
 queue = map_metadata(update=false, append_title, queue)
 output.dummy(fallible=true, queue)
 
-
-stream_queue = switch(id="stream_queue_switch", track_sensitive=false,
-    transitions=[transition, transition],
-    [({!webstream_enabled},web_stream),
-    ({true}, queue)])
+http = input.http_restart(id="http")
+http = cross_http(http_input_id="http",http)
+stream_queue = http_fallback(http_input_id="http",http=http,default=queue)
 
 ignore(output.dummy(stream_queue, fallible=true))
 
@@ -84,7 +81,9 @@ server.register(namespace="dynamic_source",
                 description="Enable webstream output",
                 usage='start',
                 "output_start",
-                fun (s) -> begin log("dynamic_source.output_start") webstream_enabled := true "enabled" end)
+                fun (s) -> begin log("dynamic_source.output_start") 
+                    notify([("schedule_table_id", !current_dyn_id)]) 
+                    webstream_enabled := true "enabled" end)
 server.register(namespace="dynamic_source",
                 description="Enable webstream output",
                 usage='stop',
@@ -92,32 +91,33 @@ server.register(namespace="dynamic_source",
                 fun (s) -> begin log("dynamic_source.output_stop") webstream_enabled := false "disabled" end)
 
 server.register(namespace="dynamic_source",
-                description="Set the cc_schedule row id",
+                description="Set the streams cc_schedule row id",
                 usage="id <id>",
                 "id",
                 fun (s) -> begin log("dynamic_source.id") set_dynamic_source_id(s) end)
 
 server.register(namespace="dynamic_source",
-                description="Get the cc_schedule row id",
+                description="Get the streams cc_schedule row id",
                 usage="get_id",
                 "get_id",
                 fun (s) -> begin log("dynamic_source.get_id") get_dynamic_source_id() end)
 
-server.register(namespace="dynamic_source",
-                description="Start a new dynamic source.",
-                usage="start <uri>",
-                "read_start",
-                fun (uri) -> begin log("dynamic_source.read_start") create_dynamic_source(uri) end)
-server.register(namespace="dynamic_source",
-                description="Stop a dynamic source.",
-                usage="stop <id>",
-                "read_stop",
-                fun (s) -> begin log("dynamic_source.read_stop") destroy_dynamic_source(s) end)
-server.register(namespace="dynamic_source",
-                description="Stop a dynamic source.",
-                usage="stop <id>",
-                "read_stop_all",
-                fun (s) -> begin log("dynamic_source.read_stop") destroy_dynamic_source_all() end)
+#server.register(namespace="dynamic_source",
+#                description="Start a new dynamic source.",
+#                usage="start <uri>",
+#                "read_start",
+#                fun (uri) -> begin log("dynamic_source.read_start") begin_stream_read(uri) end)
+#server.register(namespace="dynamic_source",
+#                description="Stop a dynamic source.",
+#                usage="stop <id>",
+#                "read_stop",
+#                fun (s) -> begin log("dynamic_source.read_stop") stop_stream_read(s) end)
+
+#server.register(namespace="dynamic_source",
+#                description="Stop a dynamic source.",
+#                usage="stop <id>",
+#                "read_stop_all",
+#                fun (s) -> begin log("dynamic_source.read_stop") destroy_dynamic_source_all() end)
 
 default = amplify(id="silence_src", 0.00001, noise())
 default = rewrite_metadata([("artist","Airtime"), ("title", "offline")], default)
@@ -201,9 +201,6 @@ def append_dj_inputs(master_harbor_input_port, master_harbor_input_mount_point, 
         dj_live = mksafe(audio_to_stereo(input.harbor(id="live_dj_harbor", dj_harbor_input_mount_point, port=dj_harbor_input_port, auth=check_dj_client,
                     max=40., on_connect=live_dj_connect, on_disconnect=live_dj_disconnect)))
 
-        master_dj = rewrite_metadata([("artist","Airtime"), ("title", "Master Dj")],master_dj)
-        dj_live = rewrite_metadata([("artist","Airtime"), ("title", "Live Dj")],dj_live)
-
         ignore(output.dummy(master_dj, fallible=true))
         ignore(output.dummy(dj_live, fallible=true))
         switch(id="master_dj_switch", track_sensitive=false, transitions=[transition, transition, transition], [({!master_dj_enabled},master_dj), ({!live_dj_enabled},dj_live), ({true}, s)])
@@ -211,13 +208,11 @@ def append_dj_inputs(master_harbor_input_port, master_harbor_input_mount_point, 
         master_dj = mksafe(audio_to_stereo(input.harbor(id="master_harbor", master_harbor_input_mount_point, port=master_harbor_input_port, auth=check_master_dj_client,
                      max=40., on_connect=master_dj_connect, on_disconnect=master_dj_disconnect)))
         ignore(output.dummy(master_dj, fallible=true))
-        master_dj = rewrite_metadata([("artist","Airtime"), ("title", "Master Dj")],master_dj)
+        
         switch(id="master_dj_switch", track_sensitive=false, transitions=[transition, transition], [({!master_dj_enabled},master_dj), ({true}, s)])
     elsif dj_harbor_input_port != 0 and dj_harbor_input_mount_point != "" then
         dj_live = mksafe(audio_to_stereo(input.harbor(id="live_dj_harbor", dj_harbor_input_mount_point, port=dj_harbor_input_port, auth=check_dj_client,
                     max=40., on_connect=live_dj_connect, on_disconnect=live_dj_disconnect)))
-
-        dj_live = rewrite_metadata([("artist","Airtime"), ("title", "Live Dj")],dj_live)
 
         ignore(output.dummy(dj_live, fallible=true))
         switch(id="live_dj_switch", track_sensitive=false, transitions=[transition, transition], [({!live_dj_enabled},dj_live), ({true}, s)])
@@ -229,6 +224,7 @@ end
 s = switch(id="default_switch", track_sensitive=false,
     transitions=[transition_default, transition],
     [({!scheduled_play_enabled}, stream_queue),({true},default)])
+
 s = append_dj_inputs(master_live_stream_port, master_live_stream_mp,
     dj_live_stream_port, dj_live_stream_mp, s)
 

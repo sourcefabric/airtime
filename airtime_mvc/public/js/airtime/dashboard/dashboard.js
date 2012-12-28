@@ -143,24 +143,24 @@ function updatePlaybar(){
     }
     if (currentSong !== null && !master_dj_on_air && !live_dj_on_air){
         if (currentSong.record == "1")
-            $('#current').html("<span style='color:red; font-weight:bold'>Recording: </span>"+currentSong.name+",");
+            $('#current').html("<span style='color:red; font-weight:bold'>"+$.i18n._("Recording:")+"</span>"+currentSong.name+",");
         else
             $('#current').text(currentSong.name+",");
     }else{
         if (master_dj_on_air) {
             if (showName) {
-                $('#current').html("Current: <span style='color:red; font-weight:bold'>"+showName+" - Master Stream</span>");
+                $('#current').html($.i18n._("Current")+": <span style='color:red; font-weight:bold'>"+showName+" - "+$.i18n._("Master Stream")+"</span>");
             } else {
-                $('#current').html("Current: <span style='color:red; font-weight:bold'>Master Stream</span>");
+                $('#current').html($.i18n._("Current")+": <span style='color:red; font-weight:bold'>"+$.i18n._("Master Stream")+"</span>");
             }
         } else if (live_dj_on_air) {
             if (showName) {
-                $('#current').html("Current: <span style='color:red; font-weight:bold'>"+showName+" - Live Stream</span>");
+                $('#current').html($.i18n._("Current")+": <span style='color:red; font-weight:bold'>"+showName+" - "+$.i18n._("Live Stream")+"</span>");
             } else {
-                $('#current').html("Current: <span style='color:red; font-weight:bold'>Live Stream</span>");
+                $('#current').html($.i18n._("Current")+": <span style='color:red; font-weight:bold'>"+$.i18n._("Live Stream")+"</span>");
             }
         } else {
-            $('#current').html("Current: <span style='color:red; font-weight:bold'>Nothing Scheduled</span>");
+            $('#current').html($.i18n._("Current")+": <span style='color:red; font-weight:bold'>"+$.i18n._("Nothing Scheduled")+"</span>");
         }
     }
 
@@ -191,7 +191,7 @@ function updatePlaybar(){
         $('#song-length').text(convertToHHMMSSmm(currentSong.songLengthMs));
     }
     /* Column 1 update */
-    $('#playlist').text("Current Show:");
+    $('#playlist').text($.i18n._("Current Show:"));
     var recElem = $('.recording-show');
     if (currentShow.length > 0){
         $('#playlist').text(currentShow[0].name);
@@ -360,7 +360,7 @@ function controlSwitchLight(){
 }
 
 function getScheduleFromServer(){
-    $.ajax({ url: "/Schedule/get-current-playlist/format/json", dataType:"json", success:function(data){
+    $.ajax({ url: baseUrl+"/Schedule/get-current-playlist/format/json", dataType:"json", success:function(data){
                 parseItems(data.entries);
                 parseSourceStatus(data.source_status);
                 parseSwitchStatus(data.switch_status);
@@ -398,7 +398,7 @@ function setSwitchListener(ele){
     var sourcename = $(ele).attr('id');
     var status_span = $(ele).find("span");
     var status = status_span.html();
-    $.get("/Dashboard/switch-source/format/json/sourcename/"+sourcename+"/status/"+status, function(data){
+    $.get(baseUrl+"/Dashboard/switch-source/format/json/sourcename/"+sourcename+"/status/"+status, function(data){
         if(data.error){
             alert(data.error);
         }else{
@@ -415,7 +415,7 @@ function setSwitchListener(ele){
 function kickSource(ele){
     var sourcename = $(ele).attr('id');
     
-    $.get("/Dashboard/disconnect-source/format/json/sourcename/"+sourcename, function(data){
+    $.get(baseUrl+"/Dashboard/disconnect-source/format/json/sourcename/"+sourcename, function(data){
         if(data.error){
             alert(data.error);
         }
@@ -435,13 +435,70 @@ function init() {
     
     $('.listen-control-button').click(function() {
         if (stream_window == null || stream_window.closed)
-            stream_window=window.open(baseUrl+"Dashboard/stream-player", 'name', 'width=400,height=158');
+            stream_window=window.open(baseUrl+"/Dashboard/stream-player", 'name', 'width=400,height=158');
         stream_window.focus();
         return false;
     });
 }
 
+/* We never retrieve the user's password from the db
+ * and when we call isValid($params) the form values are cleared
+ * and repopulated with $params which does not have the password
+ * field. Therefore, we fill the password field with 6 x's
+ */
+function setCurrentUserPseudoPassword() {
+    $('#cu_password').val("xxxxxx");
+}
+
 $(document).ready(function() {
     if ($('#master-panel').length > 0)
         init();
+
+    var timer;
+
+    $('.tipsy').live('mouseover', function() {
+        clearTimeout(timer);
+    });
+
+    $('.tipsy').live('mouseout', function() {
+        timer = setTimeout("$('#current-user').tipsy('hide')", 500);
+    });
+
+    $('#current-user').bind('mouseover', function() {
+        $.ajax({
+            url: baseUrl+'/user/edit-user/format/json',
+            success: function(json) {
+                $('#current-user').tipsy({
+                    gravity: 'n',
+                    html: true,
+                    fade: true,
+                    opacity: 0.9,
+                    trigger: 'manual',
+                    title: function() {
+                        return json.html;
+                    }
+                });
+            },
+            cache: false,
+            complete: function() {
+                $('#current-user').tipsy('show');
+                setCurrentUserPseudoPassword();
+            }
+        });
+        
+    });
+
+    $('#current-user').bind('mouseout', function() {
+        timer = setTimeout("$('#current-user').tipsy('hide')", 500);
+    });
+
+    $('#cu_save_user').live('click', function() {
+        var data = $('#current-user-form').serialize();
+        $.post(baseUrl+'/user/edit-user', {format: 'json', data: data}, function(data) {
+            var json = $.parseJSON(data);
+            $('.tipsy-inner').empty().append(json.html);
+            setCurrentUserPseudoPassword();
+            setTimeout(removeSuccessMsg, 5000);
+        });
+    });
 });

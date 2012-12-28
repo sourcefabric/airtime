@@ -70,7 +70,7 @@ var AIRTIME = (function(AIRTIME) {
     };
     
     mod.getChosenAudioFilesLength = function(){
-        //var files = Object.keys(chosenItems),
+        // var files = Object.keys(chosenItems),
         var files,
             $trs,
             cItem,
@@ -109,12 +109,12 @@ var AIRTIME = (function(AIRTIME) {
         $menu
             .append("<div class='btn-group'>" +
                         "<button class='btn btn-small dropdown-toggle' data-toggle='dropdown'>" +
-                            "Select <span class='caret'></span>" +
+                            $.i18n._("Select")+" <span class='caret'></span>" +
                         "</button>" +
                         "<ul class='dropdown-menu'>" +
-                            "<li id='sb-select-page'><a href='#'>Select this page</a></li>" +
-                            "<li id='sb-dselect-page'><a href='#'>Deselect this page</a></li>" +
-                            "<li id='sb-dselect-all'><a href='#'>Deselect all</a></li>" +
+                            "<li id='sb-select-page'><a href='#'>"+$.i18n._("Select this page")+"</a></li>" +
+                            "<li id='sb-dselect-page'><a href='#'>"+$.i18n._("Deselect this page")+"</a></li>" +
+                            "<li id='sb-dselect-all'><a href='#'>"+$.i18n._("Deselect all")+"</a></li>" +
                         "</ul>" +
                     "</div>")
             .append("<div class='btn-group'>" +
@@ -215,7 +215,7 @@ var AIRTIME = (function(AIRTIME) {
     mod.removeFromChosen = function($el) {
         var id = $el.attr("id");
         
-        //used to not keep dragged items selected.
+        // used to not keep dragged items selected.
         if (!$el.hasClass(LIB_SELECTED_CLASS)) {
             delete chosenItems[id];
         }   
@@ -252,11 +252,11 @@ var AIRTIME = (function(AIRTIME) {
     };
     
     /*
-     * selects all items which the user can currently see.
-     * (behaviour taken from gmail)
+     * selects all items which the user can currently see. (behaviour taken from
+     * gmail)
      * 
-     * by default the items are selected in reverse order
-     * so we need to reverse it back
+     * by default the items are selected in reverse order so we need to reverse
+     * it back
      */
     mod.selectCurrentPage = function() {
         $.fn.reverse = [].reverse;
@@ -276,8 +276,8 @@ var AIRTIME = (function(AIRTIME) {
     };
     
     /*
-     * deselects all items that the user can currently see.
-     * (behaviour taken from gmail)
+     * deselects all items that the user can currently see. (behaviour taken
+     * from gmail)
      */
     mod.deselectCurrentPage = function() {
         var $inputs = $libTable.find("tbody input:checkbox"),
@@ -310,7 +310,7 @@ var AIRTIME = (function(AIRTIME) {
     
     mod.fnDeleteItems = function(aMedia) {
        
-        $.post("/library/delete", 
+        $.post(baseUrl+"/library/delete", 
             {"format": "json", "media": aMedia}, 
             function(json){
                 if (json.message !== undefined) {
@@ -322,13 +322,13 @@ var AIRTIME = (function(AIRTIME) {
     };
     
     mod.fnDeleteSelectedItems = function() {
-    	if (confirm('Are you sure you want to delete the selected item(s)?')) {
+    	if (confirm($.i18n._('Are you sure you want to delete the selected item(s)?'))) {
 	        var aData = AIRTIME.library.getSelectedData(),
 	            item,
 	            temp,
 	            aMedia = [];
 	        
-	        //process selected files/playlists.
+	        // process selected files/playlists.
 	        for (item in aData) {
 	            temp = aData[item];
 	            if (temp !== null && temp.hasOwnProperty('id') ) {
@@ -433,37 +433,39 @@ var AIRTIME = (function(AIRTIME) {
         
         oTable = $libTable.dataTable( {
             
-            //put hidden columns at the top to insure they can never be visible on the table through column reordering.
+            // put hidden columns at the top to insure they can never be visible
+            // on the table through column reordering.
             "aoColumns": [
-              /* ftype         */  { "sTitle" : ""              , "mDataProp" : "ftype"        , "bSearchable" : false                 , "bVisible"    : false                   }          , 
-              /* Checkbox      */  { "sTitle" : ""              , "mDataProp" : "checkbox"     , "bSortable"   : false                 , "bSearchable" : false                   , "sWidth" : "25px"         , "sClass"    : "library_checkbox" }  , 
-              /* Type          */  { "sTitle" : ""              , "mDataProp" : "image"        , "bSearchable" : false                 , "sWidth"      : "25px"                  , "sClass" : "library_type" , "iDataSort" : 0                  }  ,
-              /* Title         */  { "sTitle" : "Title"         , "mDataProp" : "track_title"  , "sClass"      : "library_title"       , "sWidth"      : "170px"                 }          , 
-              /* Creator       */  { "sTitle" : "Creator"       , "mDataProp" : "artist_name"  , "sClass"      : "library_creator"     , "sWidth"      : "160px"                 }          ,  
-              /* Album         */  { "sTitle" : "Album"         , "mDataProp" : "album_title"  , "sClass"      : "library_album"       , "sWidth"      : "150px"                 }          , 
-              /* Bit Rate      */  { "sTitle" : "Bit Rate"      , "mDataProp" : "bit_rate"     , "bVisible"    : false                 , "sClass"      : "library_bitrate"       , "sWidth" : "80px"         }, 
-              /* BPM           */  { "sTitle" : "BPM"           , "mDataProp" : "bpm"          , "bVisible"    : false                 , "sClass"      : "library_bpm"           , "sWidth" : "50px"         },
-              /* Composer      */  { "sTitle" : "Composer"      , "mDataProp" : "composer"     , "bVisible"    : false                 , "sClass"      : "library_composer"      , "sWidth" : "150px"        }, 
-              /* Conductor     */  { "sTitle" : "Conductor"     , "mDataProp" : "conductor"    , "bVisible"    : false                 , "sClass"      : "library_conductor"     , "sWidth" : "125px"        },
-              /* Copyright     */  { "sTitle" : "Copyright"     , "mDataProp" : "copyright"    , "bVisible"    : false                 , "sClass"      : "library_copyright"     , "sWidth" : "125px"        },
-              /* Encoded       */  { "sTitle" : "Encoded By"    , "mDataProp" : "encoded_by"   , "bVisible"    : false                 , "sClass"      : "library_encoded"       , "sWidth" : "150px"        }, 
-              /* Genre         */  { "sTitle" : "Genre"         , "mDataProp" : "genre"        , "bVisible"    : false                 , "sClass"      : "library_genre"         , "sWidth" : "100px"        }, 
-              /* ISRC Number   */  { "sTitle" : "ISRC"          , "mDataProp" : "isrc_number"  , "bVisible"    : false                 , "sClass"      : "library_isrc"          , "sWidth" : "150px"        }, 
-              /* Label         */  { "sTitle" : "Label"         , "mDataProp" : "label"        , "bVisible"    : false                 , "sClass"      : "library_label"         , "sWidth" : "125px"        }, 
-              /* Language      */  { "sTitle" : "Language"      , "mDataProp" : "language"     , "bVisible"    : false                 , "sClass"      : "library_language"      , "sWidth" : "125px"        }, 
-              /* Last Modified */  { "sTitle" : "Last Modified" , "mDataProp" : "mtime"        , "bVisible"    : false                 , "sClass"      : "library_modified_time" , "sWidth" : "125px"        },
-              /* Last Played   */  { "sTitle" : "Last Played  " , "mDataProp" : "lptime"       , "bVisible"    : false                 , "sClass"      : "library_modified_time" , "sWidth" : "125px"        },  
-              /* Length        */  { "sTitle" : "Length"        , "mDataProp" : "length"       , "sClass"      : "library_length"      , "sWidth"      : "80px"                  }          , 
-              /* Mime          */  { "sTitle" : "Mime"          , "mDataProp" : "mime"         , "bVisible"    : false                 , "sClass"      : "library_mime"          , "sWidth" : "80px"         }, 
-              /* Mood          */  { "sTitle" : "Mood"          , "mDataProp" : "mood"         , "bVisible"    : false                 , "sClass"      : "library_mood"          , "sWidth" : "70px"         },
-              /* Owner         */  { "sTitle" : "Owner"         , "mDataProp" : "owner_id"     , "bVisible"    : false                 , "sClass"      : "library_language"      , "sWidth" : "125px"        }, 
-              /* Replay Gain   */  { "sTitle" : "Replay Gain"   , "mDataProp" : "replay_gain"  , "bVisible"    : false                 , "sClass"      : "library_replay_gain"      , "sWidth" : "80px"      }, 
-              /* Sample Rate   */  { "sTitle" : "Sample Rate"   , "mDataProp" : "sample_rate"  , "bVisible"    : false                 , "sClass"      : "library_sr"            , "sWidth" : "80px"         }, 
-              /* Track Number  */  { "sTitle" : "Track Number"  , "mDataProp" : "track_number" , "bVisible"    : false                 , "sClass"      : "library_track"         , "sWidth" : "65px"         }, 
-              /* Upload Time   */  { "sTitle" : "Uploaded"      , "mDataProp" : "utime"        , "sClass"      : "library_upload_time" , "sWidth"      : "125px"                 }          ,
-              /* Website       */  { "sTitle" : "Website"       , "mDataProp" : "info_url"     , "bVisible"    : false                 , "sClass"      : "library_url"           , "sWidth" : "150px"        },
-              /* Year          */  { "sTitle" : "Year"          , "mDataProp" : "year"         , "bVisible"    : false                 , "sClass"      : "library_year"          , "sWidth" : "60px"         }
+              /* ftype */  { "sTitle" : ""              , "mDataProp" : "ftype"        , "bSearchable" : false                 , "bVisible"    : false                   }          , 
+              /* Checkbox */  { "sTitle" : ""              , "mDataProp" : "checkbox"     , "bSortable"   : false                 , "bSearchable" : false                   , "sWidth" : "25px"         , "sClass"    : "library_checkbox" }  , 
+              /* Type */  { "sTitle" : ""              , "mDataProp" : "image"        , "bSearchable" : false                 , "sWidth"      : "25px"                  , "sClass" : "library_type" , "iDataSort" : 0                  }  ,
+              /* Title */  { "sTitle" : $.i18n._("Title")         , "mDataProp" : "track_title"  , "sClass"      : "library_title"       , "sWidth"      : "170px"                 }          , 
+              /* Creator */  { "sTitle" : $.i18n._("Creator")       , "mDataProp" : "artist_name"  , "sClass"      : "library_creator"     , "sWidth"      : "160px"                 }          ,  
+              /* Album */  { "sTitle" : $.i18n._("Album")         , "mDataProp" : "album_title"  , "sClass"      : "library_album"       , "sWidth"      : "150px"                 }          , 
+              /* Bit Rate */  { "sTitle" : $.i18n._("Bit Rate")      , "mDataProp" : "bit_rate"     , "bVisible"    : false                 , "sClass"      : "library_bitrate"       , "sWidth" : "80px"         }, 
+              /* BPM */  { "sTitle" : $.i18n._("BPM")           , "mDataProp" : "bpm"          , "bVisible"    : false                 , "sClass"      : "library_bpm"           , "sWidth" : "50px"         },
+              /* Composer */  { "sTitle" : $.i18n._("Composer")      , "mDataProp" : "composer"     , "bVisible"    : false                 , "sClass"      : "library_composer"      , "sWidth" : "150px"        }, 
+              /* Conductor */  { "sTitle" : $.i18n._("Conductor")     , "mDataProp" : "conductor"    , "bVisible"    : false                 , "sClass"      : "library_conductor"     , "sWidth" : "125px"        },
+              /* Copyright */  { "sTitle" : $.i18n._("Copyright")     , "mDataProp" : "copyright"    , "bVisible"    : false                 , "sClass"      : "library_copyright"     , "sWidth" : "125px"        },
+              /* Encoded */  { "sTitle" : $.i18n._("Encoded By")    , "mDataProp" : "encoded_by"   , "bVisible"    : false                 , "sClass"      : "library_encoded"       , "sWidth" : "150px"        }, 
+              /* Genre */  { "sTitle" : $.i18n._("Genre")         , "mDataProp" : "genre"        , "bVisible"    : false                 , "sClass"      : "library_genre"         , "sWidth" : "100px"        }, 
+              /* ISRC Number */  { "sTitle" : $.i18n._("ISRC")          , "mDataProp" : "isrc_number"  , "bVisible"    : false                 , "sClass"      : "library_isrc"          , "sWidth" : "150px"        }, 
+              /* Label */  { "sTitle" : $.i18n._("Label")         , "mDataProp" : "label"        , "bVisible"    : false                 , "sClass"      : "library_label"         , "sWidth" : "125px"        }, 
+              /* Language */  { "sTitle" : $.i18n._("Language")      , "mDataProp" : "language"     , "bVisible"    : false                 , "sClass"      : "library_language"      , "sWidth" : "125px"        }, 
+              /* Last Modified */  { "sTitle" : $.i18n._("Last Modified") , "mDataProp" : "mtime"        , "bVisible"    : false                 , "sClass"      : "library_modified_time" , "sWidth" : "125px"        },
+              /* Last Played */  { "sTitle" : $.i18n._("Last Played") , "mDataProp" : "lptime"       , "bVisible"    : false                 , "sClass"      : "library_modified_time" , "sWidth" : "125px"        },  
+              /* Length */  { "sTitle" : $.i18n._("Length")        , "mDataProp" : "length"       , "sClass"      : "library_length"      , "sWidth"      : "80px"                  }          , 
+              /* Mime */  { "sTitle" : $.i18n._("Mime")          , "mDataProp" : "mime"         , "bVisible"    : false                 , "sClass"      : "library_mime"          , "sWidth" : "80px"         }, 
+              /* Mood */  { "sTitle" : $.i18n._("Mood")          , "mDataProp" : "mood"         , "bVisible"    : false                 , "sClass"      : "library_mood"          , "sWidth" : "70px"         },
+              /* Owner */  { "sTitle" : $.i18n._("Owner")         , "mDataProp" : "owner_id"     , "bVisible"    : false                 , "sClass"      : "library_language"      , "sWidth" : "125px"        }, 
+              /* Replay Gain */  { "sTitle" : $.i18n._("Replay Gain")   , "mDataProp" : "replay_gain"  , "bVisible"    : false                 , "sClass"      : "library_replay_gain"      , "sWidth" : "80px"      }, 
+              /* Sample Rate */  { "sTitle" : $.i18n._("Sample Rate")   , "mDataProp" : "sample_rate"  , "bVisible"    : false                 , "sClass"      : "library_sr"            , "sWidth" : "80px"         }, 
+              /* Track Number */  { "sTitle" : $.i18n._("Track Number")  , "mDataProp" : "track_number" , "bVisible"    : false                 , "sClass"      : "library_track"         , "sWidth" : "65px"         }, 
+              /* Upload Time */  { "sTitle" : $.i18n._("Uploaded")      , "mDataProp" : "utime"        , "sClass"      : "library_upload_time" , "sWidth"      : "125px"                 }          ,
+              /* Website */  { "sTitle" : $.i18n._("Website")       , "mDataProp" : "info_url"     , "bVisible"    : false                 , "sClass"      : "library_url"           , "sWidth" : "150px"        },
+              /* Year */  { "sTitle" : $.i18n._("Year")          , "mDataProp" : "year"         , "bVisible"    : false                 , "sClass"      : "library_year"          , "sWidth" : "60px"         }
               ],
+            
                           
             "bProcessing": true,
             "bServerSide": true,
@@ -472,14 +474,14 @@ var AIRTIME = (function(AIRTIME) {
                  
             "bStateSave": true,
             "fnStateSaveParams": function (oSettings, oData) {
-                //remove oData components we don't want to save.
+                // remove oData components we don't want to save.
                 delete oData.oSearch;
                 delete oData.aoSearchCols;
             },
             "fnStateSave": function (oSettings, oData) {
                 localStorage.setItem('datatables-library', JSON.stringify(oData));
                 $.ajax({
-                    url: "/usersettings/set-library-datatable",
+                    url: baseUrl+"/usersettings/set-library-datatable",
                     type: "POST",
                     data: {settings : oData, format: "json"},
                     dataType: "json"
@@ -499,8 +501,8 @@ var AIRTIME = (function(AIRTIME) {
                     length,
                     a = oData.abVisCols;
                 
-                //putting serialized data back into the correct js type to make
-                //sure everything works properly.
+                // putting serialized data back into the correct js type to make
+                // sure everything works properly.
                 for (i = 0, length = a.length; i < length; i++) {
                     if (typeof(a[i]) === "string") {
                         a[i] = (a[i] === "true") ? true : false;
@@ -520,15 +522,16 @@ var AIRTIME = (function(AIRTIME) {
                 oData.iCreate = parseInt(oData.iCreate, 10);
             },
             
-            "sAjaxSource": "/Library/contents-feed",
+            "sAjaxSource": baseUrl+"/Library/contents-feed",
             "sAjaxDataProp": "files",
             
             "fnServerData": function ( sSource, aoData, fnCallback ) {
-                /* The real validation check is done in dataTables.columnFilter.js
-                 * We also need to check it here because datatable is redrawn everytime
-                 * an action is performed in the Library page.
-                 * In order for datatable to redraw the advanced search fields
-                 * MUST all be valid.
+                /*
+                 * The real validation check is done in
+                 * dataTables.columnFilter.js We also need to check it here
+                 * because datatable is redrawn everytime an action is performed
+                 * in the Library page. In order for datatable to redraw the
+                 * advanced search fields MUST all be valid.
                  */
                 var advSearchFields = $("div#advanced_search").children(':visible');
                 var advSearchValid = validateAdvancedSearch(advSearchFields);
@@ -536,11 +539,11 @@ var AIRTIME = (function(AIRTIME) {
                 aoData.push( { name: "format", value: "json"} );
                 aoData.push( { name: "advSearch", value: advSearchValid} );
                 
-                //push whether to search files/playlists or all.
+                // push whether to search files/playlists or all.
                 type = $("#library_display_type").find("select").val();
                 type = (type === undefined) ? 0 : type;
                 aoData.push( { name: "type", value: type} );
-            
+                
                 $.ajax( {
                     "dataType": 'json',
                     "type": "POST",
@@ -552,30 +555,39 @@ var AIRTIME = (function(AIRTIME) {
             "fnRowCallback": AIRTIME.library.fnRowCallback,
             "fnCreatedRow": function( nRow, aData, iDataIndex ) {
                 
-                //add the play function to the library_type td
+                // add the play function to the library_type td
                 $(nRow).find('td.library_type').click(function(){
                     if (aData.ftype === 'playlist' && aData.length !== '0.0'){
-                        playlistIndex = $(this).parent().attr('id').substring(3); //remove the pl_
+                        playlistIndex = $(this).parent().attr('id').substring(3); // remove
+                                                                                    // the
+                                                                                    // pl_
                         open_playlist_preview(playlistIndex, 0);
                     } else if (aData.ftype === 'audioclip') {
-                        open_audio_preview(aData.ftype, aData.audioFile, aData.track_title, aData.artist_name);
+                        if (isAudioSupported(aData.mime)) {
+                            open_audio_preview(aData.ftype, aData.audioFile, aData.track_title, aData.artist_name);
+                        }
                     } else if (aData.ftype == 'stream') {
                         open_audio_preview(aData.ftype, aData.audioFile, aData.track_title, aData.artist_name);
                     } else if (aData.ftype == 'block' && aData.bl_type == 'static') {
-                        blockIndex = $(this).parent().attr('id').substring(3); //remove the bl_
+                        blockIndex = $(this).parent().attr('id').substring(3); // remove
+                                                                                // the
+                                                                                // bl_
                         open_block_preview(blockIndex, 0);
                     }
                     return false;
                 });
                 
                 alreadyclicked=false;
-                //call the context menu so we can prevent the event from propagating.
+                // call the context menu so we can prevent the event from
+                // propagating.
                 $(nRow).find('td:not(.library_checkbox, .library_type)').click(function(e){
                     var el=$(this);
                     if (alreadyclicked)
                     {
                         alreadyclicked=false; // reset
-                        clearTimeout(alreadyclickedTimeout); // prevent this from happening
+                        clearTimeout(alreadyclickedTimeout); // prevent this
+                                                                // from
+                                                                // happening
                         // do what needs to happen on double click.
                         
                         $tr = $(el).parent();
@@ -587,8 +599,8 @@ var AIRTIME = (function(AIRTIME) {
                         alreadyclicked=true;
                         alreadyclickedTimeout=setTimeout(function(){
                             alreadyclicked=false; // reset when it happens
-                            // do what needs to happen on single click. 
-                            // use el instead of $(this) because $(this) is 
+                            // do what needs to happen on single click.
+                            // use el instead of $(this) because $(this) is
                             // no longer the element
                             el.contextMenu({x: e.pageX, y: e.pageY});
                         },300); // <-- dblclick tolerance here
@@ -596,15 +608,16 @@ var AIRTIME = (function(AIRTIME) {
                     return false;
                 });
                 
-                //add a tool tip to appear when the user clicks on the type icon.
+                // add a tool tip to appear when the user clicks on the type
+                // icon.
                 $(nRow).find("td:not(.library_checkbox, .library_type)").qtip({
                     content: {
-                        text: "Loading...",
+                        text: $.i18n._("Loading..."),
                         title: {
                             text: aData.track_title
                         },
                         ajax: {
-                            url: "/Library/get-file-metadata",
+                            url: baseUrl+"/Library/get-file-metadata",
                             type: "get",
                             data: ({format: "html", id : aData.id, type: aData.ftype}),
                             success: function(data, status) {
@@ -620,7 +633,8 @@ var AIRTIME = (function(AIRTIME) {
                         },
                         my: 'left center',
                         at: 'right center',
-                        viewport: $(window), // Keep the tooltip on-screen at all times
+                        viewport: $(window), // Keep the tooltip on-screen at
+                                                // all times
                         effect: false // Disable positioning animation
                     },
                     style: {
@@ -638,10 +652,11 @@ var AIRTIME = (function(AIRTIME) {
                     hide: {event:'mouseout', delay: 50, fixed:true}  
                 });
             },
-           //remove any selected nodes before the draw.
+           // remove any selected nodes before the draw.
             "fnPreDrawCallback": function( oSettings ) {
                 
-                //make sure any dragging helpers are removed or else they'll be stranded on the screen.
+                // make sure any dragging helpers are removed or else they'll be
+                // stranded on the screen.
                 $("#draggingContainer").remove();
             },
             "fnDrawCallback": AIRTIME.library.fnDrawCallback,
@@ -650,10 +665,7 @@ var AIRTIME = (function(AIRTIME) {
             "sPaginationType": "full_numbers",
             "bJQueryUI": true,
             "bAutoWidth": false,
-            "oLanguage": {
-                "sSearch": "",
-                "sLengthMenu": "Show _MENU_"
-            },
+            "oLanguage": datatables_dict,
             
             // R = ColReorder, C = ColVis
             "sDom": 'Rl<"#library_display_type">f<"dt-process-rel"r><"H"<"library_toolbar"C>><"dataTables_scrolling"t><"F"ip>',
@@ -673,14 +685,32 @@ var AIRTIME = (function(AIRTIME) {
 
         setColumnFilter(oTable);
         oTable.fnSetFilteringDelay(350);
-        
+
+        var simpleSearchText;
+
         $libContent.on("click", "legend", function(){
+            $simpleSearch = $libContent.find("#library_display_filter label");
             var $fs = $(this).parents("fieldset");
 
             if ($fs.hasClass("closed")) {
                 $fs.removeClass("closed");
+
+                //keep value of simple search for when user switches back to it
+                simpleSearchText = $simpleSearch.find('input').val();
+
+                // clear the simple search text field and reset datatable
+                $(".dataTables_filter input").val("").keyup();
+
+                $simpleSearch.addClass("sp-invisible");
             }
             else {
+                //clear the advanced search fields and reset datatable
+                $(".filter_column input").val("").keyup();
+                
+                //reset datatable with previous simple search results (if any)
+                $(".dataTables_filter input").val(simpleSearchText).keyup();
+
+                $simpleSearch.removeClass("sp-invisible");
                 $fs.addClass("closed");
             }
         });
@@ -693,11 +723,11 @@ var AIRTIME = (function(AIRTIME) {
             .addClass("dataTables_type")
             .append('<select name="library_display_type" />')
             .find("select")
-                .append('<option value="0">All</option>')
-                .append('<option value="1">Files</option>')
-                .append('<option value="2">Playlists</option>')
-                .append('<option value="3">Smart Blocks</option>')
-                .append('<option value="4">Web Streams</option>')
+                .append('<option value="0">'+$.i18n._("All")+'</option>')
+                .append('<option value="1">'+$.i18n._("Files")+'</option>')
+                .append('<option value="2">'+$.i18n._("Playlists")+'</option>')
+                .append('<option value="3">'+$.i18n._("Smart Blocks")+'</option>')
+                .append('<option value="4">'+$.i18n._("Web Streams")+'</option>')
                 .end()
             .change(function(ev){
                 oTable.fnDraw();
@@ -734,7 +764,7 @@ var AIRTIME = (function(AIRTIME) {
         
         addQtipToSCIcons();
        
-        //begin context menu initialization.
+        // begin context menu initialization.
         $.contextMenu({
             selector: '#library_display td:not(.library_checkbox)',
             trigger: "left",
@@ -749,7 +779,7 @@ var AIRTIME = (function(AIRTIME) {
                 
                 function processMenuItems(oItems) {
                     
-                    //define an add to playlist callback.
+                    // define an add to playlist callback.
                     if (oItems.pl_add !== undefined) {
                         var aItems = [];
                         
@@ -761,31 +791,33 @@ var AIRTIME = (function(AIRTIME) {
                         oItems.pl_add.callback = callback;
                     }
                     
-                    //define an edit callback.
+                    // define an edit callback.
                     if (oItems.edit !== undefined) {
                         
                         if (data.ftype === "audioclip") {
                             callback = function() {
-                                document.location.href = oItems.edit.url;
+                                $.get(oItems.edit.url, {format: "json"}, function(json){
+                                    buildEditMetadataDialog(json);
+                                });
                             };
                         } else if (data.ftype === "playlist" || data.ftype === "block") {
                             callback = function() {
-		                        var url = '/Playlist/edit';
+		                        var url = baseUrl+'/Playlist/edit';
                                 AIRTIME.playlist.fnEdit(data.id, data.ftype, url);
                                 AIRTIME.playlist.validatePlaylistElements();
                             };
                         } else if (data.ftype === "stream") {
                             callback = function() {
-		                        var url = '/Webstream/edit';
+		                        var url = baseUrl+'/Webstream/edit';
                                 AIRTIME.playlist.fnEdit(data.id, data.ftype, url);
                             }
                         } else {
-                            throw new Exception("Unknown type: " + data.ftype);
+                            throw new Exception($.i18n._("Unknown type: ") + data.ftype);
                         }
                         oItems.edit.callback = callback;
                     }
 
-                    //define a play callback.
+                    // define a play callback.
                     if (oItems.play !== undefined) {
 
                         if (oItems.play.mime !== undefined) {
@@ -796,28 +828,33 @@ var AIRTIME = (function(AIRTIME) {
 
                         callback = function() {
                            if (data.ftype === 'playlist' && data.length !== '0.0'){
-                                playlistIndex = $(this).parent().attr('id').substring(3); //remove the pl_
+                                playlistIndex = $(this).parent().attr('id').substring(3); // remove
+                                                                                            // the
+                                                                                            // pl_
                                 open_playlist_preview(playlistIndex, 0);
                             } else if (data.ftype === 'audioclip' || data.ftype === 'stream') {
                                 open_audio_preview(data.ftype, data.audioFile, data.track_title, data.artist_name);
                             } else if (data.ftype === 'block') {
-                                blockIndex = $(this).parent().attr('id').substring(3); //remove the pl_
+                                blockIndex = $(this).parent().attr('id').substring(3); // remove
+                                                                                        // the
+                                                                                        // pl_
                                 open_block_preview(blockIndex, 0);
                             }
                         };
                         oItems.play.callback = callback;
                     }
                     
-                    //define a delete callback.
+                    // define a delete callback.
                     if (oItems.del !== undefined) {
                         
-                        //delete through the playlist controller, will reset
-                        //playlist screen if this is the currently edited playlist.
+                        // delete through the playlist controller, will reset
+                        // playlist screen if this is the currently edited
+                        // playlist.
                         if ((data.ftype === "playlist" || data.ftype === "block") && screen === "playlist") {
                             callback = function() {
                                 aMedia = [];
                                 aMedia.push({"id": data.id, "type": data.ftype});
-                                if (confirm('Are you sure you want to delete the selected item?')) {
+                                if (confirm($.i18n._('Are you sure you want to delete the selected item?'))) {
                                     AIRTIME.library.fnDeleteItems(aMedia);
                                 }
                             };
@@ -826,7 +863,7 @@ var AIRTIME = (function(AIRTIME) {
                             callback = function() {
                                 var media = [];
                                 
-                                if (confirm('Are you sure you want to delete the selected item?')) {
+                                if (confirm($.i18n._('Are you sure you want to delete the selected item?'))) {
                                     
                                     media.push({"id": data.id, "type": data.ftype});
                                     $.post(oItems.del.url, {format: "json", media: media }, function(json){
@@ -846,7 +883,7 @@ var AIRTIME = (function(AIRTIME) {
                         oItems.del.callback = callback;
                     }
                     
-                    //define a download callback.
+                    // define a download callback.
                     if (oItems.download !== undefined) {
                         
                         callback = function() {
@@ -854,11 +891,11 @@ var AIRTIME = (function(AIRTIME) {
                         };
                         oItems.download.callback = callback;
                     }
-                    //add callbacks for Soundcloud menu items.
+                    // add callbacks for Soundcloud menu items.
                     if (oItems.soundcloud !== undefined) {
                         var soundcloud = oItems.soundcloud.items;
                         
-                        //define an upload to soundcloud callback.
+                        // define an upload to soundcloud callback.
                         if (soundcloud.upload !== undefined) {
                             
                             callback = function() {
@@ -869,7 +906,7 @@ var AIRTIME = (function(AIRTIME) {
                             soundcloud.upload.callback = callback;
                         }
                         
-                        //define a view on soundcloud callback
+                        // define a view on soundcloud callback
                         if (soundcloud.view !== undefined) {
                             
                             callback = function() {
@@ -878,12 +915,16 @@ var AIRTIME = (function(AIRTIME) {
                             soundcloud.view.callback = callback;
                         }
                     }
-                
+                    // remove 'Add to smart block' option if the current
+                    // block is dynamic
+                    if ($('input:radio[name=sp_type]:checked').val() === "1") {
+                        delete oItems.pl_add;
+                    }
                     items = oItems;
                 }
                 
                 request = $.ajax({
-                  url: "/library/context-menu",
+                  url: baseUrl+"/library/context-menu",
                   type: "GET",
                   data: {id : data.id, type: data.ftype, format: "json", "screen": screen},
                   dataType: "json",
@@ -905,8 +946,27 @@ var AIRTIME = (function(AIRTIME) {
     
 }(AIRTIME || {}));
 
+function buildEditMetadataDialog (json){
+    var dialog = $(json.dialog);
+     
+    dialog.dialog({
+        autoOpen: false,
+        title: $.i18n._("Edit Metadata"),
+        width: 460,
+        height: 660,
+        modal: true,
+        close: closeDialog
+    });
+
+    dialog.dialog('open');
+}
+
+function closeDialog(event, ui) {
+    $(this).remove();
+}
+
 function checkImportStatus() {
-    $.getJSON('/Preference/is-import-in-progress', function(data){
+    $.getJSON(baseUrl+'/Preference/is-import-in-progress', function(data){
         var div = $('#import_status');
         var table = $('#library_display').dataTable();
         if (data == true){
@@ -938,8 +998,7 @@ function addProgressIcon(id) {
 }
     
 function checkLibrarySCUploadStatus(){
-    
-    var url = '/Library/get-upload-to-soundcloud-status',
+    var url = baseUrl+'/Library/get-upload-to-soundcloud-status',
         span,
         id;
     
@@ -973,7 +1032,7 @@ function addQtipToSCIcons(){
         if ($(this).hasClass("progress")){
             $(this).qtip({
                 content: {
-                    text: "Uploading in progress..."
+                    text: $.i18n._("Uploading in progress...")
                 },
                 position:{
                     adjust: {
@@ -985,20 +1044,22 @@ function addQtipToSCIcons(){
                     viewport: $(window)
                 },
                 show: {
-                    ready: true // Needed to make it show on first mouseover event
+                    ready: true // Needed to make it show on first mouseover
+                                // event
                 }
             });
         }
         else if($(this).hasClass("soundcloud")){
+            var sc_id = $(this).parent().parent().data("aData").soundcloud_id;
             $(this).qtip({
                 content: {
-                    text: "Retrieving data from the server...",
+                    text: $.i18n._("Retrieving data from the server..."),
                     ajax: {
-                        url: "/Library/get-upload-to-soundcloud-status",
+                        url: baseUrl+"/Library/get-upload-to-soundcloud-status",
                         type: "post",
                         data: ({format: "json", id : id, type: "file"}),
                         success: function(json, status){
-                            this.set('content.text', "The soundcloud id for this file is: "+json.sc_id);
+                            this.set('content.text', $.i18n._("The soundcloud id for this file is: ")+json.sc_id);
                         }
                     }
                 },
@@ -1012,20 +1073,22 @@ function addQtipToSCIcons(){
                     viewport: $(window)
                 },
                 show: {
-                    ready: true // Needed to make it show on first mouseover event
+                    ready: true // Needed to make it show on first mouseover
+                                // event
                 }
             });
         }else if($(this).hasClass("sc-error")){
             $(this).qtip({
                 content: {
-                    text: "Retreiving data from the server...",
+                    text: $.i18n._("Retreiving data from the server..."),
                     ajax: {
-                        url: "/Library/get-upload-to-soundcloud-status",
+                        url: baseUrl+"/Library/get-upload-to-soundcloud-status",
                         type: "post",
                         data: ({format: "json", id : id, type: "file"}),
                         success: function(json, status){
-                            this.set('content.text', "There was error while uploading to soundcloud.<br>"+"Error code: "+json.error_code+
-                                    "<br>"+"Error msg: "+json.error_msg+"<br>");
+                            this.set('content.text', $.i18n._("There was an error while uploading to soundcloud.")+"<br>"+
+                                    $.i18n._("Error code: ")+json.error_code+
+                                    "<br>"+$.i18n._("Error msg: ")+json.error_msg+"<br>");
                         }
                     }
                 },
@@ -1039,7 +1102,8 @@ function addQtipToSCIcons(){
                     viewport: $(window)
                 },
                 show: {
-                    ready: true // Needed to make it show on first mouseover event
+                    ready: true // Needed to make it show on first mouseover
+                                // event
                 }
             });
         }
@@ -1093,7 +1157,7 @@ function validateAdvancedSearch(divs) {
                     }
                 }
                 
-                //string fields do not need validation
+                // string fields do not need validation
                 if (searchTermType !== "s") {
                     valid = regExpr.test(searchTerm[i]);
                     if (!valid) allValid = false;
@@ -1101,11 +1165,11 @@ function validateAdvancedSearch(divs) {
                 
                 addRemoveValidationIcons(valid, $(field), searchTermType);
                 
-            /* Empty fields should not have valid/invalid indicator
-             * Range values are considered valid even if only the
-             * 'From' value is provided. Therefore, if the 'To' value
-             * is empty but the 'From' value is not empty we need to
-             * keep the validation icon on screen.
+            /*
+             * Empty fields should not have valid/invalid indicator Range values
+             * are considered valid even if only the 'From' value is provided.
+             * Therefore, if the 'To' value is empty but the 'From' value is not
+             * empty we need to keep the validation icon on screen.
              */
             } else if (searchTerm[0] === "" && searchTerm[1] !== "" ||
                     searchTerm[0] === "" && searchTerm[1] === ""){
@@ -1127,13 +1191,13 @@ function validateAdvancedSearch(divs) {
 function addRemoveValidationIcons(valid, field, searchTermType) {
     var title = '';
     if (searchTermType === 'i') {
-        title = 'Input must be a positive number';
+        title = $.i18n._('Input must be a positive number');
     } else if (searchTermType === 'n') {
-        title = 'Input must be a number';
+        title = $.i18n._('Input must be a number');
     } else if (searchTermType === 't') {
-        title = 'Input must be in the format: yyyy-mm-dd';
+        title = $.i18n._('Input must be in the format: yyyy-mm-dd');
     } else if (searchTermType === 'l') {
-        title = 'Input must be in the format: hh:mm:ss.t';
+        title = $.i18n._('Input must be in the format: hh:mm:ss.t');
     }
     
     var validIndicator = " <span class='checked-icon sp-checked-icon'></span>",
@@ -1141,7 +1205,7 @@ function addRemoveValidationIcons(valid, field, searchTermType) {
     
     if (valid) {
         if (!field.closest('div').children(':last-child').hasClass('checked-icon')) {
-            //remove invalid icon before adding valid icon
+            // remove invalid icon before adding valid icon
             if (field.closest('div').children(':last-child').hasClass('not-available-icon')) {
                 field.closest('div').children(':last-child').remove();
             }
@@ -1149,7 +1213,7 @@ function addRemoveValidationIcons(valid, field, searchTermType) {
         }
     } else {
         if (!field.closest('div').children(':last-child').hasClass('not-available-icon')) {
-            //remove valid icon before adding invalid icon
+            // remove valid icon before adding invalid icon
             if (field.closest('div').children(':last-child').hasClass('checked-icon')) {
                 field.closest('div').children(':last-child').remove();
             }
@@ -1158,12 +1222,9 @@ function addRemoveValidationIcons(valid, field, searchTermType) {
     }
 }
 
-/* Validation types:
- * s => string
- * i => integer
- * n => numeric (positive/negative, whole/decimals)
- * t => timestamp
- * l => length
+/*
+ * Validation types: s => string i => integer n => numeric (positive/negative,
+ * whole/decimals) t => timestamp l => length
  */
 var validationTypes = {
     "album_title" : "s",
@@ -1192,9 +1253,24 @@ var validationTypes = {
     "owner_id" : "s",
     "rating" : "i",
     "replay_gain" : "n",
-    "sample_rate" : "i",
+    "sample_rate" : "n",
     "track_title" : "s",
     "track_number" : "i",
     "info_url" : "s",
     "year" : "i"
 };
+
+$(document).ready(function() {
+    $('#editmdsave').live("click", function() {
+        var file_id = $('#file_id').val(),
+            data = $("#edit-md-dialog form").serializeArray();
+        $.post(baseUrl+'/library/edit-file-md', {format: "json", id: file_id, data: data}, function() {
+            $("#edit-md-dialog").dialog().remove();
+        });
+    });
+    
+    $('#editmdcancel').live("click", function() {
+        $("#edit-md-dialog").dialog().remove();
+    });
+});
+

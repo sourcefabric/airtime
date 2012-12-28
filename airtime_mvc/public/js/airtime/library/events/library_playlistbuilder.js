@@ -8,10 +8,16 @@ var AIRTIME = (function(AIRTIME) {
     mod = AIRTIME.library;
 
     mod.checkAddButton = function() {
-        var selected = mod.getChosenItemsLength(), sortable = $('#spl_sortable'), check = false;
 
-        // make sure audioclips are selected and a playlist is currently open.
-        if (selected !== 0 && sortable.length !== 0) {
+        var selected = mod.getChosenItemsLength(),
+            sortable = $('#spl_sortable:visible'),
+            check = false,
+            blockType = $('input[name=sp_type]:checked', '#smart-block-form').val();
+
+        // make sure audioclips are selected and a playlist or static block is currently open.
+        // static blocks have value of 0
+        // dynamic blocks have value of 1
+        if (selected !== 0 && (sortable.length !== 0 || blockType === "0")) {
             check = true;
         }
 
@@ -24,11 +30,11 @@ var AIRTIME = (function(AIRTIME) {
         var objType = $('#obj_type').val(),
             btnText;
         if (objType === 'playlist') {
-            btnText = ' Add to current playlist';
+            btnText = ' '+$.i18n._('Add to current playlist');
         } else if (objType === 'block') {
-            btnText = ' Add to current smart block';
+            btnText = ' '+$.i18n._('Add to current smart block');
         } else {
-            btnText = ' Add to current playlist';
+            btnText = ' '+$.i18n._('Add to current playlist');
         }
         AIRTIME.library.changeAddButtonText($('.btn-group #library-plus #lib-plus-text'), btnText);
     };
@@ -37,6 +43,11 @@ var AIRTIME = (function(AIRTIME) {
         var $nRow = $(nRow);
         if (aData.ftype === "audioclip") {
             $nRow.addClass("lib-audio");
+            $image = $nRow.find('td.library_type');
+            if (!isAudioSupported(aData.mime)) {
+                $image.html('<span class="ui-icon ui-icon-locked"></span>');
+                aData.image = '<span class="ui-icon ui-icon-locked"></span>';
+            }
         } else if (aData.ftype === "stream") {
             $nRow.addClass("lib-stream");
         } else if (aData.ftype === "block") {
@@ -64,8 +75,9 @@ var AIRTIME = (function(AIRTIME) {
                     helper : function() {
 
                         var $el = $(this), selected = mod
-                                .getChosenAudioFilesLength(), container, message, li = $("#side_playlist ul[id='spl_sortable'] li:first"), width = li
-                                .width(), height = 55;
+                                .getChosenAudioFilesLength(), container, message, li = $("#side_playlist ul[id='spl_sortable'] li:first"),
+                                width = li.width(), height = 55;
+                        if (width > 798) width = 798;
 
                         // dragging an element that has an unselected
                         // checkbox.
@@ -74,9 +86,9 @@ var AIRTIME = (function(AIRTIME) {
                         }
 
                         if (selected === 1) {
-                            message = "Adding 1 Item.";
+                            message = $.i18n._("Adding 1 Item");
                         } else {
-                            message = "Adding " + selected + " Items.";
+                            message = sprintf($.i18n._("Adding %s Items"), selected);
                         }
 
                         container = $('<div class="helper"/>').append(
@@ -90,6 +102,10 @@ var AIRTIME = (function(AIRTIME) {
                         return container;
                     },
                     cursor : 'pointer',
+                    cursorAt: {
+                        top: 30,
+                        left: 100
+                    },
                     connectToSortable : '#spl_sortable'
                 });
     };
@@ -142,9 +158,9 @@ var AIRTIME = (function(AIRTIME) {
                             undefined, 'after');
                 } else {
                     if ($('#obj_type').val() == 'block') {
-                        alert('You can only add tracks to smart blocks.');
+                        alert($.i18n._('You can only add tracks to smart blocks.'));
                     } else if ($('#obj_type').val() == 'playlist') {
-                        alert('You can only add tracks, smart blocks, and webstreams to playlists.');
+                        alert($.i18n._('You can only add tracks, smart blocks, and webstreams to playlists.'));
                     }
                 }
             });

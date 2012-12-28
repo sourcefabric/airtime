@@ -75,8 +75,8 @@ function playAllPlaylist(p_playlistID, p_playlistIndex) {
     
     if ( _idToPostionLookUp !== undefined && viewsPlaylistID == p_playlistID ) {
         play(p_playlistIndex);
-    } else {
-        buildplaylist("/audiopreview/get-playlist/playlistID/"+p_playlistID, p_playlistIndex);
+    }else {
+        buildplaylist(baseUrl+"/audiopreview/get-playlist/playlistID/"+p_playlistID, p_playlistIndex);
     }
 }
 
@@ -87,7 +87,7 @@ function playBlock(p_blockId, p_blockIndex)
     if ( _idToPostionLookUp !== undefined && viewsBlockId == p_blockId ) {
         play(p_blockIndex);
     } else {
-        buildplaylist("/audiopreview/get-block/blockId/"+p_blockId, p_blockIndex);
+        buildplaylist(baseUrl+"/audiopreview/get-block/blockId/"+p_blockId, p_blockIndex);
     }
 }
 
@@ -105,7 +105,7 @@ function playAllShow(p_showID, p_index) {
     if ( _idToPostionLookUp !== undefined && viewsShowID == p_showID ) {
         play(p_index);
     }else {
-        buildplaylist("/audiopreview/get-show/showID/"+p_showID, p_index);
+        buildplaylist(baseUrl+"/audiopreview/get-show/showID/"+p_showID, p_index);
     }
 }
 
@@ -124,6 +124,7 @@ function buildplaylist(p_url, p_playIndex) {
         var index;
         var total = 0;
         var skipped = 0;
+
         for(index in data) {
             if (data[index]['type'] == 0) { 
                 if (data[index]['element_mp3'] != undefined){
@@ -153,12 +154,24 @@ function buildplaylist(p_url, p_playIndex) {
                     continue;
                 } 
             } else if (data[index]['type'] == 1) {
-                 media = {title: data[index]['element_title'],
-                        artist: data[index]['element_artist'],
-                        mp3:data[index]['uri']
-                };
+                var mime = data[index]['mime'];
+                if (mime.search(/mp3/i) > 0 || mime.search(/mpeg/i) > 0) {
+                    key = "mp3";
+                } else if (mime.search(/og(g|a)/i) > 0 || mime.search(/vorbis/i) > 0) {
+                    key = "oga";
+                } else if (mime.search(/mp4/i) > 0) {
+                    key = "m4a";
+                } else if (mime.search(/wav/i) > 0) {
+                    key = "wav";
+                } 
+
+                if (key) {
+                    media = {title: data[index]['element_title'],
+                            artist: data[index]['element_artist']
+                    };       
+                    media[key] = data[index]['uri']
+                }
             }
-            console.log(data[index]);
             if (media && isAudioSupported(data[index]['mime'])) {
                 // javascript doesn't support associative array with numeric key
                 // so we need to remove the gap if we skip any of tracks due to
@@ -208,7 +221,7 @@ function play(p_playlistIndex){
  */
 function playOne(uri, mime) {
     var playlist = new Array();
-   
+
     var media = null; 
     var key = null;
     if (mime.search(/mp3/i) > 0 || mime.search(/mpeg/i) > 0) {

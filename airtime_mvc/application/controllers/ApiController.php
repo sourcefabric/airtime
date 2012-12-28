@@ -40,6 +40,8 @@ class ApiController extends Zend_Controller_Action
                 ->addActionContext('get-files-without-replay-gain' , 'json')
                 ->addActionContext('reload-metadata-group'         , 'json')
                 ->addActionContext('notify-webstream-data'         , 'json')
+                ->addActionContext('get-stream-parameters'         , 'json')
+                ->addActionContext('push-stream-stats'         , 'json')
                 ->initContext();
     }
 
@@ -51,7 +53,7 @@ class ApiController extends Zend_Controller_Action
         if (!in_array($api_key, $CC_CONFIG["apiKey"]) &&
             is_null(Zend_Auth::getInstance()->getStorage()->read())) {
             header('HTTP/1.0 401 Unauthorized');
-            print 'You are not allowed to access this resource.';
+            print _('You are not allowed to access this resource.');
             exit;
         }
     }
@@ -78,7 +80,7 @@ class ApiController extends Zend_Controller_Action
 
         if (is_null(Zend_Auth::getInstance()->getStorage()->read())) {
             header('HTTP/1.0 401 Unauthorized');
-            print 'You are not allowed to access this resource.';
+            print _('You are not allowed to access this resource.');
 
             return;
         }
@@ -280,7 +282,7 @@ class ApiController extends Zend_Controller_Action
             echo isset($_GET['callback']) ? $_GET['callback'].'('.json_encode($result).')' : json_encode($result);
         } else {
             header('HTTP/1.0 401 Unauthorized');
-            print 'You are not allowed to access this resource. ';
+            print _('You are not allowed to access this resource. ');
             exit;
         }
     }
@@ -319,7 +321,7 @@ class ApiController extends Zend_Controller_Action
             echo isset($_GET['callback']) ? $_GET['callback'].'('.json_encode($result).')' : json_encode($result);
         } else {
             header('HTTP/1.0 401 Unauthorized');
-            print 'You are not allowed to access this resource. ';
+            print _('You are not allowed to access this resource. ');
             exit;
         }
     }
@@ -500,7 +502,7 @@ class ApiController extends Zend_Controller_Action
 
             //File is not in database anymore.
             if (is_null($file)) {
-                $return_hash['error'] = "File does not exist in Airtime.";
+                $return_hash['error'] = _("File does not exist in Airtime.");
 
                 return $return_hash;
             }
@@ -513,7 +515,7 @@ class ApiController extends Zend_Controller_Action
                 $md['MDATA_KEY_ORIGINAL_PATH']);
 
             if (is_null($file)) {
-                $return_hash['error'] = 'File does not exist in Airtime';
+                $return_hash['error'] = _('File does not exist in Airtime');
             } else {
                 $filepath = $md['MDATA_KEY_FILEPATH'];
                 //$filepath = str_replace("\\", "", $filepath);
@@ -525,7 +527,7 @@ class ApiController extends Zend_Controller_Action
             $file = Application_Model_StoredFile::RecallByFilepath($filepath);
 
             if (is_null($file)) {
-                $return_hash['error'] = "File doesn't exist in Airtime.";
+                $return_hash['error'] = _("File doesn't exist in Airtime.");
                 Logging::warn("Attempt to delete file that doesn't exist.
                     Path: '$filepath'");
 
@@ -571,7 +573,7 @@ class ApiController extends Zend_Controller_Action
                 Logging::info("Received bad request(key=$k), no 'mode' parameter. Bad request is:");
                 Logging::info( $info_json );
                 array_push( $responses, array(
-                    'error' => "Bad request. no 'mode' parameter passed.",
+                    'error' => _("Bad request. no 'mode' parameter passed."),
                     'key' => $k));
                 continue;
             } elseif ( !in_array($info_json['mode'], $valid_modes) ) {
@@ -581,7 +583,7 @@ class ApiController extends Zend_Controller_Action
                 Logging::info("Received bad request(key=$k). 'mode' parameter was invalid with value: '$mode'. Request:");
                 Logging::info( $info_json );
                 array_push( $responses, array(
-                    'error' => "Bad request. 'mode' parameter is invalid",
+                    'error' => _("Bad request. 'mode' parameter is invalid"),
                     'key' => $k,
                     'mode' => $mode ) );
                 continue;
@@ -926,35 +928,55 @@ class ApiController extends Zend_Controller_Action
 
         $data_arr = json_decode($data);
 
-        if (!is_null($media_id) && isset($data_arr->title) && strlen($data_arr->title) < 1024) {
+        if (!is_null($media_id)) {
+            if (isset($data_arr->title) && 
+                strlen($data_arr->title) < 1024) {
 
-            $previous_metadata = CcWebstreamMetadataQuery::create()
-                ->orderByDbStartTime('desc')
-                ->filterByDbInstanceId($media_id)
-                ->findOne();
+                $previous_metadata = CcWebstreamMetadataQuery::create()
+                    ->orderByDbStartTime('desc')
+                    ->filterByDbInstanceId($media_id)
+                    ->findOne();
 
-            $do_insert = true;
-            if ($previous_metadata) {
-                if ($previous_metadata->getDbLiquidsoapData() == $data_arr->title) {
-                    Logging::debug("Duplicate found: ".$data_arr->title);
-                    $do_insert = false;
+                $do_insert = true;
+                if ($previous_metadata) {
+                    if ($previous_metadata->getDbLiquidsoapData() == $data_arr->title) {
+                        Logging::debug("Duplicate found: ".$data_arr->title);
+                        $do_insert = false;
+                    }
+                }
+
+                if ($do_insert) {
+                    $webstream_metadata = new CcWebstreamMetadata();
+                    $webstream_metadata->setDbInstanceId($media_id);
+                    $webstream_metadata->setDbStartTime(new DateTime("now", new DateTimeZone("UTC")));
+                    $webstream_metadata->setDbLiquidsoapData($data_arr->title);
+                    $webstream_metadata->save();
                 }
             }
-
-            if ($do_insert) {
-                $webstream_metadata = new CcWebstreamMetadata();
-                $webstream_metadata->setDbInstanceId($media_id);
-                $webstream_metadata->setDbStartTime(new DateTime("now", new DateTimeZone("UTC")));
-                $webstream_metadata->setDbLiquidsoapData($data_arr->title);
-                $webstream_metadata->save();
-            }
-
         } else {
-            throw new Error("Unexpected error. media_id $media_id has a null stream value in cc_schedule!");
+            throw new Exception("Null value of media_id");
         }
 
         $this->view->response = $data;
         $this->view->media_id = $media_id;
+    }
+
+    public function getStreamParametersAction() {
+        $streams = array("s1", "s2", "s3");
+        $stream_params = array();
+        foreach ($streams as $s) {
+            $stream_params[$s] = 
+                Application_Model_StreamSetting::getStreamDataNormalized($s);
+        }
+        $this->view->stream_params = $stream_params;
+    }
+
+    public function pushStreamStatsAction() {
+        $request = $this->getRequest();
+        $data = json_decode($request->getParam("data"), true);
+
+        Application_Model_ListenerStat::insertDataPoints($data);
+        $this->view->data = $data;
     }
 
 }

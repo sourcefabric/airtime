@@ -6,7 +6,7 @@
 
 function scheduleRefetchEvents(json) {
     if(json.show_error == true){
-        alert("The show instance doesn't exist anymore!");
+        alert($.i18n._("The show instance doesn't exist anymore!"));
     }
     if(json.show_id) {
         var dialog_id = parseInt($("#add_show_id").val(), 10);
@@ -41,7 +41,7 @@ function openAddShowForm() {
 function makeAddShowButton(){
     $('.fc-header-left')
         .append('<span class="fc-header-space"></span>')
-        .append('<span class="fc-button"><a href="#" class="add-button"><span class="add-icon"></span>Show</a></span>')
+        .append('<span class="fc-button"><a href="#" class="add-button"><span class="add-icon"></span>'+$.i18n._("Show")+'</a></span>')
         .find('span.fc-button:last > a')
             .click(function(){
                 openAddShowForm();
@@ -154,12 +154,12 @@ function viewDisplay( view ) {
         var calendarEl = this;
 
         var select = $('<select class="schedule_change_slots input_select"/>')
-            .append('<option value="1">1m</option>')
-            .append('<option value="5">5m</option>')
-            .append('<option value="10">10m</option>')
-            .append('<option value="15">15m</option>')
-            .append('<option value="30">30m</option>')
-            .append('<option value="60">60m</option>')
+            .append('<option value="1">'+$.i18n._("1m")+'</option>')
+            .append('<option value="5">'+$.i18n._("5m")+'</option>')
+            .append('<option value="10">'+$.i18n._("10m")+'</option>')
+            .append('<option value="15">'+$.i18n._("15m")+'</option>')
+            .append('<option value="30">'+$.i18n._("30m")+'</option>')
+            .append('<option value="60">'+$.i18n._("60m")+'</option>')
             .change(function(){
                 var slotMin = $(this).val();
                 var opt = view.calendar.options;
@@ -176,7 +176,7 @@ function viewDisplay( view ) {
                     .fullCalendar( 'gotoDate', date );
 
                 //save slotMin value to db
-                var url = '/Schedule/set-time-interval/format/json';
+                var url = baseUrl+'/Schedule/set-time-interval/format/json';
                 $.post(url, {timeInterval: slotMin});
             });
 
@@ -201,7 +201,7 @@ function viewDisplay( view ) {
     }
 
     //save view name to db
-    var url = '/Schedule/set-time-scale/format/json';
+    var url = baseUrl+'/Schedule/set-time-scale/format/json';
     $.post(url, {timeScale: view.name});
 }
 
@@ -261,7 +261,7 @@ function eventRender(event, element, view) {
                 if (event.soundcloud_id === -1) {
                     $(element)
                         .find(".fc-event-time")
-                        .before('<span id="'+event.id+'" title="Show is empty" class="small-icon show-empty"></span>');
+                        .before('<span id="'+event.id+'" title="'+$.i18n._("Show is empty")+'" class="small-icon show-empty"></span>');
                 } else if (event.soundcloud_id > 0) {
                     
                 } else if (event.soundcloud_id === -2) {
@@ -275,7 +275,7 @@ function eventRender(event, element, view) {
                 if (event.soundcloud_id === -1) {
                     $(element)
                         .find(".fc-event-title")
-                        .after('<span id="'+event.id+'" title="Show is empty" class="small-icon show-empty"></span>');
+                        .after('<span id="'+event.id+'" title="'+$.i18n._("Show is empty")+'" class="small-icon show-empty"></span>');
                 } else if (event.soundcloud_id > 0) {
                     
                 } else if (event.soundcloud_id === -2) {
@@ -305,9 +305,7 @@ function eventAfterRender( event, element, view ) {
 }
 
 function eventDrop(event, dayDelta, minuteDelta, allDay, revertFunc, jsEvent, ui, view) {
-    var url;
-
-    url = '/Schedule/move-show/format/json';
+    var url = baseUrl+'/Schedule/move-show/format/json';
 
     $.post(url,
         {day: dayDelta, min: minuteDelta, showInstanceId: event.id},
@@ -323,9 +321,7 @@ function eventDrop(event, dayDelta, minuteDelta, allDay, revertFunc, jsEvent, ui
 }
 
 function eventResize( event, dayDelta, minuteDelta, revertFunc, jsEvent, ui, view ) {
-    var url;
-
-    url = '/Schedule/resize-show/format/json';
+    var url = baseUrl+'/Schedule/resize-show/format/json';
 
     $.post(url,
         {day: dayDelta, min: minuteDelta, showId: event.showId},
@@ -348,7 +344,7 @@ function getFullCalendarEvents(start, end, callback) {
     start_date = makeTimeStamp(start);
     end_date = makeTimeStamp(end);
 
-    url = '/Schedule/event-feed';
+    url = baseUrl+'/Schedule/event-feed';
 
     var d = new Date();
     
@@ -358,7 +354,7 @@ function getFullCalendarEvents(start, end, callback) {
 }
 
 function checkSCUploadStatus(){
-    var url = '/Library/get-upload-to-soundcloud-status/format/json';
+    var url = baseUrl+'/Library/get-upload-to-soundcloud-status/format/json';
     $("span[class*=progress]").each(function(){
         var id = $(this).attr("id");
         $.post(url, {format: "json", id: id, type:"show"}, function(json){
@@ -374,7 +370,7 @@ function checkSCUploadStatus(){
  *  show icon
  */
 function getCurrentShow(){
-    var url = '/Schedule/get-current-show/format/json',
+    var url = baseUrl+'/Schedule/get-current-show/format/json',
         id,
         $el;
     $.post(url, {format: "json"}, function(json) {
@@ -428,7 +424,7 @@ function addQtipToSCIcons(ele){
     if($(ele).hasClass("progress")){
         $(ele).qtip({
             content: {
-                text: "Uploading in progress..."
+                text: $.i18n._("Uploading in progress...")
             },
             position:{
                 adjust: {
@@ -446,13 +442,13 @@ function addQtipToSCIcons(ele){
     }else if($(ele).hasClass("soundcloud")){
         $(ele).qtip({
             content: {
-                text: "Retreiving data from the server...",
+                text: $.i18n._("Retreiving data from the server..."),
                 ajax: {
-                    url: "/Library/get-upload-to-soundcloud-status",
+                    url: baseUrl+"/Library/get-upload-to-soundcloud-status",
                     type: "post",
                     data: ({format: "json", id : id, type: "file"}),
                     success: function(json, status){
-                        this.set('content.text', "The soundcloud id for this file is: "+json.sc_id);
+                        this.set('content.text', $.i18n._("The soundcloud id for this file is: ")+json.sc_id);
                     }
                 }
             },
@@ -472,14 +468,14 @@ function addQtipToSCIcons(ele){
     }else if($(ele).hasClass("sc-error")){
         $(ele).qtip({
             content: {
-                text: "Retreiving data from the server...",
+                text: $.i18n._("Retreiving data from the server..."),
                 ajax: {
-                    url: "/Library/get-upload-to-soundcloud-status",
+                    url: baseUrl+"/Library/get-upload-to-soundcloud-status",
                     type: "post",
                     data: ({format: "json", id : id, type: "show"}),
                     success: function(json, status){
-                        this.set('content.text', "There was error while uploading to soundcloud.<br>"+"Error code: "+json.error_code+
-                                "<br>"+"Error msg: "+json.error_msg+"<br>");
+                        this.set('content.text', $.i18n._("There was error while uploading to soundcloud.")+"<br>"+$.i18n._("Error code: ")+json.error_code+
+                                "<br>"+$.i18n._("Error msg: ")+json.error_msg+"<br>");
                     }
                 }
             },
@@ -499,7 +495,7 @@ function addQtipToSCIcons(ele){
     }else if ($(ele).hasClass("show-empty")){
         $(ele).qtip({
             content: {
-                text: "This show has no scheduled content."
+                text: $.i18n._("This show has no scheduled content.")
             },
             position:{
                 adjust: {
@@ -552,7 +548,7 @@ function checkEmptyShowStatus(e) {
 //Alert the error and reload the page
 //this function is used to resolve concurrency issue
 function alertShowErrorAndReload(){
-  alert("The show instance doesn't exist anymore!");
+  alert($.i18n._("The show instance doesn't exist anymore!"));
   window.location.reload();
 }
 
