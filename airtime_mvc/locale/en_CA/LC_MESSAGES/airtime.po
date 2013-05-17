@@ -2,14 +2,14 @@
 # Copyright (C) 2012 Sourcefabric
 # This file is distributed under the same license as the Airtime package.
 # Sourcefabric <contact@sourcefabric.org>, 2012.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Airtime 2.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-05-14 18:09-0400\n"
-"PO-Revision-Date: 2013-05-14 16:11-0500\n"
-"Last-Translator: Denise Rigato <denise.rigato@sourcefabric.org>\n"
+"PO-Revision-Date: 2013-05-17 15:34+0100\n"
+"Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
 "Language-Team: Canadian Localization <contact@sourcefabric.org>\n"
 "Language: en_CA\n"
 "MIME-Version: 1.0\n"
@@ -168,7 +168,7 @@ msgstr "Edit Show"
 
 #: airtime_mvc/application/services/CalendarService.php:133
 msgid "Edit This Instance"
-msgstr ""
+msgstr "Edit This Instance"
 
 #: airtime_mvc/application/services/CalendarService.php:151
 #: airtime_mvc/application/services/CalendarService.php:166
@@ -192,7 +192,7 @@ msgstr "Delete This Instance and All Following"
 
 #: airtime_mvc/application/services/CalendarService.php:210
 msgid "Permission denied"
-msgstr ""
+msgstr "Permission denied"
 
 #: airtime_mvc/application/services/CalendarService.php:214
 #: airtime_mvc/application/models/ShowInstance.php:245
@@ -274,12 +274,12 @@ msgstr "New Webstream"
 
 #: airtime_mvc/application/views/scripts/playlist/playlist.phtml:21
 msgid "Empty playlist content"
-msgstr ""
+msgstr "Empty playlist content"
 
 #: airtime_mvc/application/views/scripts/playlist/playlist.phtml:21
 #: airtime_mvc/application/views/scripts/playlist/smart-block.phtml:21
 msgid "Clear"
-msgstr ""
+msgstr "Clear"
 
 #: airtime_mvc/application/views/scripts/playlist/playlist.phtml:24
 msgid "Shuffle playlist"
@@ -362,7 +362,7 @@ msgstr "Empty playlist"
 #: airtime_mvc/application/views/scripts/playlist/set-cue.phtml:3
 #: airtime_mvc/application/views/scripts/playlist/set-fade.phtml:3
 msgid "Show Waveform"
-msgstr ""
+msgstr "Show Waveform"
 
 #: airtime_mvc/application/views/scripts/playlist/set-cue.phtml:5
 msgid "Cue In: "
@@ -390,7 +390,7 @@ msgstr "(ss.t)"
 
 #: airtime_mvc/application/views/scripts/playlist/smart-block.phtml:21
 msgid "Empty smart block content"
-msgstr ""
+msgstr "Empty smart block content"
 
 #: airtime_mvc/application/views/scripts/playlist/smart-block.phtml:90
 msgid "No open smart block"
@@ -1569,7 +1569,7 @@ msgstr "Station Name"
 
 #: airtime_mvc/application/forms/GeneralPreferences.php:33
 msgid "Default Crossfade Duration (s):"
-msgstr ""
+msgstr "Default Crossfade Duration (s):"
 
 #: airtime_mvc/application/forms/GeneralPreferences.php:40
 #: airtime_mvc/application/forms/GeneralPreferences.php:59
@@ -1579,11 +1579,11 @@ msgstr "enter a time in seconds 0{.0}"
 
 #: airtime_mvc/application/forms/GeneralPreferences.php:52
 msgid "Default Fade In (s):"
-msgstr ""
+msgstr "Default Fade In (s):"
 
 #: airtime_mvc/application/forms/GeneralPreferences.php:71
 msgid "Default Fade Out (s):"
-msgstr ""
+msgstr "Default Fade Out (s):"
 
 #: airtime_mvc/application/forms/GeneralPreferences.php:89
 #, php-format
@@ -1815,7 +1815,7 @@ msgstr "All My Shows:"
 
 #: airtime_mvc/application/forms/AddShowRepeats.php:10
 msgid "Link:"
-msgstr ""
+msgstr "Link:"
 
 #: airtime_mvc/application/forms/AddShowRepeats.php:16
 msgid "Repeat Type:"
@@ -1874,15 +1874,15 @@ msgstr "Sat"
 
 #: airtime_mvc/application/forms/AddShowRepeats.php:45
 msgid "Repeat By:"
-msgstr ""
+msgstr "Repeat By:"
 
 #: airtime_mvc/application/forms/AddShowRepeats.php:48
 msgid "day of the month"
-msgstr ""
+msgstr "day of the month"
 
 #: airtime_mvc/application/forms/AddShowRepeats.php:48
 msgid "day of the week"
-msgstr ""
+msgstr "day of the week"
 
 #: airtime_mvc/application/forms/AddShowRepeats.php:67
 msgid "No End?"
@@ -2272,24 +2272,24 @@ msgstr "Logout"
 #: airtime_mvc/application/layouts/scripts/layout.phtml:41
 #: airtime_mvc/application/layouts/scripts/layout.phtml:66
 msgid "Play"
-msgstr ""
+msgstr "Play"
 
 #: airtime_mvc/application/layouts/scripts/layout.phtml:42
 #: airtime_mvc/application/layouts/scripts/layout.phtml:67
 msgid "Stop"
-msgstr ""
+msgstr "Stop"
 
 #: airtime_mvc/application/layouts/scripts/layout.phtml:48
 msgid "Set Cue In"
-msgstr ""
+msgstr "Set Cue In"
 
 #: airtime_mvc/application/layouts/scripts/layout.phtml:55
 msgid "Set Cue Out"
-msgstr ""
+msgstr "Set Cue Out"
 
 #: airtime_mvc/application/layouts/scripts/layout.phtml:70
 msgid "Cursor"
-msgstr ""
+msgstr "Cursor"
 
 #: airtime_mvc/application/layouts/scripts/layout.phtml:71
 #: airtime_mvc/application/controllers/LocaleController.php:279
@@ -2427,11 +2427,11 @@ msgstr "Are you sure you want to delete the selected item(s)?"
 
 #: airtime_mvc/application/controllers/LocaleController.php:64
 msgid "Scheduled"
-msgstr ""
+msgstr "Scheduled"
 
 #: airtime_mvc/application/controllers/LocaleController.php:65
 msgid "Playlist"
-msgstr ""
+msgstr "Playlist"
 
 #: airtime_mvc/application/controllers/LocaleController.php:69
 msgid "Bit Rate"
@@ -2643,7 +2643,7 @@ msgstr "This path is currently not accessible."
 #: airtime_mvc/application/controllers/LocaleController.php:169
 #, php-format
 msgid "Some stream types require extra configuration. Details about enabling %sAAC+ Support%s or %sOpus Support%s are provided."
-msgstr ""
+msgstr "Some stream types require extra configuration. Details about enabling %sAAC+ Support%s or %sOpus Support%s are provided."
 
 #: airtime_mvc/application/controllers/LocaleController.php:170
 msgid "Connected to the streaming server"
@@ -2928,15 +2928,15 @@ msgstr "Moving %s Items"
 
 #: airtime_mvc/application/controllers/LocaleController.php:292
 msgid "Fade Editor"
-msgstr ""
+msgstr "Fade Editor"
 
 #: airtime_mvc/application/controllers/LocaleController.php:293
 msgid "Cue Editor"
-msgstr ""
+msgstr "Cue Editor"
 
 #: airtime_mvc/application/controllers/LocaleController.php:294
 msgid "Waveform features are available in a browser supporting the Web Audio API"
-msgstr ""
+msgstr "Waveform features are available in a browser supporting the Web Audio API"
 
 #: airtime_mvc/application/controllers/LocaleController.php:297
 msgid "Select all"
@@ -3537,7 +3537,7 @@ msgstr "The file was not uploaded, this error can occur if the computer hard dri
 
 #: airtime_mvc/application/models/Scheduler.php:72
 msgid "Cannot move items out of linked shows"
-msgstr ""
+msgstr "Cannot move items out of linked shows"
 
 #: airtime_mvc/application/models/Scheduler.php:115
 msgid "The schedule you're viewing is out of date! (sched mismatch)"
@@ -3574,7 +3574,7 @@ msgstr "The show %s has been previously updated!"
 
 #: airtime_mvc/application/models/Scheduler.php:174
 msgid "Content in linked shows must be scheduled before or after any one is broadcasted"
-msgstr ""
+msgstr "Content in linked shows must be scheduled before or after any one is broadcasted"
 
 #: airtime_mvc/application/models/Scheduler.php:197
 #: airtime_mvc/application/models/Scheduler.php:281
