@@ -2639,7 +2639,7 @@ msgstr "경로에 접근할수 없습니다"
 
 #: airtime_mvc/application/controllers/LocaleController.php:169
 #, php-format
-msgid "Some steam types require extra configuration. Details about enabling %sAAC+ Support%s or %sOpus Support%s are provided."
+msgid "Some stream types require extra configuration. Details about enabling %sAAC+ Support%s or %sOpus Support%s are provided."
 msgstr ""
 
 #: airtime_mvc/application/controllers/LocaleController.php:170

@@ -2729,7 +2729,7 @@ msgstr "指定的路径无法访问。"
 #: airtime_mvc/application/controllers/LocaleController.php:169
 #, php-format
 msgid ""
-"Some steam types require extra configuration. Details about enabling %sAAC+ "
+"Some stream types require extra configuration. Details about enabling %sAAC+ "
 "Support%s or %sOpus Support%s are provided."
 msgstr ""
 "某些输出流类型需要进一步的环境配置，请参阅%s启用AAC+%s或者%s启用Opus%s。"
