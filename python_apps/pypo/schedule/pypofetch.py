@@ -108,7 +108,7 @@ class PypoFetch(Thread):
                 self.regenerate_liquidsoap_conf(m['setting'])
             elif command == 'update_stream_format':
                 self.logger.info("Updating stream format...")
-                self.telnetliquidsoap.\
+                self.pypo_liquidsoap.\
                         get_telnet_dispatcher().\
                         update_liquidsoap_stream_format(m['stream_format'])
             elif command == 'update_station_name':
@@ -509,7 +509,6 @@ class PypoFetch(Thread):
 
                 Currently we are checking every POLL_INTERVAL seconds.
                 """
-
 
                 message = self.fetch_queue.get(block=True, 
                         timeout=self.listener_timeout)

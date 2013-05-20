@@ -403,10 +403,10 @@ function setupEventListeners() {
     $(".stream_type_help_icon").qtip({
     	content: {
             text: sprintf(
-                	$.i18n._("Some stream types require extra configuration. Details about enabling %sAAC+ Support%s or %sOpus Support%s are provided."), 
-                    "<a target='_blank' href='https://wiki.sourcefabric.org/pages/viewpage.action?pageId=13632310'>", 
+                	$.i18n._("Some steam types require extra configuration. Details about enabling %sAAC+ Support%s or %sOpus Support%s are provided."), 
+                    "<a target='_blank' href='https://wiki.sourcefabric.org/x/NgPQ'>", 
                     "</a>",
-                    "<a target='_blank' href='https://wiki.sourcefabric.org/display/CC/Airtime+Opus+Support'>", 
+                    "<a target='_blank' href='https://wiki.sourcefabric.org/x/KgPQ'>", 
                     "</a>")
         },
         hide: {
