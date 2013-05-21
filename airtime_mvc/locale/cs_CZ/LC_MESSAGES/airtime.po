@@ -1,4 +1,4 @@
-# LANGUAGE (xx_XX) translation for Airtime.
+# CZECH (cs_CZ) translation for Airtime.
 # Copyright (C) 2012 Sourcefabric
 # This file is distributed under the same license as the Airtime package.
 # Sourcefabric <contact@sourcefabric.org>, 2012.
@@ -2183,8 +2183,8 @@ msgstr "'Délka' by měla být ve formátu '00:00:00'"
 
 #: airtime_mvc/application/forms/SmartBlockCriteria.php:513
 #: airtime_mvc/application/forms/SmartBlockCriteria.php:526
-msgid "The value should be in timestamp format(eg. 0000-00-00 or 00-00-00 00:00:00)"
-msgstr "Hodnota by měla být v časový formát(např. 0000-00-00 nebo 00-00-00 00:00:00)"
+msgid "The value should be in timestamp format (e.g. 0000-00-00 or 0000-00-00 00:00:00)"
+msgstr "Hodnota by měla být v časový formát (např. 0000-00-00 nebo 0000-00-00 00:00:00)"
 
 #: airtime_mvc/application/forms/SmartBlockCriteria.php:540
 msgid "The value has to be numeric"

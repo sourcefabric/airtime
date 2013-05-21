@@ -2184,8 +2184,8 @@ msgstr "\"Длина\" должна быть в формате '00:00:00'"
 
 #: airtime_mvc/application/forms/SmartBlockCriteria.php:513
 #: airtime_mvc/application/forms/SmartBlockCriteria.php:526
-msgid "The value should be in timestamp format(eg. 0000-00-00 or 00-00-00 00:00:00)"
-msgstr "Значение должно быть в формате временной метки (например, 0000-00-00 или 00-00-00 00:00:00)"
+msgid "The value should be in timestamp format (e.g. 0000-00-00 or 0000-00-00 00:00:00)"
+msgstr "Значение должно быть в формате временной метки (например, 0000-00-00 или 0000-00-00 00:00:00)"
 
 #: airtime_mvc/application/forms/SmartBlockCriteria.php:540
 msgid "The value has to be numeric"

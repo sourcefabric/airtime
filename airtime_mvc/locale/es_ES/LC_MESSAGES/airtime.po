@@ -2181,8 +2181,8 @@ msgstr "'Length' (la duración) debe establecerse e un formato de '00:00:00' "
 
 #: airtime_mvc/application/forms/SmartBlockCriteria.php:513
 #: airtime_mvc/application/forms/SmartBlockCriteria.php:526
-msgid "The value should be in timestamp format(eg. 0000-00-00 or 00-00-00 00:00:00)"
-msgstr "El valor debe estar en un formato de tiempo (eg. 0000-00-00 or 00-00-00 00:00:00)"
+msgid "The value should be in timestamp format (e.g. 0000-00-00 or 0000-00-00 00:00:00)"
+msgstr "El valor debe estar en un formato de tiempo (e.g. 0000-00-00 or 0000-00-00 00:00:00)"
 
 #: airtime_mvc/application/forms/SmartBlockCriteria.php:540
 msgid "The value has to be numeric"

@@ -2239,8 +2239,8 @@ msgstr "‘长度’格式应该为‘00:00:00’"
 #: airtime_mvc/application/forms/SmartBlockCriteria.php:513
 #: airtime_mvc/application/forms/SmartBlockCriteria.php:526
 msgid ""
-"The value should be in timestamp format(eg. 0000-00-00 or 00-00-00 00:00:00)"
-msgstr "时间格式错误，应该为形如0000-00-00 或 00-00-00 00:00:00的格式"
+"The value should be in timestamp format (e.g. 0000-00-00 or 0000-00-00 00:00:00)"
+msgstr "时间格式错误，应该为形如0000-00-00 或 0000-00-00 00:00:00的格式"
 
 #: airtime_mvc/application/forms/SmartBlockCriteria.php:540
 msgid "The value has to be numeric"
