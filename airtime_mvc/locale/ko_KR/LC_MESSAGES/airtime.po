@@ -2181,8 +2181,8 @@ msgstr "길이는 00:00:00 형태로 입력하세요"
 
 #: airtime_mvc/application/forms/SmartBlockCriteria.php:513
 #: airtime_mvc/application/forms/SmartBlockCriteria.php:526
-msgid "The value should be in timestamp format(eg. 0000-00-00 or 00-00-00 00:00:00)"
-msgstr "이 값은 timestamp 형태(eg. 0000-00-00 or 00-00-00 00:00:00)로 입력해주세요"
+msgid "The value should be in timestamp format (e.g. 0000-00-00 or 0000-00-00 00:00:00)"
+msgstr "이 값은 timestamp 형태(e.g. 0000-00-00 or 0000-00-00 00:00:00)로 입력해주세요"
 
 #: airtime_mvc/application/forms/SmartBlockCriteria.php:540
 msgid "The value has to be numeric"
@@ -2639,7 +2639,7 @@ msgstr "경로에 접근할수 없습니다"
 
 #: airtime_mvc/application/controllers/LocaleController.php:169
 #, php-format
-msgid "Some steam types require extra configuration. Details about enabling %sAAC+ Support%s or %sOpus Support%s are provided."
+msgid "Some stream types require extra configuration. Details about enabling %sAAC+ Support%s or %sOpus Support%s are provided."
 msgstr ""
 
 #: airtime_mvc/application/controllers/LocaleController.php:170
