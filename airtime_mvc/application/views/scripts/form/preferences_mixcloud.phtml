@@ -1,0 +1,75 @@
+<fieldset class="padded">
+    <dl class="zend_form">
+        <dd id="UploadToMixcloudOption-element" class="block-display" style=" margin:6px 0 10px 0">
+            <label class="optional" for="UploadToMixcloudOption">
+                <?php echo $this->element->getElement('UploadToMixcloudOption') ?>
+                <strong><?php echo $this->element->getElement('UploadToMixcloudOption')->getLabel() ?></strong>
+            </label>
+            <?php if($this->element->getElement('UploadToMixcloudOption')->hasErrors()) : ?>
+                <ul class='errors'>
+                    <?php foreach($this->element->getElement('UploadToMixcloudOption')->getMessages() as $error): ?>
+                        <li><?php echo $error; ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?> 
+        </dd>
+        <dd id="UseMixcloud-element" class="block-display" style="padding-left:20px; margin:6px 0 10px 0">
+            <label class="optional" for="UseMixcloud">
+                <?php echo $this->element->getElement('UseMixcloud') ?>
+                <strong><?php echo $this->element->getElement('UseMixcloud')->getLabel() ?></strong>
+            </label>
+            <?php if($this->element->getElement('UseMixcloud')->hasErrors()) : ?>
+                <ul class='errors'>
+                    <?php foreach($this->element->getElement('UseMixcloud')->getMessages() as $error): ?>
+                        <li><?php echo $error; ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?> 
+        </dd>
+        <dt id="MixcloudUser-label" class="block-display">
+            <label class="optional" for="MixcloudUser"><?php echo $this->element->getElement('MixcloudUser')->getLabel() ?>
+                <span class="info-text-small"><?php echo _("(Required)")?></span> :
+            </label>
+        </dt>
+        <dd id="MixcloudUser-element" class="block-display">
+            <?php echo $this->element->getElement('MixcloudUser') ?>
+            <?php if($this->element->getElement('MixcloudUser')->hasErrors()) : ?>
+                <ul class='errors'>
+                    <?php foreach($this->element->getElement('MixcloudUser')->getMessages() as $error): ?>
+                        <li><?php echo $error; ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?> 
+        </dd>
+        <dt id="MixcloudPassword-label" class="block-display">
+            <label class="optional" for="MixcloudPassword"><?php echo $this->element->getElement('MixcloudPassword')->getLabel() ?>
+                <span class="info-text-small"><?php echo _("(Required)")?></span> :
+            </label>
+        </dt>
+        <dd id="MixcloudPassword-element" class="block-display">
+            <?php echo $this->element->getElement('MixcloudPassword') ?>
+            <?php if($this->element->getElement('MixcloudPassword')->hasErrors()) : ?>
+                <ul class='errors'>
+                    <?php foreach($this->element->getElement('MixcloudPassword')->getMessages() as $error): ?>
+                        <li><?php echo $error; ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?> 
+        </dd>
+        <dt id="MixcloudToken-label" class="block-display">
+            <label class="optional" for="MixcloudToken"><?php echo $this->element->getElement('MixcloudToken')->getLabel() ?>
+                <span class="info-text-small"><?php echo _("(Required)")?></span> :
+            </label>
+        </dt>
+        <dd id="MixcloudToken-element" class="block-display">
+            <?php echo $this->element->getElement('MixcloudToken') ?>
+            <?php if($this->element->getElement('MixcloudToken')->hasErrors()) : ?>
+                <ul class='errors'>
+                    <?php foreach($this->element->getElement('MixcloudToken')->getMessages() as $error): ?>
+                        <li><?php echo $error; ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?> 
+        </dd>
+    </dl>
+</fieldset>
