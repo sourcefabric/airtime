@@ -1,4 +1,9 @@
 function showErrorSections() {
+    if($("#mixcloud-settings .errors").length > 0) {
+        $("#mixcloud-settings").show();
+        $(window).scrollTop($("#mixcloud-settings .errors").position().top);
+    }
+
     if($("#soundcloud-settings .errors").length > 0) {
         $("#soundcloud-settings").show();
         $(window).scrollTop($("#soundcloud-settings .errors").position().top);
@@ -96,6 +101,22 @@ function setSoundCloudCheckBoxListener() {
     });
 }
 
+function setMixcloudCheckBoxListener() {
+    var subCheckBox= $("#UseMixcloud");
+    var mainCheckBox= $("#UploadToMixcloudOption");
+    subCheckBox.change(function(e){
+        if (subCheckBox.is(':checked')) {
+            mainCheckBox.attr("checked", true);
+        }
+    });
+
+    mainCheckBox.change(function(e){
+         if (!mainCheckBox.is(':checked')) {
+            $("#UseMixcloud").attr("checked", false);
+        }   
+    });
+}
+
 $(document).ready(function() {
 
     $('.collapsible-header').live('click',function() {
@@ -122,6 +143,7 @@ $(document).ready(function() {
     showErrorSections();
     
     setSoundCloudCheckBoxListener();
+    setMixcloudCheckBoxListener();
     setMailServerInputReadonly();
     setSystemFromEmailReadonly();
     setConfigureMailServerListener();

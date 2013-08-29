@@ -4,6 +4,10 @@ function showErrorSections() {
         $("#soundcloud-settings").show();
         $(window).scrollTop($("soundcloud-settings .errors").position().top);
     }
+    if($("mixcloud-settings .errors").length > 0) {
+        $("#mixcloud-settings").show();
+        $(window).scrollTop($("mixcloud-settings .errors").position().top);
+    }
     if($("#support-settings .errors").length > 0) {
         $("#support-settings").show();
         $(window).scrollTop($("#support-settings .errors").position().top);

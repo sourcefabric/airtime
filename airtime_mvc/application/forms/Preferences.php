@@ -23,5 +23,8 @@ class Application_Form_Preferences extends Zend_Form
         $soundcloud_pref = new Application_Form_SoundcloudPreferences();
         $this->addSubForm($soundcloud_pref, 'preferences_soundcloud');
 
+        $mixcloud_pref = new Application_Form_MixcloudPreferences();
+        $this->addSubForm($mixcloud_pref, 'preferences_mixcloud');
+
     }
 }
