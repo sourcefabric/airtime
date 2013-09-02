@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: Airtime 2.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-05-30 11:13-0400\n"
-"PO-Revision-Date: 2013-06-13 16:46+0100\n"
+"PO-Revision-Date: 2013-07-24 22:26+0100\n"
 "Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
 "Language-Team: Hungarian Localization <contact@sourcefabric.org>\n"
 "MIME-Version: 1.0\n"
@@ -1923,7 +1923,7 @@ msgstr "Élő Adás"
 
 #: airtime_mvc/application/controllers/LocaleController.php:35
 msgid "Nothing Scheduled"
-msgstr "Semmi Ütemezett"
+msgstr "Nincs semmi ütemezve"
 
 #: airtime_mvc/application/controllers/LocaleController.php:36
 msgid "Current Show:"
@@ -2370,7 +2370,7 @@ msgid ""
 msgstr ""
 "Ha megváltoztatja a felhasználónév vagy a jelszó értékeit, az engedélyezett "
 "adatfolyam és a lejátszási motor újraindul, és a hallgatók 5-10 másodpercig "
-"csendet fognak hallani. Módosítása az alábbi mezőket, ez NEM okoz "
+"csendet fognak hallani. Módosítsa az alábbi mezőket, ez NEM okoz "
 "újraindítást: Adásfolyam Címke (Általános Beállítások), és a Úsztatási "
 "Átmenet Kapcsoló, Mester Felhasználónév, Mester Jelszó (Bejövő Adatfolyam "
 "Beállítások). Ha az Airtime éppen rögzít, és ha a változás miatt újra kell "
@@ -2669,7 +2669,7 @@ msgstr "A túlfoglalt számok eltávolítása"
 
 #: airtime_mvc/application/controllers/LocaleController.php:303
 msgid "Remove selected scheduled items"
-msgstr "A kijelölt üzemezett elemek eltávolítása"
+msgstr "A kijelölt ütemezett elemek eltávolítása"
 
 #: airtime_mvc/application/controllers/LocaleController.php:304
 msgid "Jump to the current playing track"
@@ -3191,7 +3191,7 @@ msgstr "Megosztás"
 
 #: airtime_mvc/application/views/scripts/dashboard/stream-player.phtml:64
 msgid "Select stream:"
-msgstr "Adásfolyam kiválasztása:"
+msgstr "Adásfolyam:"
 
 #: airtime_mvc/application/views/scripts/dashboard/stream-player.phtml:90
 #: airtime_mvc/application/views/scripts/audiopreview/audio-preview.phtml:50
