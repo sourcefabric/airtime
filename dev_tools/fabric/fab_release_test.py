@@ -226,7 +226,7 @@ def airtime_18x_tar(root_dir, version):
     do_sudo('apt-get update')
     do_sudo('apt-get install -y --force-yes tar gzip unzip apache2 php5-pgsql libapache2-mod-php5 ' + \
         'php-pear php5-gd postgresql odbc-postgresql python python-configobj poc-streamer ' + \
-        'lame daemontools daemontools-run python-mutagen libsoundtouch-ocaml sudo ' + \
+        'lame daemontools daemontools-run python-mutagen sudo ' + \
         'libtaglib-ocaml libao-ocaml libmad-ocaml libesd0 icecast2 oggvideotools ' + \
         'libportaudio2 libsamplerate0 libcamomile-ocaml-dev ecasound php5-curl mpg123 ' + \
         'python-setuptools python-pip rabbitmq-server libvorbis-ocaml-dev libmp3lame-dev flac')
