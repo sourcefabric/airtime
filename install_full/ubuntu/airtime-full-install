@@ -53,16 +53,11 @@ fi
 apt-get update
 
 # Updated package list
-apt-get -y --force-yes install tar gzip curl php5-pgsql  \
-php-pear php5-gd postgresql odbc-postgresql python ecasound \
-rabbitmq-server patch \
-php5-curl mpg123 monit python-virtualenv multitail libcamomile-ocaml-data \
-libpulse0 vorbis-tools lsb-release lsof sudo mp3gain vorbisgain flac vorbis-tools \
-pwgen
-
-#install packages with --force-yes option (this is useful in the case
-#of Debian, where these packages are unauthorized)
-apt-get -y --force-yes install libmp3lame-dev lame icecast2
+apt-get -y --force-yes install curl ecasound flac gzip icecast2 \
+lame libcamomile-ocaml-data libmp3lame0 lsb-release lsof \
+monit mp3gain multitail odbc-postgresql \
+patch php5-curl php5-pgsql php5-gd php-pear postgresql pwgen python \
+python-virtualenv rabbitmq-server vorbis-tools sudo tar vorbisgain vorbis-tools
 
 #Debian Squeeze only has zendframework package. Newer versions of Ubuntu have zend-framework package.
 #Ubuntu Lucid has both zendframework and zend-framework. Difference appears to be that zendframework is for
@@ -80,16 +75,8 @@ else
     apt-get -y --force-yes install coreutils
 fi
 
-#install aac package only available in new distributions: (Debian Wheezy, Ubuntu Precise or newer)
-if [ "$code" != "squeeze" -a "$code" != "lucid" ]; then
-    apt-get -y --force-yes install libvo-aacenc0
-fi
-
 #Install packages back-ported by Sourcefabric
-apt-get -y --force-yes install sourcefabric-keyring
-apt-get -y --force-yes install liquidsoap
-apt-get -y --force-yes install silan
-apt-get -y --force-yes install libopus0
+apt-get -y --force-yes install sourcefabric-keyring liquidsoap silan
 
 if [ "$server" = "nginx" ]; then
     apt-get -y --force-yes install nginx php5-fpm
