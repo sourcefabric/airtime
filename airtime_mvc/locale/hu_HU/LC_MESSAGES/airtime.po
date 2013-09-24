@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: Airtime 2.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-05-30 11:13-0400\n"
-"PO-Revision-Date: 2013-07-24 22:26+0100\n"
+"PO-Revision-Date: 2013-09-20 20:28+0100\n"
 "Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
 "Language-Team: Hungarian Localization <contact@sourcefabric.org>\n"
 "MIME-Version: 1.0\n"
@@ -2399,7 +2399,7 @@ msgstr ""
 #: airtime_mvc/application/controllers/LocaleController.php:192
 msgid "Specify custom authentication which will work only for this show."
 msgstr ""
-"Adjon meg egy egyéni hitelesítéset, amely csak ennél a műsornál működik."
+"Adjon meg egy egyéni hitelesítést, amely csak ennél a műsornál működik."
 
 #: airtime_mvc/application/controllers/LocaleController.php:194
 msgid "The show instance doesn't exist anymore!"
