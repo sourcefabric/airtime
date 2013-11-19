@@ -404,6 +404,48 @@ class Application_Model_Preference
         return self::getValue("soundcloud_license");
     }
 
+    public static function SetAutoUploadRecordedShowToMixcloud($upload)
+    {
+        self::setValue("mixcloud_auto_upload_recorded_show", $upload);
+    }
+
+    public static function GetAutoUploadRecordedShowToMixcloud()
+    {
+        return self::getValue("mixcloud_auto_upload_recorded_show");
+    }
+
+    public static function SetMixcloudUser($user)
+    {
+        self::setValue("mixcloud_user", $user);
+    }
+
+    public static function GetMixcloudUser()
+    {
+        return self::getValue("mixcloud_user");
+    }
+
+    public static function SetMixcloudPassword($password)
+    {
+        if (strlen($password) > 0)
+            self::setValue("mixcloud_password", $password);
+    }
+
+    public static function GetMixcloudPassword()
+    {
+        return self::getValue("mixcloud_password");
+    }
+
+    public static function SetMixcloudToken($token)
+    {
+        if (strlen($token) > 0)
+            self::setValue("mixcloud_token", $token);
+    }
+
+    public static function GetMixcloudToken()
+    {
+        return self::getValue("mixcloud_token");
+    }
+
     public static function SetAllow3rdPartyApi($bool)
     {
         self::setValue("third_party_api", $bool);
@@ -931,6 +973,16 @@ class Application_Model_Preference
     public static function GetSoundCloudDownloadbleOption()
     {
         return self::getValue("soundcloud_downloadable");
+    }
+
+    public static function SetUploadToMixcloudOption($upload)
+    {
+        self::setValue("mixcloud_upload_option", $upload);
+    }
+
+    public static function GetUploadToMixcloudOption()
+    {
+        return self::getValue("mixcloud_upload_option");
     }
 
     public static function SetWeekStartDay($day)

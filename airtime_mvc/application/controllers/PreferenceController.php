@@ -71,6 +71,12 @@ class PreferenceController extends Zend_Controller_Action
                 Application_Model_Preference::SetSoundCloudTrackType($values["SoundCloudTrackType"]);
                 Application_Model_Preference::SetSoundCloudLicense($values["SoundCloudLicense"]);
 
+                Application_Model_Preference::SetAutoUploadRecordedShowToMixcloud($values["UseMixcloud"]);
+                Application_Model_Preference::SetUploadToMixcloudOption($values["UploadToMixcloudOption"]);
+                Application_Model_Preference::SetMixcloudUser($values["MixcloudUser"]);
+                Application_Model_Preference::SetMixcloudPassword($values["MixcloudPassword"]);
+                Application_Model_Preference::SetMixcloudToken($values["MixcloudToken"]);
+
                 $this->view->statusMsg = "<div class='success'>". _("Preferences updated.")."</div>";
                 $this->view->form = $form;
                 $this->_helper->json->sendJson(array("valid"=>"true", "html"=>$this->view->render('preference/index.phtml')));
