@@ -1,19 +1,19 @@
 //Croatian
 
 {
-    "sProcessing":   "Feldolgozás...",
-    "sLengthMenu":   "_MENU_ találat oldalanként",
-    "sZeroRecords":  "Nincs a keresésnek megfelelő találat",
-    "sInfo":         "Találatok: _START_ - _END_ Összesen: _TOTAL_",
-    "sInfoEmpty":    "Nulla találat",
-    "sInfoFiltered": "(_MAX_ összes rekord közül szűrve)",
+    "sProcessing":   "Procesiram...",
+    "sLengthMenu":   "Prikaži _MENU_ rezultata po stranici",
+    "sZeroRecords":  "Ništa nije pronađeno",
+    "sInfo":         "Prikazano _START_ do _END_ od _TOTAL_ rezultata",
+    "sInfoEmpty":    "Prikazano 0 do 0 od 0 rezultata",
+    "sInfoFiltered": "(filtrirano iz _MAX_ ukupnih rezultata)",
     "sInfoPostFix":  "",
-    "sSearch":       "",
-    "sUrl":          "",
+    "sSearch":       "Filter",
+    "sUrl": "",
     "oPaginate": {
-        "sFirst":    "Első",
-        "sPrevious": "Előző",
-        "sNext":     "Következő",
-        "sLast":     "Utolsó"
+        "sFirst":    "Prva",
+        "sPrevious": "Nazad",
+        "sNext":     "Naprijed",
+        "sLast":     "Zadnja"
     }
 }
