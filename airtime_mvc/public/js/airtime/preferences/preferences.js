@@ -117,6 +117,22 @@ function setMixcloudCheckBoxListener() {
     });
 }
 
+function connectToMixCloud() {
+    newwindow=window.open('/mixcloud/authorize', 'mixcloud','height=230,width=240');
+	if (window.focus) {
+	    newwindow.focus()
+	}
+	return false;
+}
+
+function disconnectFromMixCloud() {
+    newwindow=window.open('/mixcloud/deauthorize', 'mixcloud','height=230,width=240');
+	if (window.focus) {
+	    newwindow.focus()
+	}
+	return false;
+}
+
 $(document).ready(function() {
 
     $('.collapsible-header').live('click',function() {
@@ -138,6 +154,14 @@ $(document).ready(function() {
             setConfigureMailServerListener();
             setEnableSystemEmailsListener();
         });
+    });
+
+    $('#ConnectToMixcloud').click(function() {
+         connectToMixCloud();
+    });
+
+    $('#DisconnectFromMixcloud').click(function() {
+         disconnectFromMixCloud();
     });
 
     showErrorSections();

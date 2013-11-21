@@ -4,15 +4,41 @@ require_once 'customvalidators/PasswordNotEmpty.php';
 
 class Application_Form_MixcloudPreferences extends Zend_Form_SubForm
 {
-
     public function init()
     {
         $this->setDecorators(array(
             array('ViewScript', array('viewScript' => 'form/preferences_mixcloud.phtml'))
         ));
+    
+        $isMixcloudConnected = true;
+        if (Application_Model_Preference::GetMixcloudRequestToken() === "") {
+            $isMixcloudConnected = false;
+        }
+        
+        //Connect to MixCloud
+        $elem = $this->addElement(
+            ( $isMixcloudConnected ? 'hidden' : 'button'), 
+            'ConnectToMixcloud', array(
+            'label'      => _('Connect to Mixcloud'),
+            'required'   => false,
+            'decorators' => array(
+                'ViewHelper'
+            ),
+        ));
 
-        //enable mixcloud uploads
-        $this->addElement('checkbox', 'UseMixcloud', array(
+        //Disconnect from MixCloud
+        $this->addElement(
+            ( $isMixcloudConnected ? 'button' : 'hidden'), 
+            'DisconnectFromMixcloud', array(
+            'label'      => _('Disconnect from Mixcloud'),
+            'required'   => false,
+            'decorators' => array(
+                'ViewHelper'
+            ),
+        ));
+        
+        //Automatic Mixcloud uploads
+        $this->addElement('checkbox', 'MixcloudAutoUpload', array(
             'label'      => _('Automatically Upload Recorded Shows'),
             'required'   => false,
             'value' => Application_Model_Preference::GetAutoUploadRecordedShowToMixcloud(),
@@ -20,79 +46,6 @@ class Application_Form_MixcloudPreferences extends Zend_Form_SubForm
                 'ViewHelper'
             )
         ));
-
-        //enable mixcloud uploads option
-        $this->addElement('checkbox', 'UploadToMixcloudOption', array(
-            'label'      => _('Enable Mixcloud Upload'),
-            'required'   => false,
-            'value' => Application_Model_Preference::GetUploadToMixcloudOption(),
-            'decorators' => array(
-                'ViewHelper'
-            )
-        ));
-
-        //Mixcloud Username
-        $this->addElement('text', 'MixcloudUser', array(
-            'class'      => 'input_text',
-            'label'      => _('Mixcloud Email'),
-            'filters'    => array('StringTrim'),
-            'autocomplete' => 'off',
-            'value' => Application_Model_Preference::GetMixcloudUser(),
-            'decorators' => array(
-                'ViewHelper'
-            ),
-
-            // By default, 'allowEmpty' is true. This means that our custom
-            // validators are going to be skipped if this field is empty,
-            // which is something we don't want
-            'allowEmpty' => false,
-            'validators' => array(
-                new ConditionalNotEmpty(array('UploadToMixcloudOption'=>'1'))
-            )
-        ));
-
-        //Mixcloud Password
-        $this->addElement('password', 'MixcloudPassword', array(
-            'class'      => 'input_text',
-            'label'      => _('Mixcloud Password'),
-            'filters'    => array('StringTrim'),
-            'autocomplete' => 'off',
-            'value' => Application_Model_Preference::GetMixcloudPassword(),
-            'decorators' => array(
-                'ViewHelper'
-            ),
-
-            // By default, 'allowEmpty' is true. This means that our custom
-            // validators are going to be skipped if this field is empty,
-            // which is something we don't want
-            'allowEmpty' => false,
-            'validators' => array(
-                new ConditionalNotEmpty(array('UploadToMixcloudOption'=>'1'))
-            ),
-            'renderPassword' => true
-        ));
-
-        //Mixcloud Token
-        $this->addElement('password', 'MixcloudToken', array(
-            'class'      => 'input_text',
-            'label'      => _('Mixcloud Token'),
-            'filters'    => array('StringTrim'),
-            'autocomplete' => 'off',
-            'value' => Application_Model_Preference::GetMixcloudToken(),
-            'decorators' => array(
-                'ViewHelper'
-            ),
-
-            // By default, 'allowEmpty' is true. This means that our custom
-            // validators are going to be skipped if this field is empty,
-            // which is something we don't want
-            'allowEmpty' => false,
-            'validators' => array(
-                new ConditionalNotEmpty(array('UploadToMixcloudOption'=>'1'))
-            ),
-            'renderPassword' => true
-        ));
-        
     }
 
 }

@@ -1,71 +1,41 @@
 <fieldset class="padded">
     <dl class="zend_form">
-        <dd id="UploadToMixcloudOption-element" class="block-display" style=" margin:6px 0 10px 0">
-            <label class="optional" for="UploadToMixcloudOption">
-                <?php echo $this->element->getElement('UploadToMixcloudOption') ?>
-                <strong><?php echo $this->element->getElement('UploadToMixcloudOption')->getLabel() ?></strong>
+        <dd id="ConnectToMixcloud-element" class="block-display" style="margin:6px 0 10px 0">
+            <label class="optional" for="ConnectToMixcloud">
+                <?php echo 
+                    //We would hide this here if Zend_Form had a hasElement() method or if it threw
+                    //an exception, but asas, it doesn't. The logic to hide this stuff is in MixcloudPreferences.php.
+                    $this->element->getElement('ConnectToMixcloud') 
+                ?>
             </label>
-            <?php if($this->element->getElement('UploadToMixcloudOption')->hasErrors()) : ?>
+            <?php if($this->element->getElement('ConnectToMixcloud')->hasErrors()) : ?>
                 <ul class='errors'>
-                    <?php foreach($this->element->getElement('UploadToMixcloudOption')->getMessages() as $error): ?>
+                    <?php foreach($this->element->getElement('ConnectToMixcloud')->getMessages() as $error): ?>
                         <li><?php echo $error; ?></li>
                     <?php endforeach; ?>
                 </ul>
             <?php endif; ?> 
         </dd>
-        <dd id="UseMixcloud-element" class="block-display" style="padding-left:20px; margin:6px 0 10px 0">
-            <label class="optional" for="UseMixcloud">
-                <?php echo $this->element->getElement('UseMixcloud') ?>
-                <strong><?php echo $this->element->getElement('UseMixcloud')->getLabel() ?></strong>
+        <dd id="DisconnectFromMixcloud-element" class="block-display" style="margin:6px 0 10px 0">
+            <label class="optional" for="DisconnectFromMixcloud">
+                <?php echo $this->element->getElement('DisconnectFromMixcloud') ?>
             </label>
-            <?php if($this->element->getElement('UseMixcloud')->hasErrors()) : ?>
+            <?php if($this->element->getElement('DisconnectFromMixcloud')->hasErrors()) : ?>
                 <ul class='errors'>
-                    <?php foreach($this->element->getElement('UseMixcloud')->getMessages() as $error): ?>
+                    <?php foreach($this->element->getElement('DisconnectFromMixcloud')->getMessages() as $error): ?>
                         <li><?php echo $error; ?></li>
                     <?php endforeach; ?>
                 </ul>
             <?php endif; ?> 
         </dd>
-        <dt id="MixcloudUser-label" class="block-display">
-            <label class="optional" for="MixcloudUser"><?php echo $this->element->getElement('MixcloudUser')->getLabel() ?>
-                <span class="info-text-small"><?php echo _("(Required)")?></span> :
+        <dd id="MixcloudAutoUpload-element" class="block-display" style="margin:6px 0 10px 0">
+            <label class="optional" for="MixcloudAutoUpload">
+                <?php echo $this->element->getElement('MixcloudAutoUpload') ?>
+                <strong><?php echo $this->element->getElement('MixcloudAutoUpload')->getLabel() ?></strong>
             </label>
-        </dt>
-        <dd id="MixcloudUser-element" class="block-display">
-            <?php echo $this->element->getElement('MixcloudUser') ?>
-            <?php if($this->element->getElement('MixcloudUser')->hasErrors()) : ?>
+            <?php if($this->element->getElement('MixcloudAutoUpload')->hasErrors()) : ?>
                 <ul class='errors'>
-                    <?php foreach($this->element->getElement('MixcloudUser')->getMessages() as $error): ?>
-                        <li><?php echo $error; ?></li>
-                    <?php endforeach; ?>
-                </ul>
-            <?php endif; ?> 
-        </dd>
-        <dt id="MixcloudPassword-label" class="block-display">
-            <label class="optional" for="MixcloudPassword"><?php echo $this->element->getElement('MixcloudPassword')->getLabel() ?>
-                <span class="info-text-small"><?php echo _("(Required)")?></span> :
-            </label>
-        </dt>
-        <dd id="MixcloudPassword-element" class="block-display">
-            <?php echo $this->element->getElement('MixcloudPassword') ?>
-            <?php if($this->element->getElement('MixcloudPassword')->hasErrors()) : ?>
-                <ul class='errors'>
-                    <?php foreach($this->element->getElement('MixcloudPassword')->getMessages() as $error): ?>
-                        <li><?php echo $error; ?></li>
-                    <?php endforeach; ?>
-                </ul>
-            <?php endif; ?> 
-        </dd>
-        <dt id="MixcloudToken-label" class="block-display">
-            <label class="optional" for="MixcloudToken"><?php echo $this->element->getElement('MixcloudToken')->getLabel() ?>
-                <span class="info-text-small"><?php echo _("(Required)")?></span> :
-            </label>
-        </dt>
-        <dd id="MixcloudToken-element" class="block-display">
-            <?php echo $this->element->getElement('MixcloudToken') ?>
-            <?php if($this->element->getElement('MixcloudToken')->hasErrors()) : ?>
-                <ul class='errors'>
-                    <?php foreach($this->element->getElement('MixcloudToken')->getMessages() as $error): ?>
+                    <?php foreach($this->element->getElement('MixcloudAutoUpload')->getMessages() as $error): ?>
                         <li><?php echo $error; ?></li>
                     <?php endforeach; ?>
                 </ul>

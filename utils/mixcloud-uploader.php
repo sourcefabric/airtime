@@ -39,7 +39,7 @@ require_once($CC_CONFIG['phpDir'].'/application/models/MusicDir.php');
 require_once($CC_CONFIG['phpDir'].'/application/common/OsPath.php');
 
 set_include_path($CC_CONFIG['phpDir'].'/library' . PATH_SEPARATOR . get_include_path());
-require_once($CC_CONFIG['phpDir'].'/application/models/Soundcloud.php');
+#require_once($CC_CONFIG['phpDir'].'/application/models/Mixcloud.php');
 
 set_include_path($CC_CONFIG['phpDir']."/application/models" . PATH_SEPARATOR . get_include_path());
 require_once($CC_CONFIG['phpDir']."/library/propel/runtime/lib/Propel.php");

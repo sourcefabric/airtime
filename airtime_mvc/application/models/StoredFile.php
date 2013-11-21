@@ -1326,7 +1326,7 @@ SQL;
         }
     }
 
-    public function uploadToMixcloud()
+    public function uploadToMixcloud() 
     {
         $CC_CONFIG = Config::getConfig();
 
@@ -1335,10 +1335,10 @@ SQL;
             return "File does not exist";
         }
 
-        if (Application_Model_Preference::GetUploadToMixcloudOption()) {
+        if (Application_Model_Preference::GetMixcloudEnabled()) {
             $filepath = $this->getFilePath();
             $name = $this->getName();
-            $access_token = Application_Model_Preference::GetMixcloudToken();
+            $access_token = Application_Model_Preference::GetMixcloudRequestToken();
 
             $url = "https://api.mixcloud.com/upload/?access_token=" . $access_token;
             $post_data['name'] = "$name";

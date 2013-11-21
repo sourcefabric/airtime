@@ -414,6 +414,7 @@ class Application_Model_Preference
         return self::getValue("mixcloud_auto_upload_recorded_show");
     }
 
+
     public static function SetMixcloudUser($user)
     {
         self::setValue("mixcloud_user", $user);
@@ -423,27 +424,20 @@ class Application_Model_Preference
     {
         return self::getValue("mixcloud_user");
     }
-
-    public static function SetMixcloudPassword($password)
+    
+    public static function SetMixcloudRequestToken($token)
     {
-        if (strlen($password) > 0)
-            self::setValue("mixcloud_password", $password);
+        self::setValue("mixcloud_request_token", $token);
     }
 
-    public static function GetMixcloudPassword()
+    public static function GetMixcloudRequestToken()
     {
-        return self::getValue("mixcloud_password");
+        return self::getValue("mixcloud_request_token");
     }
-
-    public static function SetMixcloudToken($token)
+    
+    public static function GetMixcloudEnabled()
     {
-        if (strlen($token) > 0)
-            self::setValue("mixcloud_token", $token);
-    }
-
-    public static function GetMixcloudToken()
-    {
-        return self::getValue("mixcloud_token");
+        return (self::getValue("mixcloud_request_token") !== "");
     }
 
     public static function SetAllow3rdPartyApi($bool)

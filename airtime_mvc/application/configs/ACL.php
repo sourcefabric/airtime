@@ -28,6 +28,7 @@ $ccAcl->add(new Zend_Acl_Resource('library'))
       ->add(new Zend_Acl_Resource('usersettings'))
       ->add(new Zend_Acl_Resource('audiopreview'))
       ->add(new Zend_Acl_Resource('webstream'))
+      ->add(new Zend_Acl_Resource('mixcloud'))
       ->add(new Zend_Acl_Resource('locale'));
 
 /** Creating permissions */
@@ -52,6 +53,7 @@ $ccAcl->allow('G', 'index')
       ->allow('A', 'listenerstat')
       ->allow('A', 'user')
       ->allow('A', 'systemstatus')
+      ->allow('A', 'mixcloud')
       ->allow('A', 'preference');
       
 
