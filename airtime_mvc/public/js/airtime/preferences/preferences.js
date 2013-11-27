@@ -118,7 +118,7 @@ function setMixcloudCheckBoxListener() {
 }
 
 function connectToMixCloud() {
-    newwindow=window.open('/mixcloud/authorize', 'mixcloud','height=230,width=240');
+    newwindow=window.open('/mixcloud/authorize', 'mixcloud','height=600,width=1000');
 	if (window.focus) {
 	    newwindow.focus()
 	}
@@ -126,7 +126,7 @@ function connectToMixCloud() {
 }
 
 function disconnectFromMixCloud() {
-    newwindow=window.open('/mixcloud/deauthorize', 'mixcloud','height=230,width=240');
+    newwindow=window.open('/mixcloud/deauthorize', 'mixcloud','height=600,width=1000');
 	if (window.focus) {
 	    newwindow.focus()
 	}

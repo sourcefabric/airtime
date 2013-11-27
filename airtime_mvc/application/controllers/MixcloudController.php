@@ -10,29 +10,39 @@ require_once('php-oauth2/GrantType/AuthorizationCode.php');
     That's why we're using this third party php-oauth2 thing.
 */
 
+/** This controller provides a simple API for managing our OAuth
+    access to Mixcloud. It provides a few URLs that can be called:
+         /mixcloud/authorize
+         /mixcloud/deauthorize
+         /mixcloud/redirect
+         
+*/
 class MixcloudController extends Zend_Controller_Action
 {
-    const CLIENT_ID     = 'Z3PGyMLKAcxnEjYJYs';
-    const CLIENT_SECRET = 'eTkGZZZaDhYpSBxwbb9EeXmv89hMg9VL';
+    protected $_clientId = '';
+    protected $_clientSecret = '';
 
-    //const REDIRECT_URI           = 'http://url/of/this.php';
     const AUTHORIZATION_ENDPOINT = 'https://www.mixcloud.com/oauth/authorize';
     const TOKEN_ENDPOINT         = 'https://www.mixcloud.com/oauth/access_token';
-        
+
+    
+    /** Common initialization that gets called before any of the below action
+        functions get called. Zend doesn't recommend you override the constructor for some reason.
+    */
     public function init()
     {
+        $CC_CONFIG = Config::getConfig();
+        $this->_clientId       = $CC_CONFIG['mixcloud_client_id'];
+        $this->_clientSecret   = $CC_CONFIG['mixcloud_client_secret'];
+    
         //Disable rendering of this controller
-        $this->view->layout()->disableLayout();
-        $this->_helper->viewRenderer->setNoRender(true);
+        $this->view->layout()->disableLayout(); //Don't inject the standard Now Playing header.
+        $this->_helper->viewRenderer->setNoRender(true); //Don't use (phtml) templates
     }
     
-    /*
-    public function indexAction()
-    {
-    }
-    */
-    
-    // http://myairtime/mixcloud/authorize
+    /** http://myairtime/mixcloud/authorize
+     *  Prompt the user for their Mixcloud credentials using OAuth.
+     */
     public function authorizeAction()
     {
         $CC_CONFIG = Config::getConfig();
@@ -43,20 +53,19 @@ class MixcloudController extends Zend_Controller_Action
      
         $redirectUri = 'http://' . $baseUrl . '/mixcloud/redirect';
 
-        $client = new OAuth2\Client(self::CLIENT_ID, self::CLIENT_SECRET);
+        $client = new OAuth2\Client($this->_clientId, $this->_clientSecret);
         if (!isset($_GET['code']))
         {
             $auth_url = $client->getAuthenticationUrl(self::AUTHORIZATION_ENDPOINT, $redirectUri);
             header('Location: ' . $auth_url);
             die('Redirect');
         }
-        else
-        {
-
-        }
     }
     
-    // http://myairtime/mixcloud/redirect
+    /** http://myairtime/mixcloud/redirect
+      * The URL that a user gets redirected to after 
+      * a successful OAuth authorization.
+      */
     public function redirectAction()
     {
         $this->_helper->viewRenderer->setNoRender(false);
@@ -68,7 +77,7 @@ class MixcloudController extends Zend_Controller_Action
         //We have an OAuth code now, so next we need to ask for a request token.
         $redirectUri = 'http://' . $baseUrl . '/mixcloud/redirect';
         
-        $client = new OAuth2\Client(self::CLIENT_ID, self::CLIENT_SECRET);          
+        $client = new OAuth2\Client($this->_clientId, $this->_clientSecret);          
         $params = array('code' => $_GET['code'], 'redirect_uri' => $redirectUri);
         $response = $client->getAccessToken(self::TOKEN_ENDPOINT, 'authorization_code', $params);
         //var_dump($response, $response['result']);
@@ -86,13 +95,15 @@ class MixcloudController extends Zend_Controller_Action
         $response = $client->fetch('https://api.mixcloud.com/spartacus/party-time/');
         var_dump($response, $response['result']);
         */
-        
-        //TODO: Redirect back to the preferences page?
     }
     
-    // http://myairtime/mixcloud/deauthorize
+    /** http://myairtime/mixcloud/deauthorize
+      * Deauthorize the Airtime application by forgetting the OAuth request token.
+      */
     public function deauthorizeAction()
     {
+        $this->_helper->viewRenderer->setNoRender(false);
+            
         $CC_CONFIG = Config::getConfig();
         $request = $this->getRequest();
         $baseUrl = $CC_CONFIG['baseUrl'] . ":" . $CC_CONFIG['basePort'];

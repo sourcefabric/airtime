@@ -21,6 +21,9 @@ $CC_CONFIG['dsn']['database'] = $values['database']['dbname'];
 $CC_CONFIG['soundcloud-connection-retries'] = $values['soundcloud']['connection_retries'];
 $CC_CONFIG['soundcloud-connection-wait'] = $values['soundcloud']['time_between_retries'];
 
+$CC_CONFIG['mixcloud_client_id']     = $values['mixcloud']['client_id'];
+$CC_CONFIG['mixcloud_client_secret'] = $values['mixcloud']['client_secret'];                
+
 require_once($CC_CONFIG['phpDir'].'/application/configs/constants.php');
 require_once($CC_CONFIG['phpDir'].'/application/configs/conf.php');
 
