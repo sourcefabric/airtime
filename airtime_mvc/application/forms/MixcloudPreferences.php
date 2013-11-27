@@ -6,6 +6,12 @@ class Application_Form_MixcloudPreferences extends Zend_Form_SubForm
 {
     public function init()
     {
+        $CC_CONFIG = Config::getConfig();
+        if ($CC_CONFIG["mixcloud_client_id"] == '')
+        {
+            return;
+        }
+        
         $this->setDecorators(array(
             array('ViewScript', array('viewScript' => 'form/preferences_mixcloud.phtml'))
         ));
@@ -14,7 +20,7 @@ class Application_Form_MixcloudPreferences extends Zend_Form_SubForm
         if (Application_Model_Preference::GetMixcloudRequestToken() === "") {
             $isMixcloudConnected = false;
         }
-        
+                
         //Connect to MixCloud
         $elem = $this->addElement(
             ( $isMixcloudConnected ? 'hidden' : 'button'), 
