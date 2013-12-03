@@ -7,7 +7,8 @@ class Application_Form_MixcloudPreferences extends Zend_Form_SubForm
     public function init()
     {
         $CC_CONFIG = Config::getConfig();
-        if ($CC_CONFIG["mixcloud_client_id"] == '')
+        if (!$CC_CONFIG['mixcloud'] ||
+             $CC_CONFIG['mixcloud_client_id'] === '')
         {
             return;
         }
