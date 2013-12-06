@@ -183,6 +183,7 @@ class ScheduleController extends Zend_Controller_Action
         $deltaDay = $this->_getParam('day');
         $deltaMin = $this->_getParam('min');
         $showId = $this->_getParam('showId');
+        $instanceId = $this->_getParam('instanceId');
 
         $userInfo = Zend_Auth::getInstance()->getStorage()->read();
         $user = new Application_Model_User($userInfo->id);
@@ -195,7 +196,7 @@ class ScheduleController extends Zend_Controller_Action
 
                 return false;
             }
-            $error = $show->resizeShow($deltaDay, $deltaMin);
+            $error = $show->resizeShow($deltaDay, $deltaMin, $instanceId);
         }
 
         if (isset($error)) {
@@ -324,9 +325,10 @@ class ScheduleController extends Zend_Controller_Action
             $originalShowStart = $originalShow->getShowInstanceStart();
 
             //convert from UTC to user's timezone for display.
+            $displayTimeZone = new DateTimeZone(Application_Model_Preference::GetTimezone());
             $originalDateTime = new DateTime($originalShowStart, new DateTimeZone("UTC"));
-            $originalDateTime->setTimezone(new DateTimeZone(date_default_timezone_get()));
-            //$timestamp  = Application_Common_DateHelper::ConvertToLocalDateTimeString($originalDateTime->format("Y-m-d H:i:s"));
+            $originalDateTime->setTimezone($displayTimeZone);
+            
             $this->view->additionalShowInfo =
                 sprintf(_("Rebroadcast of show %s from %s at %s"),
                     $originalShowName,
@@ -628,9 +630,12 @@ class ScheduleController extends Zend_Controller_Action
 
     public function calculateDurationAction()
     {
+    	$start = $this->_getParam('startTime');
+    	$end = $this->_getParam('endTime');
+    	$timezone = $this->_getParam('timezone');
+    	
         $service_showForm = new Application_Service_ShowFormService();
-        $result = $service_showForm->calculateDuration($this->_getParam('startTime'),
-            $this->_getParam('endTime'));
+        $result = $service_showForm->calculateDuration($start, $end, $timezone);
 
         echo Zend_Json::encode($result);
         exit();

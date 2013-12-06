@@ -126,7 +126,15 @@ class Application_Service_CalendarService
                 }
             }
 
-            $isRepeating = $this->ccShow->getFirstCcShowDay()->isRepeating();
+            $excludeIds = $this->ccShow->getEditedRepeatingInstanceIds();
+
+            $isRepeating = true;
+            $populateInstance = false;
+            if (in_array($this->ccShowInstance->getDbId(), $excludeIds)) {
+                $populateInstance = true;
+                $isRepeating = false;
+            }
+
             if (!$this->ccShowInstance->isRebroadcast() && $isAdminOrPM) {
                 if ($isRepeating) {
                     $menu["edit"] = array(
@@ -141,6 +149,11 @@ class Application_Service_CalendarService
 
                     $menu["edit"]["items"]["instance"] = array(
                         "name" => _("Edit This Instance"),
+                        "icon" => "edit",
+                        "url" => $baseUrl."Schedule/populate-repeating-show-instance-form");
+                } elseif ($populateInstance) {
+                    $menu["edit"] = array(
+                        "name" => _("Edit Show"),
                         "icon" => "edit",
                         "url" => $baseUrl."Schedule/populate-repeating-show-instance-form");
                 } else {
@@ -171,6 +184,11 @@ class Application_Service_CalendarService
                         "name"=> _("Delete This Instance and All Following"),
                         "icon" => "delete",
                         "url" => $baseUrl."schedule/delete-show");
+                } elseif ($populateInstance) {
+                    $menu["del"] = array(
+                        "name"=> _("Delete"),
+                        "icon" => "delete",
+                        "url" => $baseUrl."schedule/delete-show-instance");
                 } else {
                     $menu["del"] = array(
                         "name"=> _("Delete"),
@@ -220,14 +238,14 @@ class Application_Service_CalendarService
             throw new Exception(_("Permission denied"));
         }
 
-        if ($this->ccShow->getFirstCcShowDay()->isRepeating()) {
+        if ($this->ccShow->isRepeating()) {
             throw new Exception(_("Can't drag and drop repeating shows"));
         }
 
         $today_timestamp = time();
 
-        $startsDateTime = new DateTime($this->ccShowInstance->getDbStarts(), new DateTimeZone("UTC"));
-        $endsDateTime = new DateTime($this->ccShowInstance->getDbEnds(), new DateTimeZone("UTC"));
+        $startsDateTime = $this->ccShowInstance->getDbStarts(null);
+        $endsDateTime = $this->ccShowInstance->getDbEnds(null);
 
         if ($today_timestamp > $startsDateTime->getTimestamp()) {
             throw new Exception(_("Can't move a past show"));
@@ -297,13 +315,16 @@ class Application_Service_CalendarService
             $con = Propel::getConnection();
             $con->beginTransaction();
 
+            //new starts,ends are in UTC
             list($newStartsDateTime, $newEndsDateTime) = $this->validateShowMove(
                 $deltaDay, $deltaMin);
+            
+            $oldStartDateTime = $this->ccShowInstance->getDbStarts(null);
 
             $this->ccShowInstance
                 ->setDbStarts($newStartsDateTime)
                 ->setDbEnds($newEndsDateTime)
-                ->save();
+                ->save($con);
 
             if (!$this->ccShowInstance->getCcShow()->isRebroadcast()) {
                 //we can get the first show day because we know the show is
@@ -313,11 +334,13 @@ class Application_Service_CalendarService
                 $ccShowDay
                     ->setDbFirstShow($newStartsDateTime->setTimezone($showTimezone)->format("Y-m-d"))
                     ->setDbStartTime($newStartsDateTime->format("H:i"))
-                    ->save();
+                    ->save($con);
             }
-
+            
+            $diff = $newStartsDateTime->getTimestamp() - $oldStartDateTime->getTimestamp();
+            
             Application_Service_SchedulerService::updateScheduleStartTime(
-                array($this->ccShowInstance->getDbId()), null, $newStartsDateTime);
+                array($this->ccShowInstance->getDbId()), $diff);
 
             $con->commit();
             Application_Model_RabbitMq::PushSchedule();
@@ -327,6 +350,7 @@ class Application_Service_CalendarService
         }
     }
 
+    //TODO move the method resizeShow from Application_Model_Show here.
     public function resizeShow($deltaDay, $deltaMin)
     {
         try {
