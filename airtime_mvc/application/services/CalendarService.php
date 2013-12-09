@@ -245,8 +245,8 @@ class Application_Service_CalendarService
 
         $today_timestamp = time();
 
-        $startsDateTime = new DateTime($this->ccShowInstance->getDbStarts(), new DateTimeZone("UTC"));
-        $endsDateTime = new DateTime($this->ccShowInstance->getDbEnds(), new DateTimeZone("UTC"));
+        $startsDateTime = $this->ccShowInstance->getDbStarts(null);
+        $endsDateTime = $this->ccShowInstance->getDbEnds(null);
 
         if ($today_timestamp > $startsDateTime->getTimestamp()) {
             throw new Exception(_("Can't move a past show"));
@@ -316,13 +316,16 @@ class Application_Service_CalendarService
             $con = Propel::getConnection();
             $con->beginTransaction();
 
+            //new starts,ends are in UTC
             list($newStartsDateTime, $newEndsDateTime) = $this->validateShowMove(
                 $deltaDay, $deltaMin);
+            
+            $oldStartDateTime = $this->ccShowInstance->getDbStarts(null);
 
             $this->ccShowInstance
                 ->setDbStarts($newStartsDateTime)
                 ->setDbEnds($newEndsDateTime)
-                ->save();
+                ->save($con);
 
             if (!$this->ccShowInstance->getCcShow()->isRebroadcast()) {
                 //we can get the first show day because we know the show is
@@ -332,11 +335,13 @@ class Application_Service_CalendarService
                 $ccShowDay
                     ->setDbFirstShow($newStartsDateTime->setTimezone($showTimezone)->format("Y-m-d"))
                     ->setDbStartTime($newStartsDateTime->format("H:i"))
-                    ->save();
+                    ->save($con);
             }
-
+            
+            $diff = $newStartsDateTime->getTimestamp() - $oldStartDateTime->getTimestamp();
+            
             Application_Service_SchedulerService::updateScheduleStartTime(
-                array($this->ccShowInstance->getDbId()), null, $newStartsDateTime);
+                array($this->ccShowInstance->getDbId()), $diff);
 
             $con->commit();
             Application_Model_RabbitMq::PushSchedule();
@@ -346,6 +351,7 @@ class Application_Service_CalendarService
         }
     }
 
+    //TODO move the method resizeShow from Application_Model_Show here.
     public function resizeShow($deltaDay, $deltaMin)
     {
         try {
