@@ -1,0 +1,59 @@
+h1,h2,h3 {
+	color: #111144;
+	background-image: url(../images/greypinstripe.png);
+	border-top-style: solid; 
+	border-top-width: 1 
+}
+.footer {
+	color: #111144;
+	background-image: url(../images/greypinstripe.png);
+	text-align: center;
+	border-bottom-style: solid; 
+	border-bottom-width: 1 
+}
+th {
+	color: #111144;
+	background-image: url(../images/greypinstripe.png);
+	text-align: center;
+}
+.introduction {
+	margin-left: 60;
+	margin-right: 60;
+	color: #555555;
+}
+.technical {
+	margin-left: 60;
+	margin-right: 60;
+	color: #557755;
+}
+p {
+	margin-left: 10;
+	margin-right: 10;
+}
+ul {
+	margin-left: 30;
+}
+pre {
+	background-color: #ffffcc; 
+	margin-left: 60;
+}
+blockquote {
+	margin-left: 90;
+}
+body {
+	background-color: #FFFFFF; 
+	color: #000000;
+	font-family: Arial, Helvetica;
+}
+a:link {
+	color: #3333e0;
+	text-decoration: none;
+}
+a:visited {
+	color: #1111aa;
+	text-decoration: none;
+}
+a:active {
+	color: #111133;
+	text-decoration: none;
+}

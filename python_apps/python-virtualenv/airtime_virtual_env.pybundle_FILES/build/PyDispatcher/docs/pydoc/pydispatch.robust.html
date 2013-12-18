@@ -1,0 +1,62 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module pydispatch.robust</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="pydispatch.html"><font color="#ffffff">pydispatch</font></a>.robust</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/mcfletch/pylive/pydispatch/pydispatch/robust.py">/home/mcfletch/pylive/pydispatch/pydispatch/robust.py</a></font></td></tr></table>
+    <p><tt>Module&nbsp;implementing&nbsp;error-catching&nbsp;version&nbsp;of&nbsp;send&nbsp;(sendRobust)</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-sendRobust"><strong>sendRobust</strong></a>(signal<font color="#909090">=_Any</font>, sender<font color="#909090">=_Anonymous</font>, *arguments, **named)</dt><dd><tt>Send&nbsp;signal&nbsp;from&nbsp;sender&nbsp;to&nbsp;all&nbsp;connected&nbsp;receivers&nbsp;catching&nbsp;errors<br>
+&nbsp;<br>
+signal&nbsp;--&nbsp;(hashable)&nbsp;signal&nbsp;value,&nbsp;see&nbsp;connect&nbsp;for&nbsp;details<br>
+&nbsp;<br>
+sender&nbsp;--&nbsp;the&nbsp;sender&nbsp;of&nbsp;the&nbsp;signal<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;Any,&nbsp;only&nbsp;receivers&nbsp;registered&nbsp;for&nbsp;Any&nbsp;will&nbsp;receive<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;message.<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;Anonymous,&nbsp;only&nbsp;receivers&nbsp;registered&nbsp;to&nbsp;receive<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;messages&nbsp;from&nbsp;Anonymous&nbsp;or&nbsp;Any&nbsp;will&nbsp;receive&nbsp;the&nbsp;message<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Otherwise&nbsp;can&nbsp;be&nbsp;any&nbsp;python&nbsp;object&nbsp;(normally&nbsp;one<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;registered&nbsp;with&nbsp;a&nbsp;connect&nbsp;if&nbsp;you&nbsp;actually&nbsp;want<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;something&nbsp;to&nbsp;occur).<br>
+&nbsp;<br>
+arguments&nbsp;--&nbsp;positional&nbsp;arguments&nbsp;which&nbsp;will&nbsp;be&nbsp;passed&nbsp;to<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*all*&nbsp;receivers.&nbsp;Note&nbsp;that&nbsp;this&nbsp;may&nbsp;raise&nbsp;TypeErrors<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;the&nbsp;receivers&nbsp;do&nbsp;not&nbsp;allow&nbsp;the&nbsp;particular&nbsp;arguments.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note&nbsp;also&nbsp;that&nbsp;arguments&nbsp;are&nbsp;applied&nbsp;before&nbsp;named<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;arguments,&nbsp;so&nbsp;they&nbsp;should&nbsp;be&nbsp;used&nbsp;with&nbsp;care.<br>
+&nbsp;<br>
+named&nbsp;--&nbsp;named&nbsp;arguments&nbsp;which&nbsp;will&nbsp;be&nbsp;filtered&nbsp;according<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;the&nbsp;parameters&nbsp;of&nbsp;the&nbsp;receivers&nbsp;to&nbsp;only&nbsp;provide&nbsp;those<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;acceptable&nbsp;to&nbsp;the&nbsp;receiver.<br>
+&nbsp;<br>
+Return&nbsp;a&nbsp;list&nbsp;of&nbsp;tuple&nbsp;pairs&nbsp;[(receiver,&nbsp;response),&nbsp;...&nbsp;]<br>
+&nbsp;<br>
+if&nbsp;any&nbsp;receiver&nbsp;raises&nbsp;an&nbsp;error&nbsp;(specifically&nbsp;any&nbsp;subclass&nbsp;of&nbsp;Exception),<br>
+the&nbsp;error&nbsp;instance&nbsp;is&nbsp;returned&nbsp;as&nbsp;the&nbsp;result&nbsp;for&nbsp;that&nbsp;receiver.</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>Anonymous</strong> = _Anonymous<br>
+<strong>Any</strong> = _Any<br>
+<strong>__file__</strong> = '/home/mcfletch/pylive/pydispatch/pydispatch/robust.pyc'<br>
+<strong>__name__</strong> = 'pydispatch.robust'<br>
+<strong>__package__</strong> = 'pydispatch'</td></tr></table>
+</body></html>
