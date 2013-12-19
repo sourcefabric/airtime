@@ -1,7 +1,7 @@
 # HUNGARIAN (hu_HU) translation for Airtime.
-# Copyright (C) 2012 Sourcefabric
+# Copyright (C) 2013 Sourcefabric
 # This file is distributed under the same license as the Airtime package.
-# Sourcefabric <contact@sourcefabric.org>, 2012.
+# Sourcefabric <contact@sourcefabric.org>, 2013.
 #
 msgid ""
 msgstr ""
@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-10-08 11:46-0400\n"
 "PO-Revision-Date: 2013-10-11 15:34+0100\n"
-"Last-Translator: Daniel James <daniel.james@sourcefabric.org>\n"
+"Last-Translator: Zsolt Magyar <picizse@gmail.com>\n"
 "Language-Team: Hungarian Localization <contact@sourcefabric.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
