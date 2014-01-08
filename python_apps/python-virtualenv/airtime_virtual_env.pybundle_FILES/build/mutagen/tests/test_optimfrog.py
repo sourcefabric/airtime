@@ -1,11 +1,9 @@
 import os
 
 from mutagen.optimfrog import OptimFROG, OptimFROGHeaderError
-from cStringIO import StringIO
 from tests import TestCase, add
 
 class TOptimFROG(TestCase):
-    uses_mmap = False
 
     def setUp(self):
         self.ofr = OptimFROG(os.path.join("tests", "data", "empty.ofr"))

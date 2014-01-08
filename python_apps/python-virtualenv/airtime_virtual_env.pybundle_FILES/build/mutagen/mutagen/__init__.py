@@ -4,27 +4,32 @@
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of version 2 of the GNU General Public License as
 # published by the Free Software Foundation.
-#
-# $Id: __init__.py 4348 2008-12-02 02:41:15Z piman $
-#
+
 
 """Mutagen aims to be an all purpose tagging library.
+
+::
 
     import mutagen.[format]
     metadata = mutagen.[format].Open(filename)
 
-metadata acts like a dictionary of tags in the file. Tags are generally a
+`metadata` acts like a dictionary of tags in the file. Tags are generally a
 list of string-like values, but may have additional methods available
 depending on tag or format. They may also be entirely different objects
 for certain keys, again depending on format.
 """
 
-version = (1, 21)
+version = (1, 22)
+"""Version tuple."""
+
 version_string = ".".join(map(str, version))
+"""Version string."""
+
 
 import warnings
 
 import mutagen._util
+
 
 class Metadata(object):
     """An abstract dict-like object.
@@ -40,17 +45,23 @@ class Metadata(object):
         raise NotImplementedError
 
     def save(self, filename=None):
+        """Save changes to a file."""
+
         raise NotImplementedError
 
     def delete(self, filename=None):
+        """Remove tags from a file."""
+
         raise NotImplementedError
+
 
 class FileType(mutagen._util.DictMixin):
     """An abstract object wrapping tags and audio stream information.
 
     Attributes:
-    info -- stream information (length, bitrate, sample rate)
-    tags -- metadata tags, if any
+
+    * info -- stream information (length, bitrate, sample rate)
+    * tags -- metadata tags, if any
 
     Each file format has different potential tags and stream
     information.
@@ -80,8 +91,11 @@ class FileType(mutagen._util.DictMixin):
 
         If the file has no tags at all, a KeyError is raised.
         """
-        if self.tags is None: raise KeyError, key
-        else: return self.tags[key]
+
+        if self.tags is None:
+            raise KeyError(key)
+        else:
+            return self.tags[key]
 
     def __setitem__(self, key, value):
         """Set a metadata tag.
@@ -89,6 +103,7 @@ class FileType(mutagen._util.DictMixin):
         If the file has no tags, an appropriate format is added (but
         not written until save is called).
         """
+
         if self.tags is None:
             self.add_tags()
         self.tags[key] = value
@@ -98,19 +113,26 @@ class FileType(mutagen._util.DictMixin):
 
         If the file has no tags at all, a KeyError is raised.
         """
-        if self.tags is None: raise KeyError, key
-        else: del(self.tags[key])
+
+        if self.tags is None:
+            raise KeyError(key)
+        else:
+            del(self.tags[key])
 
     def keys(self):
         """Return a list of keys in the metadata tag.
 
         If the file has no tags at all, an empty list is returned.
         """
-        if self.tags is None: return []
-        else: return self.tags.keys()
+
+        if self.tags is None:
+            return []
+        else:
+            return self.tags.keys()
 
     def delete(self, filename=None):
         """Remove tags from a file."""
+
         if self.tags is not None:
             if filename is None:
                 filename = self.filename
@@ -122,6 +144,7 @@ class FileType(mutagen._util.DictMixin):
 
     def save(self, filename=None, **kwargs):
         """Save metadata tags."""
+
         if filename is None:
             filename = self.filename
         else:
@@ -130,20 +153,32 @@ class FileType(mutagen._util.DictMixin):
                 DeprecationWarning)
         if self.tags is not None:
             return self.tags.save(filename, **kwargs)
-        else: raise ValueError("no tags in file")
+        else:
+            raise ValueError("no tags in file")
 
     def pprint(self):
         """Print stream information and comment key=value pairs."""
+
         stream = "%s (%s)" % (self.info.pprint(), self.mime[0])
-        try: tags = self.tags.pprint()
+        try:
+            tags = self.tags.pprint()
         except AttributeError:
             return stream
-        else: return stream + ((tags and "\n" + tags) or "")
+        else:
+            return stream + ((tags and "\n" + tags) or "")
 
     def add_tags(self):
+        """Adds new tags to the file.
+
+        Raises if tags already exist.
+        """
+
         raise NotImplementedError
 
-    def __get_mime(self):
+    @property
+    def mime(self):
+        """A list of mime types"""
+
         mimes = []
         for Kind in type(self).__mro__:
             for mime in getattr(Kind, '_mimes', []):
@@ -151,7 +186,10 @@ class FileType(mutagen._util.DictMixin):
                     mimes.append(mime)
         return mimes
 
-    mime = property(__get_mime)
+    @staticmethod
+    def score(filename, fileobj, header):
+        raise NotImplementedError
+
 
 def File(filename, options=None, easy=False):
     """Guess the type of the file and try to open it.
@@ -161,6 +199,13 @@ def File(filename, options=None, easy=False):
     filename extension, and the presence of existing tags.
 
     If no appropriate type could be found, None is returned.
+
+    :param options: Sequence of :class:`FileType` implementations, defaults to
+                    all included ones.
+
+    :param easy: If the easy wrappers should be returnd if available.
+                 For example :class:`EasyMP3 <mp3.EasyMP3>` instead
+                 of :class:`MP3 <mp3.MP3>`.
     """
 
     if options is None:
@@ -212,5 +257,7 @@ def File(filename, options=None, easy=False):
     results = zip(results, options)
     results.sort()
     (score, name), Kind = results[-1]
-    if score > 0: return Kind(filename)
-    else: return None
+    if score > 0:
+        return Kind(filename)
+    else:
+        return None

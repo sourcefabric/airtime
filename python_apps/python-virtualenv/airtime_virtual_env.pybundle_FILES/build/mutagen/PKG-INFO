@@ -1,6 +1,6 @@
-Metadata-Version: 1.0
+Metadata-Version: 1.1
 Name: mutagen
-Version: 1.21
+Version: 1.22
 Summary: read and write audio tags for many formats
 Home-page: http://code.google.com/p/mutagen/
 Author: Michael Urman
@@ -16,3 +16,10 @@ Description: Mutagen is a Python module to handle audio metadata. It supports AS
         packet/page level.
         
 Platform: UNKNOWN
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 2.6
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Classifier: License :: OSI Approved :: GNU General Public License v2 (GPLv2)
+Classifier: Topic :: Multimedia :: Sound/Audio

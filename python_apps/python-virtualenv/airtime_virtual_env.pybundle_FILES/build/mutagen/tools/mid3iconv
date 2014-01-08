@@ -5,18 +5,22 @@
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of version 2 of the GNU General Public License as
 # published by the Free Software Foundation.
-#
 
-import os
 import sys
 import locale
 
 from optparse import OptionParser
 
+import mutagen
+import mutagen.id3
+
+
 VERSION = (0, 3)
+
 
 def isascii(string):
     return not string or ord(max(string)) < 128
+
 
 class ID3OptionParser(OptionParser):
     def __init__(self):
@@ -35,6 +39,7 @@ class ID3OptionParser(OptionParser):
         text = OptionParser.format_help(self, *args, **kwargs)
         return text + "\nFiles are updated in-place, so use --dry-run first.\n"
 
+
 def update(options, filenames):
     encoding = options.encoding or locale.getpreferredencoding()
     verbose = options.verbose
@@ -52,7 +57,8 @@ def update(options, filenames):
         if has_id3v1(filename) and not noupdate and force_v1:
             mutagen.id3.delete(filename, False, True)
 
-        try: id3 = mutagen.id3.ID3(filename)
+        try:
+            id3 = mutagen.id3.ID3(filename)
         except mutagen.id3.ID3NoHeaderError:
             if verbose != "quiet":
                 print "No ID3 header found; skipping..."
@@ -61,7 +67,7 @@ def update(options, filenames):
             print >>sys.stderr, str(err)
             continue
 
-        for tag in filter(lambda t: t.startswith("T"), id3):
+        for tag in filter(lambda t: t.startswith(("T", "COMM")), id3):
             frame = id3[tag]
             if isinstance(frame, mutagen.id3.TimeStampTextFrame):
                 # non-unicode fields
@@ -86,8 +92,11 @@ def update(options, filenames):
             print id3.pprint().encode(enc, "replace")
 
         if not noupdate:
-            if remove_v1: id3.save(filename, v1=False)
-            else: id3.save(filename)
+            if remove_v1:
+                id3.save(filename, v1=False)
+            else:
+                id3.save(filename)
+
 
 def has_id3v1(filename):
     try:
@@ -97,13 +106,14 @@ def has_id3v1(filename):
     except IOError:
         return False
 
+
 def main(argv):
     parser = ID3OptionParser()
     parser.add_option(
         "-e", "--encoding", metavar="ENCODING", action="store",
         type="string", dest="encoding",
-        help=("Specify original tag encoding (default is %s)" %(
-        locale.getpreferredencoding())))
+        help=("Specify original tag encoding (default is %s)" % (
+              locale.getpreferredencoding())))
     parser.add_option(
         "-p", "--dry-run", action="store_true", dest="noupdate",
         help="Do not actually modify files")
@@ -121,8 +131,10 @@ def main(argv):
         const="debug", help="Output updated tags")
 
     for i, arg in enumerate(sys.argv):
-        if arg == "-v1": sys.argv[i] = "--force-v1"
-        elif arg == "-removev1": sys.argv[i] = "--remove-v1"
+        if arg == "-v1":
+            sys.argv[i] = "--force-v1"
+        elif arg == "-removev1":
+            sys.argv[i] = "--remove-v1"
 
     (options, args) = parser.parse_args(argv[1:])
 
@@ -132,9 +144,4 @@ def main(argv):
         parser.print_help()
 
 if __name__ == "__main__":
-    try: import mutagen, mutagen.id3
-    except ImportError:
-        # Run out of tools/
-        sys.path.append(os.path.abspath("../"))
-        import mutagen, mutagen.id3
     main(sys.argv)

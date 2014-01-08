@@ -2,7 +2,6 @@ from tests import add, TestCase
 from mutagen._vorbis import VComment, VCommentDict, istag
 
 class Tistag(TestCase):
-    uses_mmap = False
 
     def test_empty(self): self.failIf(istag(""))
     def test_tilde(self): self.failIf(istag("ti~tle"))
@@ -16,7 +15,6 @@ class Tistag(TestCase):
 add(Tistag)
 
 class TVComment(TestCase):
-    uses_mmap = False
 
     def setUp(self):
         self.c = VComment()
@@ -111,7 +109,6 @@ class TVComment(TestCase):
 add(TVComment)
 
 class TVCommentDict(TestCase):
-    uses_mmap = False
 
     Kind = VCommentDict
 
@@ -160,6 +157,12 @@ class TVCommentDict(TestCase):
     def test_set_case(self):
         self.c["TITLE"] = "another fake"
         self.failUnlessEqual(self.c["title"], ["another fake"])
+
+    def test_set_preserve_case(self):
+        del(self.c["title"])
+        self.c["TiTlE"] = "blah"
+        self.failUnless(("TiTlE", "blah") in list(self.c))
+        self.failUnless("title" in self.c)
 
     def test_contains_case(self):
         self.failUnless("TITLE" in self.c)

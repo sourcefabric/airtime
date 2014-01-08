@@ -1,7 +1,7 @@
 import os
 import shutil
 
-from unittest import TestCase
+from tests import TestCase
 from cStringIO import StringIO
 from tests import add
 from mutagen.mp3 import MP3, error as MP3Error, delete, MPEGInfo, EasyMP3
@@ -86,7 +86,7 @@ class TMP3(TestCase):
         self.failUnlessEqual(int(round(mp3.info.length)), 222)
 
     def test_empty_xing(self):
-        mp3 = MP3(os.path.join("tests", "data", "bad-xing.mp3"))
+        MP3(os.path.join("tests", "data", "bad-xing.mp3"))
 
     def test_delete(self):
         self.mp3.delete()
@@ -125,6 +125,10 @@ class TMP3(TestCase):
 
     def test_mime(self):
         self.failUnless("audio/mp3" in self.mp3.mime)
+        # XXX
+        self.mp3.info.layer = 2
+        self.failIf("audio/mp3" in self.mp3.mime)
+        self.failUnless("audio/mp2" in self.mp3.mime)
 
     def tearDown(self):
         os.unlink(self.filename)
@@ -132,7 +136,6 @@ class TMP3(TestCase):
 add(TMP3)
 
 class TMPEGInfo(TestCase):
-    uses_mmap = False
 
     def test_not_real_file(self):
         filename = os.path.join("tests", "data", "silence-44-s-v1.mp3")
@@ -145,7 +148,6 @@ class TMPEGInfo(TestCase):
 add(TMPEGInfo)
 
 class TEasyMP3(TestCase):
-    uses_mmap = False
 
     def setUp(self):
         original = os.path.join("tests", "data", "silence-44-s.mp3")

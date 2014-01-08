@@ -6,13 +6,12 @@ from cStringIO import StringIO
 from tempfile import mkstemp
 from tests import TestCase, add
 from mutagen.mp4 import MP4, Atom, Atoms, MP4Tags, MP4Info, \
-     delete, MP4Cover, MP4MetadataError, MP4FreeForm
+     delete, MP4Cover, MP4MetadataError, MP4FreeForm, error
 from mutagen._util import cdata
 try: from os.path import devnull
 except ImportError: devnull = "/dev/null"
 
 class TAtom(TestCase):
-    uses_mmap = False
 
     def test_no_children(self):
         fileobj = StringIO("\x00\x00\x00\x08atom")
@@ -21,8 +20,13 @@ class TAtom(TestCase):
 
     def test_length_1(self):
         fileobj = StringIO("\x00\x00\x00\x01atom"
+                           "\x00\x00\x00\x00\x00\x00\x00\x10" + "\x00" * 16)
+        self.failUnlessEqual(Atom(fileobj).length, 16)
+
+    def test_length_64bit_less_than_16(self):
+        fileobj = StringIO("\x00\x00\x00\x01atom"
                            "\x00\x00\x00\x00\x00\x00\x00\x08" + "\x00" * 8)
-        self.failUnlessEqual(Atom(fileobj).length, 8)
+        self.assertRaises(error, Atom, fileobj)
 
     def test_length_less_than_8(self):
         fileobj = StringIO("\x00\x00\x00\x02atom")
@@ -62,16 +66,20 @@ class TAtom(TestCase):
 add(TAtom)
 
 class TAtoms(TestCase):
-    uses_mmap = False
     filename = os.path.join("tests", "data", "has-tags.m4a")
 
     def setUp(self):
         self.atoms = Atoms(open(self.filename, "rb"))
 
-    def test___contains__(self):
+    def test_getitem(self):
         self.failUnless(self.atoms["moov"])
         self.failUnless(self.atoms["moov.udta"])
         self.failUnlessRaises(KeyError, self.atoms.__getitem__, "whee")
+
+    def test_contains(self):
+        self.failUnless("moov" in self.atoms)
+        self.failUnless("moov.udta" in self.atoms)
+        self.failUnless("whee" not in self.atoms)
 
     def test_name(self):
         self.failUnlessEqual(self.atoms.atoms[0].name, "ftyp")
@@ -91,7 +99,6 @@ class TAtoms(TestCase):
 add(TAtoms)
 
 class TMP4Info(TestCase):
-    uses_mmap = False
 
     def test_no_soun(self):
         self.failUnlessRaises(
@@ -128,7 +135,6 @@ class TMP4Info(TestCase):
 add(TMP4Info)
 
 class TMP4Tags(TestCase):
-    uses_mmap = False
 
     def wrap_ilst(self, data):
         ilst = Atom.render("ilst", data)
@@ -159,6 +165,12 @@ class TMP4Tags(TestCase):
 
     def test_strips_unknown_types(self):
         data = Atom.render("data", "\x00" * 8 + "whee")
+        foob = Atom.render("foob", data)
+        tags = self.wrap_ilst(foob)
+        self.failIf(tags)
+
+    def test_strips_bad_unknown_types(self):
+        data = Atom.render("datA", "\x00" * 8 + "whee")
         foob = Atom.render("foob", data)
         tags = self.wrap_ilst(foob)
         self.failIf(tags)
@@ -298,7 +310,6 @@ class TMP4(TestCase):
         self.audio["\xa9nam"] = u"wheeee" * 10
         self.audio.save()
         size1 = os.path.getsize(self.audio.filename)
-        audio = MP4(self.audio.filename)
         self.audio["\xa9nam"] = u"wheeee" * 11
         self.audio.save()
         size2 = os.path.getsize(self.audio.filename)
@@ -533,14 +544,26 @@ class TMP4HasTags(TMP4):
         map(self.audio.__delitem__, self.audio.keys())
         self.audio.save()
         audio = MP4(self.audio.filename)
-        self.failIf(self.audio.tags)
+        self.failIf(audio.tags)
+
+    def test_too_short(self):
+        fileobj = open(self.audio.filename, "rb")
+        try:
+            atoms = Atoms(fileobj)
+            ilst = atoms["moov.udta.meta.ilst"]
+            # fake a too long atom length
+            ilst.children[0].length += 10000000
+            self.failUnlessRaises(MP4MetadataError, MP4Tags, atoms, fileobj)
+        finally:
+            fileobj.close()
 
     def test_has_tags(self):
         self.failUnless(self.audio.tags)
 
     def test_not_my_file(self):
-        self.failUnlessRaises(
-            IOError, MP4, os.path.join("tests", "data", "empty.ogg"))
+        # should raise something like "Not a MP4 file"
+        self.failUnlessRaisesRegexp(
+            error, "MP4", MP4, os.path.join("tests", "data", "empty.ogg"))
 
 
 class TMP4Datatypes(TMP4HasTags):
@@ -598,6 +621,10 @@ class TMP4NoTagsM4A(TMP4):
 
     def test_no_tags(self):
         self.failUnless(self.audio.tags is None)
+
+    def test_add_tags(self):
+        self.audio.add_tags()
+        self.failUnlessRaises(error, self.audio.add_tags)
 
 add(TMP4NoTagsM4A)
 
