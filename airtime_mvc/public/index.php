@@ -49,6 +49,6 @@ $application = new Zend_Application(
     APPLICATION_ENV,
     $_SERVER["AIRTIME_APPINI"]
 );
+
 $application->bootstrap()
             ->run();
-
