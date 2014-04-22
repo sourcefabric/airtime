@@ -1,4 +1,7 @@
 <?php
+//only to avoid complaints for now, we should never rely on the default timezone in Airtime.
+date_default_timezone_set("UTC");
+
 require_once __DIR__."/configs/conf.php";
 $CC_CONFIG = Config::getConfig();
 
@@ -30,9 +33,6 @@ $front->registerPlugin(new RabbitMqPlugin());
 
 //localization configuration
 Application_Model_Locale::configureLocalization();
-
-//only to avoid complaints for now, we should never rely on the default timezone in Airtime.
-date_default_timezone_set("UTC");
 
 /* The bootstrap class should only be used to initialize actions that return a view.
    Actions that return JSON will not use the bootstrap class! */
@@ -108,13 +108,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $now = new DateTime("now", $serverTimeZone);
         $offset = $now->format("Z") * -1;
         $view->headScript()->appendScript("var serverTimezoneOffset = {$offset}; //in seconds");
-
-        if (class_exists("Zend_Auth", false) && Zend_Auth::getInstance()->hasIdentity()) {
-        	$userTimeZone = new DateTimeZone(Application_Model_Preference::GetUserTimezone());
-        	$now = new DateTime("now", $userTimeZone);
-        	$offset = $now->format("Z") * -1;
-        	$view->headScript()->appendScript("var userTimezoneOffset = {$offset}; //in seconds");
-        }
 
         //scripts for now playing bar
         $view->headScript()->appendFile($baseUrl.'js/airtime/airtime_bootstrap.js?'.$CC_CONFIG['airtime_version'],'text/javascript');

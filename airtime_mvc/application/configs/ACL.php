@@ -29,7 +29,8 @@ $ccAcl->add(new Zend_Acl_Resource('library'))
       ->add(new Zend_Acl_Resource('audiopreview'))
       ->add(new Zend_Acl_Resource('webstream'))
       ->add(new Zend_Acl_Resource('locale'))
-	  ->add(new Zend_Acl_Resource('media'));
+	  ->add(new Zend_Acl_Resource('media'))
+      ->add(new Zend_Acl_Resource('upgrade'));
 
 /** Creating permissions */
 $ccAcl->allow('G', 'index')
@@ -44,6 +45,7 @@ $ccAcl->allow('G', 'index')
       ->allow('G', 'webstream')
       ->allow('G', 'locale')
       ->allow('G', 'media')
+      ->allow('G', 'upgrade')
       ->allow('H', 'preference', 'is-import-in-progress')
       ->allow('H', 'usersettings')
       ->allow('H', 'plupload')

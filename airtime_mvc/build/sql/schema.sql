@@ -478,6 +478,7 @@ CREATE TABLE "media_audiofile"
     "silan_check" BOOLEAN DEFAULT 'f',
     "file_exists" BOOLEAN DEFAULT 't',
     "hidden" BOOLEAN DEFAULT 'f',
+    "import_status" INTEGER DEFAULT 1 NOT NULL,
     "id" INTEGER NOT NULL,
     "name" VARCHAR(512),
     "creator" VARCHAR(512),

@@ -76,5 +76,6 @@ try {
     } else {
         Logging::info($e->getTrace());
     }
+    throw $e;
 }
 

@@ -87,11 +87,10 @@ var AIRTIME = (function(AIRTIME) {
     	}
 		
 		function saveDialog() {
-			var mediaId = $('#MDATA_ID').val(),
-            	data = $("#edit-md-dialog form").serializeArray();
+			var data = $("#edit-md-dialog form").serializeArray();
         
 	        $.post(baseUrl+'library/edit-file-md', 
-	        	{format: "json", id: mediaId, data: data}, 
+	        	{format: "json", data: data}, 
 	        	function(json) {
 	        		
 	        		if (json.errors) {

@@ -47,6 +47,7 @@ class AudioFile extends BaseAudioFile
 	// Metadata Keys for files
 	// user editable metadata
 	private $_md = array (
+		"id" => "Id",
 		MDATA_KEY_TITLE => "TrackTitle",
 		MDATA_KEY_CREATOR => "ArtistName",
 		MDATA_KEY_SOURCE => "AlbumTitle",
@@ -64,6 +65,21 @@ class AudioFile extends BaseAudioFile
 		MDATA_KEY_LANGUAGE => "Language",
 		MDATA_KEY_DURATION => "Length",
 	);
+	
+	/**
+	 * Check if the file (on disk) corresponding to this class exists or not.
+	 * @return boolean true if the file exists, false otherwise.
+	 */
+	public function existsOnDisk()
+	{
+		$exists = false;
+		try {
+			$exists = file_exists($this->getFilepath());
+		} catch (Exception $e) {
+			return false;
+		}
+		return $exists;
+	}
 
 	public function getRealFileExtension() {
 
@@ -165,7 +181,7 @@ class AudioFile extends BaseAudioFile
 	}
 
 	public function setMetadata($md) {
-
+		
 		foreach ($md as $index => $value) {
 			$this->setMetadataValue($index, $value);
 		}

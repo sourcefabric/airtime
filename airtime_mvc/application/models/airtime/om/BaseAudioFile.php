@@ -231,6 +231,13 @@ abstract class BaseAudioFile extends MediaItem implements Persistent
     protected $hidden;
 
     /**
+     * The value for the import_status field.
+     * Note: this column has a database default value of: 1
+     * @var        int
+     */
+    protected $import_status;
+
+    /**
      * The value for the id field.
      * @var        int
      */
@@ -353,6 +360,7 @@ abstract class BaseAudioFile extends MediaItem implements Persistent
         $this->silan_check = false;
         $this->file_exists = true;
         $this->hidden = false;
+        $this->import_status = 1;
         $this->play_count = 0;
         $this->length = '00:00:00';
     }
@@ -684,6 +692,17 @@ abstract class BaseAudioFile extends MediaItem implements Persistent
     {
 
         return $this->hidden;
+    }
+
+    /**
+     * Get the [import_status] column value.
+     *
+     * @return int
+     */
+    public function getImportStatus()
+    {
+
+        return $this->import_status;
     }
 
     /**
@@ -1528,6 +1547,27 @@ abstract class BaseAudioFile extends MediaItem implements Persistent
     } // setFileHidden()
 
     /**
+     * Set the value of [import_status] column.
+     *
+     * @param  int $v new value
+     * @return AudioFile The current object (for fluent API support)
+     */
+    public function setImportStatus($v)
+    {
+        if ($v !== null && is_numeric($v)) {
+            $v = (int) $v;
+        }
+
+        if ($this->import_status !== $v) {
+            $this->import_status = $v;
+            $this->modifiedColumns[] = AudioFilePeer::IMPORT_STATUS;
+        }
+
+
+        return $this;
+    } // setImportStatus()
+
+    /**
      * Set the value of [id] column.
      *
      * @param  int $v new value
@@ -1827,6 +1867,10 @@ abstract class BaseAudioFile extends MediaItem implements Persistent
                 return false;
             }
 
+            if ($this->import_status !== 1) {
+                return false;
+            }
+
             if ($this->play_count !== 0) {
                 return false;
             }
@@ -1886,18 +1930,19 @@ abstract class BaseAudioFile extends MediaItem implements Persistent
             $this->silan_check = ($row[$startcol + 26] !== null) ? (boolean) $row[$startcol + 26] : null;
             $this->file_exists = ($row[$startcol + 27] !== null) ? (boolean) $row[$startcol + 27] : null;
             $this->hidden = ($row[$startcol + 28] !== null) ? (boolean) $row[$startcol + 28] : null;
-            $this->id = ($row[$startcol + 29] !== null) ? (int) $row[$startcol + 29] : null;
-            $this->name = ($row[$startcol + 30] !== null) ? (string) $row[$startcol + 30] : null;
-            $this->creator = ($row[$startcol + 31] !== null) ? (string) $row[$startcol + 31] : null;
-            $this->source = ($row[$startcol + 32] !== null) ? (string) $row[$startcol + 32] : null;
-            $this->owner_id = ($row[$startcol + 33] !== null) ? (int) $row[$startcol + 33] : null;
-            $this->description = ($row[$startcol + 34] !== null) ? (string) $row[$startcol + 34] : null;
-            $this->last_played = ($row[$startcol + 35] !== null) ? (string) $row[$startcol + 35] : null;
-            $this->play_count = ($row[$startcol + 36] !== null) ? (int) $row[$startcol + 36] : null;
-            $this->length = ($row[$startcol + 37] !== null) ? (string) $row[$startcol + 37] : null;
-            $this->mime = ($row[$startcol + 38] !== null) ? (string) $row[$startcol + 38] : null;
-            $this->created_at = ($row[$startcol + 39] !== null) ? (string) $row[$startcol + 39] : null;
-            $this->updated_at = ($row[$startcol + 40] !== null) ? (string) $row[$startcol + 40] : null;
+            $this->import_status = ($row[$startcol + 29] !== null) ? (int) $row[$startcol + 29] : null;
+            $this->id = ($row[$startcol + 30] !== null) ? (int) $row[$startcol + 30] : null;
+            $this->name = ($row[$startcol + 31] !== null) ? (string) $row[$startcol + 31] : null;
+            $this->creator = ($row[$startcol + 32] !== null) ? (string) $row[$startcol + 32] : null;
+            $this->source = ($row[$startcol + 33] !== null) ? (string) $row[$startcol + 33] : null;
+            $this->owner_id = ($row[$startcol + 34] !== null) ? (int) $row[$startcol + 34] : null;
+            $this->description = ($row[$startcol + 35] !== null) ? (string) $row[$startcol + 35] : null;
+            $this->last_played = ($row[$startcol + 36] !== null) ? (string) $row[$startcol + 36] : null;
+            $this->play_count = ($row[$startcol + 37] !== null) ? (int) $row[$startcol + 37] : null;
+            $this->length = ($row[$startcol + 38] !== null) ? (string) $row[$startcol + 38] : null;
+            $this->mime = ($row[$startcol + 39] !== null) ? (string) $row[$startcol + 39] : null;
+            $this->created_at = ($row[$startcol + 40] !== null) ? (string) $row[$startcol + 40] : null;
+            $this->updated_at = ($row[$startcol + 41] !== null) ? (string) $row[$startcol + 41] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -1907,7 +1952,7 @@ abstract class BaseAudioFile extends MediaItem implements Persistent
             }
             $this->postHydrate($row, $startcol, $rehydrate);
 
-            return $startcol + 41; // 41 = AudioFilePeer::NUM_HYDRATE_COLUMNS.
+            return $startcol + 42; // 42 = AudioFilePeer::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException("Error populating AudioFile object", $e);
@@ -2259,6 +2304,9 @@ abstract class BaseAudioFile extends MediaItem implements Persistent
         if ($this->isColumnModified(AudioFilePeer::HIDDEN)) {
             $modifiedColumns[':p' . $index++]  = '"hidden"';
         }
+        if ($this->isColumnModified(AudioFilePeer::IMPORT_STATUS)) {
+            $modifiedColumns[':p' . $index++]  = '"import_status"';
+        }
         if ($this->isColumnModified(AudioFilePeer::ID)) {
             $modifiedColumns[':p' . $index++]  = '"id"';
         }
@@ -2392,6 +2440,9 @@ abstract class BaseAudioFile extends MediaItem implements Persistent
                         break;
                     case '"hidden"':
                         $stmt->bindValue($identifier, $this->hidden, PDO::PARAM_BOOL);
+                        break;
+                    case '"import_status"':
+                        $stmt->bindValue($identifier, $this->import_status, PDO::PARAM_INT);
                         break;
                     case '"id"':
                         $stmt->bindValue($identifier, $this->id, PDO::PARAM_INT);
@@ -2668,39 +2719,42 @@ abstract class BaseAudioFile extends MediaItem implements Persistent
                 return $this->getFileHidden();
                 break;
             case 29:
-                return $this->getId();
+                return $this->getImportStatus();
                 break;
             case 30:
-                return $this->getName();
+                return $this->getId();
                 break;
             case 31:
-                return $this->getCreator();
+                return $this->getName();
                 break;
             case 32:
-                return $this->getSource();
+                return $this->getCreator();
                 break;
             case 33:
-                return $this->getOwnerId();
+                return $this->getSource();
                 break;
             case 34:
-                return $this->getDescription();
+                return $this->getOwnerId();
                 break;
             case 35:
-                return $this->getLastPlayedTime();
+                return $this->getDescription();
                 break;
             case 36:
-                return $this->getPlayCount();
+                return $this->getLastPlayedTime();
                 break;
             case 37:
-                return $this->getLength();
+                return $this->getPlayCount();
                 break;
             case 38:
-                return $this->getMime();
+                return $this->getLength();
                 break;
             case 39:
-                return $this->getCreatedAt();
+                return $this->getMime();
                 break;
             case 40:
+                return $this->getCreatedAt();
+                break;
+            case 41:
                 return $this->getUpdatedAt();
                 break;
             default:
@@ -2761,18 +2815,19 @@ abstract class BaseAudioFile extends MediaItem implements Persistent
             $keys[26] => $this->getIsSilanChecked(),
             $keys[27] => $this->getFileExists(),
             $keys[28] => $this->getFileHidden(),
-            $keys[29] => $this->getId(),
-            $keys[30] => $this->getName(),
-            $keys[31] => $this->getCreator(),
-            $keys[32] => $this->getSource(),
-            $keys[33] => $this->getOwnerId(),
-            $keys[34] => $this->getDescription(),
-            $keys[35] => $this->getLastPlayedTime(),
-            $keys[36] => $this->getPlayCount(),
-            $keys[37] => $this->getLength(),
-            $keys[38] => $this->getMime(),
-            $keys[39] => $this->getCreatedAt(),
-            $keys[40] => $this->getUpdatedAt(),
+            $keys[29] => $this->getImportStatus(),
+            $keys[30] => $this->getId(),
+            $keys[31] => $this->getName(),
+            $keys[32] => $this->getCreator(),
+            $keys[33] => $this->getSource(),
+            $keys[34] => $this->getOwnerId(),
+            $keys[35] => $this->getDescription(),
+            $keys[36] => $this->getLastPlayedTime(),
+            $keys[37] => $this->getPlayCount(),
+            $keys[38] => $this->getLength(),
+            $keys[39] => $this->getMime(),
+            $keys[40] => $this->getCreatedAt(),
+            $keys[41] => $this->getUpdatedAt(),
         );
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
@@ -2911,39 +2966,42 @@ abstract class BaseAudioFile extends MediaItem implements Persistent
                 $this->setFileHidden($value);
                 break;
             case 29:
-                $this->setId($value);
+                $this->setImportStatus($value);
                 break;
             case 30:
-                $this->setName($value);
+                $this->setId($value);
                 break;
             case 31:
-                $this->setCreator($value);
+                $this->setName($value);
                 break;
             case 32:
-                $this->setSource($value);
+                $this->setCreator($value);
                 break;
             case 33:
-                $this->setOwnerId($value);
+                $this->setSource($value);
                 break;
             case 34:
-                $this->setDescription($value);
+                $this->setOwnerId($value);
                 break;
             case 35:
-                $this->setLastPlayedTime($value);
+                $this->setDescription($value);
                 break;
             case 36:
-                $this->setPlayCount($value);
+                $this->setLastPlayedTime($value);
                 break;
             case 37:
-                $this->setLength($value);
+                $this->setPlayCount($value);
                 break;
             case 38:
-                $this->setMime($value);
+                $this->setLength($value);
                 break;
             case 39:
-                $this->setCreatedAt($value);
+                $this->setMime($value);
                 break;
             case 40:
+                $this->setCreatedAt($value);
+                break;
+            case 41:
                 $this->setUpdatedAt($value);
                 break;
         } // switch()
@@ -2999,18 +3057,19 @@ abstract class BaseAudioFile extends MediaItem implements Persistent
         if (array_key_exists($keys[26], $arr)) $this->setIsSilanChecked($arr[$keys[26]]);
         if (array_key_exists($keys[27], $arr)) $this->setFileExists($arr[$keys[27]]);
         if (array_key_exists($keys[28], $arr)) $this->setFileHidden($arr[$keys[28]]);
-        if (array_key_exists($keys[29], $arr)) $this->setId($arr[$keys[29]]);
-        if (array_key_exists($keys[30], $arr)) $this->setName($arr[$keys[30]]);
-        if (array_key_exists($keys[31], $arr)) $this->setCreator($arr[$keys[31]]);
-        if (array_key_exists($keys[32], $arr)) $this->setSource($arr[$keys[32]]);
-        if (array_key_exists($keys[33], $arr)) $this->setOwnerId($arr[$keys[33]]);
-        if (array_key_exists($keys[34], $arr)) $this->setDescription($arr[$keys[34]]);
-        if (array_key_exists($keys[35], $arr)) $this->setLastPlayedTime($arr[$keys[35]]);
-        if (array_key_exists($keys[36], $arr)) $this->setPlayCount($arr[$keys[36]]);
-        if (array_key_exists($keys[37], $arr)) $this->setLength($arr[$keys[37]]);
-        if (array_key_exists($keys[38], $arr)) $this->setMime($arr[$keys[38]]);
-        if (array_key_exists($keys[39], $arr)) $this->setCreatedAt($arr[$keys[39]]);
-        if (array_key_exists($keys[40], $arr)) $this->setUpdatedAt($arr[$keys[40]]);
+        if (array_key_exists($keys[29], $arr)) $this->setImportStatus($arr[$keys[29]]);
+        if (array_key_exists($keys[30], $arr)) $this->setId($arr[$keys[30]]);
+        if (array_key_exists($keys[31], $arr)) $this->setName($arr[$keys[31]]);
+        if (array_key_exists($keys[32], $arr)) $this->setCreator($arr[$keys[32]]);
+        if (array_key_exists($keys[33], $arr)) $this->setSource($arr[$keys[33]]);
+        if (array_key_exists($keys[34], $arr)) $this->setOwnerId($arr[$keys[34]]);
+        if (array_key_exists($keys[35], $arr)) $this->setDescription($arr[$keys[35]]);
+        if (array_key_exists($keys[36], $arr)) $this->setLastPlayedTime($arr[$keys[36]]);
+        if (array_key_exists($keys[37], $arr)) $this->setPlayCount($arr[$keys[37]]);
+        if (array_key_exists($keys[38], $arr)) $this->setLength($arr[$keys[38]]);
+        if (array_key_exists($keys[39], $arr)) $this->setMime($arr[$keys[39]]);
+        if (array_key_exists($keys[40], $arr)) $this->setCreatedAt($arr[$keys[40]]);
+        if (array_key_exists($keys[41], $arr)) $this->setUpdatedAt($arr[$keys[41]]);
     }
 
     /**
@@ -3051,6 +3110,7 @@ abstract class BaseAudioFile extends MediaItem implements Persistent
         if ($this->isColumnModified(AudioFilePeer::SILAN_CHECK)) $criteria->add(AudioFilePeer::SILAN_CHECK, $this->silan_check);
         if ($this->isColumnModified(AudioFilePeer::FILE_EXISTS)) $criteria->add(AudioFilePeer::FILE_EXISTS, $this->file_exists);
         if ($this->isColumnModified(AudioFilePeer::HIDDEN)) $criteria->add(AudioFilePeer::HIDDEN, $this->hidden);
+        if ($this->isColumnModified(AudioFilePeer::IMPORT_STATUS)) $criteria->add(AudioFilePeer::IMPORT_STATUS, $this->import_status);
         if ($this->isColumnModified(AudioFilePeer::ID)) $criteria->add(AudioFilePeer::ID, $this->id);
         if ($this->isColumnModified(AudioFilePeer::NAME)) $criteria->add(AudioFilePeer::NAME, $this->name);
         if ($this->isColumnModified(AudioFilePeer::CREATOR)) $criteria->add(AudioFilePeer::CREATOR, $this->creator);
@@ -3155,6 +3215,7 @@ abstract class BaseAudioFile extends MediaItem implements Persistent
         $copyObj->setIsSilanChecked($this->getIsSilanChecked());
         $copyObj->setFileExists($this->getFileExists());
         $copyObj->setFileHidden($this->getFileHidden());
+        $copyObj->setImportStatus($this->getImportStatus());
         $copyObj->setName($this->getName());
         $copyObj->setCreator($this->getCreator());
         $copyObj->setSource($this->getSource());
@@ -3413,6 +3474,7 @@ abstract class BaseAudioFile extends MediaItem implements Persistent
         $this->silan_check = null;
         $this->file_exists = null;
         $this->hidden = null;
+        $this->import_status = null;
         $this->id = null;
         $this->name = null;
         $this->creator = null;

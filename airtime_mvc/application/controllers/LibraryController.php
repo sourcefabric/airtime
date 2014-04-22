@@ -254,21 +254,12 @@ class LibraryController extends Zend_Controller_Action
         $isAdminOrPM = $user->isUserType(array(UTYPE_ADMIN, UTYPE_PROGRAM_MANAGER));
 
         $request = $this->getRequest();
-        $id = $this->_getParam('id', null);
-        
-        $audioFile = AudioFileQuery::create()->findPk($id);
-        
-        //TODO check for hidden/exists and set headers.
-        if (empty($audioFile)) {
-        	return;
-        }
         
         if (!$isAdminOrPM && $audioFile->getOwnerId() != $user->getId()) {
             return;
         }
         
         $form = new Application_Form_EditAudioMD();
-        $form->populate(array("MDATA_ID" => $id));
         
         if ($request->isPost()) {
 
@@ -282,11 +273,9 @@ class LibraryController extends Zend_Controller_Action
             if ($form->isValid($serialized)) {
 
             	$values = $form->getValues();
+            	$audioFile = AudioFileQuery::create()->findPk($values["id"]);
                 $audioFile->setMetadata($values);
-                
-                //set MDATA_KEY_FILEPATH
-                $values['MDATA_KEY_FILEPATH'] = $audioFile->getFilepath();
-                Application_Model_RabbitMq::SendMessageToMediaMonitor("md_update", $values);
+                $audioFile->save();
             }
             else {
             	$this->view->errors = $form->getMessages();
@@ -294,6 +283,15 @@ class LibraryController extends Zend_Controller_Action
             }
         }
         else {
+        	
+        	$id = $this->_getParam('id');
+        	$audioFile = AudioFileQuery::create()->findPk($id);
+        	
+        	//TODO check for hidden/exists and set headers.
+        	if (empty($audioFile)) {
+        		return;
+        	}
+        	
         	$md = $audioFile->getMetadata();
         	$form->populate($md);
         	
