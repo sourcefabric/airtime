@@ -227,6 +227,7 @@ var AIRTIME = (function(AIRTIME) {
     	
     	if (settings["abVisCols"].join() === oData.abVisCols.join()
     			&& settings["ColReorder"].join() === oData.ColReorder.join()
+    			//TODO check how this can be undefined on playlist page.
     			&& settings["aaSorting"].join() === oData.aaSorting.join()) {
     		return false;
     	}

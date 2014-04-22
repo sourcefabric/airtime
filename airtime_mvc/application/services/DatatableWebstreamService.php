@@ -140,13 +140,13 @@ class Application_Service_DatatableWebstreamService extends Application_Service_
 	
 	public function getDatatables($params) {
 	
-		Logging::enablePropelLogging();
+		//Logging::enablePropelLogging();
 	
 		$q = WebstreamQuery::create();
 		$q->joinWith("CcSubjs");
 		$results = self::buildQuery($q, $params);
 	
-		Logging::disablePropelLogging();
+		//Logging::disablePropelLogging();
 	
 		return array(
 			"count" => $results["count"],

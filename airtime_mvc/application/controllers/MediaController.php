@@ -59,13 +59,18 @@ class MediaController extends Zend_Controller_Action
     public function deleteAction()
     {
     	$ids = $this->_getParam('ids');
+    	
+    	$service = new Application_Service_UserService();
+    	$user = $service->getCurrentUser();
 
     	$mediaItems = MediaItemQuery::create()->findPks($ids);
     	
     	foreach ($mediaItems as $mediaItem) {
     		
-    		$media = $mediaItem->getChildObject();
-    		$media->delete();
+    		if ($user->isAdmin() || $user->getId() === $mediaItem->getOwnerId()) {
+    			$media = $mediaItem->getChildObject();
+    			$media->delete();
+    		}
     	}
     }
 }

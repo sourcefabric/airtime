@@ -146,12 +146,12 @@ class Application_Service_DatatablePlaylistService extends Application_Service_D
 	
 	public function getDatatables($params) {
 	
-		Logging::enablePropelLogging();
+		//Logging::enablePropelLogging();
 
 		$q = PlaylistQuery::create();
 		$results = self::buildQuery($q, $params);
 	
-		Logging::disablePropelLogging();
+		//Logging::disablePropelLogging();
 	
 		return array(
 			"count" => $results["count"],

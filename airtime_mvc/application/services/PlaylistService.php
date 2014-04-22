@@ -12,6 +12,9 @@ class Application_Service_PlaylistService
 	
 		$id = $playlist->getId();
 		
+		$service = new Application_Service_UserService();
+		$user = $service->getCurrentUser();
+		
 		$menu = array();
 	
 		if ($playlist->isStatic()) {
@@ -22,20 +25,23 @@ class Application_Service_PlaylistService
 				"callback" => "previewItem"
 			);
 		}
+		
+		if ($user->isAdmin() || $user->getId() === $mediaItem->getOwnerId()) {
 
-		$menu["edit"] = array(
-			"name"=> _("Edit"),
-			"icon" => "edit",
-			"id" => $id,
-			"callback" => "openPlaylist"
-		);
-	
-		$menu["delete"] = array(
-			"name" => _("Delete"),
-			"icon" => "delete",
-			"id" => $id,
-			"callback" => "deleteItem"
-		);
+			$menu["edit"] = array(
+				"name"=> _("Edit"),
+				"icon" => "edit",
+				"id" => $id,
+				"callback" => "openPlaylist"
+			);
+		
+			$menu["delete"] = array(
+				"name" => _("Delete"),
+				"icon" => "delete",
+				"id" => $id,
+				"callback" => "deleteItem"
+			);
+		}
 	
 		return $menu;
 	}

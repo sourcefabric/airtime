@@ -462,7 +462,7 @@ class Application_Service_DatatableAudioFileService extends Application_Service_
 	
 	public function getDatatables($params) {
 	
-		Logging::enablePropelLogging();
+		//Logging::enablePropelLogging();
 	
 		$q = AudioFileQuery::create();
 	
@@ -474,7 +474,7 @@ class Application_Service_DatatableAudioFileService extends Application_Service_
 	
 		$results = self::buildQuery($q, $params);
 	
-		Logging::disablePropelLogging();
+		//Logging::disablePropelLogging();
 	
 		return array(
 			"count" => $results["count"],

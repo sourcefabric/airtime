@@ -551,6 +551,9 @@ SQL;
 		
 		$baseUrl = Application_Common_OsPath::getBaseDir();
 		
+		$service = new Application_Service_UserService();
+		$user = $service->getCurrentUser();
+		
 		$id = $audioFile->getId();
 		
 		$menu = array();
@@ -562,27 +565,32 @@ SQL;
 			"callback" => "previewItem"
 		);
 		
-		$menu["edit"] = array(
-			"name"=> _("Edit Metadata"), 
-			"icon" => "edit", 
-			"url" => $baseUrl."library/edit-file-md/id/{$id}",
-			"callback" => "editMetadata"
-		);
+		if ($user->isAdmin() || $user->getId() === $mediaItem->getOwnerId()) {
+			
 		
-		$url = $audioFile->getFileUrl().'/download/true';
-		$menu["download"] = array(
-			"name" => _("Download"), 
-			"icon" => "download", 
-			"url" => $url,
-			"callback" => "downloadItem"
-		);
-		
-		$menu["delete"] = array(
-			"name" => _("Delete"),
-			"icon" => "delete",
-			"id" => $id,
-			"callback" => "deleteItem"
-		);
+			$menu["edit"] = array(
+				"name"=> _("Edit Metadata"), 
+				"icon" => "edit", 
+				"url" => $baseUrl."library/edit-file-md/id/{$id}",
+				"callback" => "editMetadata"
+			);
+			
+			$url = $audioFile->getFileUrl().'/download/true';
+			$menu["download"] = array(
+				"name" => _("Download"), 
+				"icon" => "download", 
+				"url" => $url,
+				"callback" => "downloadItem"
+			);
+			
+			$menu["delete"] = array(
+				"name" => _("Delete"),
+				"icon" => "delete",
+				"id" => $id,
+				"callback" => "deleteItem"
+			);
+			
+		}
 		
 		return $menu;
 	}

@@ -95,6 +95,9 @@ class Application_Service_WebstreamService
 	
 		$id = $webstream->getId();
 		
+		$service = new Application_Service_UserService();
+		$user = $service->getCurrentUser();
+		
 		$menu = array();
 		
 		$menu["preview"] = array(
@@ -104,12 +107,15 @@ class Application_Service_WebstreamService
 			"callback" => "previewItem"
 		);
 		
-		$menu["delete"] = array(
-			"name" => _("Delete"),
-			"icon" => "delete",
-			"id" => $id,
-			"callback" => "deleteItem"
-		);
+		if ($user->isAdmin() || $user->getId() === $mediaItem->getOwnerId()) {
+		
+			$menu["delete"] = array(
+				"name" => _("Delete"),
+				"icon" => "delete",
+				"id" => $id,
+				"callback" => "deleteItem"
+			);
+		}
 		
 		return $menu;
 	}
