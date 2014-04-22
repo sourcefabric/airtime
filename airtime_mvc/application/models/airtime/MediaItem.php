@@ -25,37 +25,14 @@ use Airtime\CcScheduleQuery;
  */
 class MediaItem extends BaseMediaItem implements \Interface_Schedulable
 {
-	public function preInsert(PropelPDO $con = null)
-	{
-		//TODO, don't overwrite owner here if already set (from media monitor request)
-		try {
-			$service = new Application_Service_UserService();
-			$this->setCcSubjs($service->getCurrentUser());
-		}
-		catch(Exception $e) {
-			Logging::warn("Unable to get current user for the inserted media item");
-		}
-
-		//have to return true for the insert to work.
-		return true;
-	}
-	
 	/*
-	 * only users who are admins, PMs or owners of the media can delete the item.
 	 * if the item is scheduled in the future it cannot be deleted.
 	 */
 	public function preDelete(PropelPDO $con = null)
 	{
 		try {
-			Logging::info("in preDelete for MediaItem");
-			
-			$service = new Application_Service_UserService();
-			$user = $service->getCurrentUser();
 
-			$userTest =  $user->isAdminOrPM() || $user->getId() === $this->getOwnerId();
-			$scheduleTest = $this->isScheduledInFuture();
-			
-			return ($userTest && !$scheduleTest);
+			return !$this->isScheduledInFuture();
 		}
 		catch(Exception $e) {
 			Logging::warn($e->getMessage());

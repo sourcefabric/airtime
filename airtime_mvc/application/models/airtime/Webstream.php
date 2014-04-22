@@ -19,19 +19,21 @@ use \PropelPDO;
  */
 class Webstream extends BaseWebstream
 {
-	public function preInsert(PropelPDO $con = null) {
-		
-		parent::preInsert($con);
-		
+	public function applyDefaultValues() {
+		parent::applyDefaultValues();
+	
 		try {
-			$creator = $this->getCcSubjs()->getDbLogin();
-			$this->setCreator($creator);
+	
+			$service = new \Application_Service_UserService();
+			$user = $service->getCurrentUser();
+				
+			$this->setName(_('Untitled Webstream'));
+			$this->setCcSubjs($user);
+			$this->setCreator($user->getDbLogin());
 		}
 		catch(Exception $e) {
-			Logging::warn("Unable to set the creator for the webstream");
+			Logging::warn("Unable to get current user for the inserted media item");
 		}
-		
-		return true;
 	}
 	
 	public function getHoursMins() {

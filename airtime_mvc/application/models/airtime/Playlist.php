@@ -468,24 +468,35 @@ abstract class Playlist extends BasePlaylist implements \Interface_Playlistable
 	
 	public function applyDefaultValues() {
 		parent::applyDefaultValues();
+		
+		try {
+	
+			$service = new \Application_Service_UserService();
+			$user = $service->getCurrentUser();
+			
+			$this->setName(_('Untitled Playlist'));
+			$this->setCcSubjs($user);
+			$this->setCreator($user->getDbLogin());
+			
+			$defaultRules = array(
+				self::RULE_REPEAT_TRACKS => true,
+				self::RULE_USERS_TRACKS_ONLY => false,
+				"order" => array(
+					"column" => "",
+					"direction" => "acs"
+				),
+				"limit" => array(
+					"value" => 1,
+					"unit" => "hours"
+				)
+			);
+			
+			$this->setRules($defaultRules);
 
-		$this->name = _('Untitled Playlist');
-		$this->modifiedColumns[] = PlaylistPeer::NAME;
-		
-		$defaultRules = array(
-			self::RULE_REPEAT_TRACKS => true,
-			self::RULE_USERS_TRACKS_ONLY => false,
-			"order" => array(
-				"column" => "",
-				"direction" => "acs"
-			),
-			"limit" => array(
-				"value" => 1,
-				"unit" => "hours"
-			)
-		);
-		
-		$this->setRules($defaultRules);
+		}
+		catch(Exception $e) {
+			Logging::warn("Unable to get current user for the inserted media item");
+		}
 	}
     
     /**

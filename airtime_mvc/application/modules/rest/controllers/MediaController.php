@@ -37,23 +37,9 @@ class Rest_MediaController extends Zend_Rest_Controller
             return;
         }
         
-        /*
-        $files_array = array();
-        foreach (AudioFileQuery::create()->find() as $file)
-        {
-            array_push($files_array, $this->sanitizeResponse($file));
-        }
-        
-        $this->getResponse()
-        ->setHttpResponseCode(200)
-        ->appendBody(json_encode($files_array));
-        */
-        
-        //TODO: Use this simpler code instead after we upgrade to Propel 1.7 (Airtime 2.6.x branch):
         $this->getResponse()
             ->setHttpResponseCode(200)
             ->appendBody(json_encode(AudioFileQuery::create()->find()->toArray(BasePeer::TYPE_FIELDNAME)));
-
     }
 
     public function downloadAction()
