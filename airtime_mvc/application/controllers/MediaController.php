@@ -1,5 +1,7 @@
 <?php
 
+use Airtime\MediaItemQuery;
+
 class MediaController extends Zend_Controller_Action
 {
 
@@ -57,13 +59,13 @@ class MediaController extends Zend_Controller_Action
     public function deleteAction()
     {
     	$ids = $this->_getParam('ids');
+
+    	$mediaItems = MediaItemQuery::create()->findPks($ids);
     	
-    	try {
-	    	$mediaService = new Application_Service_MediaService();
-	    	$r = $mediaService->delete($ids);
-    	}
-    	catch (Exception $e) {
-    		$this->view->error = $e->getMessage();
+    	foreach ($mediaItems as $mediaItem) {
+    		
+    		$media = $mediaItem->getChildObject();
+    		$media->delete();
     	}
     }
 }

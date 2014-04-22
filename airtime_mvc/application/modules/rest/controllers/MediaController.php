@@ -207,13 +207,7 @@ class Rest_MediaController extends Zend_Rest_Controller
         $file = AudioFileQuery::create()->findPk($id);
         if ($file) {
         	
-        	//TODO this if block does the same thing for now, need to fix up deleting.
-            if ($file->existsOnDisk()) {
-                $file->delete(); //TODO: This checks your session permissions... Make it work without a session?
-            }
-            else {
-            	$file->delete();
-            }
+        	$file->delete();
             
             $this->getResponse()
                 ->setHttpResponseCode(204);

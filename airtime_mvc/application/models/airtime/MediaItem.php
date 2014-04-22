@@ -31,15 +31,12 @@ class MediaItem extends BaseMediaItem implements \Interface_Schedulable
 	public function preDelete(PropelPDO $con = null)
 	{
 		try {
-
 			return !$this->isScheduledInFuture();
 		}
 		catch(Exception $e) {
 			Logging::warn($e->getMessage());
 			throw $e;
 		}
-		
-		return false;
 	}
 	
 	public function getType() {
@@ -106,6 +103,7 @@ class MediaItem extends BaseMediaItem implements \Interface_Schedulable
 		$count = CcScheduleQuery::create()
 			->filterByMediaItem($this)
 			->filterByDbStarts($utcNow->format("Y-m-d H:i:s"), Criteria::GREATER_EQUAL)
+			->filterByDbPlayoutStatus(1, Criteria::GREATER_EQUAL)
 			->count();
 		
 		return ($count > 0) ? true : false; 

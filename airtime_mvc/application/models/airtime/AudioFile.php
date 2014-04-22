@@ -66,6 +66,71 @@ class AudioFile extends BaseAudioFile
 		MDATA_KEY_DURATION => "Length",
 	);
 	
+	private function removeFromAllPlaylists($con)
+	{
+		$mediaItem = $this->getMediaItem($con);
+		$contents = $mediaItem->getMediaContentsJoinPlaylist(null, $con);
+		
+		//delete file from playlists
+		//TODO fix position column.
+		$contents->delete($con);
+		
+		$idMap = array();
+		//recalculate playlist length.
+		foreach ($contents as $content) {
+			$playlist = $content->getPlaylist($con);
+			$playlistId = $playlist->getId();
+				
+			if (!in_array($playlistId, $idMap)) {
+				$idMap[] = $playlistId;
+		
+				//will update playlist length
+				//and last modified time.
+				$playlist->save($con);
+			}
+		}
+	}
+	
+	
+	public function preDelete(PropelPDO $con = null)
+	{
+		try {
+			
+			//check if it's scheduled in the future.
+			if (!parent::preDelete($con)) {
+				return false;
+			}
+			
+			$filepath = $this->getFilePath();
+			$musicDir = $this->getCcMusicDirs($con);
+			
+			$this->removeFromAllPlaylists($con);
+			
+			if ($musicDir->getType() == "stor" && $this->existsOnDisk()) {
+
+				$filesize = filesize($filepath);
+				
+				if (unlink($filepath)) {
+					//Update the user's disk usage
+					\Application_Model_Preference::updateDiskUsage(-1 * abs($filesize));
+					
+					return true;
+				}
+				else {
+					return false;
+				}
+			}
+			else {
+				
+				return true;
+			}	
+		}
+		catch(Exception $e) {
+			Logging::warn($e->getMessage());
+			throw $e;
+		}
+	}
+	
 	/**
 	 * Check if the file (on disk) corresponding to this class exists or not.
 	 * @return boolean true if the file exists, false otherwise.
@@ -385,50 +450,5 @@ class AudioFile extends BaseAudioFile
 				"fadeout" => $this->getSchedulingFadeOut(),
 			)
 		);
-	}
-	
-	public function preDelete(PropelPDO $con = null)
-	{
-		try {
-			Logging::info("in preDelete for Audiofile");
-			//fails if media is scheduled
-			//or current user does not have permission.
-			$canDelete = parent::preDelete($con);
-			
-			Logging::info("can delete file: {$canDelete}");
-			
-			//remove from all playlists.
-			if ($canDelete) {
-				//$this->setFileHidden(true);
-				
-				$mediaItem = $this->getMediaItem($con);
-				$contents = $mediaItem->getMediaContentsJoinPlaylist(null, $con);
-				
-				//delete file from playlists
-				$contents->delete($con);
-				
-				$idMap = array();
-				//recalculate playlist length.
-				foreach ($contents as $content) {
-					$playlist = $content->getPlaylist($con);
-					$playlistId = $playlist->getId();
-					
-					if (!in_array($playlistId, $idMap)) {
-						$idMap[] = $playlistId;
-						
-						//will update playlist length
-						//and last modified time.
-						//also fixes content positions
-						$playlist->save($con);
-					}
-				}
-			}
-		}
-		catch(Exception $e) {
-			Logging::warn($e->getMessage());
-			throw $e;
-		}
-	
-		return $canDelete;
 	}
 }
