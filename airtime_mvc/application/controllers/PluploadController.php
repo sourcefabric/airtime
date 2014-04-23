@@ -44,23 +44,23 @@ class PluploadController extends Zend_Controller_Action
         $limit = intval($request->getParam('iDisplayLength', 10));
         $rowStart = intval($request->getParam('iDisplayStart', 0));
         
-        $recentUploadsQuery = CcFilesQuery::create();
+        $recentUploadsQuery = AudioFileQuery::create();
         
         $numTotalRecentUploads = $recentUploadsQuery->count();
         $numTotalDisplayUploads = $numTotalRecentUploads;
         
         if ($filter == "pending") {
 
-            $recentUploadsQuery->filterByDbImportStatus(1);
+            $recentUploadsQuery->filterByImportStatus(1);
             $numTotalDisplayUploads = $recentUploadsQuery->count();
         } else if ($filter == "failed") {
-            $recentUploadsQuery->filterByDbImportStatus(2);
+            $recentUploadsQuery->filterByImportStatus(2);
             $numTotalDisplayUploads = $recentUploadsQuery->count();
             //TODO: Consider using array('min' => 200)) or something if we have multiple errors codes for failure.
         }
         
         $recentUploads = $recentUploadsQuery
-        	->orderByDbUtime(Criteria::DESC)
+        	->orderByCreatedAt(Criteria::DESC)
         	->offset($rowStart)
         	->limit($limit)
         	->find();
