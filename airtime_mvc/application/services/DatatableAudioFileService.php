@@ -465,6 +465,7 @@ class Application_Service_DatatableAudioFileService extends Application_Service_
 		//Logging::enablePropelLogging();
 	
 		$q = AudioFileQuery::create();
+		$q->filterByImportStatus(0);
 	
 		$m = $q->getModelName();
 		$q->withColumn("({$m}.Cueout - {$m}.Cuein)", "cuelength");
