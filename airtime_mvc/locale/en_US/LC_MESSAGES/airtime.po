@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Airtime\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-22 10:38-0400\n"
+"POT-Creation-Date: 2014-04-23 16:22-0400\n"
 "PO-Revision-Date: 2014-01-29 17:06+0000\n"
 "Last-Translator: danielhjames <daniel@64studio.com>\n"
 "Language-Team: English (United States) (http://www.transifex.com/projects/p/airtime/language/en_US/)\n"
@@ -223,7 +223,7 @@ msgid "Edit This Instance"
 msgstr "Edit This Instance"
 
 #: airtime_mvc/application/services/CalendarService.php:156
-#: airtime_mvc/application/services/PlaylistService.php:27
+#: airtime_mvc/application/services/PlaylistService.php:32
 msgid "Edit"
 msgstr "Edit"
 
@@ -235,9 +235,9 @@ msgstr "Edit Show"
 #: airtime_mvc/application/services/CalendarService.php:186
 #: airtime_mvc/application/services/CalendarService.php:202
 #: airtime_mvc/application/services/CalendarService.php:208
-#: airtime_mvc/application/services/WebstreamService.php:108
-#: airtime_mvc/application/services/PlaylistService.php:34
-#: airtime_mvc/application/services/AudioFileService.php:581
+#: airtime_mvc/application/services/WebstreamService.php:113
+#: airtime_mvc/application/services/PlaylistService.php:39
+#: airtime_mvc/application/services/AudioFileService.php:587
 #: airtime_mvc/application/views/scripts/playlist/playlist.phtml:17
 #: airtime_mvc/application/views/scripts/webstream/webstream.phtml:19
 #: airtime_mvc/application/controllers/ShowbuilderController.php:244
@@ -289,9 +289,9 @@ msgstr "Show was deleted because recorded show does not exist!"
 msgid "Must wait 1 hour to rebroadcast."
 msgstr "Must wait 1 hour to rebroadcast."
 
-#: airtime_mvc/application/services/WebstreamService.php:101
-#: airtime_mvc/application/services/PlaylistService.php:19
-#: airtime_mvc/application/services/AudioFileService.php:559
+#: airtime_mvc/application/services/WebstreamService.php:104
+#: airtime_mvc/application/services/PlaylistService.php:22
+#: airtime_mvc/application/services/AudioFileService.php:562
 #: airtime_mvc/application/controllers/ShowbuilderController.php:236
 msgid "Preview"
 msgstr "Preview"
@@ -538,12 +538,12 @@ msgstr "This file appears to be corrupted and will not be added to media library
 msgid "The file was not uploaded, this error can occur if the computer hard drive does not have enough disk space or the stor directory does not have correct write permissions."
 msgstr "The file was not uploaded, this error can occur if the computer hard drive does not have enough disk space or the stor directory does not have correct write permissions."
 
-#: airtime_mvc/application/services/AudioFileService.php:566
+#: airtime_mvc/application/services/AudioFileService.php:572
 #: airtime_mvc/application/controllers/LocaleController.php:57
 msgid "Edit Metadata"
 msgstr "Edit Metadata"
 
-#: airtime_mvc/application/services/AudioFileService.php:574
+#: airtime_mvc/application/services/AudioFileService.php:580
 msgid "Download"
 msgstr "Download"
 
@@ -3819,11 +3819,15 @@ msgstr ""
 msgid "Airtime Password Reset"
 msgstr "Airtime Password Reset"
 
-#: airtime_mvc/application/models/Preference.php:623
+#: airtime_mvc/application/models/Preference.php:628
 msgid "Select Country"
 msgstr "Select Country"
 
-#: airtime_mvc/application/models/airtime/Playlist.php:472
+#: airtime_mvc/application/models/airtime/Webstream.php:30
+msgid "Untitled Webstream"
+msgstr "Untitled Webstream"
+
+#: airtime_mvc/application/models/airtime/Playlist.php:477
 msgid "Untitled Playlist"
 msgstr "Untitled Playlist"
 
@@ -3921,38 +3925,35 @@ msgstr ""
 "Cannot schedule overlapping shows.\n"
 "Note: Resizing a repeating show affects all of its repeats."
 
-#~ msgid "Untitled Webstream"
-#~ msgstr "Untitled Webstream"
+#~ msgid "Playlist crossfade"
+#~ msgstr "Playlist crossfade"
 
-#~ msgid "Webstream saved."
-#~ msgstr "Webstream saved."
+#~ msgid "No open playlist"
+#~ msgstr "No open playlist"
 
-#~ msgid "Invalid form values."
-#~ msgstr "Invalid form values."
+#~ msgid "Empty smart block content"
+#~ msgstr "Empty smart block content"
 
-#~ msgid "You are viewing an older version of %s"
-#~ msgstr "You are viewing an older version of %s"
+#~ msgid "No open smart block"
+#~ msgstr "No open smart block"
 
-#~ msgid "You cannot add tracks to dynamic blocks."
-#~ msgstr "You cannot add tracks to dynamic blocks."
+#~ msgid "Expand Static Block"
+#~ msgstr "Expand Static Block"
 
-#~ msgid "%s not found"
-#~ msgstr "%s not found"
+#~ msgid "Expand Dynamic Block"
+#~ msgstr "Expand Dynamic Block"
 
-#~ msgid "You don't have permission to delete selected %s(s)."
-#~ msgstr "You don't have permission to delete selected %s(s)."
+#~ msgid "Empty smart block"
+#~ msgstr "Empty smart block"
 
-#~ msgid "Something went wrong."
-#~ msgstr "Something went wrong."
+#~ msgid "can't resize a past show"
+#~ msgstr "can't resize a past show"
 
-#~ msgid "You can only add tracks to smart block."
-#~ msgstr "You can only add tracks to smart block."
+#~ msgid "Should not overlap shows"
+#~ msgstr "Should not overlap shows"
 
-#~ msgid "Untitled Smart Block"
-#~ msgstr "Untitled Smart Block"
-
-#~ msgid "Unknown Playlist"
-#~ msgstr "Unknown Playlist"
+#~ msgid "A selected File does not exist!"
+#~ msgstr "A selected File does not exist!"
 
 #~ msgid "File does not exist in Airtime."
 #~ msgstr "File does not exist in Airtime."
@@ -3962,6 +3963,12 @@ msgstr ""
 
 #~ msgid "File doesn't exist in Airtime."
 #~ msgstr "File doesn't exist in Airtime."
+
+#~ msgid "%s not found"
+#~ msgstr "%s not found"
+
+#~ msgid "Something went wrong."
+#~ msgstr "Something went wrong."
 
 #~ msgid "Add to Playlist"
 #~ msgstr "Add to Playlist"
@@ -3981,38 +3988,32 @@ msgstr ""
 #~ msgid "Could not delete some scheduled files."
 #~ msgstr "Could not delete some scheduled files."
 
-#~ msgid "Expand Static Block"
-#~ msgstr "Expand Static Block"
+#~ msgid "Webstream saved."
+#~ msgstr "Webstream saved."
 
-#~ msgid "Expand Dynamic Block"
-#~ msgstr "Expand Dynamic Block"
+#~ msgid "Invalid form values."
+#~ msgstr "Invalid form values."
 
-#~ msgid "Empty smart block"
-#~ msgstr "Empty smart block"
+#~ msgid "You are viewing an older version of %s"
+#~ msgstr "You are viewing an older version of %s"
 
-#~ msgid "Playlist crossfade"
-#~ msgstr "Playlist crossfade"
+#~ msgid "You cannot add tracks to dynamic blocks."
+#~ msgstr "You cannot add tracks to dynamic blocks."
 
-#~ msgid "No open playlist"
-#~ msgstr "No open playlist"
+#~ msgid "You don't have permission to delete selected %s(s)."
+#~ msgstr "You don't have permission to delete selected %s(s)."
 
-#~ msgid "Empty smart block content"
-#~ msgstr "Empty smart block content"
+#~ msgid "You can only add tracks to smart block."
+#~ msgstr "You can only add tracks to smart block."
 
-#~ msgid "No open smart block"
-#~ msgstr "No open smart block"
+#~ msgid "Untitled Smart Block"
+#~ msgstr "Untitled Smart Block"
 
-#~ msgid "A selected File does not exist!"
-#~ msgstr "A selected File does not exist!"
+#~ msgid "Unknown Playlist"
+#~ msgstr "Unknown Playlist"
 
 #~ msgid "Please selection an option"
 #~ msgstr "Please select an option"
 
 #~ msgid "No Records"
 #~ msgstr "No Records"
-
-#~ msgid "can't resize a past show"
-#~ msgstr "can't resize a past show"
-
-#~ msgid "Should not overlap shows"
-#~ msgstr "Should not overlap shows"

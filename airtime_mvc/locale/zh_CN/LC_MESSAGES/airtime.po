@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Airtime\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-22 10:38-0400\n"
+"POT-Creation-Date: 2014-04-23 16:22-0400\n"
 "PO-Revision-Date: 2014-01-29 15:10+0000\n"
 "Last-Translator: andrey.podshivalov\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/airtime/language/zh_CN/)\n"
@@ -222,7 +222,7 @@ msgid "Edit This Instance"
 msgstr "编辑此节目"
 
 #: airtime_mvc/application/services/CalendarService.php:156
-#: airtime_mvc/application/services/PlaylistService.php:27
+#: airtime_mvc/application/services/PlaylistService.php:32
 msgid "Edit"
 msgstr "编辑"
 
@@ -234,9 +234,9 @@ msgstr "编辑节目"
 #: airtime_mvc/application/services/CalendarService.php:186
 #: airtime_mvc/application/services/CalendarService.php:202
 #: airtime_mvc/application/services/CalendarService.php:208
-#: airtime_mvc/application/services/WebstreamService.php:108
-#: airtime_mvc/application/services/PlaylistService.php:34
-#: airtime_mvc/application/services/AudioFileService.php:581
+#: airtime_mvc/application/services/WebstreamService.php:113
+#: airtime_mvc/application/services/PlaylistService.php:39
+#: airtime_mvc/application/services/AudioFileService.php:587
 #: airtime_mvc/application/views/scripts/playlist/playlist.phtml:17
 #: airtime_mvc/application/views/scripts/webstream/webstream.phtml:19
 #: airtime_mvc/application/controllers/ShowbuilderController.php:244
@@ -288,9 +288,9 @@ msgstr "录音节目不存在，节目已删除！"
 msgid "Must wait 1 hour to rebroadcast."
 msgstr "重播节目必须设置于1小时之后。"
 
-#: airtime_mvc/application/services/WebstreamService.php:101
-#: airtime_mvc/application/services/PlaylistService.php:19
-#: airtime_mvc/application/services/AudioFileService.php:559
+#: airtime_mvc/application/services/WebstreamService.php:104
+#: airtime_mvc/application/services/PlaylistService.php:22
+#: airtime_mvc/application/services/AudioFileService.php:562
 #: airtime_mvc/application/controllers/ShowbuilderController.php:236
 msgid "Preview"
 msgstr "预览"
@@ -537,12 +537,12 @@ msgstr "媒体文件不符合媒体库要求或者已经损坏，该文件将不
 msgid "The file was not uploaded, this error can occur if the computer hard drive does not have enough disk space or the stor directory does not have correct write permissions."
 msgstr "文件上传失败，可能的原因：磁盘空间不足目录权限设置错误"
 
-#: airtime_mvc/application/services/AudioFileService.php:566
+#: airtime_mvc/application/services/AudioFileService.php:572
 #: airtime_mvc/application/controllers/LocaleController.php:57
 msgid "Edit Metadata"
 msgstr "编辑元数据"
 
-#: airtime_mvc/application/services/AudioFileService.php:574
+#: airtime_mvc/application/services/AudioFileService.php:580
 msgid "Download"
 msgstr "下载"
 
@@ -3818,11 +3818,15 @@ msgstr ""
 msgid "Airtime Password Reset"
 msgstr "Airtime密码重置"
 
-#: airtime_mvc/application/models/Preference.php:623
+#: airtime_mvc/application/models/Preference.php:628
 msgid "Select Country"
 msgstr "选择国家"
 
-#: airtime_mvc/application/models/airtime/Playlist.php:472
+#: airtime_mvc/application/models/airtime/Webstream.php:30
+msgid "Untitled Webstream"
+msgstr "未命名的网络流媒体"
+
+#: airtime_mvc/application/models/airtime/Playlist.php:477
 msgid "Untitled Playlist"
 msgstr "未命名的播放列表"
 
@@ -3920,38 +3924,35 @@ msgstr ""
 "节目时间设置于其他的节目有冲突。\n"
 "提示：修改系列节目中的一个，将影响整个节目系列"
 
-#~ msgid "Untitled Webstream"
-#~ msgstr "未命名的网络流媒体"
+#~ msgid "Playlist crossfade"
+#~ msgstr "播放列表交错淡入淡出效果"
 
-#~ msgid "Webstream saved."
-#~ msgstr "网络流媒体已保存。"
+#~ msgid "No open playlist"
+#~ msgstr "没有打开的播放列表"
 
-#~ msgid "Invalid form values."
-#~ msgstr "无效的表格内容。"
+#~ msgid "Empty smart block content"
+#~ msgstr "智能模块无内容"
 
-#~ msgid "You are viewing an older version of %s"
-#~ msgstr "你所查看的%s已更改"
+#~ msgid "No open smart block"
+#~ msgstr "没有打开的智能模块"
 
-#~ msgid "You cannot add tracks to dynamic blocks."
-#~ msgstr "动态智能模块不能添加声音文件。"
+#~ msgid "Expand Static Block"
+#~ msgstr "展开静态智能模块"
 
-#~ msgid "%s not found"
-#~ msgstr "%s不存在"
+#~ msgid "Expand Dynamic Block"
+#~ msgstr "展开动态智能模块"
 
-#~ msgid "You don't have permission to delete selected %s(s)."
-#~ msgstr "你没有删除所选%s的权限。"
+#~ msgid "Empty smart block"
+#~ msgstr "无内容的智能模块"
 
-#~ msgid "Something went wrong."
-#~ msgstr "未知错误。"
+#~ msgid "can't resize a past show"
+#~ msgstr "已结束的节目不能调整时长"
 
-#~ msgid "You can only add tracks to smart block."
-#~ msgstr "智能模块只能添加媒体文件。"
+#~ msgid "Should not overlap shows"
+#~ msgstr "节目时间不能有重合"
 
-#~ msgid "Untitled Smart Block"
-#~ msgstr "未命名的智能模块"
-
-#~ msgid "Unknown Playlist"
-#~ msgstr "位置播放列表"
+#~ msgid "A selected File does not exist!"
+#~ msgstr "某个选中的文件不存在。"
 
 #~ msgid "File does not exist in Airtime."
 #~ msgstr "Airtime中不存在该文件。"
@@ -3961,6 +3962,12 @@ msgstr ""
 
 #~ msgid "File doesn't exist in Airtime."
 #~ msgstr "Airtime中不存在该文件。"
+
+#~ msgid "%s not found"
+#~ msgstr "%s不存在"
+
+#~ msgid "Something went wrong."
+#~ msgstr "未知错误。"
 
 #~ msgid "Add to Playlist"
 #~ msgstr "添加到播放列表"
@@ -3980,38 +3987,32 @@ msgstr ""
 #~ msgid "Could not delete some scheduled files."
 #~ msgstr "部分已经安排的节目内容不能删除。"
 
-#~ msgid "Expand Static Block"
-#~ msgstr "展开静态智能模块"
+#~ msgid "Webstream saved."
+#~ msgstr "网络流媒体已保存。"
 
-#~ msgid "Expand Dynamic Block"
-#~ msgstr "展开动态智能模块"
+#~ msgid "Invalid form values."
+#~ msgstr "无效的表格内容。"
 
-#~ msgid "Empty smart block"
-#~ msgstr "无内容的智能模块"
+#~ msgid "You are viewing an older version of %s"
+#~ msgstr "你所查看的%s已更改"
 
-#~ msgid "Playlist crossfade"
-#~ msgstr "播放列表交错淡入淡出效果"
+#~ msgid "You cannot add tracks to dynamic blocks."
+#~ msgstr "动态智能模块不能添加声音文件。"
 
-#~ msgid "No open playlist"
-#~ msgstr "没有打开的播放列表"
+#~ msgid "You don't have permission to delete selected %s(s)."
+#~ msgstr "你没有删除所选%s的权限。"
 
-#~ msgid "Empty smart block content"
-#~ msgstr "智能模块无内容"
+#~ msgid "You can only add tracks to smart block."
+#~ msgstr "智能模块只能添加媒体文件。"
 
-#~ msgid "No open smart block"
-#~ msgstr "没有打开的智能模块"
+#~ msgid "Untitled Smart Block"
+#~ msgstr "未命名的智能模块"
 
-#~ msgid "A selected File does not exist!"
-#~ msgstr "某个选中的文件不存在。"
+#~ msgid "Unknown Playlist"
+#~ msgstr "位置播放列表"
 
 #~ msgid "Please selection an option"
 #~ msgstr "请选择一项"
 
 #~ msgid "No Records"
 #~ msgstr "无记录"
-
-#~ msgid "can't resize a past show"
-#~ msgstr "已结束的节目不能调整时长"
-
-#~ msgid "Should not overlap shows"
-#~ msgstr "节目时间不能有重合"

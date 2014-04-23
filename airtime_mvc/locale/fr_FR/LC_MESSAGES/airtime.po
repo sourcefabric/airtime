@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Airtime\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-22 10:38-0400\n"
+"POT-Creation-Date: 2014-04-23 16:22-0400\n"
 "PO-Revision-Date: 2014-01-29 15:10+0000\n"
 "Last-Translator: andrey.podshivalov\n"
 "Language-Team: French (France) (http://www.transifex.com/projects/p/airtime/language/fr_FR/)\n"
@@ -222,7 +222,7 @@ msgid "Edit This Instance"
 msgstr "Editer cette instance"
 
 #: airtime_mvc/application/services/CalendarService.php:156
-#: airtime_mvc/application/services/PlaylistService.php:27
+#: airtime_mvc/application/services/PlaylistService.php:32
 msgid "Edit"
 msgstr "Edition"
 
@@ -234,9 +234,9 @@ msgstr "Edition de l'Emission"
 #: airtime_mvc/application/services/CalendarService.php:186
 #: airtime_mvc/application/services/CalendarService.php:202
 #: airtime_mvc/application/services/CalendarService.php:208
-#: airtime_mvc/application/services/WebstreamService.php:108
-#: airtime_mvc/application/services/PlaylistService.php:34
-#: airtime_mvc/application/services/AudioFileService.php:581
+#: airtime_mvc/application/services/WebstreamService.php:113
+#: airtime_mvc/application/services/PlaylistService.php:39
+#: airtime_mvc/application/services/AudioFileService.php:587
 #: airtime_mvc/application/views/scripts/playlist/playlist.phtml:17
 #: airtime_mvc/application/views/scripts/webstream/webstream.phtml:19
 #: airtime_mvc/application/controllers/ShowbuilderController.php:244
@@ -288,9 +288,9 @@ msgstr "L'Emission a été éffacée parce que l'enregistrement de l'émission n
 msgid "Must wait 1 hour to rebroadcast."
 msgstr "Doit attendre 1 heure pour retransmettre."
 
-#: airtime_mvc/application/services/WebstreamService.php:101
-#: airtime_mvc/application/services/PlaylistService.php:19
-#: airtime_mvc/application/services/AudioFileService.php:559
+#: airtime_mvc/application/services/WebstreamService.php:104
+#: airtime_mvc/application/services/PlaylistService.php:22
+#: airtime_mvc/application/services/AudioFileService.php:562
 #: airtime_mvc/application/controllers/ShowbuilderController.php:236
 msgid "Preview"
 msgstr "Pré-Visualisation"
@@ -537,12 +537,12 @@ msgstr "Ce fichier semble être endommagé et ne sera pas ajouté à la médiath
 msgid "The file was not uploaded, this error can occur if the computer hard drive does not have enough disk space or the stor directory does not have correct write permissions."
 msgstr "Le fichier n'a pas été téléchargé, cette erreur peut se produire si le disque dur de l'ordinateur ne dispose pas de suffisamment d'espace libre ou le répertoire stockage ne dispose pas des autorisations d'écriture correctes."
 
-#: airtime_mvc/application/services/AudioFileService.php:566
+#: airtime_mvc/application/services/AudioFileService.php:572
 #: airtime_mvc/application/controllers/LocaleController.php:57
 msgid "Edit Metadata"
 msgstr "Edition des Méta-Données"
 
-#: airtime_mvc/application/services/AudioFileService.php:574
+#: airtime_mvc/application/services/AudioFileService.php:580
 msgid "Download"
 msgstr "Téléchargement"
 
@@ -3818,11 +3818,15 @@ msgstr ""
 msgid "Airtime Password Reset"
 msgstr "Mot de passe Airtime Réinitialisé"
 
-#: airtime_mvc/application/models/Preference.php:623
+#: airtime_mvc/application/models/Preference.php:628
 msgid "Select Country"
 msgstr "Selectionner le Pays"
 
-#: airtime_mvc/application/models/airtime/Playlist.php:472
+#: airtime_mvc/application/models/airtime/Webstream.php:30
+msgid "Untitled Webstream"
+msgstr "Flux Web sans Titre"
+
+#: airtime_mvc/application/models/airtime/Playlist.php:477
 msgid "Untitled Playlist"
 msgstr "Liste de Lecture Sans Titre"
 
@@ -3920,38 +3924,35 @@ msgstr ""
 "Ne peux pas programmer des émissions qui se chevauchent. \n"
 "Remarque: Le redimensionnement d'une émission répétée affecte l'ensemble de ses répétitions."
 
-#~ msgid "Untitled Webstream"
-#~ msgstr "Flux Web sans Titre"
+#~ msgid "Playlist crossfade"
+#~ msgstr "Fondu enchainé de la Liste de Lecture"
 
-#~ msgid "Webstream saved."
-#~ msgstr "Flux Web sauvegardé"
+#~ msgid "No open playlist"
+#~ msgstr "Pas de Liste de Lecture Ouverte"
 
-#~ msgid "Invalid form values."
-#~ msgstr "Valeurs du formulaire non valides."
+#~ msgid "Empty smart block content"
+#~ msgstr "Vider le contenu du bloc intelligent"
 
-#~ msgid "You are viewing an older version of %s"
-#~ msgstr "Vous visualisez l'ancienne version de %s"
+#~ msgid "No open smart block"
+#~ msgstr "Pas de Bloc Intelligent Ouvert"
 
-#~ msgid "You cannot add tracks to dynamic blocks."
-#~ msgstr "Vous ne pouvez pas ajouter de pistes aux blocs dynamiques."
+#~ msgid "Expand Static Block"
+#~ msgstr "Ettendre le bloc Statique"
 
-#~ msgid "%s not found"
-#~ msgstr "%s non trouvé"
+#~ msgid "Expand Dynamic Block"
+#~ msgstr "Ettendre le Bloc Dynamique"
 
-#~ msgid "You don't have permission to delete selected %s(s)."
-#~ msgstr "Vous n'avez pas la permission de supprimer la sélection %s(s)."
+#~ msgid "Empty smart block"
+#~ msgstr "Bloc Intelligent Vide"
 
-#~ msgid "Something went wrong."
-#~ msgstr "Quelque chose s'est mal passé."
+#~ msgid "can't resize a past show"
+#~ msgstr "Ne peux pas redimmensionner une émission diffusée"
 
-#~ msgid "You can only add tracks to smart block."
-#~ msgstr "Vous pouvez seulement ajouter des pistes au bloc intelligent."
+#~ msgid "Should not overlap shows"
+#~ msgstr "Les émissions ne doivent pas se chevaucher"
 
-#~ msgid "Untitled Smart Block"
-#~ msgstr "Bloc Intelligent Sans Titre"
-
-#~ msgid "Unknown Playlist"
-#~ msgstr "Liste de Lecture Inconnue"
+#~ msgid "A selected File does not exist!"
+#~ msgstr "Un fichier séléctionné n'existe pas!"
 
 #~ msgid "File does not exist in Airtime."
 #~ msgstr "Le fichier n'existe pas dans Airtime"
@@ -3961,6 +3962,12 @@ msgstr ""
 
 #~ msgid "File doesn't exist in Airtime."
 #~ msgstr "Le fichier n'existe pas dans Airtime"
+
+#~ msgid "%s not found"
+#~ msgstr "%s non trouvé"
+
+#~ msgid "Something went wrong."
+#~ msgstr "Quelque chose s'est mal passé."
 
 #~ msgid "Add to Playlist"
 #~ msgstr "Ajouter une"
@@ -3980,38 +3987,32 @@ msgstr ""
 #~ msgid "Could not delete some scheduled files."
 #~ msgstr "Impossible de supprimer certains fichiers programmés."
 
-#~ msgid "Expand Static Block"
-#~ msgstr "Ettendre le bloc Statique"
+#~ msgid "Webstream saved."
+#~ msgstr "Flux Web sauvegardé"
 
-#~ msgid "Expand Dynamic Block"
-#~ msgstr "Ettendre le Bloc Dynamique"
+#~ msgid "Invalid form values."
+#~ msgstr "Valeurs du formulaire non valides."
 
-#~ msgid "Empty smart block"
-#~ msgstr "Bloc Intelligent Vide"
+#~ msgid "You are viewing an older version of %s"
+#~ msgstr "Vous visualisez l'ancienne version de %s"
 
-#~ msgid "Playlist crossfade"
-#~ msgstr "Fondu enchainé de la Liste de Lecture"
+#~ msgid "You cannot add tracks to dynamic blocks."
+#~ msgstr "Vous ne pouvez pas ajouter de pistes aux blocs dynamiques."
 
-#~ msgid "No open playlist"
-#~ msgstr "Pas de Liste de Lecture Ouverte"
+#~ msgid "You don't have permission to delete selected %s(s)."
+#~ msgstr "Vous n'avez pas la permission de supprimer la sélection %s(s)."
 
-#~ msgid "Empty smart block content"
-#~ msgstr "Vider le contenu du bloc intelligent"
+#~ msgid "You can only add tracks to smart block."
+#~ msgstr "Vous pouvez seulement ajouter des pistes au bloc intelligent."
 
-#~ msgid "No open smart block"
-#~ msgstr "Pas de Bloc Intelligent Ouvert"
+#~ msgid "Untitled Smart Block"
+#~ msgstr "Bloc Intelligent Sans Titre"
 
-#~ msgid "A selected File does not exist!"
-#~ msgstr "Un fichier séléctionné n'existe pas!"
+#~ msgid "Unknown Playlist"
+#~ msgstr "Liste de Lecture Inconnue"
 
 #~ msgid "Please selection an option"
 #~ msgstr "S'il vous plait, selectionnez une option"
 
 #~ msgid "No Records"
 #~ msgstr "Aucun Enregistrements"
-
-#~ msgid "can't resize a past show"
-#~ msgstr "Ne peux pas redimmensionner une émission diffusée"
-
-#~ msgid "Should not overlap shows"
-#~ msgstr "Les émissions ne doivent pas se chevaucher"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Airtime\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-22 10:38-0400\n"
+"POT-Creation-Date: 2014-04-23 16:22-0400\n"
 "PO-Revision-Date: 2014-02-12 11:00+0000\n"
 "Last-Translator: danielhjames <daniel@64studio.com>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/projects/p/airtime/language/de_DE/)\n"
@@ -224,7 +224,7 @@ msgid "Edit This Instance"
 msgstr "Diese Folge bearbeiten"
 
 #: airtime_mvc/application/services/CalendarService.php:156
-#: airtime_mvc/application/services/PlaylistService.php:27
+#: airtime_mvc/application/services/PlaylistService.php:32
 msgid "Edit"
 msgstr "Ändern"
 
@@ -236,9 +236,9 @@ msgstr "Sendung ändern"
 #: airtime_mvc/application/services/CalendarService.php:186
 #: airtime_mvc/application/services/CalendarService.php:202
 #: airtime_mvc/application/services/CalendarService.php:208
-#: airtime_mvc/application/services/WebstreamService.php:108
-#: airtime_mvc/application/services/PlaylistService.php:34
-#: airtime_mvc/application/services/AudioFileService.php:581
+#: airtime_mvc/application/services/WebstreamService.php:113
+#: airtime_mvc/application/services/PlaylistService.php:39
+#: airtime_mvc/application/services/AudioFileService.php:587
 #: airtime_mvc/application/views/scripts/playlist/playlist.phtml:17
 #: airtime_mvc/application/views/scripts/webstream/webstream.phtml:19
 #: airtime_mvc/application/controllers/ShowbuilderController.php:244
@@ -290,9 +290,9 @@ msgstr "Die Sendung wurde gelöscht, weil die aufgezeichnete Sendung nicht exist
 msgid "Must wait 1 hour to rebroadcast."
 msgstr "Das Wiederholen einer Sendung ist erst nach einer Stunde Wartezeit möglich."
 
-#: airtime_mvc/application/services/WebstreamService.php:101
-#: airtime_mvc/application/services/PlaylistService.php:19
-#: airtime_mvc/application/services/AudioFileService.php:559
+#: airtime_mvc/application/services/WebstreamService.php:104
+#: airtime_mvc/application/services/PlaylistService.php:22
+#: airtime_mvc/application/services/AudioFileService.php:562
 #: airtime_mvc/application/controllers/ShowbuilderController.php:236
 msgid "Preview"
 msgstr "Vorschau"
@@ -539,12 +539,12 @@ msgstr "Die Datei scheint fehlerhaft zu sein und wird der Bibliothek nicht hinzu
 msgid "The file was not uploaded, this error can occur if the computer hard drive does not have enough disk space or the stor directory does not have correct write permissions."
 msgstr "Die Datei konnte nicht hochgeladen werden. Dieser Fehler kann auftreten, wenn die Festplatte des Computers nicht über genügend freien Speicherplatz verfügt oder das Ablageverzeichnis 'stor' keine Schreibrechte hat."
 
-#: airtime_mvc/application/services/AudioFileService.php:566
+#: airtime_mvc/application/services/AudioFileService.php:572
 #: airtime_mvc/application/controllers/LocaleController.php:57
 msgid "Edit Metadata"
 msgstr "Metadaten ändern"
 
-#: airtime_mvc/application/services/AudioFileService.php:574
+#: airtime_mvc/application/services/AudioFileService.php:580
 msgid "Download"
 msgstr "Download"
 
@@ -3839,11 +3839,15 @@ msgstr ""
 msgid "Airtime Password Reset"
 msgstr "Airtime Passwort zurücksetzen"
 
-#: airtime_mvc/application/models/Preference.php:623
+#: airtime_mvc/application/models/Preference.php:628
 msgid "Select Country"
 msgstr "Land wählen"
 
-#: airtime_mvc/application/models/airtime/Playlist.php:472
+#: airtime_mvc/application/models/airtime/Webstream.php:30
+msgid "Untitled Webstream"
+msgstr "Unbenannter Webstream"
+
+#: airtime_mvc/application/models/airtime/Playlist.php:477
 msgid "Untitled Playlist"
 msgstr "Unbenannte Playlist"
 
@@ -4003,9 +4007,6 @@ msgstr ""
 
 #~ msgid "Could not delete some scheduled files."
 #~ msgstr "Einige im Programmplan enthaltene Dateien konnten nicht gelöscht werden."
-
-#~ msgid "Untitled Webstream"
-#~ msgstr "Unbenannter Webstream"
 
 #~ msgid "Webstream saved."
 #~ msgstr "Webstream gespeichert."

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Airtime\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-22 10:38-0400\n"
+"POT-Creation-Date: 2014-04-23 16:22-0400\n"
 "PO-Revision-Date: 2014-02-04 17:30+0000\n"
 "Last-Translator: andrey.podshivalov\n"
 "Language-Team: Russian (Russia) (http://www.transifex.com/projects/p/airtime/language/ru_RU/)\n"
@@ -226,7 +226,7 @@ msgid "Edit This Instance"
 msgstr "Редактировать"
 
 #: airtime_mvc/application/services/CalendarService.php:156
-#: airtime_mvc/application/services/PlaylistService.php:27
+#: airtime_mvc/application/services/PlaylistService.php:32
 msgid "Edit"
 msgstr "Редактировать"
 
@@ -238,9 +238,9 @@ msgstr "Редактировать программу"
 #: airtime_mvc/application/services/CalendarService.php:186
 #: airtime_mvc/application/services/CalendarService.php:202
 #: airtime_mvc/application/services/CalendarService.php:208
-#: airtime_mvc/application/services/WebstreamService.php:108
-#: airtime_mvc/application/services/PlaylistService.php:34
-#: airtime_mvc/application/services/AudioFileService.php:581
+#: airtime_mvc/application/services/WebstreamService.php:113
+#: airtime_mvc/application/services/PlaylistService.php:39
+#: airtime_mvc/application/services/AudioFileService.php:587
 #: airtime_mvc/application/views/scripts/playlist/playlist.phtml:17
 #: airtime_mvc/application/views/scripts/webstream/webstream.phtml:19
 #: airtime_mvc/application/controllers/ShowbuilderController.php:244
@@ -292,9 +292,9 @@ msgstr "Программа была удалена, потому что запи
 msgid "Must wait 1 hour to rebroadcast."
 msgstr "До ретрансляции необходимо ожидать 1 час."
 
-#: airtime_mvc/application/services/WebstreamService.php:101
-#: airtime_mvc/application/services/PlaylistService.php:19
-#: airtime_mvc/application/services/AudioFileService.php:559
+#: airtime_mvc/application/services/WebstreamService.php:104
+#: airtime_mvc/application/services/PlaylistService.php:22
+#: airtime_mvc/application/services/AudioFileService.php:562
 #: airtime_mvc/application/controllers/ShowbuilderController.php:236
 msgid "Preview"
 msgstr "Предварительный просмотр"
@@ -541,12 +541,12 @@ msgstr "Этот файл по-видимому поврежден и не бу�
 msgid "The file was not uploaded, this error can occur if the computer hard drive does not have enough disk space or the stor directory does not have correct write permissions."
 msgstr "Загрузка не удалась. Эта ошибка возможна, если на жестком диске компьютера не хватает места или папка не имеет необходимых разрешений записи."
 
-#: airtime_mvc/application/services/AudioFileService.php:566
+#: airtime_mvc/application/services/AudioFileService.php:572
 #: airtime_mvc/application/controllers/LocaleController.php:57
 msgid "Edit Metadata"
 msgstr "Редактировать метаданные"
 
-#: airtime_mvc/application/services/AudioFileService.php:574
+#: airtime_mvc/application/services/AudioFileService.php:580
 msgid "Download"
 msgstr "Загрузить"
 
@@ -3822,11 +3822,15 @@ msgstr ""
 msgid "Airtime Password Reset"
 msgstr "Сброс пароля Airtime"
 
-#: airtime_mvc/application/models/Preference.php:623
+#: airtime_mvc/application/models/Preference.php:628
 msgid "Select Country"
 msgstr "Выберите страну"
 
-#: airtime_mvc/application/models/airtime/Playlist.php:472
+#: airtime_mvc/application/models/airtime/Webstream.php:30
+msgid "Untitled Webstream"
+msgstr "Веб-поток без названия"
+
+#: airtime_mvc/application/models/airtime/Playlist.php:477
 msgid "Untitled Playlist"
 msgstr "Плейлист без названия"
 
@@ -3924,38 +3928,35 @@ msgstr ""
 "Нельзя планировать пересекающиеся программы.\n"
 "Примечание: изменение размера повторяющейся программы влияет на все ее повторы."
 
-#~ msgid "Untitled Webstream"
-#~ msgstr "Веб-поток без названия"
+#~ msgid "Playlist crossfade"
+#~ msgstr "Перекрестное затухание композиций плейлиста"
 
-#~ msgid "Webstream saved."
-#~ msgstr "Веб-поток сохранен."
+#~ msgid "No open playlist"
+#~ msgstr "Нет открытых плейлистов"
 
-#~ msgid "Invalid form values."
-#~ msgstr "Недопустимые значения формы."
+#~ msgid "Empty smart block content"
+#~ msgstr "Очистить умный блок"
 
-#~ msgid "You are viewing an older version of %s"
-#~ msgstr "Вы просматриваете старые версии %s"
+#~ msgid "No open smart block"
+#~ msgstr "Нет открытых умных блоков"
 
-#~ msgid "You cannot add tracks to dynamic blocks."
-#~ msgstr "Вы не можете добавить треки в динамические блоки."
+#~ msgid "Expand Static Block"
+#~ msgstr "Развернуть статический блок"
 
-#~ msgid "%s not found"
-#~ msgstr "%s не найден"
+#~ msgid "Expand Dynamic Block"
+#~ msgstr "Развернуть динамический блок"
 
-#~ msgid "You don't have permission to delete selected %s(s)."
-#~ msgstr "У вас нет разрешения на удаление выбранных %s(s)."
+#~ msgid "Empty smart block"
+#~ msgstr "Очистить умный блок"
 
-#~ msgid "Something went wrong."
-#~ msgstr "Что-то пошло не так."
+#~ msgid "can't resize a past show"
+#~ msgstr "невозможно изменить размеры программы прошлого периода"
 
-#~ msgid "You can only add tracks to smart block."
-#~ msgstr "Вы можете добавить треки только в умный блок."
+#~ msgid "Should not overlap shows"
+#~ msgstr "Нельзя пересекать программы"
 
-#~ msgid "Untitled Smart Block"
-#~ msgstr "Умный блок без названия"
-
-#~ msgid "Unknown Playlist"
-#~ msgstr "Неизвестный плейлист"
+#~ msgid "A selected File does not exist!"
+#~ msgstr "Выбранный файл не существует!"
 
 #~ msgid "File does not exist in Airtime."
 #~ msgstr "Файл не существует в Airtime."
@@ -3965,6 +3966,12 @@ msgstr ""
 
 #~ msgid "File doesn't exist in Airtime."
 #~ msgstr "Файл не существует в Airtime."
+
+#~ msgid "%s not found"
+#~ msgstr "%s не найден"
+
+#~ msgid "Something went wrong."
+#~ msgstr "Что-то пошло не так."
 
 #~ msgid "Add to Playlist"
 #~ msgstr "Добавить в плейлист"
@@ -3984,38 +3991,32 @@ msgstr ""
 #~ msgid "Could not delete some scheduled files."
 #~ msgstr "Не удается удалить некоторые запланированные файлы."
 
-#~ msgid "Expand Static Block"
-#~ msgstr "Развернуть статический блок"
+#~ msgid "Webstream saved."
+#~ msgstr "Веб-поток сохранен."
 
-#~ msgid "Expand Dynamic Block"
-#~ msgstr "Развернуть динамический блок"
+#~ msgid "Invalid form values."
+#~ msgstr "Недопустимые значения формы."
 
-#~ msgid "Empty smart block"
-#~ msgstr "Очистить умный блок"
+#~ msgid "You are viewing an older version of %s"
+#~ msgstr "Вы просматриваете старые версии %s"
 
-#~ msgid "Playlist crossfade"
-#~ msgstr "Перекрестное затухание композиций плейлиста"
+#~ msgid "You cannot add tracks to dynamic blocks."
+#~ msgstr "Вы не можете добавить треки в динамические блоки."
 
-#~ msgid "No open playlist"
-#~ msgstr "Нет открытых плейлистов"
+#~ msgid "You don't have permission to delete selected %s(s)."
+#~ msgstr "У вас нет разрешения на удаление выбранных %s(s)."
 
-#~ msgid "Empty smart block content"
-#~ msgstr "Очистить умный блок"
+#~ msgid "You can only add tracks to smart block."
+#~ msgstr "Вы можете добавить треки только в умный блок."
 
-#~ msgid "No open smart block"
-#~ msgstr "Нет открытых умных блоков"
+#~ msgid "Untitled Smart Block"
+#~ msgstr "Умный блок без названия"
 
-#~ msgid "A selected File does not exist!"
-#~ msgstr "Выбранный файл не существует!"
+#~ msgid "Unknown Playlist"
+#~ msgstr "Неизвестный плейлист"
 
 #~ msgid "Please selection an option"
 #~ msgstr "Пожалуйста, выбор опции"
 
 #~ msgid "No Records"
 #~ msgstr "Нет записей"
-
-#~ msgid "can't resize a past show"
-#~ msgstr "невозможно изменить размеры программы прошлого периода"
-
-#~ msgid "Should not overlap shows"
-#~ msgstr "Нельзя пересекать программы"

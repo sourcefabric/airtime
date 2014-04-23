@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Airtime\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-22 10:38-0400\n"
+"POT-Creation-Date: 2014-04-23 16:22-0400\n"
 "PO-Revision-Date: 2014-02-04 20:40+0000\n"
 "Last-Translator: danse <f.occhipinti@gmail.com>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/projects/p/airtime/language/it_IT/)\n"
@@ -223,7 +223,7 @@ msgid "Edit This Instance"
 msgstr ""
 
 #: airtime_mvc/application/services/CalendarService.php:156
-#: airtime_mvc/application/services/PlaylistService.php:27
+#: airtime_mvc/application/services/PlaylistService.php:32
 msgid "Edit"
 msgstr "Edita"
 
@@ -235,9 +235,9 @@ msgstr "Edita show"
 #: airtime_mvc/application/services/CalendarService.php:186
 #: airtime_mvc/application/services/CalendarService.php:202
 #: airtime_mvc/application/services/CalendarService.php:208
-#: airtime_mvc/application/services/WebstreamService.php:108
-#: airtime_mvc/application/services/PlaylistService.php:34
-#: airtime_mvc/application/services/AudioFileService.php:581
+#: airtime_mvc/application/services/WebstreamService.php:113
+#: airtime_mvc/application/services/PlaylistService.php:39
+#: airtime_mvc/application/services/AudioFileService.php:587
 #: airtime_mvc/application/views/scripts/playlist/playlist.phtml:17
 #: airtime_mvc/application/views/scripts/webstream/webstream.phtml:19
 #: airtime_mvc/application/controllers/ShowbuilderController.php:244
@@ -289,9 +289,9 @@ msgstr "Lo show Ã¨ stato cancellato perchÃ© lo show registrato non esiste!"
 msgid "Must wait 1 hour to rebroadcast."
 msgstr "Devi aspettare un'ora prima di ritrasmettere."
 
-#: airtime_mvc/application/services/WebstreamService.php:101
-#: airtime_mvc/application/services/PlaylistService.php:19
-#: airtime_mvc/application/services/AudioFileService.php:559
+#: airtime_mvc/application/services/WebstreamService.php:104
+#: airtime_mvc/application/services/PlaylistService.php:22
+#: airtime_mvc/application/services/AudioFileService.php:562
 #: airtime_mvc/application/controllers/ShowbuilderController.php:236
 msgid "Preview"
 msgstr "Anteprima"
@@ -538,12 +538,12 @@ msgstr "Il file risulta corrotto e non sarÃ  aggiunto nella biblioteca."
 msgid "The file was not uploaded, this error can occur if the computer hard drive does not have enough disk space or the stor directory does not have correct write permissions."
 msgstr "Il file non Ã¨ stato caricato, l'errore si puÃ² ripresentare se il disco rigido del computer non ha abbastanza spazio o il catalogo degli archivi non ha i giusti permessi."
 
-#: airtime_mvc/application/services/AudioFileService.php:566
+#: airtime_mvc/application/services/AudioFileService.php:572
 #: airtime_mvc/application/controllers/LocaleController.php:57
 msgid "Edit Metadata"
 msgstr "Edita Metadata"
 
-#: airtime_mvc/application/services/AudioFileService.php:574
+#: airtime_mvc/application/services/AudioFileService.php:580
 msgid "Download"
 msgstr "Scarica"
 
@@ -3819,11 +3819,15 @@ msgstr ""
 msgid "Airtime Password Reset"
 msgstr "Reimposta la password di Airtime"
 
-#: airtime_mvc/application/models/Preference.php:623
+#: airtime_mvc/application/models/Preference.php:628
 msgid "Select Country"
 msgstr "Seleziona paese"
 
-#: airtime_mvc/application/models/airtime/Playlist.php:472
+#: airtime_mvc/application/models/airtime/Webstream.php:30
+msgid "Untitled Webstream"
+msgstr "Webstream senza titolo"
+
+#: airtime_mvc/application/models/airtime/Playlist.php:477
 msgid "Untitled Playlist"
 msgstr "Playlist senza nome"
 
@@ -3921,38 +3925,32 @@ msgstr ""
 "Non  si possono programmare show sovrapposti.\n"
 " Note: Ridimensionare uno slot a ripetizione colpisce tutte le sue ripetizioni."
 
-#~ msgid "Untitled Webstream"
-#~ msgstr "Webstream senza titolo"
+#~ msgid "Playlist crossfade"
+#~ msgstr "Playlist crossfade"
 
-#~ msgid "Webstream saved."
-#~ msgstr "Webstream salvate."
+#~ msgid "No open playlist"
+#~ msgstr "Non aprire playlist"
 
-#~ msgid "Invalid form values."
-#~ msgstr "Valori non validi."
+#~ msgid "No open smart block"
+#~ msgstr "Non aprire blocco intelligente"
 
-#~ msgid "You are viewing an older version of %s"
-#~ msgstr "Sta visualizzando una versione precedente di %s"
+#~ msgid "Expand Static Block"
+#~ msgstr "Espandi blocco statico"
 
-#~ msgid "You cannot add tracks to dynamic blocks."
-#~ msgstr "Non puÃ² aggiungere tracce al blocco dinamico."
+#~ msgid "Expand Dynamic Block"
+#~ msgstr "Espandi blocco dinamico "
 
-#~ msgid "%s not found"
-#~ msgstr "%s non trovato"
+#~ msgid "Empty smart block"
+#~ msgstr "Blocco intelligente vuoto"
 
-#~ msgid "You don't have permission to delete selected %s(s)."
-#~ msgstr "Non ha i permessi per cancellare la selezione %s(s)."
+#~ msgid "can't resize a past show"
+#~ msgstr "Non puoi ridimensionare uno show passato"
 
-#~ msgid "Something went wrong."
-#~ msgstr "Qualcosa Ã¨ andato storto."
+#~ msgid "Should not overlap shows"
+#~ msgstr "Non si devono sovrapporre gli show"
 
-#~ msgid "You can only add tracks to smart block."
-#~ msgstr "PuÃ² solo aggiungere tracce al blocco intelligente."
-
-#~ msgid "Untitled Smart Block"
-#~ msgstr "Blocco intelligente senza nome"
-
-#~ msgid "Unknown Playlist"
-#~ msgstr "Playlist sconosciuta"
+#~ msgid "A selected File does not exist!"
+#~ msgstr "Il File selezionato non esiste!"
 
 #~ msgid "File does not exist in Airtime."
 #~ msgstr "Il file non esiste in Airtime."
@@ -3962,6 +3960,12 @@ msgstr ""
 
 #~ msgid "File doesn't exist in Airtime."
 #~ msgstr "Il file non esiste in Airtime."
+
+#~ msgid "%s not found"
+#~ msgstr "%s non trovato"
+
+#~ msgid "Something went wrong."
+#~ msgstr "Qualcosa Ã¨ andato storto."
 
 #~ msgid "Add to Playlist"
 #~ msgstr "Aggiungi a playlist"
@@ -3978,35 +3982,32 @@ msgstr ""
 #~ msgid "Could not delete some scheduled files."
 #~ msgstr "Non puÃ² cancellare i file programmati."
 
-#~ msgid "Expand Static Block"
-#~ msgstr "Espandi blocco statico"
+#~ msgid "Webstream saved."
+#~ msgstr "Webstream salvate."
 
-#~ msgid "Expand Dynamic Block"
-#~ msgstr "Espandi blocco dinamico "
+#~ msgid "Invalid form values."
+#~ msgstr "Valori non validi."
 
-#~ msgid "Empty smart block"
-#~ msgstr "Blocco intelligente vuoto"
+#~ msgid "You are viewing an older version of %s"
+#~ msgstr "Sta visualizzando una versione precedente di %s"
 
-#~ msgid "Playlist crossfade"
-#~ msgstr "Playlist crossfade"
+#~ msgid "You cannot add tracks to dynamic blocks."
+#~ msgstr "Non puÃ² aggiungere tracce al blocco dinamico."
 
-#~ msgid "No open playlist"
-#~ msgstr "Non aprire playlist"
+#~ msgid "You don't have permission to delete selected %s(s)."
+#~ msgstr "Non ha i permessi per cancellare la selezione %s(s)."
 
-#~ msgid "No open smart block"
-#~ msgstr "Non aprire blocco intelligente"
+#~ msgid "You can only add tracks to smart block."
+#~ msgstr "PuÃ² solo aggiungere tracce al blocco intelligente."
 
-#~ msgid "A selected File does not exist!"
-#~ msgstr "Il File selezionato non esiste!"
+#~ msgid "Untitled Smart Block"
+#~ msgstr "Blocco intelligente senza nome"
+
+#~ msgid "Unknown Playlist"
+#~ msgstr "Playlist sconosciuta"
 
 #~ msgid "Please selection an option"
 #~ msgstr "Seleziona opzioni"
 
 #~ msgid "No Records"
 #~ msgstr "No registrazione"
-
-#~ msgid "can't resize a past show"
-#~ msgstr "Non puoi ridimensionare uno show passato"
-
-#~ msgid "Should not overlap shows"
-#~ msgstr "Non si devono sovrapporre gli show"

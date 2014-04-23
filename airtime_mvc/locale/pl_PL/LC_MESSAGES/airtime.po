@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Airtime\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-22 10:38-0400\n"
+"POT-Creation-Date: 2014-04-23 16:22-0400\n"
 "PO-Revision-Date: 2014-01-29 15:11+0000\n"
 "Last-Translator: andrey.podshivalov\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/projects/p/airtime/language/pl_PL/)\n"
@@ -222,7 +222,7 @@ msgid "Edit This Instance"
 msgstr ""
 
 #: airtime_mvc/application/services/CalendarService.php:156
-#: airtime_mvc/application/services/PlaylistService.php:27
+#: airtime_mvc/application/services/PlaylistService.php:32
 msgid "Edit"
 msgstr "Edytuj"
 
@@ -234,9 +234,9 @@ msgstr "Edytuj audycję"
 #: airtime_mvc/application/services/CalendarService.php:186
 #: airtime_mvc/application/services/CalendarService.php:202
 #: airtime_mvc/application/services/CalendarService.php:208
-#: airtime_mvc/application/services/WebstreamService.php:108
-#: airtime_mvc/application/services/PlaylistService.php:34
-#: airtime_mvc/application/services/AudioFileService.php:581
+#: airtime_mvc/application/services/WebstreamService.php:113
+#: airtime_mvc/application/services/PlaylistService.php:39
+#: airtime_mvc/application/services/AudioFileService.php:587
 #: airtime_mvc/application/views/scripts/playlist/playlist.phtml:17
 #: airtime_mvc/application/views/scripts/webstream/webstream.phtml:19
 #: airtime_mvc/application/controllers/ShowbuilderController.php:244
@@ -288,9 +288,9 @@ msgstr "Audycja została usunięta, ponieważ nagranie nie istnieje!"
 msgid "Must wait 1 hour to rebroadcast."
 msgstr "Należy odczekać 1 godzinę przed ponownym odtworzeniem."
 
-#: airtime_mvc/application/services/WebstreamService.php:101
-#: airtime_mvc/application/services/PlaylistService.php:19
-#: airtime_mvc/application/services/AudioFileService.php:559
+#: airtime_mvc/application/services/WebstreamService.php:104
+#: airtime_mvc/application/services/PlaylistService.php:22
+#: airtime_mvc/application/services/AudioFileService.php:562
 #: airtime_mvc/application/controllers/ShowbuilderController.php:236
 msgid "Preview"
 msgstr "Podgląd"
@@ -537,12 +537,12 @@ msgstr "Ten plik jest prawdopodobnie uszkodzony i nie można go dodać do biblio
 msgid "The file was not uploaded, this error can occur if the computer hard drive does not have enough disk space or the stor directory does not have correct write permissions."
 msgstr "Plik nie został dodany, błąd ten może występować w przypadku, kiedy nie ma wystarczającej ilości wolnego miejsca na dysku lub katalog przechowywania nie posiada odpowiednich uprawnień do zapisu."
 
-#: airtime_mvc/application/services/AudioFileService.php:566
+#: airtime_mvc/application/services/AudioFileService.php:572
 #: airtime_mvc/application/controllers/LocaleController.php:57
 msgid "Edit Metadata"
 msgstr "Edytuj Metadane."
 
-#: airtime_mvc/application/services/AudioFileService.php:574
+#: airtime_mvc/application/services/AudioFileService.php:580
 msgid "Download"
 msgstr "Pobierz"
 
@@ -3818,11 +3818,15 @@ msgstr ""
 msgid "Airtime Password Reset"
 msgstr "Resetowanie hasła Airtime"
 
-#: airtime_mvc/application/models/Preference.php:623
+#: airtime_mvc/application/models/Preference.php:628
 msgid "Select Country"
 msgstr "Wybierz kraj"
 
-#: airtime_mvc/application/models/airtime/Playlist.php:472
+#: airtime_mvc/application/models/airtime/Webstream.php:30
+msgid "Untitled Webstream"
+msgstr "Webstream bez nazwy"
+
+#: airtime_mvc/application/models/airtime/Playlist.php:477
 msgid "Untitled Playlist"
 msgstr "Lista odtwarzania bez tytułu"
 
@@ -3920,38 +3924,32 @@ msgstr ""
 "Nie można planować audycji nakładających się na siebie.\n"
 "Uwaga: zmiana audycji powoduje automatyczną zmianę wszystkich jej powtórzeń."
 
-#~ msgid "Untitled Webstream"
-#~ msgstr "Webstream bez nazwy"
+#~ msgid "Playlist crossfade"
+#~ msgstr "Płynne przenikanie utworów na liście dotwarzania"
 
-#~ msgid "Webstream saved."
-#~ msgstr "Zapisano webstream"
+#~ msgid "No open playlist"
+#~ msgstr "Brak otwartej listy odtwarzania"
 
-#~ msgid "Invalid form values."
-#~ msgstr "Nieprawidłowe wartości formularzy"
+#~ msgid "No open smart block"
+#~ msgstr "Brak otwartego smartblocka"
 
-#~ msgid "You are viewing an older version of %s"
-#~ msgstr "Przeglądasz starszą wersję %s"
+#~ msgid "Expand Static Block"
+#~ msgstr "Zwiększ bok statyczny"
 
-#~ msgid "You cannot add tracks to dynamic blocks."
-#~ msgstr "Nie można dodać ścieżek do bloków dynamicznych"
+#~ msgid "Expand Dynamic Block"
+#~ msgstr "Zwiększ blok dynamiczny"
 
-#~ msgid "%s not found"
-#~ msgstr "nie znaleziono %s"
+#~ msgid "Empty smart block"
+#~ msgstr "Pusty smart block"
 
-#~ msgid "You don't have permission to delete selected %s(s)."
-#~ msgstr "Nie masz pozwolenia na usunięcie wybranych %s(s)"
+#~ msgid "can't resize a past show"
+#~ msgstr "nie można zmienić rozmiaru przeszłej audycji"
 
-#~ msgid "Something went wrong."
-#~ msgstr "Wystapił błąd"
+#~ msgid "Should not overlap shows"
+#~ msgstr "Audycje nie powinny nakładać się."
 
-#~ msgid "You can only add tracks to smart block."
-#~ msgstr "Utwory mogą być dodane tylko do smartblocku"
-
-#~ msgid "Untitled Smart Block"
-#~ msgstr "Smartblock bez tytułu"
-
-#~ msgid "Unknown Playlist"
-#~ msgstr "Nieznana playlista"
+#~ msgid "A selected File does not exist!"
+#~ msgstr "Wybrany plik nie istnieje!"
 
 #~ msgid "File does not exist in Airtime."
 #~ msgstr "Plik nie istnieje w Airtime."
@@ -3961,6 +3959,12 @@ msgstr ""
 
 #~ msgid "File doesn't exist in Airtime."
 #~ msgstr "Plik nie istnieje w Airtime."
+
+#~ msgid "%s not found"
+#~ msgstr "nie znaleziono %s"
+
+#~ msgid "Something went wrong."
+#~ msgstr "Wystapił błąd"
 
 #~ msgid "Add to Playlist"
 #~ msgstr "Dodaj do listy odtwarzania"
@@ -3980,35 +3984,32 @@ msgstr ""
 #~ msgid "Could not delete some scheduled files."
 #~ msgstr "Nie można skasować niektórych plików z harmonogramu."
 
-#~ msgid "Expand Static Block"
-#~ msgstr "Zwiększ bok statyczny"
+#~ msgid "Webstream saved."
+#~ msgstr "Zapisano webstream"
 
-#~ msgid "Expand Dynamic Block"
-#~ msgstr "Zwiększ blok dynamiczny"
+#~ msgid "Invalid form values."
+#~ msgstr "Nieprawidłowe wartości formularzy"
 
-#~ msgid "Empty smart block"
-#~ msgstr "Pusty smart block"
+#~ msgid "You are viewing an older version of %s"
+#~ msgstr "Przeglądasz starszą wersję %s"
 
-#~ msgid "Playlist crossfade"
-#~ msgstr "Płynne przenikanie utworów na liście dotwarzania"
+#~ msgid "You cannot add tracks to dynamic blocks."
+#~ msgstr "Nie można dodać ścieżek do bloków dynamicznych"
 
-#~ msgid "No open playlist"
-#~ msgstr "Brak otwartej listy odtwarzania"
+#~ msgid "You don't have permission to delete selected %s(s)."
+#~ msgstr "Nie masz pozwolenia na usunięcie wybranych %s(s)"
 
-#~ msgid "No open smart block"
-#~ msgstr "Brak otwartego smartblocka"
+#~ msgid "You can only add tracks to smart block."
+#~ msgstr "Utwory mogą być dodane tylko do smartblocku"
 
-#~ msgid "A selected File does not exist!"
-#~ msgstr "Wybrany plik nie istnieje!"
+#~ msgid "Untitled Smart Block"
+#~ msgstr "Smartblock bez tytułu"
+
+#~ msgid "Unknown Playlist"
+#~ msgstr "Nieznana playlista"
 
 #~ msgid "Please selection an option"
 #~ msgstr "Wybierz opcję"
 
 #~ msgid "No Records"
 #~ msgstr "Brak danych"
-
-#~ msgid "can't resize a past show"
-#~ msgstr "nie można zmienić rozmiaru przeszłej audycji"
-
-#~ msgid "Should not overlap shows"
-#~ msgstr "Audycje nie powinny nakładać się."

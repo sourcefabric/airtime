@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Airtime\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-22 10:38-0400\n"
+"POT-Creation-Date: 2014-04-23 16:22-0400\n"
 "PO-Revision-Date: 2014-01-29 15:11+0000\n"
 "Last-Translator: andrey.podshivalov\n"
 "Language-Team: Korean (Korea) (http://www.transifex.com/projects/p/airtime/language/ko_KR/)\n"
@@ -222,7 +222,7 @@ msgid "Edit This Instance"
 msgstr ""
 
 #: airtime_mvc/application/services/CalendarService.php:156
-#: airtime_mvc/application/services/PlaylistService.php:27
+#: airtime_mvc/application/services/PlaylistService.php:32
 msgid "Edit"
 msgstr "수정"
 
@@ -234,9 +234,9 @@ msgstr "쇼 수정"
 #: airtime_mvc/application/services/CalendarService.php:186
 #: airtime_mvc/application/services/CalendarService.php:202
 #: airtime_mvc/application/services/CalendarService.php:208
-#: airtime_mvc/application/services/WebstreamService.php:108
-#: airtime_mvc/application/services/PlaylistService.php:34
-#: airtime_mvc/application/services/AudioFileService.php:581
+#: airtime_mvc/application/services/WebstreamService.php:113
+#: airtime_mvc/application/services/PlaylistService.php:39
+#: airtime_mvc/application/services/AudioFileService.php:587
 #: airtime_mvc/application/views/scripts/playlist/playlist.phtml:17
 #: airtime_mvc/application/views/scripts/webstream/webstream.phtml:19
 #: airtime_mvc/application/controllers/ShowbuilderController.php:244
@@ -288,9 +288,9 @@ msgstr "녹화 쇼가 없으로 쇼가 삭제 되었습니다"
 msgid "Must wait 1 hour to rebroadcast."
 msgstr "녹화 쇼와 재방송 사이에는 1시간의 간격이 필요합니다 "
 
-#: airtime_mvc/application/services/WebstreamService.php:101
-#: airtime_mvc/application/services/PlaylistService.php:19
-#: airtime_mvc/application/services/AudioFileService.php:559
+#: airtime_mvc/application/services/WebstreamService.php:104
+#: airtime_mvc/application/services/PlaylistService.php:22
+#: airtime_mvc/application/services/AudioFileService.php:562
 #: airtime_mvc/application/controllers/ShowbuilderController.php:236
 msgid "Preview"
 msgstr "프리뷰"
@@ -537,12 +537,12 @@ msgstr "파일이 손상되었으므로, 라이브러리에 추가 되지 않습
 msgid "The file was not uploaded, this error can occur if the computer hard drive does not have enough disk space or the stor directory does not have correct write permissions."
 msgstr "파일이 업로드 되지 않았습니다. 이 에러는 하드 디스크에 공간이 충분치 않거나, 권한이 부족하여 생길수 있습니다."
 
-#: airtime_mvc/application/services/AudioFileService.php:566
+#: airtime_mvc/application/services/AudioFileService.php:572
 #: airtime_mvc/application/controllers/LocaleController.php:57
 msgid "Edit Metadata"
 msgstr "메타데이타 수정"
 
-#: airtime_mvc/application/services/AudioFileService.php:574
+#: airtime_mvc/application/services/AudioFileService.php:580
 msgid "Download"
 msgstr "다운로드"
 
@@ -3815,11 +3815,15 @@ msgstr ""
 msgid "Airtime Password Reset"
 msgstr "Airtime 암호 초기화"
 
-#: airtime_mvc/application/models/Preference.php:623
+#: airtime_mvc/application/models/Preference.php:628
 msgid "Select Country"
 msgstr "국가 선택"
 
-#: airtime_mvc/application/models/airtime/Playlist.php:472
+#: airtime_mvc/application/models/airtime/Webstream.php:30
+msgid "Untitled Webstream"
+msgstr "제목없는 웹스트림"
+
+#: airtime_mvc/application/models/airtime/Playlist.php:477
 msgid "Untitled Playlist"
 msgstr "제목없는 재생목록"
 
@@ -3917,38 +3921,35 @@ msgstr ""
 "쇼를 중복되게 스케줄 할수 없습니다.\n"
 "주의: 반복 쇼의 크기를 조정하면, 모든 반복 쇼의 크기가 바뀝니다."
 
-#~ msgid "Untitled Webstream"
-#~ msgstr "제목없는 웹스트림"
+#~ msgid "Playlist crossfade"
+#~ msgstr "재생 목록 크로스페이드"
 
-#~ msgid "Webstream saved."
-#~ msgstr "웹스트림이 저장 되었습니다"
+#~ msgid "No open playlist"
+#~ msgstr "열린 재생 목록 없음"
 
-#~ msgid "Invalid form values."
-#~ msgstr "잘못된 값입니다"
+#~ msgid "Empty smart block content"
+#~ msgstr "스마트 블락 내용 지우기"
 
-#~ msgid "You are viewing an older version of %s"
-#~ msgstr "오래된 %s를 보고 있습니다"
+#~ msgid "No open smart block"
+#~ msgstr "열린 스마트 블록 없음"
 
-#~ msgid "You cannot add tracks to dynamic blocks."
-#~ msgstr "동적인 스마트 블록에는 트랙을 추가 할수 없습니다"
+#~ msgid "Expand Static Block"
+#~ msgstr "정적 블록 확장"
 
-#~ msgid "%s not found"
-#~ msgstr "%s를 찾을수 없습니다"
+#~ msgid "Expand Dynamic Block"
+#~ msgstr "동적 블록 확장"
 
-#~ msgid "You don't have permission to delete selected %s(s)."
-#~ msgstr "선택하신 %s를 삭제 할수 있는 권한이 부족합니다."
+#~ msgid "Empty smart block"
+#~ msgstr "내용물 없음"
 
-#~ msgid "Something went wrong."
-#~ msgstr "알수없는 에러."
+#~ msgid "can't resize a past show"
+#~ msgstr "지난 쇼는 사이즈를 조정할수 없습니다 "
 
-#~ msgid "You can only add tracks to smart block."
-#~ msgstr "스마트 블록에는 트랙만 추가 가능합니다"
+#~ msgid "Should not overlap shows"
+#~ msgstr "중복 스케쥴을 할수 없스니다"
 
-#~ msgid "Untitled Smart Block"
-#~ msgstr "제목없는 스마트 블록"
-
-#~ msgid "Unknown Playlist"
-#~ msgstr "모르는 재생목록"
+#~ msgid "A selected File does not exist!"
+#~ msgstr "선택하신 파일이 존재 하지 않습니다"
 
 #~ msgid "File does not exist in Airtime."
 #~ msgstr "파일이 존재 하지 않습니다"
@@ -3958,6 +3959,12 @@ msgstr ""
 
 #~ msgid "File doesn't exist in Airtime."
 #~ msgstr "파일이 존재 하지 않습니다"
+
+#~ msgid "%s not found"
+#~ msgstr "%s를 찾을수 없습니다"
+
+#~ msgid "Something went wrong."
+#~ msgstr "알수없는 에러."
 
 #~ msgid "Add to Playlist"
 #~ msgstr "재생 목록에 추가"
@@ -3974,38 +3981,32 @@ msgstr ""
 #~ msgid "Could not delete some scheduled files."
 #~ msgstr "스케쥴된 아이템들은 삭제 할수 없습니다"
 
-#~ msgid "Expand Static Block"
-#~ msgstr "정적 블록 확장"
+#~ msgid "Webstream saved."
+#~ msgstr "웹스트림이 저장 되었습니다"
 
-#~ msgid "Expand Dynamic Block"
-#~ msgstr "동적 블록 확장"
+#~ msgid "Invalid form values."
+#~ msgstr "잘못된 값입니다"
 
-#~ msgid "Empty smart block"
-#~ msgstr "내용물 없음"
+#~ msgid "You are viewing an older version of %s"
+#~ msgstr "오래된 %s를 보고 있습니다"
 
-#~ msgid "Playlist crossfade"
-#~ msgstr "재생 목록 크로스페이드"
+#~ msgid "You cannot add tracks to dynamic blocks."
+#~ msgstr "동적인 스마트 블록에는 트랙을 추가 할수 없습니다"
 
-#~ msgid "No open playlist"
-#~ msgstr "열린 재생 목록 없음"
+#~ msgid "You don't have permission to delete selected %s(s)."
+#~ msgstr "선택하신 %s를 삭제 할수 있는 권한이 부족합니다."
 
-#~ msgid "Empty smart block content"
-#~ msgstr "스마트 블락 내용 지우기"
+#~ msgid "You can only add tracks to smart block."
+#~ msgstr "스마트 블록에는 트랙만 추가 가능합니다"
 
-#~ msgid "No open smart block"
-#~ msgstr "열린 스마트 블록 없음"
+#~ msgid "Untitled Smart Block"
+#~ msgstr "제목없는 스마트 블록"
 
-#~ msgid "A selected File does not exist!"
-#~ msgstr "선택하신 파일이 존재 하지 않습니다"
+#~ msgid "Unknown Playlist"
+#~ msgstr "모르는 재생목록"
 
 #~ msgid "Please selection an option"
 #~ msgstr "옵션을 선택 해주세요"
 
 #~ msgid "No Records"
 #~ msgstr "레코드 없음"
-
-#~ msgid "can't resize a past show"
-#~ msgstr "지난 쇼는 사이즈를 조정할수 없습니다 "
-
-#~ msgid "Should not overlap shows"
-#~ msgstr "중복 스케쥴을 할수 없스니다"

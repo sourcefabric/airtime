@@ -37,53 +37,54 @@ class PluploadController extends Zend_Controller_Action
 
     public function recentUploadsAction()
     {
-        if (isset($_GET['uploadFilter'])) {
-            $filter = $_GET['uploadFilter'];
-        } else {
-            $filter = "all";
-        }
-        
-        $limit = isset($_GET['iDisplayLength']) ? $_GET['iDisplayLength'] : 10;
-        $rowStart = isset($_GET['iDisplayStart']) ? $_GET['iDisplayStart'] : 0;
 
-        $recentUploadsQuery = AudioFileQuery::create()
-        	->filterByCreatedAt(array('min' => time() - 30 * 24 * 60 * 60))
-            ->orderByCreatedAt(Criteria::DESC);
+    	$request = $this->getRequest();
+    	
+        $filter = $request->getParam('uploadFilter', "all");
+        $limit = intval($request->getParam('iDisplayLength', 10));
+        $rowStart = intval($request->getParam('iDisplayStart', 0));
         
-        $numTotalRecentUploads = $recentUploadsQuery->find()->count();
+        $recentUploadsQuery = CcFilesQuery::create();
+        
+        $numTotalRecentUploads = $recentUploadsQuery->count();
+        $numTotalDisplayUploads = $numTotalRecentUploads;
         
         if ($filter == "pending") {
-            $recentUploadsQuery->filterByImportStatus(1);
+
+            $recentUploadsQuery->filterByDbImportStatus(1);
+            $numTotalDisplayUploads = $recentUploadsQuery->count();
         } else if ($filter == "failed") {
-            $recentUploadsQuery->filterByImportStatus(array('min' => 100));
+            $recentUploadsQuery->filterByDbImportStatus(2);
+            $numTotalDisplayUploads = $recentUploadsQuery->count();
+            //TODO: Consider using array('min' => 200)) or something if we have multiple errors codes for failure.
         }
         
-        $recentUploads = $recentUploadsQuery->offset($rowStart)->limit($limit)->find();
-        
-        $numRecentUploads = $limit;
+        $recentUploads = $recentUploadsQuery
+        	->orderByDbUtime(Criteria::DESC)
+        	->offset($rowStart)
+        	->limit($limit)
+        	->find();
         
         $uploadsArray = array();
+        $utcTimezone = new DateTimeZone("UTC");
+        $displayTimezone = new DateTimeZone(Application_Model_Preference::GetUserTimezone());
         
         foreach ($recentUploads as $upload)
         {
             $upload = $upload->toArray(BasePeer::TYPE_FIELDNAME);
             //TODO: $this->sanitizeResponse($upload));
-            $utcTimezone = new DateTimeZone("UTC");
-            $displayTimezone = new DateTimeZone(Application_Model_Preference::GetUserTimezone());
+
             $upload['created_at'] = new DateTime($upload['created_at'], $utcTimezone);
             $upload['created_at']->setTimeZone($displayTimezone);
             $upload['created_at'] = $upload['created_at']->format('Y-m-d H:i:s');
-            
-            //$this->_helper->json->sendJson($upload->asJson());
+
             //TODO: Invoke sanitization here
             array_push($uploadsArray, $upload);
         }
         
-
-        $this->view->sEcho = intval($this->getRequest()->getParam('sEcho'));
-        $this->view->iTotalDisplayRecords = $numTotalRecentUploads;
-        //$this->view->iTotalDisplayRecords = $numRecentUploads; //$r["iTotalDisplayRecords"];
-        $this->view->iTotalRecords = $numTotalRecentUploads; //$r["iTotalRecords"];
-        $this->view->files = $uploadsArray; //$r["aaData"];
+        $this->view->sEcho = intval($request->getParam('sEcho'));
+        $this->view->iTotalDisplayRecords = $numTotalDisplayUploads;
+        $this->view->iTotalRecords = $numTotalRecentUploads;
+        $this->view->files = $uploadsArray;
     }
 }

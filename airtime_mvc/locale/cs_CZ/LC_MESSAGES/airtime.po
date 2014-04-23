@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Airtime\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-22 10:38-0400\n"
+"POT-Creation-Date: 2014-04-23 16:22-0400\n"
 "PO-Revision-Date: 2014-01-29 15:10+0000\n"
 "Last-Translator: andrey.podshivalov\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/projects/p/airtime/language/cs_CZ/)\n"
@@ -222,7 +222,7 @@ msgid "Edit This Instance"
 msgstr "Upravit "
 
 #: airtime_mvc/application/services/CalendarService.php:156
-#: airtime_mvc/application/services/PlaylistService.php:27
+#: airtime_mvc/application/services/PlaylistService.php:32
 msgid "Edit"
 msgstr "Upravit"
 
@@ -234,9 +234,9 @@ msgstr "Upravit vysílání"
 #: airtime_mvc/application/services/CalendarService.php:186
 #: airtime_mvc/application/services/CalendarService.php:202
 #: airtime_mvc/application/services/CalendarService.php:208
-#: airtime_mvc/application/services/WebstreamService.php:108
-#: airtime_mvc/application/services/PlaylistService.php:34
-#: airtime_mvc/application/services/AudioFileService.php:581
+#: airtime_mvc/application/services/WebstreamService.php:113
+#: airtime_mvc/application/services/PlaylistService.php:39
+#: airtime_mvc/application/services/AudioFileService.php:587
 #: airtime_mvc/application/views/scripts/playlist/playlist.phtml:17
 #: airtime_mvc/application/views/scripts/webstream/webstream.phtml:19
 #: airtime_mvc/application/controllers/ShowbuilderController.php:244
@@ -288,9 +288,9 @@ msgstr "Vysílání bylo vymazáno, protože nahrané vysílání neexistuje!"
 msgid "Must wait 1 hour to rebroadcast."
 msgstr "Musíte počkat 1 hodinu před dalším vysíláním."
 
-#: airtime_mvc/application/services/WebstreamService.php:101
-#: airtime_mvc/application/services/PlaylistService.php:19
-#: airtime_mvc/application/services/AudioFileService.php:559
+#: airtime_mvc/application/services/WebstreamService.php:104
+#: airtime_mvc/application/services/PlaylistService.php:22
+#: airtime_mvc/application/services/AudioFileService.php:562
 #: airtime_mvc/application/controllers/ShowbuilderController.php:236
 msgid "Preview"
 msgstr "Náhled"
@@ -537,12 +537,12 @@ msgstr "Tento soubor se zdá být poškozený a nebude přidán do knihovny méd
 msgid "The file was not uploaded, this error can occur if the computer hard drive does not have enough disk space or the stor directory does not have correct write permissions."
 msgstr "Soubor nebyl nahrán. K této chybě může dojít, pokud na pevném disku počítače není dostatek místa nebo adresář nemá správná oprávnění pro zápis."
 
-#: airtime_mvc/application/services/AudioFileService.php:566
+#: airtime_mvc/application/services/AudioFileService.php:572
 #: airtime_mvc/application/controllers/LocaleController.php:57
 msgid "Edit Metadata"
 msgstr "Upravit metadata"
 
-#: airtime_mvc/application/services/AudioFileService.php:574
+#: airtime_mvc/application/services/AudioFileService.php:580
 msgid "Download"
 msgstr "Stáhnout"
 
@@ -3818,11 +3818,15 @@ msgstr ""
 msgid "Airtime Password Reset"
 msgstr "Airtime obnovení hesla"
 
-#: airtime_mvc/application/models/Preference.php:623
+#: airtime_mvc/application/models/Preference.php:628
 msgid "Select Country"
 msgstr "Vyberte zemi"
 
-#: airtime_mvc/application/models/airtime/Playlist.php:472
+#: airtime_mvc/application/models/airtime/Webstream.php:30
+msgid "Untitled Webstream"
+msgstr "Webstream bez názvu"
+
+#: airtime_mvc/application/models/airtime/Playlist.php:477
 msgid "Untitled Playlist"
 msgstr "Playlist bez názvu"
 
@@ -3920,38 +3924,35 @@ msgstr ""
 "Nelze naplánovat překrývající se vysílání.\n"
 "Poznámka:. Změna velikosti opakujícího se vysílání ovlivňuje všechny opakování tohoto vysílání."
 
-#~ msgid "Untitled Webstream"
-#~ msgstr "Webstream bez názvu"
+#~ msgid "Playlist crossfade"
+#~ msgstr "Playlist crossfade"
 
-#~ msgid "Webstream saved."
-#~ msgstr "Webstream uložen."
+#~ msgid "No open playlist"
+#~ msgstr "Neotevřený playlist"
 
-#~ msgid "Invalid form values."
-#~ msgstr "Neplatná forma hodnot."
+#~ msgid "Empty smart block content"
+#~ msgstr "Prázný obsah smart block."
 
-#~ msgid "You are viewing an older version of %s"
-#~ msgstr "Prohlížíte si starší verzi %s"
+#~ msgid "No open smart block"
+#~ msgstr "Smart block není otevřený"
 
-#~ msgid "You cannot add tracks to dynamic blocks."
-#~ msgstr "Nemůžete přidávat skladby do dynamických bloků."
+#~ msgid "Expand Static Block"
+#~ msgstr "Rozšířit statický blok"
 
-#~ msgid "%s not found"
-#~ msgstr "%s nenalezen"
+#~ msgid "Expand Dynamic Block"
+#~ msgstr "Rozšířit dynamický blok"
 
-#~ msgid "You don't have permission to delete selected %s(s)."
-#~ msgstr "Nemáte oprávnění odstranit vybrané %s (s)."
+#~ msgid "Empty smart block"
+#~ msgstr "prázdný Smart blok"
 
-#~ msgid "Something went wrong."
-#~ msgstr "Něco je špatně."
+#~ msgid "can't resize a past show"
+#~ msgstr "Nelze změnit velikost již odvysílaného pořadu."
 
-#~ msgid "You can only add tracks to smart block."
-#~ msgstr "Můžete pouze přidat skladby do chytrého bloku."
+#~ msgid "Should not overlap shows"
+#~ msgstr "Jednotlivá vysílání by se neměla překrývat"
 
-#~ msgid "Untitled Smart Block"
-#~ msgstr "Chytrý block bez názvu"
-
-#~ msgid "Unknown Playlist"
-#~ msgstr "Neznámý Playlist"
+#~ msgid "A selected File does not exist!"
+#~ msgstr "Vybraný soubor neexistuje!"
 
 #~ msgid "File does not exist in Airtime."
 #~ msgstr "Soubor v Airtime neexistuje."
@@ -3961,6 +3962,12 @@ msgstr ""
 
 #~ msgid "File doesn't exist in Airtime."
 #~ msgstr "Soubor v Airtime neexistuje."
+
+#~ msgid "%s not found"
+#~ msgstr "%s nenalezen"
+
+#~ msgid "Something went wrong."
+#~ msgstr "Něco je špatně."
 
 #~ msgid "Add to Playlist"
 #~ msgstr "Přidat do Playlistu"
@@ -3980,38 +3987,32 @@ msgstr ""
 #~ msgid "Could not delete some scheduled files."
 #~ msgstr "Nelze odstranit některé naplánované soubory."
 
-#~ msgid "Expand Static Block"
-#~ msgstr "Rozšířit statický blok"
+#~ msgid "Webstream saved."
+#~ msgstr "Webstream uložen."
 
-#~ msgid "Expand Dynamic Block"
-#~ msgstr "Rozšířit dynamický blok"
+#~ msgid "Invalid form values."
+#~ msgstr "Neplatná forma hodnot."
 
-#~ msgid "Empty smart block"
-#~ msgstr "prázdný Smart blok"
+#~ msgid "You are viewing an older version of %s"
+#~ msgstr "Prohlížíte si starší verzi %s"
 
-#~ msgid "Playlist crossfade"
-#~ msgstr "Playlist crossfade"
+#~ msgid "You cannot add tracks to dynamic blocks."
+#~ msgstr "Nemůžete přidávat skladby do dynamických bloků."
 
-#~ msgid "No open playlist"
-#~ msgstr "Neotevřený playlist"
+#~ msgid "You don't have permission to delete selected %s(s)."
+#~ msgstr "Nemáte oprávnění odstranit vybrané %s (s)."
 
-#~ msgid "Empty smart block content"
-#~ msgstr "Prázný obsah smart block."
+#~ msgid "You can only add tracks to smart block."
+#~ msgstr "Můžete pouze přidat skladby do chytrého bloku."
 
-#~ msgid "No open smart block"
-#~ msgstr "Smart block není otevřený"
+#~ msgid "Untitled Smart Block"
+#~ msgstr "Chytrý block bez názvu"
 
-#~ msgid "A selected File does not exist!"
-#~ msgstr "Vybraný soubor neexistuje!"
+#~ msgid "Unknown Playlist"
+#~ msgstr "Neznámý Playlist"
 
 #~ msgid "Please selection an option"
 #~ msgstr "Prosím vyberte si možnost"
 
 #~ msgid "No Records"
 #~ msgstr "Žádné záznamy"
-
-#~ msgid "can't resize a past show"
-#~ msgstr "Nelze změnit velikost již odvysílaného pořadu."
-
-#~ msgid "Should not overlap shows"
-#~ msgstr "Jednotlivá vysílání by se neměla překrývat"
