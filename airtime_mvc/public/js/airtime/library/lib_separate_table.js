@@ -13,6 +13,9 @@ var AIRTIME = (function(AIRTIME) {
     	LIB_ADD_CLASS = "lib-add",
     	LIB_TRASH_CLASS = "lib-trash";
     
+    var extendedSettings = mod.datatablesEventSettings();
+    $.extend(datatablesSettings, extendedSettings);
+    
     var template = 
 		"<div id='advanced_search_<%= type %>_col_<%= index %>' class='control-group' <%= style %>>" +
         	"<label class='control-label'><%= title %></label>" +
@@ -203,9 +206,14 @@ var AIRTIME = (function(AIRTIME) {
     }
     
     function datatablesDrawCallback(oSettings) {
+    	var dtSettings = getCurrentDatatableSettings();
     	
     	highlightChosen();
     	mod.checkToolBarIcons();
+    	
+    	if (dtSettings.draggable) {
+    		mod.createDraggable();
+    	}
     }
     
     function stackTrace() {
@@ -449,10 +457,17 @@ var AIRTIME = (function(AIRTIME) {
         return datatablesSettings[tabId];
     }
     
-    function getActiveDatatable() {
+    function getActiveTable() {
     	var tabId = getActiveTabId();
     	
-    	return $library.find("#"+tabId).find("table").dataTable();
+    	return $library.find("#"+tabId).find("table");
+    }
+    
+    mod.getActiveTable = getActiveTable;
+    
+    function getActiveDatatable() {
+
+    	return getActiveTable().dataTable();
     }
     
     //returns everything chosen from the current tab
@@ -474,6 +489,23 @@ var AIRTIME = (function(AIRTIME) {
     	return $.map($visible, function(el, i) {
     		return $(el).data("aData").Id;
     	});
+    };
+    
+    //$el is a select table row <tr>
+    mod.isChosenItem = function($el) {
+        var data = $el.data('aData'),
+        	tabId = getActiveTabId();
+        
+        if (chosenItems[tabId] === undefined) {
+        	chosenItems[tabId] = {};
+        }
+        
+        if (chosenItems[tabId][data.Id] !== undefined) {
+        	return true;
+        }
+        else {
+        	return false;
+        }
     };
     
     //$el is a select table row <tr>
@@ -645,6 +677,24 @@ var AIRTIME = (function(AIRTIME) {
 		else {
 			AIRTIME.button.disableButton($button);
 		}
+    };
+    
+    mod.findLibraryDraggables = function() {
+    	var $draggables;
+
+    	$draggables = $("table.media-item-table")
+    		.find("tbody.ui-draggable");
+    	
+    	return $draggables;
+    };
+    
+    //destroy all library draggables.
+    mod.destroyLibraryDraggables = function() {
+    	var $draggables = mod.findLibraryDraggables();
+
+    	$draggables.each(function() {
+    		$(this).draggable("destroy");
+    	});
     };
      
     mod.onReady = function () {
@@ -869,6 +919,8 @@ var AIRTIME = (function(AIRTIME) {
                 };
             }
         });
+        
+        mod.initCustomEvents();
     };
 
 	return AIRTIME;

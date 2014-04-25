@@ -7,6 +7,26 @@ var AIRTIME = (function(AIRTIME) {
 
     mod = AIRTIME.library;
     
+    var datatablesSettings = {
+		"lib_audio": {
+			draggable: true
+		},
+		"lib_webstream": {
+			draggable: true
+		},
+		"lib_playlist": {
+			draggable: true
+		}
+	};
+    
+    mod.datatablesEventSettings = function() {
+    	return datatablesSettings;
+    };
+    
+    mod.createDraggable = function($table) {
+    	
+    };
+    
     mod.setupToolbar = function(tabId) {
         var $toolbar = $("#"+tabId+" .fg-toolbar:first"),
         	$menu = mod.createToolbarButtons();

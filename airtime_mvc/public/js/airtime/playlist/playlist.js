@@ -479,7 +479,29 @@ var AIRTIME = (function(AIRTIME){
 		
 		$contents.sortable({
 			items: 'li',
-			handle: 'div.list-item-container'
+			handle: 'div.list-item-container',
+			//hack taken from
+			//http://stackoverflow.com/questions/2150002/jquery-ui-sortable-how-can-i-change-the-appearance-of-the-placeholder-object
+			placeholder: {
+		        element: function(currentItem) {
+					
+		            return $('<li class="placeholder ui-state-highlight"></li>')[0];
+		        },
+		        update: function(container, p) {
+		            return;
+		        }
+		    },
+			forceHelperSize: true,
+			forcePlaceholderSize: true,
+			start: function(event, ui) {
+				ui.placeholder.height(56);
+			},
+			receive: function(event, ui) {
+				var x;
+			},
+			update: function(event, ui) {
+				var x;
+			}
 		});
 	}
 	
@@ -759,6 +781,7 @@ var AIRTIME = (function(AIRTIME){
     		
     		$.post(url, data, function(json) {
     			AIRTIME.playlist.drawPlaylist(json);
+    			$playlist.triggerHandler("playlistnewstatic");
     		});
     	});
 		
@@ -883,7 +906,12 @@ var AIRTIME = (function(AIRTIME){
 			
 			$.post(url, data, function(json) {
 				mod.drawPlaylist(json);
+				$playlist.triggerHandler("playlistdelete");
 			});
+		});
+		
+		$playlist.on("click", "#lib_pl_close", function(e) {
+
 		});
 	};
 	
