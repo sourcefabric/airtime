@@ -92,6 +92,10 @@ var AIRTIME = (function(AIRTIME) {
     	scheduleMedia(mod.getVisibleChosen());
     };
     
+    mod.initCustomEvents = function() {
+
+    };
+    
     return AIRTIME;
 
 }(AIRTIME || {}));
