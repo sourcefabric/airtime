@@ -497,10 +497,36 @@ var AIRTIME = (function(AIRTIME){
 				ui.placeholder.height(56);
 			},
 			receive: function(event, ui) {
-				var x;
+				var LIBRARY = AIRTIME.library;
+				
+				//there's not a better way in this event to find the temp UI item...
+				var $tempItem = $("#spl_sortable").find("tr");
+				var $afterItem = $tempItem.prev();
+				
+				$tempItem.replaceWith($(ui.helper).html());
+				
+				var chosenMediaIds = LIBRARY.getVisibleChosen();
+				var $draggedTr = $(ui.item.context);
+				var data = LIBRARY.getTableRowData($draggedTr);
+				var id = data.Id;
+				var insertAfterId = null;
+				
+				if (chosenMediaIds.indexOf(id) === -1) {
+					chosenMediaIds.push(id);
+				}
+
+				if ($afterItem.length !== 0) {
+					insertAfterId = parseInt($afterItem.attr("id").split("_").pop(), 10);
+				}
+				
+				mod.addItems(chosenMediaIds, insertAfterId);
 			},
 			update: function(event, ui) {
-				var x;
+				var $context = $(ui.item.context);
+				
+				if ($context.hasClass("ui-draggable")) {
+					
+				}
 			}
 		});
 	}
@@ -654,16 +680,13 @@ var AIRTIME = (function(AIRTIME){
 		});
 	};
 	
-	mod.addItems = function(mediaIds) {
-		
-		var content = $.map(mediaIds, function(value, index) {
-			return {"id": value};
-		});
-		
+	mod.addItems = function(mediaIds, insertAfter) {
+
 		var url = baseUrl+"playlist/add-items",
 			data = {
 				format: "json",
-				content: content
+				mediaIds: mediaIds,
+				insertAfter: insertAfter
 			};
 		
 		$.post(url, data, function(json) {

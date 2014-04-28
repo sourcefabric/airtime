@@ -565,6 +565,11 @@ var AIRTIME = (function(AIRTIME) {
         mod.checkToolBarIcons();
     };
     
+    //$tr is a row in a datatable, return its aData.
+    mod.getTableRowData = function($tr) {
+    	return $tr.data("aData");
+    };
+    
     /*
      * selects all items which the user can currently see. (behaviour taken from
      * gmail)
@@ -683,7 +688,7 @@ var AIRTIME = (function(AIRTIME) {
     	var $draggables;
 
     	$draggables = $("table.media-item-table")
-    		.find("tbody.ui-draggable");
+    		.find("tbody tr.ui-draggable");
     	
     	return $draggables;
     };

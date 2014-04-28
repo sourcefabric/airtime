@@ -32,9 +32,9 @@ var AIRTIME = (function(AIRTIME) {
     		return;
     	}
     	
-    	$table.find("tbody").draggable({
+    	$table.find("tbody tr").draggable({
             helper : function(event, element) {
-                var $el = $(event.srcElement).parents("tr"),
+                var $el = $(this),
                 	selected = mod.getVisibleChosen().length,
                 	container,
                 	message,
@@ -112,7 +112,14 @@ var AIRTIME = (function(AIRTIME) {
     
     //takes an array of media ids
     function addToPlaylist(aIds) {
-    	AIRTIME.playlist.addItems(aIds);
+    	var $insertAfter = $("#spl_sortable li:last").not(".spl_empty");
+    	var insertAfterId = null;
+    	
+    	if ($insertAfter.length > 0) {
+    		insertAfterId = parseInt($insertAfter.attr("id").split("_").pop(), 10);
+    	}
+    		
+    	AIRTIME.playlist.addItems(aIds, insertAfterId);
     };
     
     //data is the aData of the tr element.

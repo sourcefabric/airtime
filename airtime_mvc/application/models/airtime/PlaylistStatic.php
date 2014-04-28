@@ -203,12 +203,56 @@ class PlaylistStatic extends Playlist {
    /*
     * @param $ids list of media ids to add to the end of the playlist.
     */
-    public function addMedia(PropelPDO $con, $ids) {
+    public function addMedia(PropelPDO $con, $ids, $afterId = null) {
 
     	$con->beginTransaction();
+    	
+    	Logging::info("Adding to playlist after id ".$afterId);
 
     	try {
-    		$position = $this->countMediaContents(null, false, $con);
+    		//$position = $this->countMediaContents(null, false, $con);
+    		
+    		if (is_null($afterId)) {
+    			$position = 0;
+    		}
+    		else {
+    			$afterItem = MediaContentQuery::create()->findPk($afterId, $con);
+    			$position = $afterItem->getPosition() + 1;
+    		}
+    		
+    		Logging::info("Adding to position: ".$position);
+    		
+    		$numInserts = count($ids);
+    		
+    		//create the gap in positions for the new items.
+    		
+    		$table = MediaContentPeer::TABLE_NAME;
+    		$positionCol = "position"; //MediaContentPeer::POSITION;
+    		$playlistIdCol = "playlist_id"; MediaContentPeer::PLAYLIST_ID;
+    		
+    		$stmt = $con->prepare("UPDATE {$table} SET {$positionCol} = {$positionCol} + {$numInserts}
+    			WHERE {$playlistIdCol} = :p1 AND {$positionCol} >= {$position}");
+    		$stmt->bindValue(':p1', $this->getId());
+    		$stmt->execute();
+    		
+    		/*
+    		$c = new Criteria();
+    		$c->add($sqlPosition, "$sqlPosition + $numInserts", \Criteria::CUSTOM_EQUAL);
+    		$c->addCond("playlistfilter", MediaContentPeer::PLAYLIST_ID, $this->getId(), \Criteria::EQUAL);
+    		$c->addCond("positionfilter", $sqlPosition, $position, \Criteria::GREATER_THAN);
+    		$c->combine(array("playlistfilter", "positionfilter"), \Criteria::LOGICAL_AND);
+
+    		MediaContentPeer::doUpdate($c, $con);
+    		*/
+    		
+    		/*
+    		MediaContentQuery::create()
+    			->filterByPlaylist($this)
+    			->filterByPosition($position, \Criteria::GREATER_THAN)
+    			//->update(array("Position" => $numInserts), $con);
+    			->update(array("Position" => "($sqlPosition + $numInserts)"), $con);
+    			*/
+    		
     		//run this just for the single query.
     		$mediaToAdd = MediaItemQuery::create()->findPks($ids, $con);
     		
@@ -242,7 +286,8 @@ class PlaylistStatic extends Playlist {
     	Logging::disablePropelLogging();
     }
     
-    public function savePlaylistContent(PropelPDO $con, $content, $replace=false)
+    /*
+    public function insertPlaylistContent(PropelPDO $con, $content, $replace=false)
     {
     	$con->beginTransaction();
     
@@ -296,6 +341,7 @@ class PlaylistStatic extends Playlist {
     		throw $e;
     	}
     }
+    */
     
     public function getScheduledContent(PropelPDO $con) {
     	

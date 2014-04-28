@@ -155,9 +155,14 @@ class PlaylistController extends Zend_Controller_Action
     
     public function addItemsAction()
     {
-    	$content = $this->_getParam('content');
+    	$mediaIds = $this->_getParam('mediaIds');
+    	$insertAfter = intval($this->_getParam('insertAfter'));
     	
-    	Logging::info($content);
+    	if ($insertAfter == 0) {
+    		$insertAfter = null;
+    	}
+    	
+    	Logging::info($mediaIds);
     	
     	Logging::enablePropelLogging();
     	
@@ -166,7 +171,7 @@ class PlaylistController extends Zend_Controller_Action
     	
     	try {
     		$playlist = $this->getPlaylist();
-    		$playlist->savePlaylistContent($con, $content);
+    		$playlist->addMedia($con, $mediaIds, $insertAfter);
     		$playlist->save($con);
     		$this->createUpdateResponse($playlist);
     		
@@ -177,6 +182,7 @@ class PlaylistController extends Zend_Controller_Action
     	catch (Exception $e) {
     		$con->rollBack();
     		Logging::disablePropelLogging();
+    		Logging::error($e->getMessage());
     		$this->view->error = $e->getMessage();
     	}
     }
