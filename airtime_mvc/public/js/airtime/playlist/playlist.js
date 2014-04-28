@@ -520,13 +520,6 @@ var AIRTIME = (function(AIRTIME){
 				}
 				
 				mod.addItems(chosenMediaIds, insertAfterId);
-			},
-			update: function(event, ui) {
-				var $context = $(ui.item.context);
-				
-				if ($context.hasClass("ui-draggable")) {
-					
-				}
 			}
 		});
 	}

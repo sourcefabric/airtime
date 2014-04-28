@@ -286,8 +286,7 @@ class PlaylistStatic extends Playlist {
     	Logging::disablePropelLogging();
     }
     
-    /*
-    public function insertPlaylistContent(PropelPDO $con, $content, $replace=false)
+    public function savePlaylistContent(PropelPDO $con, $content)
     {
     	$con->beginTransaction();
     
@@ -295,14 +294,8 @@ class PlaylistStatic extends Playlist {
     			
     		$m = array();
     		$currentContent = $this->getMediaContents(null, $con);
-    			
-    		if ($replace) {
-    			$currentContent->delete($con);
-    			$position = 0;
-    		}
-    		else {
-    			$position = count($currentContent);
-    		}
+    		$currentContent->delete($con);
+    		$position = 0;
     			
     		foreach ($content as $item) {
     
@@ -341,7 +334,6 @@ class PlaylistStatic extends Playlist {
     		throw $e;
     	}
     }
-    */
     
     public function getScheduledContent(PropelPDO $con) {
     	
