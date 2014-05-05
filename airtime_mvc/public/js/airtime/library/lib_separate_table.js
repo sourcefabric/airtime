@@ -491,6 +491,20 @@ var AIRTIME = (function(AIRTIME) {
     	});
     };
     
+    //get all visibly chosen media plus maybe additionally the dragged item (may not be checked)
+    mod.getDraggedMedia = function($draggedTr) {
+    
+	    var chosenMediaIds = mod.getVisibleChosen();
+		var data = mod.getTableRowData($draggedTr);
+		var id = data.Id;
+		
+		if (chosenMediaIds.indexOf(id) === -1) {
+			chosenMediaIds.push(id);
+		}
+    
+		return chosenMediaIds;
+    };
+    
     //$el is a select table row <tr>
     mod.isChosenItem = function($el) {
         var data = $el.data('aData'),

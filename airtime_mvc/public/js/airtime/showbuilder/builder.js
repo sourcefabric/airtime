@@ -826,15 +826,11 @@ var AIRTIME = (function(AIRTIME){
                 draggingContainer;
             
             fnAdd = function() {
-                var aMediaIds = [],
-                    aSchedIds = [];
-                
-                for(i = 0; i < aItemData.length; i++) {
-                    aMediaIds.push({"id": aItemData[i].id, "type": aItemData[i].ftype});
-                }
+                var aSchedIds = [];
+
                 aSchedIds.push({"id": oPrevData.id, "instance": oPrevData.instance, "timestamp": oPrevData.timestamp});
                 
-                mod.fnAdd(aMediaIds, aSchedIds);
+                mod.fnAdd(aItemData, aSchedIds);
             };
             
             fnMove = function() {
@@ -852,14 +848,10 @@ var AIRTIME = (function(AIRTIME){
             
             fnReceive = function(event, ui) {
                 var aItems = [];
+                var $draggedTr = $(ui.item.context);
                 
-                AIRTIME.library.addToChosen(ui.item);
-            
-                aItems = AIRTIME.library.getSelectedData();
-                origTrs = aItems;
+                origTrs = AIRTIME.library.getDraggedMedia($draggedTr);
                 html = ui.helper.html();
-                
-                AIRTIME.library.removeFromChosen(ui.item);
             };
             
             fnUpdate = function(event, ui) {

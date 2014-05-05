@@ -497,23 +497,15 @@ var AIRTIME = (function(AIRTIME){
 				ui.placeholder.height(56);
 			},
 			receive: function(event, ui) {
-				var LIBRARY = AIRTIME.library;
-				
 				//there's not a better way in this event to find the temp UI item...
 				var $tempItem = $("#spl_sortable").find("tr");
 				var $afterItem = $tempItem.prev();
 				
 				$tempItem.replaceWith($(ui.helper).html());
 				
-				var chosenMediaIds = LIBRARY.getVisibleChosen();
 				var $draggedTr = $(ui.item.context);
-				var data = LIBRARY.getTableRowData($draggedTr);
-				var id = data.Id;
+				var chosenMediaIds = AIRTIME.library.getDraggedMedia($draggedTr);
 				var insertAfterId = null;
-				
-				if (chosenMediaIds.indexOf(id) === -1) {
-					chosenMediaIds.push(id);
-				}
 
 				if ($afterItem.length !== 0) {
 					insertAfterId = parseInt($afterItem.attr("id").split("_").pop(), 10);
