@@ -51,7 +51,8 @@ var AIRTIME = (function(AIRTIME) {
 
                 if (selected === 1) {
                     message = $.i18n._("Adding 1 Item");
-                } else {
+                }
+                else {
                     message = sprintf($.i18n._("Adding %s Items"), selected);
                 }
 

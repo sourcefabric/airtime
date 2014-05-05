@@ -339,7 +339,7 @@ var AIRTIME = (function(AIRTIME) {
 			"bJQueryUI": true,
 			"bAutoWidth": true,
 			
-			"sDom": 'Rlf<"dt-process-rel"r><"H"<"library_toolbar"C>><"dataTables_scrolling"t><"F"ip>',
+			"sDom": 'Rlf<"dt-process-rel"r><"H"<"library_toolbar"C>><"dataTables_scrolling"t><"fg-toolbar ui-widget-header ui-corner-bl ui-corner-br ui-helper-clearfix bottom_pagination"ip>',
 			
 			"oColVis": {
 				"sAlign": "right",

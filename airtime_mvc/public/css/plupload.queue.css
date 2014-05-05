@@ -44,7 +44,6 @@
 
 .plupload_container {
 	padding: 8px;
-	background: url('img/transp50.png');
 	/*-moz-border-radius: 5px;*/
 }
 
@@ -75,9 +74,13 @@
 }
 
 .plupload_scroll .plupload_filelist {
-	height: 185px;
 	background: #F5F5F5;
-	overflow-y: scroll;
+	overflow-y: auto;
+	top: 99px;
+	right: 8px;
+	bottom: 47px;
+	left: 8px;
+	position: absolute;
 }
 
 .plupload_filelist li {
@@ -86,7 +89,16 @@
 	border-bottom: 1px solid #DDD;
 }
 
-.plupload_filelist_header, .plupload_filelist_footer {
+.plupload_filelist_footer {
+	border-top: 1px solid #FFF;
+	height: 22px;
+	line-height: 20px;
+	vertical-align: middle;
+	right: 8px;
+	bottom: 8px;
+	left: 8px;
+	z-index: 9999;
+	position: absolute;
 	background: #DFDFDF;
 	padding: 8px 8px;
 	color: #42454A;
@@ -94,6 +106,9 @@
 .plupload_filelist_header {	
 	border-top: 1px solid #EEE;
 	border-bottom: 1px solid #CDCDCD;
+	background: #DFDFDF;
+	padding: 8px 8px;
+	color: #42454A;
 }
 
 .plupload_filelist_footer {border-top: 1px solid #FFF; height: 22px; line-height: 20px; vertical-align: middle;}
@@ -173,4 +188,18 @@ li.plupload_droptext {
 	vertical-align: middle;
 	border: 0;
 	line-height: 165px;
+}
+
+#plupload_form {
+	position: absolute;
+	top: 150px;
+	right: 20px;
+	bottom: 90px;
+	left: 20px;
+}
+
+#plupload_form #plupload_files {
+	position: relative;
+	height: 100%;
+	background: url('img/transp50.png');
 }

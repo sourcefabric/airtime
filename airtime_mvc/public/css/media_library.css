@@ -37,9 +37,56 @@
 }
 
 #library_content {
-	float: left;
-	width: 50%;
+	position: absolute;
+	top: 160px;
+	bottom: 90px;
+	left: 1%;
+	width: 48.5%;
+	margin: 0px;
+	overflow: hidden;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+#show_builder {
+	position: absolute;
+	top: 160px;
+	bottom: 90px;
+	right: 1%;
+	width: 48.5%;
+	margin: 0px;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+#show_builder.sb-content .dataTables_scrolling {
 	overflow: auto;
+	position: absolute;
+	top: 103px;
+	right: 8px;
+	bottom: 20px;
+}
+
+#library_content .dataTables_scrolling {
+	overflow: auto;
+	bottom: 40px;
+	position: absolute;
+	top: 150px;
+	width: 100%;
+}
+
+#library_content .fg-toolbar.bottom_pagination  {
+	position: absolute;
+	width: 100%;
+	bottom: 0px;
+}
+
+#lib_tabs.ui-widget-content {
+	padding: 0px;
+	border: none;
+	height: 100%;
 }
 
 #library_display {
@@ -223,4 +270,4 @@ td.library_bitrate {
 	height: 25px;
 	outline: none;
 	vertical-align: middle !important;
-	}			
+	}

@@ -10,6 +10,7 @@ body {
 }
 html, body {
     height: 100%;
+	height: auto;
 }
 
 #login-page {
@@ -362,8 +363,7 @@ select {
 
 
 .wrapper {
-	margin: 0 5px 0 5px;
-	padding:10px 0 0 0;
+	margin: 0px 0px 0px 0px;
 }
 
 .alpha-block {
@@ -1539,8 +1539,15 @@ button, input {
 }
 
 .user-management {
-	width:910px;
-	/*width:380px;*/
+	width: auto;
+	max-width: 930px;
+	position: absolute;
+	overflow-x: hidden;
+	overflow-y: auto;
+	top: 150px;
+	right: 20px;
+	bottom: 90px;
+	left: 20px;
 }
 .user-management-expanded {
 	width:910px;
@@ -1555,6 +1562,10 @@ button, input {
 	float:left;
 	width:480px;
 	/*margin-right:10px;*/
+}
+
+.user-management .user-list-wrapper {
+	margin-bottom: 20px;
 }
 
 .user-management div.user-list-wrapper .ui-widget-header:first-child {
@@ -1573,6 +1584,7 @@ button, input {
 .user-management .dataTables_filter input {
     width: 93.8%;
 	margin-bottom:8px;
+    margin-left: 0px;
 }
 .user-data.simple-formblock dd {
     width: 73%;
@@ -1875,7 +1887,14 @@ span.errors.sp-errors{
 .text-content {
 	padding:20px 10px 40px 58px;
 	background: url(images/sf_arror.png) no-repeat 60% 0; 
-	min-height: 300px;
+	width: auto;
+	position: absolute;
+	overflow-x: hidden;
+	overflow-y: auto;
+	top: 150px;
+	right: 0px;
+	bottom: 90px;
+	left: 20px;
 }
 .text-content h2 {
 	font-size:2.4em;
@@ -2092,14 +2111,37 @@ span.errors.sp-errors{
 	background:url(images/icon_finishedplaying_m.png) no-repeat 0 0;
 }
 .preferences {
-    width: 500px;
+    width: auto;
+	max-width: 600px;
+	position: absolute;
+	overflow-x: hidden;
+	overflow-y: auto;
+	top: 150px;
+	right: 20px;
+	bottom: 90px;
+	left: 20px;
 }
 .manage-folders {
-    width: 610px;
+    width: auto;
+	max-width: 600px;
+	position: absolute;
+	overflow-x: hidden;
+	overflow-y: auto;
+	top: 150px;
+	right: 20px;
+	left: 20px;
 }
 
 .stream-config {
-    width: 1100px;
+	width: auto;
+	max-width: 1120px;
+	position: absolute;
+	overflow-x: hidden;
+	overflow-y: auto;
+	top: 150px;
+	right: 20px;
+	bottom: 90px;
+	left: 20px;
 }
 
 .preferences .padded {
@@ -2629,9 +2671,11 @@ tfoot tr th	{
 	
 	
 /*---////////////////////    STATUS TABLE    ////////////////////---*/
-.statustable	{
+.statustable {
 	background-color: #D8D8D8;
     border-width: 2px 1px 1px;
+    position: absolute;
+    top: 150px;
 }
 .statustable tr td, .statustable tr th	{
 	text-align:center;
@@ -3087,5 +3131,20 @@ dd .stream-status {
 #popup-share-link {
     width: 320px;
 }
-.quota-reached {
-    font-size: 14px !important;
+
+#Panel {
+	position: fixed;
+	top: 0px;
+	width: 100%;
+	z-index: 9999;
+}
+
+.smaller_box {
+	bottom: 165px !important;
+}
+
+.bottom_pagination {
+	position: absolute;
+	width: 100%;
+	bottom: 0px;
+}

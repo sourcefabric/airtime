@@ -1,10 +1,13 @@
 @CHARSET "UTF-8";
 
 #history_content {
-	width: 100%;
-	margin: 0 0 30px 0;
-	height: auto;
-	box-sizing: border-box;
+    position: absolute;
+    top: 160px;
+    bottom: 90px;
+    left: 20px;
+    right: 20px;
+    margin: 0px;
+    overflow: hidden;
 }
 
 .dataTables_filter input {
@@ -17,6 +20,32 @@
 
 #history_content input.input_text.hasTimepicker {
     width: 60px;
+}
+
+#history_content #history_table_list_wrapper .dataTables_scrolling {
+    overflow: auto;
+    bottom: 39px;
+    position: absolute;
+    top: 121px;
+    width: 100%;
+}
+
+#history_content #his-tabs.ui-widget-content {
+    height: 100%;
+    padding: 0px;
+    border: none;
+}
+
+#history_content #history_show_summary {
+    overflow: auto;
+    bottom: 39px;
+    position: absolute;
+    top: 40px;
+    width: 100%;
+}
+
+#history_content #history_show_summary .ui-accordion-content {
+    overflow: hidden;
 }
 
 div.his-timerange {

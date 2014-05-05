@@ -1,3 +1,16 @@
+#history_template {
+	width: auto;
+	max-width: 460px;
+	position: absolute;
+	overflow-x: hidden;
+	overflow-y: auto;
+	top: 150px;
+	right: 20px;
+	bottom: 90px;
+	left: 20px;
+	margin: 0px;
+}
+
 #history_template h4, #configure_item_template h4 { font-size: 14px; margin-top: 0px; }
 
 #history_template ul, #configure_item_template ul { list-style: none; padding-left: 0px; }
@@ -146,8 +159,16 @@
 }
 
 #configure_item_template {
-	width: 100%;
-	max-width: 620px;
+	max-width: 610px;
+	width: auto;
+	position: absolute;
+	overflow-x: hidden;
+	overflow-y: auto;
+	top: 150px;
+	right: 20px;
+	bottom: 90px;
+	left: 20px;
+	margin: 0px;
 }
 
 .add_more {
@@ -198,3 +219,4 @@
 div.his-timerange input.error {
     background-color: rgba(255,0,0,0.2);
 }
+

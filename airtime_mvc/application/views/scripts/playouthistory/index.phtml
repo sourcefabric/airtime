@@ -1,7 +1,6 @@
 <div id="history_content" class="ui-widget ui-widget-content block-shadow alpha-block padded">
-  <?php echo $this->date_form; ?>
-
   <div id="his-tabs">
+  <?php echo $this->date_form; ?>
     <ul>
       <?php if ($this->userType != UTYPE_HOST): ?>
       <li><a href="#his-tabs-1"><?php echo _("Log Sheet"); ?></a></li>
@@ -21,5 +20,4 @@
       <div id="history_show_summary"></div>
     </div>
   </div>
-
 </div>
