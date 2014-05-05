@@ -379,9 +379,6 @@ SQL;
     {
         $filepath = $this->getFilePath();
         
-        //Update the user's disk usage
-        Application_Model_Preference::updateDiskUsage(-1 * abs(filesize($filepath)));
-        
         // Check if the file is scheduled to be played in the future
         if (Application_Model_Schedule::IsFileScheduledInTheFuture($this->getId())) {
             throw new DeleteScheduledFileException();
@@ -401,6 +398,9 @@ SQL;
         
         if (file_exists($filepath) && $type == "stor") {
             try {
+                //Update the user's disk usage
+                Application_Model_Preference::updateDiskUsage(-1 * abs(filesize($filepath)));
+
                 unlink($filepath);
             } catch (Exception $e) {
                 Logging::error($e->getMessage());

@@ -66,6 +66,42 @@ class Rest_MediaController extends Zend_Rest_Controller
             $this->fileNotFoundResponse();
         }
     }
+
+    public function clearAction()
+    {
+        if (!$this->verifyAuth(true, true))
+        {
+            return;
+        }
+
+        //set file_exists flag to false for every file
+        $con = Propel::getConnection(CcFilesPeer::DATABASE_NAME);
+        $selectCriteria = new Criteria();
+        $selectCriteria->add(CcFilesPeer::FILE_EXISTS, true);
+        $updateCriteria = new Criteria();
+        $updateCriteria->add(CcFilesPeer::FILE_EXISTS, false);
+        BasePeer::doUpdate($selectCriteria, $updateCriteria, $con);
+
+        //delete all files and directories under .../imported
+        $path = isset($_SERVER['AIRTIME_BASE']) ? $_SERVER['AIRTIME_BASE']."/srv/airtime/stor/imported/*" : "/srv/airtime/stor/imported/*";
+        exec("rm -rf $path");
+
+        //update disk_usage value in cc_pref
+        $musicDir = CcMusicDirsQuery::create()
+            ->filterByType('stor')
+            ->filterByExists(true)
+            ->findOne();
+        $storPath = $musicDir->getDirectory();
+        
+        $freeSpace = disk_free_space($storPath);
+        $totalSpace = disk_total_space($storPath);
+        
+        Application_Model_Preference::setDiskUsage($totalSpace - $freeSpace);
+
+        $this->getResponse()
+            ->setHttpResponseCode(200)
+            ->appendBody("Library has been cleared");
+    }
     
     public function getAction()
     {
@@ -121,7 +157,21 @@ class Rest_MediaController extends Zend_Rest_Controller
             $file->save();
             return;
         } else {
+            /* If full_path is set, the post request came from ftp.
+             * Users are allowed to upload folders via ftp. If this is the case
+             * we need to include the folder name with the file name, otherwise
+             * files won't get removed from the organize folder.
+             */
+            if (isset($whiteList["full_path"])) {
+                $fullPath = $whiteList["full_path"];
+                $basePath = isset($_SERVER['AIRTIME_BASE']) ? $_SERVER['AIRTIME_BASE']."/srv/airtime/stor/organize/" : "/srv/airtime/stor/organize/";
+                //$relativePath is the folder name(if one) + track name, that was uploaded via ftp
+                $relativePath = substr($fullPath, strlen($basePath)-1);
+            } else {
+                $relativePath = $_FILES["file"]["name"];
+            }
 
+            
             $file->fromArray($whiteList);
             $file->setOwnerId($this->getOwnerId());
             $file->setTrackTitle($_FILES["file"]["name"]);
@@ -129,9 +179,9 @@ class Rest_MediaController extends Zend_Rest_Controller
             $file->save();
 
             $callbackUrl = $this->getRequest()->getScheme() . '://' . $this->getRequest()->getHttpHost() . $this->getRequest()->getRequestUri() . "/" . $file->getPrimaryKey();
-    
-            $this->processUploadedFile($callbackUrl, $_FILES["file"]["name"], $this->getOwnerId());
-    
+
+            $this->processUploadedFile($callbackUrl, $relativePath, $this->getOwnerId());
+
             $this->getResponse()
                 ->setHttpResponseCode(201)
                 ->appendBody(json_encode($this->sanitizeResponse($file)));
@@ -184,6 +234,10 @@ class Rest_MediaController extends Zend_Rest_Controller
             }    
 
             $file->save();
+            
+            $this->removeEmptySubFolders(
+                isset($_SERVER['AIRTIME_BASE']) ? $_SERVER['AIRTIME_BASE']."/srv/airtime/stor/organize/" : "/srv/airtime/stor/organize/");
+            
             $this->getResponse()
                 ->setHttpResponseCode(200)
                 ->appendBody(json_encode($this->sanitizeResponse($file)));
@@ -344,14 +398,11 @@ class Rest_MediaController extends Zend_Rest_Controller
             Logging::error($e->getMessage());
             return;
         }
-        
-        Logging::info($newTempFilePath);
-        //Logging::info("Old temp file path: " . $tempFilePath);
 
         //Dispatch a message to airtime_analyzer through RabbitMQ,
         //notifying it that there's a new upload to process!
         Application_Model_RabbitMq::SendMessageToAnalyzer($newTempFilePath,
-                 $importedStorageDirectory, $originalFilename,
+                 $importedStorageDirectory, basename($originalFilename),
                  $callbackUrl, $apiKey);
     }
 
@@ -407,6 +458,11 @@ class Rest_MediaController extends Zend_Rest_Controller
         }
 
         return $response;
+    }
+
+    private function removeEmptySubFolders($path)
+    {
+        exec("find $path -empty -type d -delete");
     }
 
 }
