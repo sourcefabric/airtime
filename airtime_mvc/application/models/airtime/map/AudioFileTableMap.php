@@ -44,7 +44,6 @@ class AudioFileTableMap extends TableMap
         // columns
         $this->addForeignKey('directory', 'Directory', 'INTEGER', 'cc_music_dirs', 'id', false, null, null);
         $this->addColumn('filepath', 'Filepath', 'LONGVARCHAR', false, null, '');
-        $this->addColumn('md5', 'Md5', 'CHAR', false, 32, null);
         $this->addColumn('track_title', 'TrackTitle', 'VARCHAR', false, 512, null);
         $this->addColumn('artist_name', 'ArtistName', 'VARCHAR', false, 512, null);
         $this->addColumn('bit_rate', 'BitRate', 'INTEGER', false, null, null);

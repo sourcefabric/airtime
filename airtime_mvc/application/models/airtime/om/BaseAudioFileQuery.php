@@ -26,7 +26,6 @@ use Airtime\MediaItem\AudioFileQuery;
  *
  * @method AudioFileQuery orderByDirectory($order = Criteria::ASC) Order by the directory column
  * @method AudioFileQuery orderByFilepath($order = Criteria::ASC) Order by the filepath column
- * @method AudioFileQuery orderByMd5($order = Criteria::ASC) Order by the md5 column
  * @method AudioFileQuery orderByTrackTitle($order = Criteria::ASC) Order by the track_title column
  * @method AudioFileQuery orderByArtistName($order = Criteria::ASC) Order by the artist_name column
  * @method AudioFileQuery orderByBitRate($order = Criteria::ASC) Order by the bit_rate column
@@ -69,7 +68,6 @@ use Airtime\MediaItem\AudioFileQuery;
  *
  * @method AudioFileQuery groupByDirectory() Group by the directory column
  * @method AudioFileQuery groupByFilepath() Group by the filepath column
- * @method AudioFileQuery groupByMd5() Group by the md5 column
  * @method AudioFileQuery groupByTrackTitle() Group by the track_title column
  * @method AudioFileQuery groupByArtistName() Group by the artist_name column
  * @method AudioFileQuery groupByBitRate() Group by the bit_rate column
@@ -131,7 +129,6 @@ use Airtime\MediaItem\AudioFileQuery;
  *
  * @method AudioFile findOneByDirectory(int $directory) Return the first AudioFile filtered by the directory column
  * @method AudioFile findOneByFilepath(string $filepath) Return the first AudioFile filtered by the filepath column
- * @method AudioFile findOneByMd5(string $md5) Return the first AudioFile filtered by the md5 column
  * @method AudioFile findOneByTrackTitle(string $track_title) Return the first AudioFile filtered by the track_title column
  * @method AudioFile findOneByArtistName(string $artist_name) Return the first AudioFile filtered by the artist_name column
  * @method AudioFile findOneByBitRate(int $bit_rate) Return the first AudioFile filtered by the bit_rate column
@@ -173,7 +170,6 @@ use Airtime\MediaItem\AudioFileQuery;
  *
  * @method array findByDirectory(int $directory) Return AudioFile objects filtered by the directory column
  * @method array findByFilepath(string $filepath) Return AudioFile objects filtered by the filepath column
- * @method array findByMd5(string $md5) Return AudioFile objects filtered by the md5 column
  * @method array findByTrackTitle(string $track_title) Return AudioFile objects filtered by the track_title column
  * @method array findByArtistName(string $artist_name) Return AudioFile objects filtered by the artist_name column
  * @method array findByBitRate(int $bit_rate) Return AudioFile objects filtered by the bit_rate column
@@ -320,7 +316,7 @@ abstract class BaseAudioFileQuery extends MediaItemQuery
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT "directory", "filepath", "md5", "track_title", "artist_name", "bit_rate", "sample_rate", "album_title", "genre", "comments", "year", "track_number", "channels", "bpm", "encoded_by", "mood", "label", "composer", "copyright", "conductor", "isrc_number", "info_url", "language", "replay_gain", "cuein", "cueout", "silan_check", "file_exists", "hidden", "import_status", "id", "name", "creator", "source", "owner_id", "description", "last_played", "play_count", "length", "mime", "created_at", "updated_at" FROM "media_audiofile" WHERE "id" = :p0';
+        $sql = 'SELECT "directory", "filepath", "track_title", "artist_name", "bit_rate", "sample_rate", "album_title", "genre", "comments", "year", "track_number", "channels", "bpm", "encoded_by", "mood", "label", "composer", "copyright", "conductor", "isrc_number", "info_url", "language", "replay_gain", "cuein", "cueout", "silan_check", "file_exists", "hidden", "import_status", "id", "name", "creator", "source", "owner_id", "description", "last_played", "play_count", "length", "mime", "created_at", "updated_at" FROM "media_audiofile" WHERE "id" = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -480,35 +476,6 @@ abstract class BaseAudioFileQuery extends MediaItemQuery
         }
 
         return $this->addUsingAlias(AudioFilePeer::FILEPATH, $filepath, $comparison);
-    }
-
-    /**
-     * Filter the query on the md5 column
-     *
-     * Example usage:
-     * <code>
-     * $query->filterByMd5('fooValue');   // WHERE md5 = 'fooValue'
-     * $query->filterByMd5('%fooValue%'); // WHERE md5 LIKE '%fooValue%'
-     * </code>
-     *
-     * @param     string $md5 The value to use as filter.
-     *              Accepts wildcards (* and % trigger a LIKE)
-     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-     *
-     * @return AudioFileQuery The current query, for fluid interface
-     */
-    public function filterByMd5($md5 = null, $comparison = null)
-    {
-        if (null === $comparison) {
-            if (is_array($md5)) {
-                $comparison = Criteria::IN;
-            } elseif (preg_match('/[\%\*]/', $md5)) {
-                $md5 = str_replace('*', '%', $md5);
-                $comparison = Criteria::LIKE;
-            }
-        }
-
-        return $this->addUsingAlias(AudioFilePeer::MD5, $md5, $comparison);
     }
 
     /**

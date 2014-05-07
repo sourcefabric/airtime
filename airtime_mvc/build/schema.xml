@@ -327,7 +327,6 @@
     </behavior> 
     <column name="directory" phpName="Directory" type="INTEGER" required="false"/>
     <column name="filepath" phpName="Filepath" type="LONGVARCHAR" required="false" defaultValue=""/>
-    <column name="md5" phpName="Md5" type="CHAR" size="32" required="false"/>
     <column name="track_title" phpName="TrackTitle" type="VARCHAR" size="512" required="false"/>
     <column name="artist_name" phpName="ArtistName" type="VARCHAR" size="512" required="false"/>
     <column name="bit_rate" phpName="BitRate" type="INTEGER" required="false"/>

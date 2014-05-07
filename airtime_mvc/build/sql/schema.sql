@@ -451,7 +451,6 @@ CREATE TABLE "media_audiofile"
 (
     "directory" INTEGER,
     "filepath" TEXT DEFAULT '',
-    "md5" CHAR(32),
     "track_title" VARCHAR(512),
     "artist_name" VARCHAR(512),
     "bit_rate" INTEGER,
