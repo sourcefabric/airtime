@@ -209,12 +209,16 @@ CREATE INDEX "media_content_media_idx" ON "media_content" ("media_id");
 -- need to iterate through one by one so we can update any media ids in cc_schedule, cc_playout_history etc.
 -----------------------------------------------------------------------
 
-CREATE OR REPLACE FUNCTION migrateWebstreamHistory() RETURNS int4 AS $$
+CREATE OR REPLACE FUNCTION migrateCcFiles() RETURNS int4 AS $$
 
 DECLARE r RECORD;
 DECLARE media_primary_key integer;
 
 BEGIN
+
+    -----------------------------------------------------------
+    -- Transfer all cc_files to media_audiofile and media_item
+    -----------------------------------------------------------
     FOR r IN SELECT * from cc_files LOOP
  
         insert into media_item (name, creator, source, owner_id, description, last_played, play_count, length, mime, created_at, updated_at, descendant_class)
@@ -229,6 +233,94 @@ BEGIN
                 r.mood, r.label, r.composer, r.copyright, r.conductor, r.isrc_number, r.info_url, r.language, r.replay_gain, r.cuein, r.cueout, r.silan_check, r.file_exists, r.hidden, r.import_status)
             
     END LOOP;
+
+return 1;
+END;
+$$ 
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION migrateCcWebstream() RETURNS int4 AS $$
+
+DECLARE r RECORD;
+DECLARE media_primary_key integer;
+
+BEGIN
+
+    -----------------------------------------------------------
+    -- Transfer all cc_webstream to media_webstream and media_item
+    -----------------------------------------------------------
+    FOR r IN SELECT * from cc_webstream LOOP
+ 
+        insert into media_item (name, creator, source, owner_id, description, last_played, play_count, length, mime, created_at, updated_at, descendant_class)
+        values (r.name, null, null, r.owner_id, null, r.lptime, 0, r.length, r.mime, r.utime, r.mtime, 'Airtime\MediaItem\Webstream')
+        returning id into media_primary_key;
+
+        insert into media_audiofile (name, creator, source, owner_id, description, last_played, play_count, length, mime, created_at, updated_at, url)
+        values (r.track_title, r.artist_name, r.album_title, r.owner_id, null, r.lptime, 0, r.length, r.mime, r.utime, r.mtime, r.url)
+            
+    END LOOP;
+
+return 1;
+END;
+$$ 
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION migrateCcPlaylist() RETURNS int4 AS $$
+
+DECLARE r RECORD;
+DECLARE media_primary_key integer;
+
+BEGIN
+
+    -----------------------------------------------------------
+    -- Transfer all cc_playlist to media_playlist and media_item
+    -----------------------------------------------------------
+    FOR r IN SELECT * from cc_playlist LOOP
+ 
+        insert into media_item (name, creator, source, owner_id, description, last_played, play_count, length, mime, created_at, updated_at, descendant_class)
+        values (r.track_title, r.artist_name, r.album_title, r.owner_id, null, r.lptime, 0, r.length, r.mime, r.utime, r.mtime, 'Airtime\MediaItem\Playlist')
+        returning id into media_primary_key;
+
+        insert into media_audiofile (name, creator, source, owner_id, description, last_played, play_count, length, mime, created_at, updated_at, class_key, rules)
+        values (r.track_title, r.artist_name, r.album_title, r.owner_id, null, r.lptime, 0, r.length, r.mime, r.utime, r.mtime, 0, null);
+            
+    END LOOP;
+    
+
+return 1;
+END;
+$$ 
+LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION migrateCcBlock() RETURNS int4 AS $$
+
+DECLARE r RECORD;
+DECLARE media_primary_key integer;
+DECLARE class_key integer;
+
+BEGIN
+
+    -----------------------------------------------------------
+    -- Transfer all cc_block to media_playlist and media_item
+    -----------------------------------------------------------
+    FOR r IN SELECT * from cc_block LOOP
+
+        IF r.type = 'static' THEN
+            class_key := 0;
+        ELSE
+            class_key := 1;
+        END IF;
+ 
+        insert into media_item (name, creator, source, owner_id, description, last_played, play_count, length, mime, created_at, updated_at, descendant_class)
+        values (r.track_title, r.artist_name, r.album_title, r.owner_id, null, r.lptime, 0, r.length, r.mime, r.utime, r.mtime, 'Airtime\MediaItem\Playlist')
+        returning id into media_primary_key;
+
+        insert into media_audiofile (name, creator, source, owner_id, description, last_played, play_count, length, mime, created_at, updated_at, class_key, rules)
+        values (r.track_title, r.artist_name, r.album_title, r.owner_id, null, r.lptime, 0, r.length, r.mime, r.utime, r.mtime, class_key, null);
+            
+    END LOOP;
+    
+
 return 1;
 END;
 $$ 
