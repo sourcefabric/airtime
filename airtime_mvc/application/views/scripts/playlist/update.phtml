@@ -1,11 +1,9 @@
 <?php
 $items = $this->contents;
 if (count($items)) : ?>
-<?php foreach($items as $item):
-	$media = $item->getMediaItem();
-	$class = "Presentation_PlaylistItem" . $media->getType();
-	$p = new $class($item);
-?>
+	<?php foreach($items as $item):
+		$p = Presentation_PlaylistItemFactory::create($item);
+	?>
     <li class="ui-state-default" id="spl_<?php echo $p->getId(); ?>"
     	data-media-id="<?php echo $p->getMediaId(); ?>"
         data-mime-type="<?php echo $p->getMime(); ?>"

@@ -705,4 +705,28 @@ abstract class Playlist extends BasePlaylist implements \Interface_Playlistable
     		throw $e;
     	}
     }
+    
+    public function isSchedulable() {
+    	return true;
+    }
+    
+    public function getSchedulingLength() {
+    	return $this->getLength();
+    }
+    
+    public function getSchedulingCueIn() {
+    	return "00:00:00";
+    }
+    
+    public function getSchedulingCueOut() {
+    	return $this->getLength();
+    }
+    
+    public function getSchedulingFadeIn() {
+    	return \Application_Model_Preference::GetDefaultFadeIn();
+    }
+    
+    public function getSchedulingFadeOut() {
+    	return \Application_Model_Preference::GetDefaultFadeOut();
+    }
 }

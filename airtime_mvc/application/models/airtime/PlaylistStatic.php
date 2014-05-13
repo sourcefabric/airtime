@@ -82,6 +82,7 @@ class PlaylistStatic extends Playlist {
 	    	->joinWith('MediaItem', Criteria::LEFT_JOIN)
 	    	->joinWith("MediaItem.AudioFile", Criteria::LEFT_JOIN)
 	    	->joinWith("MediaItem.Webstream", Criteria::LEFT_JOIN)
+	    	->joinWith("MediaItem.Playlist", Criteria::LEFT_JOIN)
 	    	->find($con);
     }
     

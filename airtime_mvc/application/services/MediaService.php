@@ -29,10 +29,10 @@ class Application_Service_MediaService
 		$obj_sess = new Zend_Session_Namespace(UI_PLAYLISTCONTROLLER_OBJ_SESSNAME);
 		//some type of media is in the session
 		if (isset($obj_sess->id)) {
-			$obj = MediaItemQuery::create()->findPk($obj_sess->id);
+			$obj = PlaylistQuery::create()->findPk($obj_sess->id);
 			
-			if (isset($obj) && $obj->getType() === "Playlist") {
-				return $obj->getChildObject();
+			if (isset($obj) && substr($obj->getType(), 0, 8) == "Playlist") {
+				return $obj;
 			}
 			else {
 				$obj_sess->id = null;

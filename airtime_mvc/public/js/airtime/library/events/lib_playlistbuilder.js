@@ -15,7 +15,7 @@ var AIRTIME = (function(AIRTIME) {
 			draggable: true
 		},
 		"lib_playlist": {
-			draggable: false
+			draggable: true
 		}
 	};
     
