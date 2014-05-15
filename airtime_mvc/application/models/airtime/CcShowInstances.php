@@ -285,6 +285,8 @@ class CcShowInstances extends BaseCcShowInstances {
     	}
     	
     	$scheduledItems->delete();
+    	//clear the old objects.
+    	$this->clearCcSchedules();
     	
     	$crossfade = \Application_Model_Preference::GetDefaultCrossfadeDuration();
     	
