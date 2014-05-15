@@ -347,7 +347,7 @@ class PlaylistStatic extends Playlist {
     		
     		if (substr($media->getType(), 0, 8) == "Playlist") {
     			
-    			$scheduled = array_merge($scheduled, $media->getScheduledContent());
+    			$scheduled = array_merge($scheduled, $media->getScheduledContent($con));
     		}
     		else {
     			$scheduled[] = array (
