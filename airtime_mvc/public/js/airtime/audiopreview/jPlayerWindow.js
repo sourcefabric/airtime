@@ -36,6 +36,11 @@ var AIRTIME = (function(AIRTIME) {
     };
     
     mod.isAudioSupported = function(mime){
+    	
+    	if (mime === null) {
+    		return false;
+    	}
+    	
         var audio = new Audio();
 
         var bMime = null;

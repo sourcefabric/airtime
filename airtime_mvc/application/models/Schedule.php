@@ -44,6 +44,7 @@ class Application_Model_Schedule
     		->joinWith("CcSchedule.MediaItem", Criteria::LEFT_JOIN)
     		->joinWith("MediaItem.AudioFile", Criteria::LEFT_JOIN)
     		->joinWith("MediaItem.Webstream", Criteria::LEFT_JOIN)
+    		->joinWith("MediaItem.Playlist", Criteria::LEFT_JOIN)
     		->find();
     	
     	return $items;
@@ -157,9 +158,13 @@ class Application_Model_Schedule
 
         foreach ($showInstances as $showInstance) {
         	
+        	//populate all content from static/dynamic playlists.
+        	$showInstance->unroll();
+        	
         	foreach($showInstance->getCcSchedules() as $scheduleItem) {
         		
-        		$event = $scheduleItem->createScheduleEvent($data);
+        		$event = Presentation_LiquidsoapEventFactory::create($scheduleItem);
+        		$event->createScheduleEvent($data);
         	}
         }
     }

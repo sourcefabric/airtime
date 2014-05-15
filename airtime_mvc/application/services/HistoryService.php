@@ -395,7 +395,7 @@ class Application_Service_HistoryService
 					$media->save($this->con);
 					$scheduledItem->save($this->con);
 					
-					$type = $mediaItem->getType();
+					$type = $media->getType();
 					$strategy = "Strategy_{$type}HistoryItem";
 					
 					$insertStrategy = new $strategy();

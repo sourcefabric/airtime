@@ -10,6 +10,7 @@ use \DateTimeZone;
 use \DateTime;
 use Airtime\om\BaseCcShowInstances;
 use Airtime\CcScheduleQuery;
+use \Propel;
 
 /**
  * Skeleton subclass for representing a row from the 'cc_show_instances' table.
@@ -248,6 +249,105 @@ class CcShowInstances extends BaseCcShowInstances {
     {
         $startDT = $this->getDbStarts(null);
         return $startDT->setTimezone(new DateTimeZone(Application_Model_Preference::GetTimezone()));
+    }
+    
+    //populates content in cc_schedule by unrolling all playlists.
+    public function unroll()
+    {
+    	$con = Propel::getConnection();
+    	
+    	$scheduled = array();
+    	
+    	$scheduledItems = CcScheduleQuery::create()
+	    	->filterByCcShowInstances($this)
+	    	->orderByDbStarts()
+	    	->find($con);
+    	
+    	foreach($scheduledItems as $scheduleItem) {
+    	
+    		$media = $scheduleItem->getMediaItem()->getChildObject();
+    		
+    		if (substr($media->getType(), 0, 8) == "Playlist") {
+    			 
+    			$scheduled = array_merge($scheduled, $media->getScheduledContent($con));
+    		}
+    		else {
+    			
+    			$scheduled[] = array (
+    				"id" => $scheduleItem->getDbMediaId(),
+    				"cliplength" => $scheduleItem->getDbClipLength(),
+    				"cuein" => $scheduleItem->getDbCueIn(),
+    				"cueout" => $scheduleItem->getDbCueOut(),
+    				"fadein" => $scheduleItem->getDbFadeIn(),
+    				"fadeout" => $scheduleItem->getDbFadeOut(),
+    			);
+    		}
+    	}
+    	
+    	$scheduledItems->delete();
+    	
+    	$crossfade = \Application_Model_Preference::GetDefaultCrossfadeDuration();
+    	
+    	$showStartDT = $this->getDbStarts(null);
+    	$showEndDT = $this->getDbEnds(null);
+    	$startDT = $showStartDT;
+    	$position = 0;
+    	$utcTimezone = new DateTimeZone("UTC");
+    	
+    	foreach ($scheduled as $scheduleEntry) {
+    		
+    		$item = new CcSchedule();
+    		$item->setDbStarts($startDT);
+    		$item->setDbMediaId($scheduleEntry["id"]);
+    		$item->setDbCueIn($scheduleEntry["cuein"]);
+    		$item->setDbCueOut($scheduleEntry["cueout"]);
+    		$item->generateCliplength();
+    		$item->setDbFadeIn($scheduleEntry["fadein"]);
+    		$item->setDbFadeOut($scheduleEntry["fadeout"]);
+    		$item->setCcShowInstances($this);
+    		$item->setDbPosition($position);
+    		
+    		$cliplength = $item->getDbClipLength();
+    		
+    		$startEpoch = $startDT->format("U.u");
+    		$durationSeconds = \Application_Common_DateHelper::playlistTimeToSeconds($cliplength);
+    		
+    		//add two float numbers to 6 subsecond precision
+    		//DateTime::createFromFormat("U.u") will have a problem if there is no decimal in the resulting number.
+    		$endEpoch = bcadd($startEpoch , (string) $durationSeconds, 6);
+    		$endDT = DateTime::createFromFormat("U.u", $endEpoch, $utcTimezone);
+    		
+    		$item->setDbEnds($endDT);
+    		
+    		//set the playout status of this item.
+    		if ($endDT < $showEndDT) {
+    			$playoutstatus = 1;
+    		}
+    		else if ($startDT < $showEndDT && $endDT > $showEndDT) {
+    			$playoutstatus = 2;
+    		}
+    		else {
+    			$playoutstatus = 0;
+    		}
+    		
+    		$item->setDbPlayoutStatus($playoutstatus);
+    		
+    		$item->save();
+
+    		//decrease end time by crossfade duration for next start time.
+    		$newStartEpoch = bcsub($endEpoch, $crossfade, 6);
+    		$startDT = DateTime::createFromFormat("U.u", $newStartEpoch, $utcTimezone);
+    		
+    		$position++;
+    	}
+    	
+    	$this->setDbLastScheduled(new DateTime("now", $utcTimezone));
+    	$timefilled = $this->computeDbTimeFilled($con);
+    	if (is_null($timefilled)){
+    		$timefilled = "00:00:00";
+    	}
+    	$this->setDbTimeFilled($timefilled);
+    	$this->save();
     }
 
 } // CcShowInstances

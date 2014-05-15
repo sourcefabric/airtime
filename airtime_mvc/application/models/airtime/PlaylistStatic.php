@@ -342,14 +342,23 @@ class PlaylistStatic extends Playlist {
     	$scheduled = array();
     	
     	foreach ($contents as $content) {
-    		$scheduled[] = array (
-				"id" => $content->getMediaId(),
-				"cliplength" => $content->getCliplength(),
-				"cuein" => $content->getCuein(),
-				"cueout" => $content->getCueout(),
-				"fadein" => $content->getFadein(),
-				"fadeout" => $content->getFadeout(),
-			);
+    		
+    		$media = $content->getMediaItem()->getChildObject();
+    		
+    		if (substr($media->getType(), 0, 8) == "Playlist") {
+    			
+    			$scheduled = array_merge($scheduled, $media->getScheduledContent());
+    		}
+    		else {
+    			$scheduled[] = array (
+    				"id" => $content->getMediaId(),
+    				"cliplength" => $content->getCliplength(),
+    				"cuein" => $content->getCuein(),
+    				"cueout" => $content->getCueout(),
+    				"fadein" => $content->getFadein(),
+    				"fadeout" => $content->getFadeout(),
+    			);
+    		}	
     	}
     	
     	return $scheduled;

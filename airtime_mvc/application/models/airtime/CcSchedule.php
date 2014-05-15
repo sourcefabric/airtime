@@ -169,13 +169,23 @@ class CcSchedule extends BaseCcSchedule {
     	return false;
     }
     
-    public function createScheduleEvent(&$data) {
-    	
-    	$type = $this->getMediaItem()->getType();
-    	$class = "Presentation_Liquidsoap{$type}Event";
-    	$event = new $class($this);
-    	
-    	return $event->createScheduleEvent($data);
+    public function generateCliplength() {
+    
+    	$cuein = $this->getDbCueIn();
+    	$cueout = $this->getDbCueOut();
+    
+    	$cueinSec = \Application_Common_DateHelper::playlistTimeToSeconds($cuein);
+    	$cueoutSec = \Application_Common_DateHelper::playlistTimeToSeconds($cueout);
+    	$lengthSec = bcsub($cueoutSec, $cueinSec, 6);
+    
+    	$length = \Application_Common_DateHelper::secondsToPlaylistTime($lengthSec);
+
+    	if ($this->clip_length !== $length) {
+    		$this->clip_length = $length;
+    		$this->modifiedColumns[] = CcSchedulePeer::CLIP_LENGTH;
+    	}
+    
+    	return $this;
     }
 
 } // CcSchedule

@@ -70,8 +70,8 @@ class MediaItem extends BaseMediaItem implements \Interface_Schedulable
 			"cueout" => $obj->getSchedulingCueOut(),
 			"fadein" => $obj->getSchedulingFadeIn(),
 			"fadeout" => $obj->getSchedulingFadeOut(),
-			"length" => $obj->getSchedulingLength(),
-			//"crossfadeDuration" => 0
+			"cliplength" => $obj->getSchedulingLength(),
+			"crossfadeDuration" => 0
 		);	
 	}
 	
