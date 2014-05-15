@@ -745,8 +745,6 @@ SQL;
                 throw new Exception("Cannot delete a show instance in the past");
             }
 
-            Application_Model_StoredFile::updatePastFilesIsScheduled();
-
             Application_Model_RabbitMq::PushSchedule();
 
             $con->commit();

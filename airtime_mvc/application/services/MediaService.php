@@ -121,8 +121,10 @@ class Application_Service_MediaService
 	public function getJPlayerPreviewPlaylist($mediaId) {
 
 		$mediaItem = MediaItemQuery::create()->findPK($mediaId);
-
-		$type = $mediaItem->getType();
+		
+		$class = $mediaItem->getDescendantClass();
+		$class = explode("\\", $class);
+		$type = array_pop($class);
 
 		$class = "Presentation_JPlayerItem{$type}";
 
