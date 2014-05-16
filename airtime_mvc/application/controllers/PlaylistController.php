@@ -22,21 +22,21 @@ class PlaylistController extends Zend_Controller_Action
             ->addActionContext('clear', 'json')
             ->addActionContext('save-rules', 'json')
             ->initContext();
-        
-	
+
+
         $this->mediaService = new Application_Service_MediaService();
         $this->playlistService = new Application_Service_PlaylistService();
     }
-    
+
     private function getPlaylist() {
-    	
+
     	return $this->mediaService->getSessionMediaObject();
     }
 
     private function createUpdateResponse($playlist)
     {
     	$obj = new Presentation_Playlist($playlist);
-    	
+
         $this->view->length = $obj->getLength();
         $this->view->contents = $obj->getContent();
         $this->view->modified = $obj->getLastModifiedEpoch();
@@ -44,13 +44,13 @@ class PlaylistController extends Zend_Controller_Action
 
         unset($this->view->contents);
     }
-    
+
     private function createFullResponse($obj)
     {
     	if (isset($obj)) {
     		$this->view->obj = new Presentation_Playlist($obj);
     	}
-    	
+
     	$this->view->html = $this->view->render('playlist/playlist.phtml');
     	unset($this->view->obj);
     }
@@ -58,10 +58,10 @@ class PlaylistController extends Zend_Controller_Action
     public function newAction()
     {
     	$type = $this->_getParam('type');
-    	
+
     	$playlist = $this->playlistService->createPlaylist($type);
     	$playlist->save();
-    	
+
     	$this->mediaService->setSessionMediaObject($playlist);
     	$this->createFullResponse($playlist);
     }
@@ -69,9 +69,9 @@ class PlaylistController extends Zend_Controller_Action
     public function editAction()
     {
     	$id = $this->_getParam('id');
-    	
+
     	$playlist = PlaylistQuery::create()->findPK($id);
-    	
+
     	$this->mediaService->setSessionMediaObject($playlist);
     	$this->createFullResponse($playlist);
     }
@@ -82,24 +82,24 @@ class PlaylistController extends Zend_Controller_Action
     		$playlist = $this->getPlaylist();
     		$playlist->delete();
     		$this->mediaService->setSessionMediaObject(null);
-    		 
+
     		$this->createFullResponse(null);
     	}
     	catch (Exception $e) {
     		$this->view->error = $e->getMessage();
     	}
     }
-    
+
     public function clearAction()
     {
     	$con = Propel::getConnection(PlaylistPeer::DATABASE_NAME);
     	$con->beginTransaction();
-    	
+
     	try {
-    		$playlist = $this->getPlaylist(); 
+    		$playlist = $this->getPlaylist();
     		$playlist->clearContent($con);
     		$this->createUpdateResponse($playlist);
-    		
+
     		$con->commit();
     	}
     	catch (Exception $e) {
@@ -107,14 +107,14 @@ class PlaylistController extends Zend_Controller_Action
     		$this->view->error = $e->getMessage();
     	}
     }
-    
+
     public function generateAction()
     {
     	Logging::enablePropelLogging();
-    	
+
     	$con = Propel::getConnection(PlaylistPeer::DATABASE_NAME);
     	$con->beginTransaction();
-    	
+
     	try {
 
     		$playlist = $this->getPlaylist();
@@ -122,9 +122,9 @@ class PlaylistController extends Zend_Controller_Action
     		$mediaIds = $playlist->generateContent($con);
     		$playlist->addMedia($con, $mediaIds);
     		$con->commit();
-    		
+
     		$this->createUpdateResponse($playlist);
-    		
+
     		Logging::disablePropelLogging();
     	}
     	catch (Exception $e) {
@@ -134,17 +134,17 @@ class PlaylistController extends Zend_Controller_Action
     		$this->view->error = $e->getMessage();
     	}
     }
-    
+
     public function shuffleAction()
     {
     	$con = Propel::getConnection(PlaylistPeer::DATABASE_NAME);
     	$con->beginTransaction();
-    	
+
     	try {
-    		$playlist = $this->getPlaylist(); 
+    		$playlist = $this->getPlaylist();
     		$playlist->shuffleContent($con);
     		$this->createUpdateResponse($playlist);
-    		
+
     		$con->commit();
     	}
     	catch (Exception $e) {
@@ -152,31 +152,31 @@ class PlaylistController extends Zend_Controller_Action
     		$this->view->error = $e->getMessage();
     	}
     }
-    
+
     public function addItemsAction()
     {
     	$mediaIds = $this->_getParam('mediaIds');
     	$insertAfter = intval($this->_getParam('insertAfter'));
-    	
+
     	if ($insertAfter == 0) {
     		$insertAfter = null;
     	}
-    	
+
     	Logging::info($mediaIds);
-    	
+
     	Logging::enablePropelLogging();
-    	
+
     	$con = Propel::getConnection(PlaylistPeer::DATABASE_NAME);
     	$con->beginTransaction();
-    	
+
     	try {
     		$playlist = $this->getPlaylist();
     		$playlist->addMedia($con, $mediaIds, $insertAfter);
     		$playlist->save($con);
     		$this->createUpdateResponse($playlist);
-    		
+
     		$con->commit();
-    		
+
     		Logging::disablePropelLogging();
     	}
     	catch (Exception $e) {
@@ -186,27 +186,28 @@ class PlaylistController extends Zend_Controller_Action
     		$this->view->error = $e->getMessage();
     	}
     }
-    
+
     public function saveRulesAction()
     {
     	$rules = $this->_getParam('rules');
     	Logging::info($rules);
-    	
+
     	$con = Propel::getConnection(PlaylistPeer::DATABASE_NAME);
     	$con->beginTransaction();
-    	 
+
     	try {
     		$playlist = $this->getPlaylist();
-    		
+
     		$form = new Application_Form_PlaylistRules();
-    		
+
     		if (isset($rules["criteria"])) {
     			$form->buildCriteriaOptions($rules["criteria"]);
     		}
-    		
+
     		$criteriaFields = $form->getPopulateHelp();
-    		
+
     		$playlistRules = array(
+    		    "pl_timezone" => $rules[Playlist::RULE_TIMEZONE],
     			"pl_repeat_tracks" => $rules[Playlist::RULE_REPEAT_TRACKS],
     			"pl_my_tracks" => $rules[Playlist::RULE_USERS_TRACKS_ONLY],
     			"pl_order_column" => $rules[Playlist::RULE_ORDER][Playlist::RULE_ORDER_COLUMN],
@@ -214,9 +215,9 @@ class PlaylistController extends Zend_Controller_Action
     			"pl_limit_value" => $rules["limit"]["value"],
     			"pl_limit_options" => $rules["limit"]["unit"]
     		);
-    		
+
     		$data = array_merge($criteriaFields, $playlistRules);
-    		
+
     		if ($form->isValid($data)) {
     			Logging::info("playlist rules are valid");
     			Logging::info($form->getValues());
@@ -228,7 +229,7 @@ class PlaylistController extends Zend_Controller_Action
     			Logging::info($form->getMessages());
     			$this->view->form = $form->render();
     		}
-    		
+
     		$con->commit();
     	}
     	catch (Exception $e) {
@@ -236,25 +237,25 @@ class PlaylistController extends Zend_Controller_Action
     		$this->view->error = $e->getMessage();
     	}
     }
-    
+
     public function saveAction()
     {
     	$info = $this->_getParam('serialized');
     	Logging::info($info);
-    	
+
     	$con = Propel::getConnection(PlaylistPeer::DATABASE_NAME);
     	$con->beginTransaction();
-    	
+
     	try {
     		$playlist = $this->getPlaylist();
     		$this->playlistService->savePlaylist($playlist, $info, $con);
     		$this->createUpdateResponse($playlist);
-    		
+
     		$con->commit();
     	}
     	catch (Exception $e) {
     		$con->rollBack();
     		$this->view->error = $e->getMessage();
     	}
-    } 
+    }
 }

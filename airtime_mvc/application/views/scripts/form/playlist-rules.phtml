@@ -1,5 +1,9 @@
 <dl class='zend_form search-criteria'>
     <dd>
+		<span class='sp_text_font'><?php echo $this->element->getElement('pl_timezone')->getLabel() ?></span>
+        <?php echo $this->element->getElement('pl_timezone')?>
+    </dd>
+    <dd>
 		<span class='sp_text_font'><?php echo $this->element->getElement('pl_repeat_tracks')->getLabel() ?></span>
         <span class='repeat_tracks_help_icon'></span>
         <?php echo $this->element->getElement('pl_repeat_tracks')?>
@@ -10,7 +14,7 @@
         <span class='repeat_tracks_help_icon'></span>
         <?php echo $this->element->getElement('pl_my_tracks')?>
     </dd>
-    
+
     <dd id='rule_criteria'>
     <?php $option = $this->element->getDecorator('ViewScript')->getOptions();?>
 
@@ -19,7 +23,7 @@
     		<?php for ($j = 0; $j < count($option["suffixes"][$i]); $j++): ?>
     		<div class="pl-criteria-row">
     			<?php $suffix = $option["suffixes"][$i][$j]; ?>
-    			
+
     			<?php
     				$criteria = $this->element->getElement("sp_criteria_field_{$suffix}");
     				$modifier = $this->element->getElement("sp_criteria_modifier_{$suffix}");
@@ -27,16 +31,16 @@
 	            	$input2 = $this->element->getElement("sp_criteria_extra_{$suffix}");
 	            	$unit1 = $this->element->getElement("sp_rel_date_unit_1_{$suffix}");
 	            	$unit2 = $this->element->getElement("sp_rel_date_unit_2_{$suffix}");
-	            	
+
 	            	$checkErrors = array($criteria, $modifier, $input1, $input2, $unit1, $unit2);
 	            ?>
-    			
+
 	        	<?php echo $criteria; ?>
-	        	
+
 	        	<?php if (isset($modifier)): ?>
 	            <?php echo $modifier; ?>
 	            <?php endif; ?>
-	        	
+
 	            <?php if (isset($input1)): ?>
 	            <?php echo $input1; ?>
 	            <?php endif; ?>
@@ -44,7 +48,7 @@
 	            <?php if (isset($unit1)): ?>
 	            <?php echo $unit1; ?>
 	            <?php endif; ?>
-	            
+
 	            <?php if (isset($input2)): ?>
 	            <span class='sp_text_font' id="extra_criteria">
 	                <?php echo _("to"); ?>
@@ -55,18 +59,18 @@
 	            	<span>TO</span>
 	            </a>
 	            <?php endif; ?>
-	            
+
 	            <?php if (isset($unit2)): ?>
 	            <?php echo $unit2; ?>
 	            <?php endif; ?>
-	            
+
 	            <a class='btn btn-small btn-danger'>
 	                <i class='icon-white icon-remove'></i>
 	            </a>
 	            <a class="btn btn-small pl-or-criteria">
 	                <span><?php echo _("OR"); ?></span>
 	            </a>
-	            
+
 	            <?php foreach($checkErrors as $field): ?>
 		    	<?php if (isset($field) && $field->hasErrors()) : ?>
 		            <?php foreach($field->getMessages() as $error): ?>
@@ -76,18 +80,18 @@
 		            <?php endforeach; ?>
 		        <?php endif; ?>
 		    	<?php endforeach; ?>
-		    	
+
 	    	</div>
     		<?php endfor; ?>
 	    </div>
     	<?php endfor; ?>
-    	
-	    <button class="btn" title="Create AND Block" type="button" id="spl_AND"><?php echo _("AND"); ?></button>
+
+	    <button class="btn btn-small" title="Create AND Block" type="button" id="spl_AND"><?php echo _("AND"); ?></button>
     </dd>
-    
+
     <dd id='rule_order' class="criteria-element">
-    	<?php 
-    	$order = $this->element->getElement('pl_order_column'); 
+    	<?php
+    	$order = $this->element->getElement('pl_order_column');
     	$direction = $this->element->getElement('pl_order_direction');
 
     	$checkErrors = array($order, $direction);
@@ -98,7 +102,7 @@
         	$direction->setAttrib('style', 'display:none;');
         } ?>
         <?php echo $direction ?>
-        
+
         <?php foreach($checkErrors as $field): ?>
     	<?php if (isset($field) && $field->hasErrors()) : ?>
             <?php foreach($field->getMessages() as $error): ?>
@@ -109,18 +113,18 @@
         <?php endif; ?>
     	<?php endforeach; ?>
     </dd>
-    
+
     <dd id='rule_limit' class="criteria-element">
-    	<?php 
+    	<?php
     		$value = $this->element->getElement('pl_limit_value');
     		$options = $this->element->getElement('pl_limit_options');
-    		
+
     		$checkErrors = array($value, $options);
     	?>
     	<span class='sp_text_font'><?php echo $value->getLabel() ?></span>
         <?php echo $value ?>
         <?php echo  $options ?>
-        
+
         <?php foreach($checkErrors as $field): ?>
     	<?php if (isset($field) && $field->hasErrors()) : ?>
             <?php foreach($field->getMessages() as $error): ?>

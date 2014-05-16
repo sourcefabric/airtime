@@ -442,6 +442,7 @@ var AIRTIME = (function(AIRTIME){
 	function serializeRules() {
 		
 		var rules = {
+			"timezone": $("#pl_timezone").val(),
 			"repeat-tracks": $("#pl_repeat_tracks").is(":checked"),
 			"my-tracks": $("#pl_my_tracks").is(":checked"),
 			"limit": {
