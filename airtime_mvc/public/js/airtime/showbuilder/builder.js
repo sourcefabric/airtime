@@ -1038,7 +1038,7 @@ var AIRTIME = (function(AIRTIME){
         });
         
         //double click row to move cursor
-        $sbTable.on("dblclick", "tr.sb-future.sb-allowed:not(sb-footer)", function(event) {
+        $sbTable.on("dblclick", "tr.sb-future.sb-allowed:not(sb-footer), tr.sb-now-playing.sb-allowed", function(event) {
         	placeCursor($(this));
         });
     };
