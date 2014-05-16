@@ -45,6 +45,7 @@
      instances can be regenerated if we edit the show, which is unwanted behaviour. This column serves
      to ensure that we don't regenerate the instance. -->
     <column name="modified_instance" phpName="DbModifiedInstance" type="BOOLEAN" required="true" defaultValue="false" />
+    <column name="unrolled" phpName="DbUnrolled" type="BOOLEAN" required="true" defaultValue="false" />
 	<foreign-key foreignTable="cc_show" name="cc_show_fkey" onDelete="CASCADE">
       <reference local="show_id" foreign="id"/>
     </foreign-key>

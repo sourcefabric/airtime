@@ -60,6 +60,7 @@ CREATE TABLE "cc_show_instances"
     "created" TIMESTAMP NOT NULL,
     "last_scheduled" TIMESTAMP,
     "modified_instance" BOOLEAN DEFAULT 'f' NOT NULL,
+    "unrolled" BOOLEAN DEFAULT 'f' NOT NULL,
     PRIMARY KEY ("id")
 );
 

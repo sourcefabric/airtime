@@ -389,6 +389,22 @@ var AIRTIME = (function(AIRTIME){
     	return true;
     }
     
+    function placeCursor($tr) {
+    	
+    	var $marker = $("<div/>", {
+        	"class": "marker"
+        });
+    	
+    	$sbTable.find("."+CURSOR_SELECTED_CLASS)
+    		.removeClass(CURSOR_SELECTED_CLASS)
+    		.find(".marker")
+    			.remove();
+    	
+		$tr.addClass(CURSOR_SELECTED_CLASS)
+			.find(".innerWrapper")
+				.append($marker);
+    }
+    
     mod.builderDataTable = function() {
         $sbContent = $('#show_builder');
         $lib = $("#library_content"),
@@ -482,7 +498,6 @@ var AIRTIME = (function(AIRTIME){
             
             "fnServerData": mod.fnServerData,
             "fnRowCallback": function fnRowCallback( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-            	//console.time("datatablessinglerowrender");
             	var i, length,
                     sSeparatorHTML,
                     fnPrepareSeparatorRow,
@@ -500,10 +515,6 @@ var AIRTIME = (function(AIRTIME){
                 //http://stackoverflow.com/a/6119684
                 $wrapper = $("<div/>", {
                 	"class": "innerWrapper"
-                });
-                
-                $marker = $("<div/>", {
-                	"class": "marker"
                 });
                 
                 $node = $(nRow.children[0]);
@@ -585,13 +596,6 @@ var AIRTIME = (function(AIRTIME){
                 else if (aData.empty === true) {
                     //remove the column classes from all tds.
                     $nRow.find('td').removeClass();
-
-                    //putting the cursor on the screen
-                	if (aData.allowed && $lib.length > 0 && $lib.filter(":visible").length > 0) {
-                		//using this input just for cursor positioning purposes.
-                		$wrapper.append('<input type="checkbox" style="visibility:hidden" disabled="disabled"></input>');
-                		$wrapper.append($marker);
-                	}
                     
                     sSeparatorHTML = '<span>'+$.i18n._("Show Empty")+'</span>';
                     cl = cl + " sb-empty odd";
@@ -637,12 +641,7 @@ var AIRTIME = (function(AIRTIME){
                     }
                     
                     if (aData.allowed === true && aData.scheduled >= 1) {
-                    	$wrapper.append('<input type="checkbox" name="'+aData.id+'"></input>');
-                        
-                        //putting the cursor on the screen
-                    	if ($lib.length > 0 && $lib.filter(":visible").length > 0) {
-                    		$wrapper.append($marker);
-                    	}                       	
+                    	$wrapper.append('<input type="checkbox" name="'+aData.id+'"></input>');                      	
                     }
                 }
                 
@@ -698,40 +697,33 @@ var AIRTIME = (function(AIRTIME){
                 
                 //save some info for reordering purposes.
                 $nRow.data({"aData": aData});
-                
-                //console.timeEnd("datatablessinglerowrender");
             },
             //remove any selected nodes before the draw.
             "fnPreDrawCallback": function( oSettings ) {
-            	
-            	console.time("datatablesrender");
 
                 //make sure any dragging helpers are removed or else they'll be stranded on the screen.
                 $("#draggingContainer").remove();
-                
-                console.time("datatablesrowrender");
             },
             "fnDrawCallback": function fnBuilderDrawCallback(oSettings, json) {
-            	console.timeEnd("datatablesrowrender");
-            	
 				var aData,
 	                elements,
 	                i, length, temp,
-	                $cursorRows;
+	                $cursorRow;
 
                 if ($(this).find("."+NOW_PLAYING_CLASS).length > 0) {
                     mod.jumpToCurrentTrack();
                 }                
 
-                //only create the cursor arrows if the library is on the page.
+                //only create the cursor arrow if the library is on the page.
+                //default it to be just before the first editable show footer
                 if ($lib.length > 0 && $lib.filter(":visible").length > 0) {  	
 
-                	$cursorRows = $sbTable.find("div.marker").parents("tr");
-
-                    //if there is only 1 cursor on the page highlight it by default.
-                    if ($cursorRows.length === 1) {
-                        $cursorRows.addClass("cursor-selected-row");
-                    }
+                	$cursorRow = $sbTable.find("tbody")
+                		.find("tr.sb-future.sb-footer.sb-allowed")
+                		.filter(":first")
+                		.prev();
+                	
+                	placeCursor($cursorRow);
                 }
 
                 //order of importance of elements for setting the next timeout.
@@ -759,8 +751,6 @@ var AIRTIME = (function(AIRTIME){
                 }
                 
                 mod.checkToolBarIcons();
-                
-                console.timeEnd("datatablesrender");
             },
             
             // R = ColReorder, C = ColVis
@@ -941,17 +931,10 @@ var AIRTIME = (function(AIRTIME){
                 receive: fnReceive,
                 update: fnUpdate,
                 start: function(event, ui) {
-                    /*
-                    var elements = $sbTable.find('tr input:checked').parents('tr')
-                        .not(ui.item)
-                        .not("."+NOW_PLAYING_CLASS);
-                    
-                    //remove all other items from the screen, 
-                    //don't remove ui.item or else we can not get position information when the user drops later.
-                    elements.remove();
-                    */
-                    
-                    var elements = $sbTable.find('tr input:checked').parents('tr').not("."+NOW_PLAYING_CLASS);
+                    var elements = $sbTable
+                    	.find('tr input:checked')
+                    	.parents('tr')
+                    	.not("."+NOW_PLAYING_CLASS);
                     
                     elements.hide();
                 }
@@ -1044,40 +1027,7 @@ var AIRTIME = (function(AIRTIME){
         $toolbar.find('.sb-trash').click(function() {
             mod.fnRemoveSelectedItems();
         });
-        
-        //add events to cursors.
-        $sbTable.on("click", "div.marker", function(event) {
-            var $tr = $(this).parents("tr"),
-                $trs;
-            
-            if ($tr.hasClass(CURSOR_SELECTED_CLASS)) {
-                mod.removeCursor($tr);
-            }
-            else {
-                mod.selectCursor($tr);
-            }
-            
-            if (event.ctrlKey === false) {
-                $trs = $sbTable.find('.'+CURSOR_SELECTED_CLASS).not($tr);
-                mod.removeCursor($trs);
-            }
-            
-            return false;
-        });
-        
-        //call the context menu so we can prevent the event from propagating.
-        $sbTable.on("mousedown", "td:gt(1)", function(e) {
-    		//only trigger context menu on right click.
-    		if (e.which === 3) {
-    			e.preventDefault();
-        		e.stopPropagation();
-        		
-    			var $el = $(this);
-    			
-    			$el.contextMenu({x: e.pageX, y: e.pageY});
-    		}
-        });
-        
+
         //preview the media item with jPlayer.
         $sbTable.on("click", "td.sb-image img", function(event) {
         	var $tr = $(this).parents("tr"),
@@ -1087,103 +1037,9 @@ var AIRTIME = (function(AIRTIME){
             return false;
         });
         
-        //begin context menu initialization.
-        $.contextMenu({
-            selector: '.sb-content table tbody tr:not(.sb-empty, .sb-footer, .sb-header, .sb-record) td:not(.sb-checkbox, .sb-image)',
-            trigger: "none",
-            ignoreRightClick: false,
-            
-            build: function($el, e) {
-                var items,  
-                    $tr = $el.parent(),
-                    data = $tr.data("aData"), 
-                    cursorClass = "cursor-selected-row",
-                    callback;
-
-                function processMenuItems(oItems) {
-                    
-                    //define a preview callback.
-                    if (oItems.preview !== undefined) {
-                        
-                        callback = function() {
-                        	AIRTIME.playerPreview.previewMedia(data.mediaId);
-                        };
-                        
-                        oItems.preview.callback = callback;
-                    }
-                    
-                    //define a select cursor callback.
-                    if (oItems.selCurs !== undefined) {
-                        
-                        callback = function() {
-                            var $tr = $(this).parents('tr');
-                            
-                            mod.selectCursor($tr);
-                        };
-                        
-                        oItems.selCurs.callback = callback;
-                    }
-                    
-                   //define a remove cursor callback.
-                    if (oItems.delCurs !== undefined) {
-                        
-                        callback = function() {
-                            var $tr = $(this).parents('tr');
-                            
-                            mod.removeCursor($tr);
-                        };
-                        
-                        oItems.delCurs.callback = callback;
-                    }
-                    
-                    //define a delete callback.
-                    if (oItems.del !== undefined) {
-                        
-                        callback = function() {
-                            AIRTIME.showbuilder.fnRemove([{
-                                id: data.id,
-                                timestamp: data.timestamp,
-                                instance: data.instance
-                            }]);
-                        };
-                        
-                        oItems.del.callback = callback;
-                    }
-                    
-                    //only show the cursor selecting options if the library is visible on the page.
-                    if ($tr.find('div.marker').length === 0) {
-                        delete oItems.selCurs;
-                        delete oItems.delCurs;
-                    }
-                    //check to include either select or remove cursor.
-                    else {
-                        if ($tr.hasClass(cursorClass)) {
-                            delete oItems.selCurs;
-                        }
-                        else {
-                            delete oItems.delCurs;
-                        }
-                    }       
-                           
-                    items = oItems;
-                }
-                
-                request = $.ajax({
-                  url: baseUrl+"showbuilder/context-menu",
-                  type: "GET",
-                  data: {id : data.id, format: "json"},
-                  dataType: "json",
-                  async: false,
-                  success: function(json){
-                      processMenuItems(json.items);
-                  }
-                });
-
-                return {
-                    items: items
-                };
-    
-            }
+        //double click row to move cursor
+        $sbTable.on("dblclick", "tr.sb-future.sb-allowed:not(sb-footer)", function(event) {
+        	placeCursor($(this));
         });
     };
     

@@ -15,7 +15,6 @@ class ShowbuilderController extends Zend_Controller_Action
                     ->addActionContext('builder-dialog', 'json')
                     ->addActionContext('check-builder-feed', 'json')
                     ->addActionContext('builder-feed', 'json')
-                    ->addActionContext('context-menu', 'json')
                     ->initContext();
     }
 
@@ -216,35 +215,6 @@ class ShowbuilderController extends Zend_Controller_Action
 
         $this->view->headLink()->appendStylesheet($baseUrl.'css/jquery.ui.timepicker.css?'.$CC_CONFIG['airtime_version']);
         $this->view->headLink()->appendStylesheet($baseUrl.'css/showbuilder.css?'.$CC_CONFIG['airtime_version']);
-    }
-
-    public function contextMenuAction()
-    {
-        $baseUrl = Application_Common_OsPath::getBaseDir();
-
-        $id = $this->_getParam('id');
-        $now = floatval(microtime(true));
-
-        $request = $this->getRequest();
-        $menu = array();
-
-        $user = Application_Model_User::getCurrentUser();
-
-        $item = CcScheduleQuery::create()->findPK($id);
-        $instance = $item->getCcShowInstances();
-
-        $menu["preview"] = array("name"=> _("Preview"), "icon" => "play");
-        //select the cursor
-        $menu["selCurs"] = array("name"=> _("Select cursor"),"icon" => "select-cursor");
-        $menu["delCurs"] = array("name"=> _("Remove cursor"),"icon" => "select-cursor");
-
-        if ($now < floatval($item->getDbEnds("U.u")) && $user->canSchedule($instance->getDbShowId())) {
-
-            //remove/truncate the item from the schedule
-            $menu["del"] = array("name"=> _("Delete"), "icon" => "delete", "url" => $baseUrl."showbuilder/schedule-remove");
-        }
-
-        $this->view->items = $menu;
     }
 
     public function builderDialogAction()

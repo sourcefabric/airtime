@@ -40,13 +40,13 @@ abstract class BaseCcShowInstancesPeer
     const TM_CLASS = 'Airtime\\map\\CcShowInstancesTableMap';
 
     /** The total number of columns. */
-    const NUM_COLUMNS = 12;
+    const NUM_COLUMNS = 13;
 
     /** The number of lazy-loaded columns. */
     const NUM_LAZY_LOAD_COLUMNS = 0;
 
     /** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-    const NUM_HYDRATE_COLUMNS = 12;
+    const NUM_HYDRATE_COLUMNS = 13;
 
     /** the column name for the id field */
     const ID = 'cc_show_instances.id';
@@ -84,6 +84,9 @@ abstract class BaseCcShowInstancesPeer
     /** the column name for the modified_instance field */
     const MODIFIED_INSTANCE = 'cc_show_instances.modified_instance';
 
+    /** the column name for the unrolled field */
+    const UNROLLED = 'cc_show_instances.unrolled';
+
     /** The default string format for model objects of the related table **/
     const DEFAULT_STRING_FORMAT = 'YAML';
 
@@ -103,12 +106,12 @@ abstract class BaseCcShowInstancesPeer
      * e.g. CcShowInstancesPeer::$fieldNames[CcShowInstancesPeer::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('DbId', 'DbStarts', 'DbEnds', 'DbShowId', 'DbRecord', 'DbRebroadcast', 'DbOriginalShow', 'DbRecordedMediaItem', 'DbTimeFilled', 'DbCreated', 'DbLastScheduled', 'DbModifiedInstance', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('dbId', 'dbStarts', 'dbEnds', 'dbShowId', 'dbRecord', 'dbRebroadcast', 'dbOriginalShow', 'dbRecordedMediaItem', 'dbTimeFilled', 'dbCreated', 'dbLastScheduled', 'dbModifiedInstance', ),
-        BasePeer::TYPE_COLNAME => array (CcShowInstancesPeer::ID, CcShowInstancesPeer::STARTS, CcShowInstancesPeer::ENDS, CcShowInstancesPeer::SHOW_ID, CcShowInstancesPeer::RECORD, CcShowInstancesPeer::REBROADCAST, CcShowInstancesPeer::INSTANCE_ID, CcShowInstancesPeer::MEDIA_ID, CcShowInstancesPeer::TIME_FILLED, CcShowInstancesPeer::CREATED, CcShowInstancesPeer::LAST_SCHEDULED, CcShowInstancesPeer::MODIFIED_INSTANCE, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID', 'STARTS', 'ENDS', 'SHOW_ID', 'RECORD', 'REBROADCAST', 'INSTANCE_ID', 'MEDIA_ID', 'TIME_FILLED', 'CREATED', 'LAST_SCHEDULED', 'MODIFIED_INSTANCE', ),
-        BasePeer::TYPE_FIELDNAME => array ('id', 'starts', 'ends', 'show_id', 'record', 'rebroadcast', 'instance_id', 'media_id', 'time_filled', 'created', 'last_scheduled', 'modified_instance', ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, )
+        BasePeer::TYPE_PHPNAME => array ('DbId', 'DbStarts', 'DbEnds', 'DbShowId', 'DbRecord', 'DbRebroadcast', 'DbOriginalShow', 'DbRecordedMediaItem', 'DbTimeFilled', 'DbCreated', 'DbLastScheduled', 'DbModifiedInstance', 'DbUnrolled', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('dbId', 'dbStarts', 'dbEnds', 'dbShowId', 'dbRecord', 'dbRebroadcast', 'dbOriginalShow', 'dbRecordedMediaItem', 'dbTimeFilled', 'dbCreated', 'dbLastScheduled', 'dbModifiedInstance', 'dbUnrolled', ),
+        BasePeer::TYPE_COLNAME => array (CcShowInstancesPeer::ID, CcShowInstancesPeer::STARTS, CcShowInstancesPeer::ENDS, CcShowInstancesPeer::SHOW_ID, CcShowInstancesPeer::RECORD, CcShowInstancesPeer::REBROADCAST, CcShowInstancesPeer::INSTANCE_ID, CcShowInstancesPeer::MEDIA_ID, CcShowInstancesPeer::TIME_FILLED, CcShowInstancesPeer::CREATED, CcShowInstancesPeer::LAST_SCHEDULED, CcShowInstancesPeer::MODIFIED_INSTANCE, CcShowInstancesPeer::UNROLLED, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID', 'STARTS', 'ENDS', 'SHOW_ID', 'RECORD', 'REBROADCAST', 'INSTANCE_ID', 'MEDIA_ID', 'TIME_FILLED', 'CREATED', 'LAST_SCHEDULED', 'MODIFIED_INSTANCE', 'UNROLLED', ),
+        BasePeer::TYPE_FIELDNAME => array ('id', 'starts', 'ends', 'show_id', 'record', 'rebroadcast', 'instance_id', 'media_id', 'time_filled', 'created', 'last_scheduled', 'modified_instance', 'unrolled', ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, )
     );
 
     /**
@@ -118,12 +121,12 @@ abstract class BaseCcShowInstancesPeer
      * e.g. CcShowInstancesPeer::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('DbId' => 0, 'DbStarts' => 1, 'DbEnds' => 2, 'DbShowId' => 3, 'DbRecord' => 4, 'DbRebroadcast' => 5, 'DbOriginalShow' => 6, 'DbRecordedMediaItem' => 7, 'DbTimeFilled' => 8, 'DbCreated' => 9, 'DbLastScheduled' => 10, 'DbModifiedInstance' => 11, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('dbId' => 0, 'dbStarts' => 1, 'dbEnds' => 2, 'dbShowId' => 3, 'dbRecord' => 4, 'dbRebroadcast' => 5, 'dbOriginalShow' => 6, 'dbRecordedMediaItem' => 7, 'dbTimeFilled' => 8, 'dbCreated' => 9, 'dbLastScheduled' => 10, 'dbModifiedInstance' => 11, ),
-        BasePeer::TYPE_COLNAME => array (CcShowInstancesPeer::ID => 0, CcShowInstancesPeer::STARTS => 1, CcShowInstancesPeer::ENDS => 2, CcShowInstancesPeer::SHOW_ID => 3, CcShowInstancesPeer::RECORD => 4, CcShowInstancesPeer::REBROADCAST => 5, CcShowInstancesPeer::INSTANCE_ID => 6, CcShowInstancesPeer::MEDIA_ID => 7, CcShowInstancesPeer::TIME_FILLED => 8, CcShowInstancesPeer::CREATED => 9, CcShowInstancesPeer::LAST_SCHEDULED => 10, CcShowInstancesPeer::MODIFIED_INSTANCE => 11, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'STARTS' => 1, 'ENDS' => 2, 'SHOW_ID' => 3, 'RECORD' => 4, 'REBROADCAST' => 5, 'INSTANCE_ID' => 6, 'MEDIA_ID' => 7, 'TIME_FILLED' => 8, 'CREATED' => 9, 'LAST_SCHEDULED' => 10, 'MODIFIED_INSTANCE' => 11, ),
-        BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'starts' => 1, 'ends' => 2, 'show_id' => 3, 'record' => 4, 'rebroadcast' => 5, 'instance_id' => 6, 'media_id' => 7, 'time_filled' => 8, 'created' => 9, 'last_scheduled' => 10, 'modified_instance' => 11, ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, )
+        BasePeer::TYPE_PHPNAME => array ('DbId' => 0, 'DbStarts' => 1, 'DbEnds' => 2, 'DbShowId' => 3, 'DbRecord' => 4, 'DbRebroadcast' => 5, 'DbOriginalShow' => 6, 'DbRecordedMediaItem' => 7, 'DbTimeFilled' => 8, 'DbCreated' => 9, 'DbLastScheduled' => 10, 'DbModifiedInstance' => 11, 'DbUnrolled' => 12, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('dbId' => 0, 'dbStarts' => 1, 'dbEnds' => 2, 'dbShowId' => 3, 'dbRecord' => 4, 'dbRebroadcast' => 5, 'dbOriginalShow' => 6, 'dbRecordedMediaItem' => 7, 'dbTimeFilled' => 8, 'dbCreated' => 9, 'dbLastScheduled' => 10, 'dbModifiedInstance' => 11, 'dbUnrolled' => 12, ),
+        BasePeer::TYPE_COLNAME => array (CcShowInstancesPeer::ID => 0, CcShowInstancesPeer::STARTS => 1, CcShowInstancesPeer::ENDS => 2, CcShowInstancesPeer::SHOW_ID => 3, CcShowInstancesPeer::RECORD => 4, CcShowInstancesPeer::REBROADCAST => 5, CcShowInstancesPeer::INSTANCE_ID => 6, CcShowInstancesPeer::MEDIA_ID => 7, CcShowInstancesPeer::TIME_FILLED => 8, CcShowInstancesPeer::CREATED => 9, CcShowInstancesPeer::LAST_SCHEDULED => 10, CcShowInstancesPeer::MODIFIED_INSTANCE => 11, CcShowInstancesPeer::UNROLLED => 12, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'STARTS' => 1, 'ENDS' => 2, 'SHOW_ID' => 3, 'RECORD' => 4, 'REBROADCAST' => 5, 'INSTANCE_ID' => 6, 'MEDIA_ID' => 7, 'TIME_FILLED' => 8, 'CREATED' => 9, 'LAST_SCHEDULED' => 10, 'MODIFIED_INSTANCE' => 11, 'UNROLLED' => 12, ),
+        BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'starts' => 1, 'ends' => 2, 'show_id' => 3, 'record' => 4, 'rebroadcast' => 5, 'instance_id' => 6, 'media_id' => 7, 'time_filled' => 8, 'created' => 9, 'last_scheduled' => 10, 'modified_instance' => 11, 'unrolled' => 12, ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, )
     );
 
     /**
@@ -209,6 +212,7 @@ abstract class BaseCcShowInstancesPeer
             $criteria->addSelectColumn(CcShowInstancesPeer::CREATED);
             $criteria->addSelectColumn(CcShowInstancesPeer::LAST_SCHEDULED);
             $criteria->addSelectColumn(CcShowInstancesPeer::MODIFIED_INSTANCE);
+            $criteria->addSelectColumn(CcShowInstancesPeer::UNROLLED);
         } else {
             $criteria->addSelectColumn($alias . '.id');
             $criteria->addSelectColumn($alias . '.starts');
@@ -222,6 +226,7 @@ abstract class BaseCcShowInstancesPeer
             $criteria->addSelectColumn($alias . '.created');
             $criteria->addSelectColumn($alias . '.last_scheduled');
             $criteria->addSelectColumn($alias . '.modified_instance');
+            $criteria->addSelectColumn($alias . '.unrolled');
         }
     }
 

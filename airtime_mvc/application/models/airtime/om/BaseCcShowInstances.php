@@ -132,6 +132,13 @@ abstract class BaseCcShowInstances extends BaseObject implements Persistent
     protected $modified_instance;
 
     /**
+     * The value for the unrolled field.
+     * Note: this column has a database default value of: false
+     * @var        boolean
+     */
+    protected $unrolled;
+
+    /**
      * @var        CcShow
      */
     protected $aCcShow;
@@ -214,6 +221,7 @@ abstract class BaseCcShowInstances extends BaseObject implements Persistent
         $this->rebroadcast = 0;
         $this->time_filled = '00:00:00';
         $this->modified_instance = false;
+        $this->unrolled = false;
     }
 
     /**
@@ -452,6 +460,17 @@ abstract class BaseCcShowInstances extends BaseObject implements Persistent
     {
 
         return $this->modified_instance;
+    }
+
+    /**
+     * Get the [unrolled] column value.
+     *
+     * @return boolean
+     */
+    public function getDbUnrolled()
+    {
+
+        return $this->unrolled;
     }
 
     /**
@@ -735,6 +754,35 @@ abstract class BaseCcShowInstances extends BaseObject implements Persistent
     } // setDbModifiedInstance()
 
     /**
+     * Sets the value of the [unrolled] column.
+     * Non-boolean arguments are converted using the following rules:
+     *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+     *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+     * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+     *
+     * @param boolean|integer|string $v The new value
+     * @return CcShowInstances The current object (for fluent API support)
+     */
+    public function setDbUnrolled($v)
+    {
+        if ($v !== null) {
+            if (is_string($v)) {
+                $v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
+            } else {
+                $v = (boolean) $v;
+            }
+        }
+
+        if ($this->unrolled !== $v) {
+            $this->unrolled = $v;
+            $this->modifiedColumns[] = CcShowInstancesPeer::UNROLLED;
+        }
+
+
+        return $this;
+    } // setDbUnrolled()
+
+    /**
      * Indicates whether the columns in this object are only set to default values.
      *
      * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -757,6 +805,10 @@ abstract class BaseCcShowInstances extends BaseObject implements Persistent
             }
 
             if ($this->modified_instance !== false) {
+                return false;
+            }
+
+            if ($this->unrolled !== false) {
                 return false;
             }
 
@@ -794,6 +846,7 @@ abstract class BaseCcShowInstances extends BaseObject implements Persistent
             $this->created = ($row[$startcol + 9] !== null) ? (string) $row[$startcol + 9] : null;
             $this->last_scheduled = ($row[$startcol + 10] !== null) ? (string) $row[$startcol + 10] : null;
             $this->modified_instance = ($row[$startcol + 11] !== null) ? (boolean) $row[$startcol + 11] : null;
+            $this->unrolled = ($row[$startcol + 12] !== null) ? (boolean) $row[$startcol + 12] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -803,7 +856,7 @@ abstract class BaseCcShowInstances extends BaseObject implements Persistent
             }
             $this->postHydrate($row, $startcol, $rehydrate);
 
-            return $startcol + 12; // 12 = CcShowInstancesPeer::NUM_HYDRATE_COLUMNS.
+            return $startcol + 13; // 13 = CcShowInstancesPeer::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException("Error populating CcShowInstances object", $e);
@@ -1157,6 +1210,9 @@ abstract class BaseCcShowInstances extends BaseObject implements Persistent
         if ($this->isColumnModified(CcShowInstancesPeer::MODIFIED_INSTANCE)) {
             $modifiedColumns[':p' . $index++]  = '"modified_instance"';
         }
+        if ($this->isColumnModified(CcShowInstancesPeer::UNROLLED)) {
+            $modifiedColumns[':p' . $index++]  = '"unrolled"';
+        }
 
         $sql = sprintf(
             'INSERT INTO "cc_show_instances" (%s) VALUES (%s)',
@@ -1203,6 +1259,9 @@ abstract class BaseCcShowInstances extends BaseObject implements Persistent
                         break;
                     case '"modified_instance"':
                         $stmt->bindValue($identifier, $this->modified_instance, PDO::PARAM_BOOL);
+                        break;
+                    case '"unrolled"':
+                        $stmt->bindValue($identifier, $this->unrolled, PDO::PARAM_BOOL);
                         break;
                 }
             }
@@ -1415,6 +1474,9 @@ abstract class BaseCcShowInstances extends BaseObject implements Persistent
             case 11:
                 return $this->getDbModifiedInstance();
                 break;
+            case 12:
+                return $this->getDbUnrolled();
+                break;
             default:
                 return null;
                 break;
@@ -1456,6 +1518,7 @@ abstract class BaseCcShowInstances extends BaseObject implements Persistent
             $keys[9] => $this->getDbCreated(),
             $keys[10] => $this->getDbLastScheduled(),
             $keys[11] => $this->getDbModifiedInstance(),
+            $keys[12] => $this->getDbUnrolled(),
         );
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
@@ -1551,6 +1614,9 @@ abstract class BaseCcShowInstances extends BaseObject implements Persistent
             case 11:
                 $this->setDbModifiedInstance($value);
                 break;
+            case 12:
+                $this->setDbUnrolled($value);
+                break;
         } // switch()
     }
 
@@ -1587,6 +1653,7 @@ abstract class BaseCcShowInstances extends BaseObject implements Persistent
         if (array_key_exists($keys[9], $arr)) $this->setDbCreated($arr[$keys[9]]);
         if (array_key_exists($keys[10], $arr)) $this->setDbLastScheduled($arr[$keys[10]]);
         if (array_key_exists($keys[11], $arr)) $this->setDbModifiedInstance($arr[$keys[11]]);
+        if (array_key_exists($keys[12], $arr)) $this->setDbUnrolled($arr[$keys[12]]);
     }
 
     /**
@@ -1610,6 +1677,7 @@ abstract class BaseCcShowInstances extends BaseObject implements Persistent
         if ($this->isColumnModified(CcShowInstancesPeer::CREATED)) $criteria->add(CcShowInstancesPeer::CREATED, $this->created);
         if ($this->isColumnModified(CcShowInstancesPeer::LAST_SCHEDULED)) $criteria->add(CcShowInstancesPeer::LAST_SCHEDULED, $this->last_scheduled);
         if ($this->isColumnModified(CcShowInstancesPeer::MODIFIED_INSTANCE)) $criteria->add(CcShowInstancesPeer::MODIFIED_INSTANCE, $this->modified_instance);
+        if ($this->isColumnModified(CcShowInstancesPeer::UNROLLED)) $criteria->add(CcShowInstancesPeer::UNROLLED, $this->unrolled);
 
         return $criteria;
     }
@@ -1684,6 +1752,7 @@ abstract class BaseCcShowInstances extends BaseObject implements Persistent
         $copyObj->setDbCreated($this->getDbCreated());
         $copyObj->setDbLastScheduled($this->getDbLastScheduled());
         $copyObj->setDbModifiedInstance($this->getDbModifiedInstance());
+        $copyObj->setDbUnrolled($this->getDbUnrolled());
 
         if ($deepCopy && !$this->startCopy) {
             // important: temporarily setNew(false) because this affects the behavior of
@@ -2730,6 +2799,7 @@ abstract class BaseCcShowInstances extends BaseObject implements Persistent
         $this->created = null;
         $this->last_scheduled = null;
         $this->modified_instance = null;
+        $this->unrolled = null;
         $this->alreadyInSave = false;
         $this->alreadyInValidation = false;
         $this->alreadyInClearAllReferencesDeep = false;
