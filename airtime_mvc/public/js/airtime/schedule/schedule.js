@@ -12,16 +12,6 @@ var AIRTIME = (function(AIRTIME){
 
 var serverTimezoneOffset = 0;
 
-function closeDialogCalendar(event, ui) {
-    
-    var $el = $(this);
-    $el.dialog('destroy');
-    $el.remove();
-    
-    //need to refetch the events to update scheduled status.
-    $("#schedule_calendar").fullCalendar( 'refetchEvents' );
-}
-
 function checkShowLength(json) {
     var percent = json.percentFilled;
 
@@ -139,39 +129,41 @@ function findViewportDimensions() {
     };
 }
 
+
+
 function buildScheduleDialog (json, instance_id) {
     var dialog = $(json.dialog),
         viewport = findViewportDimensions(),
-        height = Math.floor(viewport.height * 0.96),
+        height = Math.floor(viewport.height * 0.90),
         width = Math.floor(viewport.width * 0.96),
-        fnServer = AIRTIME.showbuilder.fnServerData,
-        //subtract padding in pixels
-        widgetWidth = width - 60,
-        libWidth = Math.floor(widgetWidth * 0.5),
-        builderWidth = Math.floor(widgetWidth * 0.5);
+        fnServer = AIRTIME.showbuilder.fnServerData;
     
-    dialog.find("#library_content")
-        .height(height - 115)
-        .width(libWidth);
-    
-    dialog.find("#show_builder")
-        .height(height - 115)
-        .width(builderWidth);
-    
+    function closeScheduleDialog() {
+    	
+    	var $el = $(this);
+        $el.dialog('destroy');
+        $el.remove();
+        
+        AIRTIME.showbuilder.destroy();
+        
+        //need to refetch the events to update scheduled status.
+        $("#schedule_calendar").fullCalendar( 'refetchEvents' );
+    }
+
     dialog.dialog({
         autoOpen: false,
         title: json.title,
         width: width,
         height: height,
-        resizable: false,
+        resizable: true,
         draggable: true,
-        modal: true,
-        close: closeDialogCalendar,
+        modal: false,
+        close: closeScheduleDialog,
         buttons: [
             {
-                text: $.i18n._("Ok"),
+                text: $.i18n._("OK"),
                 "class": "btn",
-                click: closeDialogCalendar
+                click: closeScheduleDialog
             }
         ]
     });
@@ -189,13 +181,6 @@ function buildScheduleDialog (json, instance_id) {
     AIRTIME.library.onReady();
     AIRTIME.showbuilder.builderDataTable();
     
-    //set max heights of datatables.
-    dialog.find(".lib-content .dataTables_scrolling")
-        .css("max-height", height - 90 - 200);
-    
-    dialog.find(".sb-content .dataTables_scrolling")
-        .css("max-height", height - 90 - 65);
-    
     dialog.dialog('open');
 }
 
@@ -208,6 +193,16 @@ function buildContentDialog (json){
     if (json.show_error == true){
         alertShowErrorAndReload();
     }
+    
+    function closeDialogCalendar(event, ui) {
+        
+        var $el = $(this);
+        $el.dialog('destroy');
+        $el.remove();
+        
+        //need to refetch the events to update scheduled status.
+        $("#schedule_calendar").fullCalendar( 'refetchEvents' );
+    }
           
     dialog.dialog({
         autoOpen: false,
@@ -218,7 +213,7 @@ function buildContentDialog (json){
         close: closeDialogCalendar,
         buttons: [
             {
-                text: $.i18n._("Ok"),
+                text: $.i18n._("OK"),
                 "class": "btn",
                 click: closeDialogCalendar
             }
@@ -242,11 +237,13 @@ function getTimeIntervalPreference(data) {
     return parseInt(data.calendarInit.timeInterval);
 }
 
+function getCalendarHeight() {
+	return $(window).height() - 350;
+}
+
 function createFullCalendar(data){
 
     serverTimezoneOffset = data.calendarInit.timezoneOffset;
-
-    var mainHeight = $(window).height() - 200 - 35;
 
     $('#schedule_calendar').fullCalendar({
         header: {
@@ -304,7 +301,7 @@ function createFullCalendar(data){
             $.i18n._('Fri'),
             $.i18n._('Sat')
         ],
-        contentHeight: mainHeight,
+        contentHeight: getCalendarHeight(),
         theme: true,
         lazyFetching: false,
         serverTimestamp: parseInt(data.calendarInit.timestamp, 10),

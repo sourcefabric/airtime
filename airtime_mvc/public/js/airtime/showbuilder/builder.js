@@ -1043,6 +1043,10 @@ var AIRTIME = (function(AIRTIME){
         });
     };
     
+    mod.destroy = function() {
+    	clearTimeout(builderCheckTimeout);
+    };
+    
     return AIRTIME;
     
 }(AIRTIME || {}));
