@@ -3173,3 +3173,7 @@ dd .stream-status {
 .open_fields .bottom_pagination {
 	position: relative !important;
 }
+
+.ui-draggable-dragging {
+	z-index: 9999;
+}

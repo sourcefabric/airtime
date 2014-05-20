@@ -33,7 +33,7 @@ var AIRTIME = (function(AIRTIME) {
 		}
 		
 		$table.find("tbody tr").draggable({
-			appendTo: $("body"),
+			appendTo: $table.parents(".wrapper"),
             cancel: "td.dataTables_empty, input",
             handle: "td",
             helper: function() {

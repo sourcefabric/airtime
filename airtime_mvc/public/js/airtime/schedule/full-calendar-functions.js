@@ -150,9 +150,6 @@ function viewDisplay( view ) {
 
         var topLeft = $(view.element).find("table.fc-agenda-days > thead th:first");
 
-        //select.width(topLeft.width())
-        //    .height(topLeft.height());
-
         topLeft.empty()
             .append(select);
 
