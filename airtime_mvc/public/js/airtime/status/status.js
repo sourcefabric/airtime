@@ -2,12 +2,12 @@ function generatePartitions(partitions){
 
     var rowTemplate = 
             '<tr class="partition-info">'+
-                '<td><span class="strong">'+$.i18n._("Disk")+' #%s</span>'+
+                '<td colspan="3"><span class="strong">'+$.i18n._("Disk")+' #%s</span>'+
                     '<ul id="watched-dir-list-%s">'+
                     '</ul>'+
                 '</td>'+
                 '<td>%sGB of %sGB</td>'+
-                '<td colspan="3">'+
+                '<td>'+
                     '<div class="big">'+
                         '<div class="diskspace" style="width:%s%%;">'+
                         '</div>'+

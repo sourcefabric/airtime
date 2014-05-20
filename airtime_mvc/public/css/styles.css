@@ -364,6 +364,11 @@ select {
 
 .wrapper {
 	margin: 0px 0px 0px 0px;
+	position: fixed;
+	top: 160px;
+	right: 20px;
+	bottom: 90px;
+	left: 20px;
 }
 
 .alpha-block {
@@ -1539,23 +1544,15 @@ button, input {
 }
 
 .user-management {
-	width: auto;
 	max-width: 930px;
-	position: absolute;
-	overflow-x: hidden;
-	overflow-y: auto;
-	top: 150px;
-	right: 20px;
-	bottom: 90px;
-	left: 20px;
 }
 .user-management-expanded {
 	width:910px;
 }
 .user-data {
 	float:left;
-	width:420px;
-	margin-left:10px;
+	width: 390px;
+	margin-left: 20px;
 	/*display:none;*/
 }
 .user-list-wrapper {
@@ -1886,15 +1883,7 @@ span.errors.sp-errors{
 }
 .text-content {
 	padding:20px 10px 40px 58px;
-	background: url(images/sf_arror.png) no-repeat 60% 0; 
-	width: auto;
-	position: absolute;
-	overflow-x: hidden;
-	overflow-y: auto;
-	top: 150px;
-	right: 0px;
-	bottom: 90px;
-	left: 20px;
+	background: url(images/sf_arror.png) no-repeat 60% 0;
 }
 .text-content h2 {
 	font-size:2.4em;
@@ -2111,37 +2100,14 @@ span.errors.sp-errors{
 	background:url(images/icon_finishedplaying_m.png) no-repeat 0 0;
 }
 .preferences {
-    width: auto;
-	max-width: 600px;
-	position: absolute;
-	overflow-x: hidden;
-	overflow-y: auto;
-	top: 150px;
-	right: 20px;
-	bottom: 90px;
-	left: 20px;
+   max-width: 600px;
 }
 .manage-folders {
-    width: auto;
-	max-width: 600px;
-	position: absolute;
-	overflow-x: hidden;
-	overflow-y: auto;
-	top: 150px;
-	right: 20px;
-	left: 20px;
+
 }
 
 .stream-config {
-	width: auto;
-	max-width: 1120px;
-	position: absolute;
-	overflow-x: hidden;
-	overflow-y: auto;
-	top: 150px;
-	right: 20px;
-	bottom: 90px;
-	left: 20px;
+	max-width: 1150px;
 }
 
 .preferences .padded {
@@ -2674,8 +2640,6 @@ tfoot tr th	{
 .statustable {
 	background-color: #D8D8D8;
     border-width: 2px 1px 1px;
-    position: absolute;
-    top: 150px;
 }
 .statustable tr td, .statustable tr th	{
 	text-align:center;
@@ -3136,7 +3100,7 @@ dd .stream-status {
 	position: fixed;
 	top: 0px;
 	width: 100%;
-	z-index: 9999;
+	z-index: 1001;
 }
 
 .smaller_box {
@@ -3147,4 +3111,65 @@ dd .stream-status {
 	position: absolute;
 	width: 100%;
 	bottom: 0px;
+}
+
+.full_width {
+	position: absolute;
+	overflow: auto;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	left: 0px;
+	width: 100%;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+.one_third_width {
+	position: absolute;
+	overflow: auto;
+	top: 0px;
+	bottom: 0px;
+	width: 33%;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+.half_width_left {
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	width: 49.2%;
+	margin: 0px;
+	overflow: hidden;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+.half_width_right {
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	right: 0px;
+	width: 49.2%;
+	margin: 0px;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+.open_fields {
+	overflow: auto !important;
+}
+
+.open_fields .dataTables_scrolling {
+	position: initial !important;
+}
+
+.open_fields .bottom_pagination {
+	position: relative !important;
 }

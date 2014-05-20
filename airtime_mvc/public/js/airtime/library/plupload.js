@@ -108,7 +108,7 @@ $(document).ready(function() {
 			//"sScrollY": "200px",
 			"bFilter": false,
 			"bSort": false,
-			"sDom": '<"H"l>frtip',
+			"sDom": '<"H"l>fr<"dataTables_scrolling"t><"fg-toolbar ui-widget-header ui-corner-bl ui-corner-br ui-helper-clearfix bottom_pagination"ip>',
 			"bPaginate" : true,
             "sPaginationType": "full_numbers",
 			"aoColumns": [

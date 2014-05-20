@@ -1,9 +1,5 @@
 @CHARSET "UTF-8";
 
-#recent_uploads_wrapper
-{
-	width: 100%;
-}
 	/*
 	position: absolute;
 	left: 5px;
@@ -63,4 +59,16 @@ table#recent_uploads_table td
 {
 	text-decoration: underline;
 	cursor: pointer;
+}
+
+#recent_uploads_wrapper .dataTables_scrolling {
+	bottom: 40px;
+	position: absolute;
+	top: 71px;
+	width: 100%;
+}
+
+#recent_uploads {
+	position: relative;
+	height: 100%;
 }

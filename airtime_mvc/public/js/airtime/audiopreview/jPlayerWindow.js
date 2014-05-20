@@ -111,6 +111,7 @@ var AIRTIME = (function(AIRTIME) {
     	
     	$("#open_playlist").click(function() {
     	    $(".jp-playlist").toggleClass("open");
+    	    $(".wrapper").toggleClass("smaller_box");
     	    $(this).toggleClass("selected");
     	});
 

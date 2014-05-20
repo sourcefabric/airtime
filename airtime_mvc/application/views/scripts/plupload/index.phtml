@@ -1,29 +1,35 @@
-<?php if ($this->quotaLimitReached) { ?>
+<?php if ($this->quotaLimitReached): ?>
+	<?php 
+		$pluploadClass = "hidden"; 
+		$uploadTableClass = "full_width";
+	?>
     <div class="errors quota-reached">
     Disk quota exceeded. You cannot upload files until you <a href="http://www.sourcefabric.org/en/airtime" target="_blank">upgrade your storage</a>.
     </div>
-<?php 
-}
-?>
-<form id="plupload_form" <?php if ($this->quotaLimitReached) { ?> class="hidden" <?php } ?>>
-	<div id="plupload_files"></div>	
-</form>
-<div id="plupload_error">
-	<table></table>
-</div>
+<?php else: ?>
+	<?php 
+		$pluploadClass = "half_width_left"; 
+		$uploadTableClass = "half_width_right";
+	?>
+<?php endif; ?>
 
-<div id="recent_uploads_wrapper" class="lib-content ui-widget ui-widget-content block-shadow alpha-block">
-    <div id="recent_uploads" class="padded">
-    
-            <div id="recent_uploads_filter">
+<form id="plupload_form" class= "<?php echo $pluploadClass ?>">
+	<div id="plupload_files"></div>
+	<div id="plupload_error">
+		<table></table>
+	</div>
+</form>
+
+<div id="recent_uploads_wrapper" class="lib-content ui-widget ui-widget-content block-shadow alpha-block padded <?php echo $uploadTableClass ?>">
+    <div id="recent_uploads">
+        <div id="recent_uploads_filter">
             <form>
                 <input type="radio" name="upload_status" id="upload_status_all" checked></input><label for="upload_status_all"><?php echo _("All")?></label>
                 <input type="radio" name="upload_status" id="upload_status_failed"></input><label for="upload_status_failed"><?php echo _("Failed")?></label>
                 <input type="radio" name="upload_status" id="upload_status_pending"></input><label for="upload_status_pending"><?php echo _("Pending")?></label>
             </form>        
         </div>
-        <H2><?php echo _("Recent Uploads")?></H2>
-        <table id="recent_uploads_table" class="lib-content ui-widget ui-widget-content block-shadow alpha-block "></table>
+        <h2><?php echo _("Recent Uploads")?></h2>
+        <table id="recent_uploads_table" class="datatable"></table>
     </div>
-    <div style="clear: both;"></div>
 </div>

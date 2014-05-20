@@ -1,14 +1,5 @@
 #history_template {
-	width: auto;
-	max-width: 460px;
-	position: absolute;
-	overflow-x: hidden;
-	overflow-y: auto;
-	top: 150px;
-	right: 20px;
-	bottom: 90px;
-	left: 20px;
-	margin: 0px;
+	max-width: 480px;
 }
 
 #history_template h4, #configure_item_template h4 { font-size: 14px; margin-top: 0px; }
@@ -159,16 +150,7 @@
 }
 
 #configure_item_template {
-	max-width: 610px;
-	width: auto;
-	position: absolute;
-	overflow-x: hidden;
-	overflow-y: auto;
-	top: 150px;
-	right: 20px;
-	bottom: 90px;
-	left: 20px;
-	margin: 0px;
+	max-width: 630px;
 }
 
 .add_more {

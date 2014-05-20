@@ -36,31 +36,6 @@
     background-color: rgba(255, 136, 56, 1);
 }
 
-#library_content {
-	position: absolute;
-	top: 160px;
-	bottom: 90px;
-	left: 1%;
-	width: 48.5%;
-	margin: 0px;
-	overflow: hidden;
-	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
-	box-sizing: border-box;         /* Opera/IE 8+ */
-}
-
-#show_builder {
-	position: absolute;
-	top: 160px;
-	bottom: 90px;
-	right: 1%;
-	width: 48.5%;
-	margin: 0px;
-	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
-	box-sizing: border-box;         /* Opera/IE 8+ */
-}
-
 #show_builder.sb-content .dataTables_scrolling {
 	overflow: auto;
 	position: absolute;
@@ -272,3 +247,11 @@ td.library_bitrate {
 	outline: none;
 	vertical-align: middle !important;
 	}
+
+#lib_webstream #lib_new_webstream {
+	margin-bottom: 10px;
+}
+
+#lib_webstream .dataTables_scrolling {
+	top: 189px !important;
+}

@@ -191,11 +191,7 @@ li.plupload_droptext {
 }
 
 #plupload_form {
-	position: absolute;
-	top: 150px;
-	right: 20px;
-	bottom: 90px;
-	left: 20px;
+
 }
 
 #plupload_form #plupload_files {

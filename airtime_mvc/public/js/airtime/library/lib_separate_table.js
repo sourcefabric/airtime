@@ -337,7 +337,7 @@ var AIRTIME = (function(AIRTIME) {
 			"iDisplayLength": 25,
 			"sPaginationType": "full_numbers",
 			"bJQueryUI": true,
-			"bAutoWidth": true,
+			"bAutoWidth": false,
 			
 			"sDom": 'Rlf<"dt-process-rel"r><"H"<"library_toolbar"C>><"dataTables_scrolling"t><"fg-toolbar ui-widget-header ui-corner-bl ui-corner-br ui-helper-clearfix bottom_pagination"ip>',
 			
@@ -791,6 +791,7 @@ var AIRTIME = (function(AIRTIME) {
     		var $fs = $(this).parents("fieldset");
     		 
     		$fs.toggleClass("closed");
+    		$(".half_width_left").toggleClass("open_fields");
     	});
     	
     	$library.on("click", "#lib_new_webstream", function(e) {

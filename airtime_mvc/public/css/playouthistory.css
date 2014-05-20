@@ -1,12 +1,6 @@
 @CHARSET "UTF-8";
 
 #history_content {
-    position: absolute;
-    top: 160px;
-    bottom: 90px;
-    left: 20px;
-    right: 20px;
-    margin: 0px;
     overflow: hidden;
 }
 

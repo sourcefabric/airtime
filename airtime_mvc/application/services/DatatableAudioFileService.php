@@ -102,7 +102,7 @@ class Application_Service_DatatableAudioFileService extends Application_Service_
 			"BitRate" => array(
 				"isColumn" => true,
 				"title" => _("Bit Rate"),
-				"width" => "80px",
+				"width" => "90px",
 				"class" => "library_bitrate",
 				"visible" => false,
 				"advancedSearch" => array(
@@ -112,7 +112,7 @@ class Application_Service_DatatableAudioFileService extends Application_Service_
 			"Bpm" => array(
 				"isColumn" => true,
 				"title" => _("BPM"),
-				"width" => "50px",
+				"width" => "60px",
 				"class" => "library_bpm",
 				"visible" => false,
 				"advancedSearch" => array(
@@ -224,7 +224,7 @@ class Application_Service_DatatableAudioFileService extends Application_Service_
 			"UpdatedAt" => array(
 				"isColumn" => true,
 				"title" => _("Last Modified"),
-				"width" => "125px",
+				"width" => "155px",
 				"class" => "library_modified_time",
 				"visible" => false,
 				"advancedSearch" => array(
@@ -234,7 +234,7 @@ class Application_Service_DatatableAudioFileService extends Application_Service_
 			"LastPlayedTime" => array(
 				"isColumn" => true,
 				"title" => _("Last Played"),
-				"width" => "125px",
+				"width" => "155px",
 				"class" => "library_modified_time",
 				"visible" => false,
 				"advancedSearch" => array(
@@ -314,7 +314,7 @@ class Application_Service_DatatableAudioFileService extends Application_Service_
 			"CreatedAt" => array(
 				"isColumn" => true,
 				"title" => _("Uploaded"),
-				"width" => "125px",
+				"width" => "155px",
 				"class" => "library_upload_time",
 				"visible" => false,
 				"advancedSearch" => array(

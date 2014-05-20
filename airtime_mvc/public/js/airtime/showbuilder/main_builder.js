@@ -182,9 +182,11 @@ AIRTIME = (function(AIRTIME) {
             if ($fs.hasClass("closed")) {
 
                 $fs.removeClass("closed");
+                $(".sb-content").addClass("open_fields");
             } 
             else {
                 $fs.addClass("closed");
+                $(".sb-content").removeClass("open_fields");
 
                 // set defaults for the options.
                 $fs.find('select').val(0);
