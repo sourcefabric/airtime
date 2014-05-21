@@ -564,7 +564,7 @@ abstract class Playlist extends BasePlaylist implements \Interface_Playlistable
     } // setRules()
 
     //takes seconds, returns in interval format.
-    private function formatLimitValue($secs) {
+    protected function formatLimitValue($secs) {
 
     	$hour = floor($secs / 3600);
 
