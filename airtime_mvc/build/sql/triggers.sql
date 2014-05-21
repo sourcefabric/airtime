@@ -63,3 +63,36 @@ DROP TRIGGER media_cycle_check ON media_content;
 CREATE TRIGGER media_cycle_check BEFORE INSERT ON media_content
     FOR EACH ROW EXECUTE PROCEDURE media_cycle_check();
 
+
+
+CREATE OR REPLACE FUNCTION update_playlist_length() RETURNS trigger AS $update_playlist_length$
+    
+    DECLARE r RECORD;
+    DECLARE playlist_length interval;
+
+    BEGIN
+
+    FOR r IN SELECT * from media_content where media_id = NEW.id LOOP
+ 
+        --set the new length for this media item in the contents table
+        UPDATE media_content SET cliplength = NEW.length, cueout = NEW.length WHERE id = r.id;
+
+        SELECT into playlist_length SUM(cliplength) - SUM(trackoffset) FROM media_content WHERE playlist_id = r.playlist_id;
+
+        --update the length of the parent playlist
+        UPDATE media_item SET length = playlist_length WHERE id = r.playlist_id;
+        --this will cause the trigger to bubble up the parent playlists.
+        UPDATE media_playlist SET length = playlist_length WHERE id = r.playlist_id;
+          
+    END LOOP;
+
+
+	RETURN NEW;
+    END;
+$update_playlist_length$ LANGUAGE plpgsql;
+
+DROP TRIGGER update_playlist_length ON media_content;
+
+CREATE TRIGGER update_playlist_length AFTER UPDATE ON media_playlist
+    FOR EACH ROW EXECUTE PROCEDURE update_playlist_length();
+
