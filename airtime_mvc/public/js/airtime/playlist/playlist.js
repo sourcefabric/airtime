@@ -535,6 +535,13 @@ var AIRTIME = (function(AIRTIME){
 	}
 	
 	mod.redrawPlaylist = function redrawPlaylist(data) {
+		
+		if (data.error) {
+			$(".playlist-temp-holder").remove();
+			alert(data.error);
+			return;
+		}
+		
 		var $wrapper = $("div.wrapper"),
 			$playlist = $("#side_playlist"),
 			$newContent = $(data.html),

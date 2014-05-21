@@ -59,7 +59,7 @@ var AIRTIME = (function(AIRTIME) {
                 container = $('<div class="helper"/>')
                 	.append("<li/>")
                 	.find("li")
-                		.addClass("ui-state-default")
+                		.addClass("ui-state-default playlist-temp-holder")
                 		.append("<div/>")
                         .find("div")
                         	.addClass("list-item-container")
