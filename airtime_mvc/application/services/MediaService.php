@@ -90,6 +90,14 @@ class Application_Service_MediaService
         else {
         	$script .= "localStorage.setItem( 'datatables-playlist', null ); ";
         }
+        
+        $tabId = Application_Model_Preference::GetActiveLibraryTab();
+        if (!is_null($tabId)) {
+        	$script .= "localStorage.setItem( 'library-active-tab', '$tabId' ); ";
+        }
+        else {
+        	$script .= "localStorage.setItem( 'library-active-tab', null ); ";
+        }
 
 		return $script;
 	}

@@ -31,18 +31,18 @@
 	<input id="playlist_id" type="hidden" value="<?php echo $this->obj->getId(); ?>"></input>
 	<input id="playlist_lastmod" type="hidden" value="<?php echo $this->obj->getLastModifiedEpoch(); ?>"></input>
 
-	<fieldset class="toggle">
+	<fieldset class="toggle <?php if ($this->obj->hasContent()) { echo "closed";} ?>">
 		<legend style="cursor: pointer;">
 			<span class="ui-icon ui-icon-triangle-2-n-s"></span>
 			<?php echo _("Options") ?>
 		</legend>
 		<?php echo $this->obj->getRules(); ?>
 
-		<div class='btn-group pull-right'>
+		<div class='btn-group pull-left'>
 	        <button id="spl_rules_save" class="btn btn-small" role="button" aria-disabled="false"><?php echo _("Save") ?></button>
 	    </div>
 		<?php if ($this->obj->hasContent()):?>
-	    <div class='btn-group pull-right'>
+	    <div class='btn-group pull-left'>
 	        <button class="btn btn-small" title='<?php echo _("Generate") ?>' type="button" id="spl_generate"><?php echo _("Generate") ?></button>
 	    </div>
 	    <?php endif; ?>

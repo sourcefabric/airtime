@@ -1376,6 +1376,14 @@ class Application_Model_Preference
         $data = self::getValue("library_screen", true);
         return ($data != "") ? unserialize($data) : null;
     }
+    
+    public static function SetActiveLibraryTab($value) {
+    	self::setValue("active_library_tab", $value, true);
+    }
+    
+    public static function GetActiveLibraryTab() {
+    	return self::getValue("active_library_tab", true);
+    }
 
     public static function SetEnableReplayGain($value) {
         self::setValue("enable_replay_gain", $value, false);

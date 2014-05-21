@@ -727,6 +727,9 @@ var AIRTIME = (function(AIRTIME) {
     mod.onReady = function () {
     	
     	$library = $("#library_content");
+    	
+    	var selectedTabId = localStorage.getItem("library-active-tab");
+    	var selected = $("#lib_tabs > div").index($("#"+selectedTabId));
 
     	var tabsInit = {
     		"lib_audio": {
@@ -771,6 +774,7 @@ var AIRTIME = (function(AIRTIME) {
     	};
 
     	$("#lib_tabs").tabs({
+    		selected: selected,
     		show: function( event, ui ) {
     			var tab = tabsInit[ui.panel.id];
     			
@@ -791,7 +795,10 @@ var AIRTIME = (function(AIRTIME) {
     			tab.always();
 			},
 			select: function( event, ui ) {
-				var x;
+				var tabId = $(ui.panel).attr("id");
+				var url = baseUrl + "usersettings/set-active-library-tab";
+				
+				$.post(url, {format: "json", tabId: tabId});
 			}
     	});
     	

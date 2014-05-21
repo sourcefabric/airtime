@@ -20,6 +20,7 @@ class UsersettingsController extends Zend_Controller_Action
                     ->addActionContext('remindme-never', 'json')
                     ->addActionContext('donotshowregistrationpopup', 'json')
                     ->addActionContext('set-library-screen-settings', 'json')
+                    ->addActionContext('set-active-library-tab', 'json')
                     ->initContext();
     }
 
@@ -88,17 +89,18 @@ class UsersettingsController extends Zend_Controller_Action
 
     public function getTimelineDatatableAction()
     {
-        $start = microtime(true);
-
         $data = Application_Model_Preference::getTimelineDatatableSetting();
         if (!is_null($data)) {
             $this->view->settings = $data;
         }
-
-        $end = microtime(true);
-
-        Logging::debug("getting timeline datatables info took:");
-        Logging::debug(floatval($end) - floatval($start));
+    }
+    
+    public function setActiveLibraryTabAction()
+    {
+    	$request = $this->getRequest();
+    	$tabId = $request->getParam("tabId");
+    	
+    	Application_Model_Preference::SetActiveLibraryTab($tabId);
     }
 
     public function remindmeAction()
