@@ -135,4 +135,32 @@
         <?php endif; ?>
     	<?php endforeach; ?>
     </dd>
+    
+    <?php
+    	$optionsChoice = $options->getValue();
+    
+    	$estimateValue = $this->element->getElement('pl_estimate_limit_value');
+    	$estimateOptions = $this->element->getElement('pl_estimate_limit_options');
+
+    	$checkErrors = array($estimateValue, $estimateOptions);
+    ?>
+    
+    <?php if (isset($estimateValue) && $optionsChoice == "items"): ?>
+    <dd id='estimate_limit' class="criteria-element">
+    	
+    	<span class='sp_text_font'><?php echo $estimateValue->getLabel() ?></span>
+        <?php echo $estimateValue ?>
+        <?php echo  $estimateOptions ?>
+
+        <?php foreach($checkErrors as $field): ?>
+    	<?php if (isset($field) && $field->hasErrors()) : ?>
+            <?php foreach($field->getMessages() as $error): ?>
+            <span class='errors sp-errors'>
+                <?php echo $error; ?>
+            </span>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    	<?php endforeach; ?>
+    </dd>
+    <?php endif; ?>
 </dl>

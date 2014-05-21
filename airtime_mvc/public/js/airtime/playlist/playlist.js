@@ -893,6 +893,7 @@ var AIRTIME = (function(AIRTIME){
 					$(".search-criteria").replaceWith(json.form);
 					addDatePickers();
 				}
+				$playlist.triggerHandler("playlistupdate");
 			});
 		});
 		

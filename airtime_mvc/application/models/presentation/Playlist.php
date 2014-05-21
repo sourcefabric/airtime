@@ -56,6 +56,10 @@ class Presentation_Playlist {
 	public function getRules() {
 		
 		$form = new Application_Form_PlaylistRules();
+		
+		if (!$this->playlist->isStatic()) {
+			$form->addEstimatedLimit();
+		}
 
 		$rules = $this->playlist->getRules();
 		

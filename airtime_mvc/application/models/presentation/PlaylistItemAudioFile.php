@@ -12,7 +12,7 @@ class Presentation_PlaylistItemAudioFile extends Presentation_PlaylistItem
 	}
 	
 	public function canPreview() {
-		return $this->item->isSchedulable();
+		return true;
 	}
 	
 	public function getTitle() {

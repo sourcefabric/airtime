@@ -222,7 +222,7 @@ class Application_Form_PlaylistRules extends Zend_Form
     			new Zend_Validate_Between(array('min' => 1, 'max' => PHP_INT_MAX))
 	    	));
     	$this->addElement($limitValue);
-
+    	
     	$orderby = new Zend_Form_Element_Select('pl_order_column');
     	$orderby
 	    	->setAttrib('class', 'sp_input_select')
@@ -454,5 +454,31 @@ class Application_Form_PlaylistRules extends Zend_Form
     public function getPopulateHelp()
     {
     	return $this->_populateHelp;
+    }
+    
+    public function addEstimatedLimit()
+    {
+    	$estimateOptions = $this->getLimitOptions();
+    	unset($estimateOptions["items"]);
+    	 
+    	$estimateLimit = new Zend_Form_Element_Select('pl_estimate_limit_options');
+    	$estimateLimit
+	    	->setAttrib('class', 'sp_input_select')
+	    	->setDecorators(array('ViewHelper'))
+	    	->setMultiOptions($estimateOptions);
+    	$this->addElement($estimateLimit);
+    	 
+    	$estimateLimitValue = new Zend_Form_Element_Text('pl_estimate_limit_value');
+    	$estimateLimitValue
+	    	->setAttrib('class', 'sp_input_text_limit')
+	    	->setLabel(_('Estimated Time of Items'))
+	    	->setRequired(true)
+	    	->setDecorators(array('ViewHelper'))
+	    	->setValidators(array(
+	    			new Zend_Validate_NotEmpty(),
+	    			new Zend_Validate_Int(),
+	    			new Zend_Validate_Between(array('min' => 1, 'max' => PHP_INT_MAX))
+	    	));
+    	$this->addElement($estimateLimitValue);
     }
 }

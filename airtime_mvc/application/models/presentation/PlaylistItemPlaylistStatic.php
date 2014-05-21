@@ -11,7 +11,7 @@ class Presentation_PlaylistItemPlaylistStatic extends Presentation_PlaylistItem
 	}
 
 	public function canPreview() {
-		return true;
+		return false;
 	}
 
 	public function getTitle() {
