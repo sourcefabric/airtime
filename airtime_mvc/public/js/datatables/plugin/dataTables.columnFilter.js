@@ -36,7 +36,7 @@
         var fnOnFiltered = function () { };
         
         var oTable = this;
-
+        
         var defaults = {
             sPlaceHolder: "foot",
             sRangeSeparator: "~",
@@ -48,10 +48,20 @@
         };
 
         var properties = $.extend(defaults, options);
+        
+        //using the plugin ColReorder here instead makes it go crazy.
+        function getOrderMap() {
+        	var columns = oTable.fnSettings().aoColumns;
+        	
+        	var order = $.map(columns, function(val, i) {
+        		return columns[i]._ColReorder_iOrigCol;
+        	});
+        	
+        	return order;
+        }
 
         function _fnColumnIndex(iColumnIndex) {
-        	var colOrder = new $.fn.dataTable.ColReorder(oTable);
-        	var order = colOrder.fnOrder();
+        	var order = getOrderMap();
         	var index = order.indexOf(iColumnIndex);
         	
         	//iColumnIndex is the original column index.

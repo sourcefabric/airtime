@@ -550,6 +550,8 @@ var AIRTIME = (function(AIRTIME){
 		checkPlayability($contents);
 		
 		$wrapper.append($playlist);
+		
+		$playlist.triggerHandler("playlistupdate");
 	};
 	
 	mod.drawPlaylist = function drawPlaylist(data) {
@@ -790,7 +792,7 @@ var AIRTIME = (function(AIRTIME){
     		
     		$.post(url, data, function(json) {
     			AIRTIME.playlist.drawPlaylist(json);
-    			$playlist.triggerHandler("playlistnewstatic");
+    			$playlist.triggerHandler("playlistnew", ["static"]);
     		});
     	});
 		
@@ -800,6 +802,7 @@ var AIRTIME = (function(AIRTIME){
     		
     		$.post(url, data, function(json) {
     			AIRTIME.playlist.drawPlaylist(json);
+    			$playlist.triggerHandler("playlistnew", ["dynamic"]);
     		});
     	});
 		

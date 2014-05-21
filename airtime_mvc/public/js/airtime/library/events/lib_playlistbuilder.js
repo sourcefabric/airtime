@@ -141,18 +141,31 @@ var AIRTIME = (function(AIRTIME) {
     	
     	AIRTIME.playlist.edit(mediaId);
     };
-     
-    mod.initCustomEvents = function() {
-    	var $playlist = $("#side_playlist");
-
-    	$playlist.on("playlistnewstatic", function() {
-    		//set up library draggables if they don't already exist.
-    		var $draggables = mod.findLibraryDraggables();
+    
+    function updatePlaylistTable(event, type) {
+		
+		//set up library draggables if they don't already exist.
+		var tab = mod.getActiveTabId();
+		var table = mod.getActiveDatatable();
+		
+		if (tab = "lib_playlist") {
+			table.fnDraw();
+		}
+		else if (type === "static") {
+			var $draggables = mod.findLibraryDraggables();
     		
     		if ($draggables.length === 0) {
     			mod.createDraggable();
     		}
-    	});
+		}
+	}
+     
+    mod.initCustomEvents = function() {
+    	var $playlist = $("#side_playlist");
+
+    	$playlist.on("playlistnew", updatePlaylistTable);
+    	
+    	$playlist.on("playlistupdate", updatePlaylistTable);
     	
     	$playlist.on("playlistdelete", function() {
     		mod.destroyLibraryDraggables();

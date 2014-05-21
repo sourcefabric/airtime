@@ -240,6 +240,10 @@ var AIRTIME = (function(AIRTIME) {
     		return false;
     	}
     	
+    	settings["abVisCols"] = oData.abVisCols;
+		settings["ColReorder"] = oData.ColReorder;
+		settings["aaSorting"] = oData.aaSorting;
+    	
     	return true;
     }
     	
@@ -280,6 +284,8 @@ var AIRTIME = (function(AIRTIME) {
             "fnStateSave": function (oSettings, oData) {
             	
             	if (libraryNeedSave(oData)) {
+            		console.log("checking saving table state.");
+            		
             		localStorage.setItem('datatables-'+ config.type, JSON.stringify(oData));
                     
                     $.ajax({
@@ -469,6 +475,8 @@ var AIRTIME = (function(AIRTIME) {
 
     	return getActiveTable().dataTable();
     }
+    
+    mod.getActiveDatatable =  getActiveDatatable;
     
     //returns everything chosen from the current tab
     function getChosen() {
