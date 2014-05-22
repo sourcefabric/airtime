@@ -222,7 +222,9 @@ class PlaylistController extends Zend_Controller_Action
     			"pl_order_column" => $rules[Playlist::RULE_ORDER][Playlist::RULE_ORDER_COLUMN],
     			"pl_order_direction" => $rules[Playlist::RULE_ORDER][Playlist::RULE_ORDER_DIRECTION],
     			"pl_limit_value" => $rules["limit"]["value"],
-    			"pl_limit_options" => $rules["limit"]["unit"]
+    			"pl_limit_options" => $rules["limit"]["unit"],
+    			"pl_estimate_limit_value" => $rules["estimatedLimit"]["value"],
+    			"pl_estimate_limit_options" => $rules["estimatedLimit"]["unit"],
     		);
 
     		$data = array_merge($criteriaFields, $playlistRules);

@@ -456,6 +456,14 @@ var AIRTIME = (function(AIRTIME){
 			}
 		};
 		
+		//extra fields for dynamic playlists.
+		if ($("#spl_sortable").length === 0) {
+			rules["estimatedLimit"] = {
+				"value": $("#pl_estimate_limit_value").val(),
+				"unit":  $("#pl_estimate_limit_options").val()
+			};
+		}
+		
 		return rules;
 	}
 	

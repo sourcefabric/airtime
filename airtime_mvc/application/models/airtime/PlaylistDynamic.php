@@ -43,6 +43,12 @@ class PlaylistDynamic extends Playlist {
     	$limitValue = $v["limit"]["value"];
     	$limitUnit = $v["limit"]["unit"];
     	
+    	//save the estimated length incase of an items rule.
+    	if ($limitUnit == "items") {
+    		$limitValue = $v["estimatedLimit"]["value"];
+    		$limitUnit = $v["estimatedLimit"]["unit"];
+    	}
+    	
     	switch($limitUnit) {
     	
     		case "minutes":
@@ -60,7 +66,7 @@ class PlaylistDynamic extends Playlist {
     			}
     			break;
     		default:
-    			$duration = "5:00";
+    			throw new PropelException("Dynamic playlist is not setting length properly.");
     	}
     	
     	\Logging::info("Setting playlist length to $duration");

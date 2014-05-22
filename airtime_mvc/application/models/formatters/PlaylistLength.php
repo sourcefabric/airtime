@@ -14,17 +14,16 @@ class Format_PlaylistLength
 	
 	public function getLength()
 	{
+		$formatter = new Format_HHMMSSULength($this->_playlist->getLength());
+		$length = $formatter->format();
+		
 		if ($this->_playlist->isStatic()) {
-			$formatter = new Format_HHMMSSULength($this->_playlist->getLength());
-			return $formatter->format();
+			
+			return $length;
 		}
 		else {
-			$rules = $this->_playlist->getRules();
-			$value = $rules["limit"]["value"];
-			$unit = $rules["limit"]["unit"];
-			$unit = _($unit);
-				
-			return "~ {$value} {$unit}";
+			
+			return "~ {$length}";
 		}
 	}
 }
