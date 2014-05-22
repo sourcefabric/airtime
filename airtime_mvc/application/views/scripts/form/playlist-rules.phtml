@@ -151,6 +151,7 @@
     	$showEstimate = false;
     } ?>
     
+    <?php if (isset($estimateValue)): ?>
     <dd id='estimate_limit' class="criteria-element" <?php if (!$showEstimate) { echo 'style="display:none"'; } ?>>
     	
     	<span class='sp_text_font'><?php echo $estimateValue->getLabel() ?></span>
@@ -167,4 +168,5 @@
         <?php endif; ?>
     	<?php endforeach; ?>
     </dd>
+    <?php endif; ?>
 </dl>

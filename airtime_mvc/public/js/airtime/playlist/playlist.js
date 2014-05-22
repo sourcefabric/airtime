@@ -934,6 +934,7 @@ var AIRTIME = (function(AIRTIME){
 
 		});
 		
+		//toggle visibility of playlist estimate
 		$playlist.on("change", "#pl_limit_options", function(e) {
 			var $estimate = $("#estimate_limit");
 			
