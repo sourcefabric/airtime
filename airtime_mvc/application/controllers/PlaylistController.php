@@ -199,6 +199,15 @@ class PlaylistController extends Zend_Controller_Action
     		$playlist = $this->getPlaylist();
 
     		$form = new Application_Form_PlaylistRules();
+    		
+    		//add time estimated field for dynamic playlist with 'X items'
+    		if (!$playlist->isStatic()) {
+    			$form->addEstimatedLimit();
+    			
+    			if ($rules["limit"]["unit"] == "items") {
+    				$form->requireEstimatedTime();
+    			}
+    		}
 
     		if (isset($rules["criteria"])) {
     			$form->buildCriteriaOptions($rules["criteria"]);

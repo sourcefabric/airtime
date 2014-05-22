@@ -933,6 +933,23 @@ var AIRTIME = (function(AIRTIME){
 		$playlist.on("click", "#lib_pl_close", function(e) {
 
 		});
+		
+		$playlist.on("change", "#pl_limit_options", function(e) {
+			var $estimate = $("#estimate_limit");
+			
+			if ($estimate.length === 0) {
+				return;
+			}
+			
+			var optionValue = $(this).val();
+			
+			if (optionValue === "items") {
+				$estimate.show();
+			}
+			else {
+				$estimate.hide();
+			}
+		});
 	};
 	
 return AIRTIME;

@@ -5,6 +5,7 @@ class Application_Form_PlaylistRules extends Zend_Form
 	private $_suffixes;
 	private $_populateHelp;
 	private $_validateMode = false;
+	private $_hasTimeEstimate = false;
 	/* We need to know if the criteria value will be a string
 	 * or numeric value in order to populate the modifier
 	* select list
@@ -458,6 +459,8 @@ class Application_Form_PlaylistRules extends Zend_Form
     
     public function addEstimatedLimit()
     {
+    	$this->_hasTimeEstimate = true;
+    	
     	$estimateOptions = $this->getLimitOptions();
     	unset($estimateOptions["items"]);
     	 
@@ -472,13 +475,45 @@ class Application_Form_PlaylistRules extends Zend_Form
     	$estimateLimitValue
 	    	->setAttrib('class', 'sp_input_text_limit')
 	    	->setLabel(_('Estimated Time of Items'))
-	    	->setRequired(true)
 	    	->setDecorators(array('ViewHelper'))
 	    	->setValidators(array(
-	    			new Zend_Validate_NotEmpty(),
-	    			new Zend_Validate_Int(),
-	    			new Zend_Validate_Between(array('min' => 1, 'max' => PHP_INT_MAX))
+    			new Zend_Validate_NotEmpty(),
+    			new Zend_Validate_Int(),
+    			new Zend_Validate_Between(array('min' => 1, 'max' => PHP_INT_MAX))
 	    	));
     	$this->addElement($estimateLimitValue);
     }
+    
+    public function requireEstimatedTime()
+    {
+    	$estimateLimit = $this->getElement('pl_estimate_limit_options');
+    	$estimateLimit->setRequired(true);
+    	
+    	$estimateLimitValue = $this->getElement('pl_estimate_limit_value');
+    	$estimateLimitValue->setRequired(true);
+    }
+    
+    /*
+    public function isValid($fields) {
+    	
+    	$valid = parent::isValid($fields);
+    	
+    	if (!$valid) {
+    		return false;
+    	}
+    	
+    	//have to validate if the estimated field is required.
+    	if ($this->_hasTimeEstimate) {
+    		
+    		$limitOptions = $this->getElement("pl_limit_options")->getValue();
+    		
+    		//need to make sure estimated time is provided.
+    		if ($limitOptions == "items") {
+    			
+    		}
+    	}
+    	
+    	
+    }
+    */
 }

@@ -145,8 +145,13 @@
     	$checkErrors = array($estimateValue, $estimateOptions);
     ?>
     
-    <?php if (isset($estimateValue) && $optionsChoice == "items"): ?>
-    <dd id='estimate_limit' class="criteria-element">
+    <?php if (isset($estimateValue) && $optionsChoice == "items") {
+    	$showEstimate = true;
+    } else {
+    	$showEstimate = false;
+    } ?>
+    
+    <dd id='estimate_limit' class="criteria-element" <?php if (!$showEstimate) { echo 'style="display:none"'; } ?>>
     	
     	<span class='sp_text_font'><?php echo $estimateValue->getLabel() ?></span>
         <?php echo $estimateValue ?>
@@ -162,5 +167,4 @@
         <?php endif; ?>
     	<?php endforeach; ?>
     </dd>
-    <?php endif; ?>
 </dl>
