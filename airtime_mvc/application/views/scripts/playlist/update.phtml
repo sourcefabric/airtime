@@ -8,15 +8,6 @@ if (count($items)) : ?>
     	data-media-id="<?php echo $p->getMediaId(); ?>"
         data-mime-type="<?php echo $p->getMime(); ?>"
     >
-    	<?php if ($p->canEditFades()): ?>
-        <div class="crossfade clearfix" style="display: none">
-            <?php echo $this->partial('playlist/set-fade-in.phtml', array(
-            	'id' => $p->getId(),
-                'fadeIn' => $p->getFadeIn(),
-            ));
-            ?>
-        </div>
-        <?php endif; ?>
         <div class="list-item-container">
             <?php if ($p->canPreview()):?>
             <div class="big_play">
@@ -41,7 +32,6 @@ if (count($items)) : ?>
                 <span class="spl_artist"><?php echo $p->getCreator(); ?></span>
                 <span class="spl_offset"><?php echo $p->getOffset(); ?></span>
             </div>
-            <div id="fade_0" class="spl_fade_control ui-state-default"></div>
             <span class="ui-icon ui-icon-closethick"></span>
         </div>
         <?php if ($p->canEditCues()): ?>
@@ -60,11 +50,19 @@ if (count($items)) : ?>
         <?php endif; ?>
         <?php if ($p->canEditFades()): ?>
         <div class="crossfade clearfix" style="display: none">
+        	<dl id="spl_editor" class="inline-list">
+            <?php echo $this->partial('playlist/set-fade-in.phtml', array(
+            	'id' => $p->getId(),
+                'fadeIn' => $p->getFadeIn(),
+            ));
+            ?>
+
             <?php echo $this->partial('playlist/set-fade-out.phtml', array(
             	'id' => $p->getId(),
                 'fadeOut' => $p->getFadeOut(),
             ));
             ?>
+            </dl>
         </div>
         <?php endif; ?>
     </li>
