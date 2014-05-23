@@ -21,10 +21,7 @@ if (count($items)) : ?>
             <div class="text-row top">
                 <span class="spl_playlength"><?php echo $p->getCliplength(); ?></span>
                 <?php if ($p->canEditCues()):?>
-                <span class="spl_cue ui-state-default"></span>
-                <?php endif; ?>
-                <?php if ($p->canEditFades()):?>
-                <span class="spl_fade spl_cue ui-state-default">fade</span>
+                <span class="spl_fade spl_cue ui-state-default"></span>
                 <?php endif; ?>
                 <span class="spl_title"><?php echo $p->getTitle(); ?></span>
             </div>
@@ -49,21 +46,12 @@ if (count($items)) : ?>
         </div>
         <?php endif; ?>
         <?php if ($p->canEditFades()): ?>
-        <div class="crossfade clearfix" style="display: none">
-        	<dl id="spl_editor" class="inline-list">
-            <?php echo $this->partial('playlist/set-fade-in.phtml', array(
+            <?php echo $this->partial('playlist/set-fade.phtml', array(
             	'id' => $p->getId(),
                 'fadeIn' => $p->getFadeIn(),
-            ));
-            ?>
-
-            <?php echo $this->partial('playlist/set-fade-out.phtml', array(
-            	'id' => $p->getId(),
                 'fadeOut' => $p->getFadeOut(),
             ));
             ?>
-            </dl>
-        </div>
         <?php endif; ?>
     </li>
 <?php endforeach; ?>
