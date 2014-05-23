@@ -54,34 +54,12 @@ class Presentation_Playlist {
 	}
 	
 	public function getRules() {
-		
-		$form = new Application_Form_PlaylistRules();
-		
-		if (!$this->playlist->isStatic()) {
-			$form->addEstimatedLimit();
-		}
 
 		$rules = $this->playlist->getRules();
 		
-		if (isset($rules[Playlist::RULE_CRITERIA])) {
-			$form->buildCriteriaOptions($rules[Playlist::RULE_CRITERIA]);
-		}
-		
-		$criteriaFields = $form->getPopulateHelp();
-		
-		$playlistRules = array(
-			"pl_repeat_tracks" => $rules[Playlist::RULE_REPEAT_TRACKS],
-			"pl_my_tracks" => $rules[Playlist::RULE_USERS_TRACKS_ONLY],
-			"pl_order_column" => $rules[Playlist::RULE_ORDER][Playlist::RULE_ORDER_COLUMN],
-			"pl_order_direction" => $rules[Playlist::RULE_ORDER][Playlist::RULE_ORDER_DIRECTION],
-			"pl_limit_value" => $rules["limit"]["value"],
-			"pl_limit_options" => $rules["limit"]["unit"],
-			"pl_estimate_limit_value" => $rules["estimatedLimit"]["value"],
-			"pl_estimate_limit_options" => $rules["estimatedLimit"]["unit"],
-		);
-		
-		$data = array_merge($criteriaFields, $playlistRules);
-		
+		$form = new Application_Form_PlaylistRules();
+		$data = $form->buildForm($this->playlist, $rules);
+
 		$form->populate($data);
 		
 		return $form;

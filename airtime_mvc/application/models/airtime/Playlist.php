@@ -510,17 +510,26 @@ abstract class Playlist extends BasePlaylist implements \Interface_Playlistable
 			$this->setCreator($user->getDbLogin());
 
 			$defaultRules = array(
+				self::RULE_TIMEZONE => \Application_Model_Preference::GetUserTimezone(),
 				self::RULE_REPEAT_TRACKS => true,
 				self::RULE_USERS_TRACKS_ONLY => false,
-				"order" => array(
-					"column" => "",
-					"direction" => "acs"
+				self::RULE_ORDER => array(
+					self::RULE_ORDER_COLUMN => "",
+					self::RULE_ORDER_DIRECTION => "acs"
 				),
 				"limit" => array(
 					"value" => 1,
 					"unit" => "hours"
-				)
+				),
 			);
+			
+			//extra rules for dynamic playlists
+			if (!$this->isStatic()) {
+				$defaultRules["estimatedLimit"] = array(
+					"value" => 1,
+					"unit" => "hours"
+				);
+			}
 
 			$this->setRules($defaultRules);
 

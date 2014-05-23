@@ -1,5 +1,7 @@
 <?php
 
+use Airtime\MediaItem\Playlist;
+
 class Application_Form_PlaylistRules extends Zend_Form
 {
 	private $_suffixes;
@@ -182,13 +184,9 @@ class Application_Form_PlaylistRules extends Zend_Form
     		))
     	));
 
-    	$currentUser = Application_Model_User::getCurrentUser();
-    	$currentUserId = $currentUser->getId();
-
     	$timezone = new Zend_Form_Element_Select("pl_timezone");
     	$timezone->setLabel(_("Playlist Timezone:"));
     	$timezone->setMultiOptions(Application_Common_Timezone::getTimezones());
-    	$timezone->setValue(Application_Model_Preference::GetUserTimezone($currentUserId));
     	$timezone->setDecorators(array('ViewHelper'));
     	$this->addElement($timezone);
 
@@ -436,7 +434,7 @@ class Application_Form_PlaylistRules extends Zend_Form
     	return $suffix;
     }
 
-    public function buildCriteriaOptions($criteria = null)
+    private function buildCriteriaOptions($criteria = null)
     {
     	Logging::info($criteria);
 
@@ -452,12 +450,12 @@ class Application_Form_PlaylistRules extends Zend_Form
     	}
     }
 
-    public function getPopulateHelp()
+    private function getPopulateHelp()
     {
     	return $this->_populateHelp;
     }
     
-    public function addEstimatedLimit()
+    private function addEstimatedLimit()
     {
     	$this->_hasTimeEstimate = true;
     	
@@ -484,7 +482,7 @@ class Application_Form_PlaylistRules extends Zend_Form
     	$this->addElement($estimateLimitValue);
     }
     
-    public function requireEstimatedTime()
+    private function requireEstimatedTime()
     {
     	$estimateLimit = $this->getElement('pl_estimate_limit_options');
     	$estimateLimit->setRequired(true);
@@ -493,27 +491,39 @@ class Application_Form_PlaylistRules extends Zend_Form
     	$estimateLimitValue->setRequired(true);
     }
     
-    /*
-    public function isValid($fields) {
-    	
-    	$valid = parent::isValid($fields);
-    	
-    	if (!$valid) {
-    		return false;
+
+    public function buildForm($playlist, $rules)
+    {
+    	if (isset($rules["criteria"])) {
+    		$this->buildCriteriaOptions($rules["criteria"]);
     	}
     	
-    	//have to validate if the estimated field is required.
-    	if ($this->_hasTimeEstimate) {
-    		
-    		$limitOptions = $this->getElement("pl_limit_options")->getValue();
-    		
-    		//need to make sure estimated time is provided.
-    		if ($limitOptions == "items") {
-    			
+    	$criteriaFields = $this->getPopulateHelp();
+    	
+    	$playlistRules = array(
+    		"pl_timezone" => $rules[Playlist::RULE_TIMEZONE],
+    		"pl_repeat_tracks" => $rules[Playlist::RULE_REPEAT_TRACKS],
+    		"pl_my_tracks" => $rules[Playlist::RULE_USERS_TRACKS_ONLY],
+    		"pl_order_column" => $rules[Playlist::RULE_ORDER][Playlist::RULE_ORDER_COLUMN],
+    		"pl_order_direction" => $rules[Playlist::RULE_ORDER][Playlist::RULE_ORDER_DIRECTION],
+    		"pl_limit_value" => $rules["limit"]["value"],
+    		"pl_limit_options" => $rules["limit"]["unit"],
+    	);
+    	
+    	$data = array_merge($criteriaFields, $playlistRules);
+    	
+    	//add time estimated field for dynamic playlist with 'X items'
+    	if (!$playlist->isStatic()) {
+    		$this->addEstimatedLimit();
+    		 
+    		$data["pl_estimate_limit_value"] = $rules["estimatedLimit"]["value"];
+    		$data["pl_estimate_limit_options"] = $rules["estimatedLimit"]["unit"];
+    	
+    		if ($rules["limit"]["unit"] == "items") {
+    			$this->requireEstimatedTime();
     		}
     	}
     	
-    	
+    	return $data;
     }
-    */
 }

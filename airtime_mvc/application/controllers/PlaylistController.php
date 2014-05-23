@@ -199,35 +199,7 @@ class PlaylistController extends Zend_Controller_Action
     		$playlist = $this->getPlaylist();
 
     		$form = new Application_Form_PlaylistRules();
-    		
-    		//add time estimated field for dynamic playlist with 'X items'
-    		if (!$playlist->isStatic()) {
-    			$form->addEstimatedLimit();
-    			
-    			if ($rules["limit"]["unit"] == "items") {
-    				$form->requireEstimatedTime();
-    			}
-    		}
-
-    		if (isset($rules["criteria"])) {
-    			$form->buildCriteriaOptions($rules["criteria"]);
-    		}
-
-    		$criteriaFields = $form->getPopulateHelp();
-
-    		$playlistRules = array(
-    		    "pl_timezone" => $rules[Playlist::RULE_TIMEZONE],
-    			"pl_repeat_tracks" => $rules[Playlist::RULE_REPEAT_TRACKS],
-    			"pl_my_tracks" => $rules[Playlist::RULE_USERS_TRACKS_ONLY],
-    			"pl_order_column" => $rules[Playlist::RULE_ORDER][Playlist::RULE_ORDER_COLUMN],
-    			"pl_order_direction" => $rules[Playlist::RULE_ORDER][Playlist::RULE_ORDER_DIRECTION],
-    			"pl_limit_value" => $rules["limit"]["value"],
-    			"pl_limit_options" => $rules["limit"]["unit"],
-    			"pl_estimate_limit_value" => $rules["estimatedLimit"]["value"],
-    			"pl_estimate_limit_options" => $rules["estimatedLimit"]["unit"],
-    		);
-
-    		$data = array_merge($criteriaFields, $playlistRules);
+    		$data = $form->buildForm($playlist, $rules);
 
     		if ($form->isValid($data)) {
     			Logging::info("playlist rules are valid");

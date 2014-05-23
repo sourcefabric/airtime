@@ -202,12 +202,19 @@ class Application_Model_Scheduler
     	$schedulerInfo = array();
     	$media = MediaItemQuery::create()->findPK($id, $this->con);
     	
+    	//TODO use this instead when starting to schedule playlists instead of unrolling the content right away.
     	//content could be an dynamic/static playlist or a single file/webstream.
-    	$content = $media->getSchedulingInfo();
+    	//$content = $media->getSchedulingInfo();
     	
     	//merge in any defaults or extra things needed by the scheduler.
-    	$schedulerInfo[] = array_merge($this->mediaInfo, $content);
+    	//$schedulerInfo[] = array_merge($this->mediaInfo, $content);
     	
+    	$contents = $media->getScheduledContent($this->con);
+    	
+    	foreach ($contents as $content) {
+    		$schedulerInfo[] = array_merge($this->mediaInfo, $content);
+    	}
+    		
         return $schedulerInfo;
     }
 

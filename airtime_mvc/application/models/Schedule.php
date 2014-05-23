@@ -159,7 +159,7 @@ class Application_Model_Schedule
         foreach ($showInstances as $showInstance) {
         	
         	//populate all content from static/dynamic playlists.
-        	$showInstance->unroll();
+        	//$showInstance->unroll();
         	
         	foreach($showInstance->getCcSchedules() as $scheduleItem) {
         		
