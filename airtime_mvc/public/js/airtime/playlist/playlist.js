@@ -733,7 +733,7 @@ var AIRTIME = (function(AIRTIME){
 						.data("fade", length);
 				}
 				else {
-					$li.find(".spl_fade_out span")
+					$li.find(".spl_fade_out")
 						.find("span")
 							.text(length)
 							.end()
