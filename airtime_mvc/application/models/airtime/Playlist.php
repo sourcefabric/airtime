@@ -73,9 +73,6 @@ abstract class Playlist extends BasePlaylist implements \Interface_Playlistable
 
 	protected function getCriteriaRules(&$query) {
 
-	    Logging::info("playlist timezone");
-	    Logging::info($this->getTimezone());
-
 		$playlistTimezone = new DateTimeZone($this->getTimezone());
 		$utcTimezone = new DateTimeZone("UTC");
 		$now = new DateTime("now", $playlistTimezone);
