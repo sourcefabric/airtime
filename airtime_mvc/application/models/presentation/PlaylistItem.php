@@ -77,4 +77,8 @@ abstract class Presentation_PlaylistItem {
 		$cueout = $this->content->getCueOut();
 		return Application_Common_DateHelper::playlistTimeToSeconds($cueout);
 	}
+	
+	public function getUrl() {
+		return null;
+	}
 }

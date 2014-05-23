@@ -7,6 +7,7 @@ if (count($items)) : ?>
     <li class="ui-state-default" id="spl_<?php echo $p->getId(); ?>"
     	data-media-id="<?php echo $p->getMediaId(); ?>"
         data-mime-type="<?php echo $p->getMime(); ?>"
+        data-uri="<?php echo $p->getUrl(); ?>"
     >
         <div class="list-item-container">
             <?php if ($p->canPreview()):?>
@@ -39,7 +40,6 @@ if (count($items)) : ?>
                 'cueOut' => $p->getCueOut(),
                 'cueInSec' => $p->getCueInSec(),
                 'cueOutSec' => $p->getCueOutSec(),
-                'uri' => $p->getUrl(),
                 'origLength' => $p->getLength(),
             ));
             ?>

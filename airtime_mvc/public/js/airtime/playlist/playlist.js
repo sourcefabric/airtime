@@ -590,8 +590,7 @@ var AIRTIME = (function(AIRTIME){
 	function showCuesWaveform(e) {
 		var $el = $(e.target),
 			$li = $el.parents("li"), 
-			$parent = $el.parent(),
-			uri = $parent.data("uri"),
+			uri = $li.data("uri"),
 			$html = $($("#tmpl-pl-cues").html()),
 			cueIn = $li.find('.spl_cue_in').data("cue"),
 			cueOut = $li.find('.spl_cue_out').data("cue"),
@@ -603,6 +602,88 @@ var AIRTIME = (function(AIRTIME){
 					start: cueInSec,
 					end: cueOutSec
 				}
+			}],
+			dim = AIRTIME.utilities.findViewportDimensions(),
+			playlistEditor;
+		
+		function removeDialog() {
+			playlistEditor.stop();
+			
+        	$html.dialog("destroy");
+        	$html.remove();
+        }
+		
+		function saveDialog() {
+        	var cueIn = $html.find('.editor-cue-in').html(),
+        		cueOut = $html.find('.editor-cue-out').html(),
+        		$ddIn = $li.find('.spl_cue_in'),
+        		$ddOut = $li.find('.spl_cue_out');
+        	
+        	setCue($ddIn, cueIn);
+        	$ddIn.find(".spl_text_input").text(cueIn);
+        	setCue($ddOut, cueOut);
+        	$ddOut.find(".spl_text_input").text(cueOut);
+        	removeDialog();
+        }
+		
+		$html.find('.editor-cue-in').html(cueIn);
+		$html.find('.editor-cue-out').html(cueOut);
+		
+		$html.on("click", ".set-cue-in", function(e) {
+			var cueIn = $html.find('.audio_start').val();
+			
+			$html.find('.editor-cue-in').html(cueIn);
+		});
+		
+		$html.on("click", ".set-cue-out", function(e) {
+			var cueOut = $html.find('.audio_end').val();
+			
+			$html.find('.editor-cue-out').html(cueOut);
+		});
+		
+		$html.dialog({
+            modal: true,
+            title: $.i18n._("Cue Editor"),
+            show: 'clip',
+            hide: 'clip',
+            width: dim.width - 100,
+            height: 325,
+            buttons: [
+                {text: $.i18n._("Cancel"), class: "btn btn-small", click: removeDialog},
+                {text: $.i18n._("Save"),  class: "btn btn-small btn-inverse", click: saveDialog}
+            ],
+            open: function (event, ui) {
+            	
+            	var config = new Config({
+        			resolution: 15000,
+        	        mono: true,
+        	        timescale: true,
+        	        waveHeight: 80,
+        	        container: $html[0],
+        	        UITheme: "jQueryUI",
+        	        timeFormat: 'hh:mm:ss.uuu'
+        	    });
+        		
+        		playlistEditor = new PlaylistEditor();
+        	    playlistEditor.setConfig(config);
+        	    playlistEditor.init(tracks);	
+            },
+            close: removeDialog,
+            resizeStop: function(event, ui) {
+            	playlistEditor.resize();
+            }
+        });	
+	};
+	
+	function showFadesWaveform(e) {
+		var $el = $(e.target),
+			$li = $el.parents("li"), 
+			uri = $li.data("uri"),
+			$html = $($("#tmpl-pl-fades").html()),
+			cueInSec = $li.find('.spl_cue_in').data("cueSec"),
+			cueOutSec = $li.find('.spl_cue_out').data("cueSec"),
+			tracks = [{
+				src: uri
 			}],
 			dim = AIRTIME.utilities.findViewportDimensions(),
 			playlistEditor;
@@ -852,6 +933,7 @@ var AIRTIME = (function(AIRTIME){
 		});
 		
 		$playlist.on("click", ".pl-waveform-cues-btn", showCuesWaveform);
+		$playlist.on("click", ".pl-waveform-fades-btn", showCuesWaveform);
 		
 		$playlist.on("keydown", ".spl_soe", submitOnEnter);
 		
