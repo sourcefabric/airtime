@@ -133,7 +133,7 @@ abstract class Playlist extends BasePlaylist implements \Interface_Playlistable
 		};
 
 		//$pattern is like "%VALUE%", or just "VALUE" if % is not needed.
-		function createRule(&$query, $comparison, $pattern, $utcConvertCols, $playlistTimezone, $utcTimezone) {
+		$createRule = function (&$query, $comparison, $pattern, $utcConvertCols, $playlistTimezone, $utcTimezone) {
 			return function($col, $data) use (&$query, $comparison, $pattern, $utcConvertCols, $playlistTimezone, $utcTimezone) {
 
 				$m = $query->getModelName();
@@ -154,18 +154,18 @@ abstract class Playlist extends BasePlaylist implements \Interface_Playlistable
 
 				return $name;
 			};
-		}
+		};
 
-		$contains = createRule($query, Criteria::ILIKE, "%VALUE%", $utcConvertCols, $playlistTimezone, $utcTimezone);
-		$doesntContain = createRule($query, Criteria::NOT_ILIKE, "%VALUE%", $utcConvertCols, $playlistTimezone, $utcTimezone);
-		$is = createRule($query, Criteria::EQUAL, "VALUE", $utcConvertCols, $playlistTimezone, $utcTimezone);
-		$isNot = createRule($query, Criteria::NOT_EQUAL, "VALUE", $utcConvertCols, $playlistTimezone, $utcTimezone);
-		$startsWith = createRule($query, Criteria::ILIKE, "VALUE%", $utcConvertCols, $playlistTimezone, $utcTimezone);
-		$endsWith = createRule($query, Criteria::ILIKE, "%VALUE", $utcConvertCols, $playlistTimezone, $utcTimezone);
-		$isGreaterThan = createRule($query, Criteria::GREATER_THAN, "VALUE", $utcConvertCols, $playlistTimezone, $utcTimezone);
-		$isLessThan = createRule($query, Criteria::LESS_THAN, "VALUE", $utcConvertCols, $playlistTimezone, $utcTimezone);
-		$isGreaterThanEqualTo = createRule($query, Criteria::GREATER_EQUAL, "VALUE", $utcConvertCols, $playlistTimezone, $utcTimezone);
-		$isLessThanEqualTo = createRule($query, Criteria::LESS_EQUAL, "VALUE", $utcConvertCols, $playlistTimezone, $utcTimezone);
+		$contains = $createRule($query, Criteria::ILIKE, "%VALUE%", $utcConvertCols, $playlistTimezone, $utcTimezone);
+		$doesntContain = $createRule($query, Criteria::NOT_ILIKE, "%VALUE%", $utcConvertCols, $playlistTimezone, $utcTimezone);
+		$is = $createRule($query, Criteria::EQUAL, "VALUE", $utcConvertCols, $playlistTimezone, $utcTimezone);
+		$isNot = $createRule($query, Criteria::NOT_EQUAL, "VALUE", $utcConvertCols, $playlistTimezone, $utcTimezone);
+		$startsWith = $createRule($query, Criteria::ILIKE, "VALUE%", $utcConvertCols, $playlistTimezone, $utcTimezone);
+		$endsWith = $createRule($query, Criteria::ILIKE, "%VALUE", $utcConvertCols, $playlistTimezone, $utcTimezone);
+		$isGreaterThan = $createRule($query, Criteria::GREATER_THAN, "VALUE", $utcConvertCols, $playlistTimezone, $utcTimezone);
+		$isLessThan = $createRule($query, Criteria::LESS_THAN, "VALUE", $utcConvertCols, $playlistTimezone, $utcTimezone);
+		$isGreaterThanEqualTo = $createRule($query, Criteria::GREATER_EQUAL, "VALUE", $utcConvertCols, $playlistTimezone, $utcTimezone);
+		$isLessThanEqualTo = $createRule($query, Criteria::LESS_EQUAL, "VALUE", $utcConvertCols, $playlistTimezone, $utcTimezone);
 
 		$range = function ($col, $data) use (&$query, $utcConvertCols, $playlistTimezone, $utcTimezone) {
 
