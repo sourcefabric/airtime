@@ -682,8 +682,28 @@ var AIRTIME = (function(AIRTIME){
 			$html = $($("#tmpl-pl-fades").html()),
 			cueInSec = $li.find('.spl_cue_in').data("cueSec"),
 			cueOutSec = $li.find('.spl_cue_out').data("cueSec"),
+			trackLength = cueOutSec - cueInSec,
+			fadeInSec = $li.find('.spl_fade_in').data("fade"),
+			fadeOutSec = $li.find('.spl_fade_out').data("fade"),
 			tracks = [{
-				src: uri
+				src: uri,
+				cuein: cueInSec,
+		    	cueout: cueOutSec,
+		    	fades: [{
+		    	    shape: "logarithmic",
+		    	    type: "FadeIn",
+		    	    start: 0,
+		    	    end: fadeInSec  
+		    	},
+		    	{
+		    	    shape: "logarithmic",
+		    	    type: "FadeOut",
+		    	    end: trackLength,
+		    	    start: trackLength - fadeOutSec
+		    	}],
+		    	states: {
+	                'shift': false
+	            }
 			}],
 			dim = AIRTIME.utilities.findViewportDimensions(),
 			playlistEditor;
@@ -696,36 +716,37 @@ var AIRTIME = (function(AIRTIME){
         }
 		
 		function saveDialog() {
-        	var cueIn = $html.find('.editor-cue-in').html(),
-        		cueOut = $html.find('.editor-cue-out').html(),
-        		$ddIn = $li.find('.spl_cue_in'),
-        		$ddOut = $li.find('.spl_cue_out');
-        	
-        	setCue($ddIn, cueIn);
-        	$ddIn.find(".spl_text_input").text(cueIn);
-        	setCue($ddOut, cueOut);
-        	$ddOut.find(".spl_text_input").text(cueOut);
+			var json = playlistEditor.getJson(),
+				fades = json[0]["fades"];
+			
+			fades.forEach(function(el, i, arr) {
+				var length;
+				
+				length = el.end - el.start;
+				length = length.toFixed(2);
+				
+				if (el.type === "FadeIn") {
+					$li.find(".spl_fade_in")
+						.find("span")
+							.text(length)
+							.end()
+						.data("fade", length);
+				}
+				else {
+					$li.find(".spl_fade_out span")
+						.find("span")
+							.text(length)
+							.end()
+						.data("fade", length);
+				}
+			});
+			
         	removeDialog();
         }
 		
-		$html.find('.editor-cue-in').html(cueIn);
-		$html.find('.editor-cue-out').html(cueOut);
-		
-		$html.on("click", ".set-cue-in", function(e) {
-			var cueIn = $html.find('.audio_start').val();
-			
-			$html.find('.editor-cue-in').html(cueIn);
-		});
-		
-		$html.on("click", ".set-cue-out", function(e) {
-			var cueOut = $html.find('.audio_end').val();
-			
-			$html.find('.editor-cue-out').html(cueOut);
-		});
-		
 		$html.dialog({
             modal: true,
-            title: $.i18n._("Cue Editor"),
+            title: $.i18n._("Fade Editor"),
             show: 'clip',
             hide: 'clip',
             width: dim.width - 100,
@@ -933,7 +954,7 @@ var AIRTIME = (function(AIRTIME){
 		});
 		
 		$playlist.on("click", ".pl-waveform-cues-btn", showCuesWaveform);
-		$playlist.on("click", ".pl-waveform-fades-btn", showCuesWaveform);
+		$playlist.on("click", ".pl-waveform-fades-btn", showFadesWaveform);
 		
 		$playlist.on("keydown", ".spl_soe", submitOnEnter);
 		
