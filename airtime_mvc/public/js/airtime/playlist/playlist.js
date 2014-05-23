@@ -305,13 +305,13 @@ var AIRTIME = (function(AIRTIME){
 	}
 	
 	function isTimeValid(time) {
-	    var regExpr = new RegExp("^\\d{2}[:]([0-5]){1}([0-9]){1}[:]([0-5]){1}([0-9]){1}([.]\\d{1,6})?$");
+	    var regExpr = new RegExp("^\\d{2}[:]([0-5]){1}([0-9]){1}[:]([0-5]){1}([0-9]){1}([.]\\d{1,3})?$");
 		
 		return regExpr.test(time);
 	}
 	
 	function isFadeValid(fade) {
-        var regExpr = new RegExp("^\\d{1}(\\d{1})?([.]\\d{1})?$");
+        var regExpr = new RegExp("^\\d{1}(\\d{1})?([.]\\d{1,3})?$");
 
         return regExpr.test(fade);
 	}
@@ -334,7 +334,7 @@ var AIRTIME = (function(AIRTIME){
 		$dd.find(".edit-error").remove();
 		
 		if (!isFadeValid(fade)) {
-			$error = createErrorSpan($.i18n._("please put in a time in seconds '00 (.0)'"));
+			$error = createErrorSpan($.i18n._("please put in a time in seconds '00 (.000)'"));
 			$dd.append($error);
 		}
 		else {
@@ -723,7 +723,7 @@ var AIRTIME = (function(AIRTIME){
 				var length;
 				
 				length = el.end - el.start;
-				length = length.toFixed(2);
+				length = length.toFixed(3);
 				
 				if (el.type === "FadeIn") {
 					$li.find(".spl_fade_in")
