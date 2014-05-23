@@ -69,8 +69,6 @@ class PlaylistDynamic extends Playlist {
     			throw new PropelException("Dynamic playlist is not setting length properly.");
     	}
     	
-    	\Logging::info("Setting playlist length to $duration");
-    	
     	$this->setLength($duration);
     	
     	return $this;

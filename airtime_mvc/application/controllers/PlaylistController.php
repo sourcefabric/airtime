@@ -214,6 +214,8 @@ class PlaylistController extends Zend_Controller_Action
     		}
 
     		$con->commit();
+    		
+    		$this->createUpdateResponse($playlist);
     	}
     	catch (Exception $e) {
     		$con->rollBack();

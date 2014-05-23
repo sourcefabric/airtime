@@ -42,9 +42,6 @@ class MediaItem extends BaseMediaItem implements \Interface_Schedulable
 	public function getType() {
 		
 		$class = get_class($this);
-		Logging::info($class);
-
-		//$class = $this->getDescendantClass();
 		$a = explode("\\", $class);
 		
 		return array_pop($a);

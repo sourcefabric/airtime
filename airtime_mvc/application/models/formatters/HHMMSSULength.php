@@ -17,12 +17,12 @@ class Format_HHMMSSULength
 
     public function format($decimalPlaces = 1)
     {
-        if (!preg_match("/^[0-9]{2}:[0-9]{2}:[0-9]{2}/", $this->_length)) {
+        if (!preg_match("/^[0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}/", $this->_length)) {
             return $this->_length;
         }
 
         $pieces = explode(":", $this->_length);
-
+        
         $seconds = round($pieces[2], $decimalPlaces);
         $seconds = number_format($seconds, $decimalPlaces);
         list($seconds, $milliStr) = explode(".", $seconds);

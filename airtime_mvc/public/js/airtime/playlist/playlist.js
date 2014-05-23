@@ -553,16 +553,20 @@ var AIRTIME = (function(AIRTIME){
 		var $wrapper = $("div.wrapper"),
 			$playlist = $("#side_playlist"),
 			$newContent = $(data.html),
+			$sortable = $playlist.find("#spl_sortable"),
 			$contents;
 		
 		$playlist.detach();
 
 		$playlist.find("#playlist_lastmod").val(data.modified);
 		$playlist.find("#playlist_length").text(data.length);
-		$playlist.find("#spl_sortable").html($newContent).sortable("refresh");
 		
-		$contents = $playlist.find("#spl_sortable").find("li");
-		checkPlayability($contents);
+		if ($sortable.length !== 0) {
+			$playlist.find("#spl_sortable").html($newContent).sortable("refresh");
+			
+			$contents = $playlist.find("#spl_sortable").find("li");
+			checkPlayability($contents);
+		}
 		
 		$wrapper.append($playlist);
 		
@@ -901,7 +905,8 @@ var AIRTIME = (function(AIRTIME){
 					$(".search-criteria").replaceWith(json.form);
 					addDatePickers();
 				}
-				$playlist.triggerHandler("playlistupdate");
+				
+				mod.redrawPlaylist(json);
 			});
 		});
 		
@@ -934,7 +939,6 @@ var AIRTIME = (function(AIRTIME){
 			
 			$.post(url, data, function(json) {
 				mod.drawPlaylist(json);
-				$playlist.triggerHandler("playlistdelete");
 			});
 		});
 		

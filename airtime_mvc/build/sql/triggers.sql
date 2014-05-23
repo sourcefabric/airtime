@@ -79,6 +79,11 @@ CREATE OR REPLACE FUNCTION update_playlist_length() RETURNS trigger AS $update_p
 
         SELECT into playlist_length SUM(cliplength) - SUM(trackoffset) FROM media_content WHERE playlist_id = r.playlist_id;
 
+        -- Make sure not creating a parent cycle.
+        IF playlist_length IS NULL THEN
+            playlist_length := '00:00:00';
+        END IF;
+
         --update the length of the parent playlist
         UPDATE media_item SET length = playlist_length WHERE id = r.playlist_id;
         --this will cause the trigger to bubble up the parent playlists.
