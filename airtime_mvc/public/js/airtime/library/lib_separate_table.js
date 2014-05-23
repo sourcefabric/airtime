@@ -779,7 +779,8 @@ var AIRTIME = (function(AIRTIME) {
     			var tab = tabsInit[ui.panel.id];
     			
     			if (tab.initialized) {
-    				
+    				var oTable = getActiveDatatable();
+    				oTable.fnDraw();
     			}
     			else {
     				
