@@ -1,0 +1,307 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module pydispatch.dispatcher</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="pydispatch.html"><font color="#ffffff">pydispatch</font></a>.dispatcher</strong></big></big> (version 1.1)</font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/mcfletch/pylive/pydispatch/pydispatch/dispatcher.py">/home/mcfletch/pylive/pydispatch/pydispatch/dispatcher.py</a></font></td></tr></table>
+    <p><tt>Multiple-producer-multiple-consumer&nbsp;signal-dispatching<br>
+&nbsp;<br>
+dispatcher&nbsp;is&nbsp;the&nbsp;core&nbsp;of&nbsp;the&nbsp;PyDispatcher&nbsp;system,<br>
+providing&nbsp;the&nbsp;primary&nbsp;API&nbsp;and&nbsp;the&nbsp;core&nbsp;logic&nbsp;for&nbsp;the<br>
+system.<br>
+&nbsp;<br>
+Module&nbsp;attributes&nbsp;of&nbsp;note:<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Any&nbsp;--&nbsp;Singleton&nbsp;used&nbsp;to&nbsp;signal&nbsp;either&nbsp;"Any&nbsp;Sender"&nbsp;or<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"Any&nbsp;Signal".&nbsp;&nbsp;See&nbsp;documentation&nbsp;of&nbsp;the&nbsp;<a href="#_Any">_Any</a>&nbsp;class.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Anonymous&nbsp;--&nbsp;Singleton&nbsp;used&nbsp;to&nbsp;signal&nbsp;"Anonymous&nbsp;Sender"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;See&nbsp;documentation&nbsp;of&nbsp;the&nbsp;<a href="#_Anonymous">_Anonymous</a>&nbsp;class.<br>
+&nbsp;<br>
+Internal&nbsp;attributes:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WEAKREF_TYPES&nbsp;--&nbsp;tuple&nbsp;of&nbsp;types/classes&nbsp;which&nbsp;represent<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;weak&nbsp;references&nbsp;to&nbsp;receivers,&nbsp;and&nbsp;thus&nbsp;must&nbsp;be&nbsp;de-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;referenced&nbsp;on&nbsp;retrieval&nbsp;to&nbsp;retrieve&nbsp;the&nbsp;callable<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connections&nbsp;--&nbsp;{&nbsp;senderkey&nbsp;(id)&nbsp;:&nbsp;{&nbsp;signal&nbsp;:&nbsp;[receivers...]}}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;senders&nbsp;--&nbsp;{&nbsp;senderkey&nbsp;(id)&nbsp;:&nbsp;weakref(sender)&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;used&nbsp;for&nbsp;cleaning&nbsp;up&nbsp;sender&nbsp;references&nbsp;on&nbsp;sender<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;deletion<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sendersBack&nbsp;--&nbsp;{&nbsp;receiverkey&nbsp;(id)&nbsp;:&nbsp;[senderkey&nbsp;(id)...]&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;used&nbsp;for&nbsp;cleaning&nbsp;up&nbsp;receiver&nbsp;references&nbsp;on&nbsp;receiver<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;deletion,&nbsp;(considerably&nbsp;speeds&nbsp;up&nbsp;the&nbsp;cleanup&nbsp;process<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vs.&nbsp;the&nbsp;original&nbsp;code.)</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="pydispatch.errors.html">pydispatch.errors</a><br>
+<a href="pydispatch.robustapply.html">pydispatch.robustapply</a><br>
+</td><td width="25%" valign=top><a href="pydispatch.saferef.html">pydispatch.saferef</a><br>
+<a href="types.html">types</a><br>
+</td><td width="25%" valign=top><a href="weakref.html">weakref</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="pydispatch.dispatcher.html#_Parameter">_Parameter</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="pydispatch.dispatcher.html#_Anonymous">_Anonymous</a>
+</font></dt><dt><font face="helvetica, arial"><a href="pydispatch.dispatcher.html#_Any">_Any</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="_Anonymous">class <strong>_Anonymous</strong></a>(<a href="pydispatch.dispatcher.html#_Parameter">_Parameter</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Singleton&nbsp;used&nbsp;to&nbsp;signal&nbsp;"Anonymous&nbsp;Sender"<br>
+&nbsp;<br>
+The&nbsp;Anonymous&nbsp;object&nbsp;is&nbsp;used&nbsp;to&nbsp;signal&nbsp;that&nbsp;the&nbsp;sender<br>
+of&nbsp;a&nbsp;message&nbsp;is&nbsp;not&nbsp;specified&nbsp;(as&nbsp;distinct&nbsp;from&nbsp;being<br>
+"any&nbsp;sender").&nbsp;&nbsp;Registering&nbsp;callbacks&nbsp;for&nbsp;Anonymous<br>
+will&nbsp;only&nbsp;receive&nbsp;messages&nbsp;sent&nbsp;without&nbsp;senders.&nbsp;&nbsp;Sending<br>
+with&nbsp;anonymous&nbsp;will&nbsp;only&nbsp;send&nbsp;messages&nbsp;to&nbsp;those&nbsp;receivers<br>
+registered&nbsp;for&nbsp;Any&nbsp;or&nbsp;Anonymous.<br>
+&nbsp;<br>
+Note:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;default&nbsp;sender&nbsp;for&nbsp;connect&nbsp;is&nbsp;Any,&nbsp;while&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;default&nbsp;sender&nbsp;for&nbsp;send&nbsp;is&nbsp;Anonymous.&nbsp;&nbsp;This&nbsp;has<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;effect&nbsp;that&nbsp;if&nbsp;you&nbsp;do&nbsp;not&nbsp;specify&nbsp;any&nbsp;senders<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;in&nbsp;either&nbsp;function&nbsp;then&nbsp;all&nbsp;messages&nbsp;are&nbsp;routed<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;as&nbsp;though&nbsp;there&nbsp;was&nbsp;a&nbsp;single&nbsp;sender&nbsp;(Anonymous)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;being&nbsp;used&nbsp;everywhere.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods inherited from <a href="pydispatch.dispatcher.html#_Parameter">_Parameter</a>:<br>
+<dl><dt><a name="_Anonymous-__repr__"><strong>__repr__</strong></a>(self)</dt></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="_Any">class <strong>_Any</strong></a>(<a href="pydispatch.dispatcher.html#_Parameter">_Parameter</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Singleton&nbsp;used&nbsp;to&nbsp;signal&nbsp;either&nbsp;"Any&nbsp;Sender"&nbsp;or&nbsp;"Any&nbsp;Signal"<br>
+&nbsp;<br>
+The&nbsp;Any&nbsp;object&nbsp;can&nbsp;be&nbsp;used&nbsp;with&nbsp;connect,&nbsp;disconnect,<br>
+send,&nbsp;or&nbsp;sendExact&nbsp;to&nbsp;signal&nbsp;that&nbsp;the&nbsp;parameter&nbsp;given<br>
+Any&nbsp;should&nbsp;react&nbsp;to&nbsp;all&nbsp;senders/signals,&nbsp;not&nbsp;just<br>
+a&nbsp;particular&nbsp;sender/signal.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods inherited from <a href="pydispatch.dispatcher.html#_Parameter">_Parameter</a>:<br>
+<dl><dt><a name="_Any-__repr__"><strong>__repr__</strong></a>(self)</dt></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="_Parameter">class <strong>_Parameter</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Used&nbsp;to&nbsp;represent&nbsp;default&nbsp;parameter&nbsp;values.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="_Parameter-__repr__"><strong>__repr__</strong></a>(self)</dt></dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-_cleanupConnections"><strong>_cleanupConnections</strong></a>(senderkey, signal)</dt><dd><tt>Delete&nbsp;any&nbsp;empty&nbsp;signals&nbsp;for&nbsp;senderkey.&nbsp;Delete&nbsp;senderkey&nbsp;if&nbsp;empty.</tt></dd></dl>
+ <dl><dt><a name="-_killBackref"><strong>_killBackref</strong></a>(receiver, senderkey)</dt><dd><tt>Do&nbsp;the&nbsp;actual&nbsp;removal&nbsp;of&nbsp;back&nbsp;reference&nbsp;from&nbsp;receiver&nbsp;to&nbsp;senderkey</tt></dd></dl>
+ <dl><dt><a name="-_removeBackrefs"><strong>_removeBackrefs</strong></a>(senderkey)</dt><dd><tt>Remove&nbsp;all&nbsp;back-references&nbsp;to&nbsp;this&nbsp;senderkey</tt></dd></dl>
+ <dl><dt><a name="-_removeOldBackRefs"><strong>_removeOldBackRefs</strong></a>(senderkey, signal, receiver, receivers)</dt><dd><tt>Kill&nbsp;old&nbsp;sendersBack&nbsp;references&nbsp;from&nbsp;receiver<br>
+&nbsp;<br>
+This&nbsp;guards&nbsp;against&nbsp;multiple&nbsp;registration&nbsp;of&nbsp;the&nbsp;same<br>
+receiver&nbsp;for&nbsp;a&nbsp;given&nbsp;signal&nbsp;and&nbsp;sender&nbsp;leaking&nbsp;memory<br>
+as&nbsp;old&nbsp;back&nbsp;reference&nbsp;records&nbsp;build&nbsp;up.<br>
+&nbsp;<br>
+Also&nbsp;removes&nbsp;old&nbsp;receiver&nbsp;instance&nbsp;from&nbsp;receivers</tt></dd></dl>
+ <dl><dt><a name="-_removeReceiver"><strong>_removeReceiver</strong></a>(receiver)</dt><dd><tt>Remove&nbsp;receiver&nbsp;from&nbsp;connections.</tt></dd></dl>
+ <dl><dt><a name="-_removeSender"><strong>_removeSender</strong></a>(senderkey)</dt><dd><tt>Remove&nbsp;senderkey&nbsp;from&nbsp;connections.</tt></dd></dl>
+ <dl><dt><a name="-connect"><strong>connect</strong></a>(receiver, signal<font color="#909090">=_Any</font>, sender<font color="#909090">=_Any</font>, weak<font color="#909090">=True</font>)</dt><dd><tt>Connect&nbsp;receiver&nbsp;to&nbsp;sender&nbsp;for&nbsp;signal<br>
+&nbsp;<br>
+receiver&nbsp;--&nbsp;a&nbsp;callable&nbsp;Python&nbsp;object&nbsp;which&nbsp;is&nbsp;to&nbsp;receive<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;messages/signals/events.&nbsp;&nbsp;Receivers&nbsp;must&nbsp;be&nbsp;hashable<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;objects.<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;weak&nbsp;is&nbsp;True,&nbsp;then&nbsp;receiver&nbsp;must&nbsp;be&nbsp;weak-referencable<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(more&nbsp;precisely&nbsp;saferef.safeRef()&nbsp;must&nbsp;be&nbsp;able&nbsp;to&nbsp;create<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;reference&nbsp;to&nbsp;the&nbsp;receiver).<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Receivers&nbsp;are&nbsp;fairly&nbsp;flexible&nbsp;in&nbsp;their&nbsp;specification,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;as&nbsp;the&nbsp;machinery&nbsp;in&nbsp;the&nbsp;robustApply&nbsp;module&nbsp;takes&nbsp;care<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;of&nbsp;most&nbsp;of&nbsp;the&nbsp;details&nbsp;regarding&nbsp;figuring&nbsp;out&nbsp;appropriate<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;subsets&nbsp;of&nbsp;the&nbsp;sent&nbsp;arguments&nbsp;to&nbsp;apply&nbsp;to&nbsp;a&nbsp;given<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;receiver.<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;receiver&nbsp;is&nbsp;itself&nbsp;a&nbsp;weak&nbsp;reference&nbsp;(a&nbsp;callable),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it&nbsp;will&nbsp;be&nbsp;de-referenced&nbsp;by&nbsp;the&nbsp;system's&nbsp;machinery,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;so&nbsp;*generally*&nbsp;weak&nbsp;references&nbsp;are&nbsp;not&nbsp;suitable&nbsp;as<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;receivers,&nbsp;though&nbsp;some&nbsp;use&nbsp;might&nbsp;be&nbsp;found&nbsp;for&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;facility&nbsp;whereby&nbsp;a&nbsp;higher-level&nbsp;library&nbsp;passes&nbsp;in<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pre-weakrefed&nbsp;receiver&nbsp;references.<br>
+&nbsp;<br>
+signal&nbsp;--&nbsp;the&nbsp;signal&nbsp;to&nbsp;which&nbsp;the&nbsp;receiver&nbsp;should&nbsp;respond<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;Any,&nbsp;receiver&nbsp;will&nbsp;receive&nbsp;any&nbsp;signal&nbsp;from&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;indicated&nbsp;sender&nbsp;(which&nbsp;might&nbsp;also&nbsp;be&nbsp;Any,&nbsp;but&nbsp;is&nbsp;not<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;necessarily&nbsp;Any).<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Otherwise&nbsp;must&nbsp;be&nbsp;a&nbsp;hashable&nbsp;Python&nbsp;object&nbsp;other&nbsp;than<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;None&nbsp;(DispatcherError&nbsp;raised&nbsp;on&nbsp;None).<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+sender&nbsp;--&nbsp;the&nbsp;sender&nbsp;to&nbsp;which&nbsp;the&nbsp;receiver&nbsp;should&nbsp;respond<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;Any,&nbsp;receiver&nbsp;will&nbsp;receive&nbsp;the&nbsp;indicated&nbsp;signals<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from&nbsp;any&nbsp;sender.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;Anonymous,&nbsp;receiver&nbsp;will&nbsp;only&nbsp;receive&nbsp;indicated<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;signals&nbsp;from&nbsp;send/sendExact&nbsp;which&nbsp;do&nbsp;not&nbsp;specify&nbsp;a<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sender,&nbsp;or&nbsp;specify&nbsp;Anonymous&nbsp;explicitly&nbsp;as&nbsp;the&nbsp;sender.<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Otherwise&nbsp;can&nbsp;be&nbsp;any&nbsp;python&nbsp;object.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+weak&nbsp;--&nbsp;whether&nbsp;to&nbsp;use&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;receiver<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By&nbsp;default,&nbsp;the&nbsp;module&nbsp;will&nbsp;attempt&nbsp;to&nbsp;use&nbsp;weak<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;references&nbsp;to&nbsp;the&nbsp;receiver&nbsp;objects.&nbsp;&nbsp;If&nbsp;this&nbsp;parameter<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is&nbsp;false,&nbsp;then&nbsp;strong&nbsp;references&nbsp;will&nbsp;be&nbsp;used.<br>
+&nbsp;<br>
+returns&nbsp;None,&nbsp;may&nbsp;raise&nbsp;DispatcherTypeError</tt></dd></dl>
+ <dl><dt><a name="-disconnect"><strong>disconnect</strong></a>(receiver, signal<font color="#909090">=_Any</font>, sender<font color="#909090">=_Any</font>, weak<font color="#909090">=True</font>)</dt><dd><tt>Disconnect&nbsp;receiver&nbsp;from&nbsp;sender&nbsp;for&nbsp;signal<br>
+&nbsp;<br>
+receiver&nbsp;--&nbsp;the&nbsp;registered&nbsp;receiver&nbsp;to&nbsp;disconnect<br>
+signal&nbsp;--&nbsp;the&nbsp;registered&nbsp;signal&nbsp;to&nbsp;disconnect<br>
+sender&nbsp;--&nbsp;the&nbsp;registered&nbsp;sender&nbsp;to&nbsp;disconnect<br>
+weak&nbsp;--&nbsp;the&nbsp;weakref&nbsp;state&nbsp;to&nbsp;disconnect<br>
+&nbsp;<br>
+disconnect&nbsp;reverses&nbsp;the&nbsp;process&nbsp;of&nbsp;connect,<br>
+the&nbsp;semantics&nbsp;for&nbsp;the&nbsp;individual&nbsp;elements&nbsp;are<br>
+logically&nbsp;equivalent&nbsp;to&nbsp;a&nbsp;tuple&nbsp;of<br>
+(receiver,&nbsp;signal,&nbsp;sender,&nbsp;weak)&nbsp;used&nbsp;as&nbsp;a&nbsp;key<br>
+to&nbsp;be&nbsp;deleted&nbsp;from&nbsp;the&nbsp;internal&nbsp;routing&nbsp;tables.<br>
+(The&nbsp;actual&nbsp;process&nbsp;is&nbsp;slightly&nbsp;more&nbsp;complex<br>
+but&nbsp;the&nbsp;semantics&nbsp;are&nbsp;basically&nbsp;the&nbsp;same).<br>
+&nbsp;<br>
+Note:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Using&nbsp;disconnect&nbsp;is&nbsp;not&nbsp;required&nbsp;to&nbsp;cleanup<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;routing&nbsp;when&nbsp;an&nbsp;object&nbsp;is&nbsp;deleted,&nbsp;the&nbsp;framework<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;will&nbsp;remove&nbsp;routes&nbsp;for&nbsp;deleted&nbsp;objects<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;automatically.&nbsp;&nbsp;It's&nbsp;only&nbsp;necessary&nbsp;to&nbsp;disconnect<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;you&nbsp;want&nbsp;to&nbsp;stop&nbsp;routing&nbsp;to&nbsp;a&nbsp;live&nbsp;object.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+returns&nbsp;None,&nbsp;may&nbsp;raise&nbsp;DispatcherTypeError&nbsp;or<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DispatcherKeyError</tt></dd></dl>
+ <dl><dt><a name="-getAllReceivers"><strong>getAllReceivers</strong></a>(sender<font color="#909090">=_Any</font>, signal<font color="#909090">=_Any</font>)</dt><dd><tt>Get&nbsp;list&nbsp;of&nbsp;all&nbsp;receivers&nbsp;from&nbsp;global&nbsp;tables<br>
+&nbsp;<br>
+This&nbsp;gets&nbsp;all&nbsp;receivers&nbsp;which&nbsp;should&nbsp;receive<br>
+the&nbsp;given&nbsp;signal&nbsp;from&nbsp;sender,&nbsp;each&nbsp;receiver&nbsp;should<br>
+be&nbsp;produced&nbsp;only&nbsp;once&nbsp;by&nbsp;the&nbsp;resulting&nbsp;generator</tt></dd></dl>
+ <dl><dt><a name="-getReceivers"><strong>getReceivers</strong></a>(sender<font color="#909090">=_Any</font>, signal<font color="#909090">=_Any</font>)</dt><dd><tt>Get&nbsp;list&nbsp;of&nbsp;receivers&nbsp;from&nbsp;global&nbsp;tables<br>
+&nbsp;<br>
+This&nbsp;utility&nbsp;function&nbsp;allows&nbsp;you&nbsp;to&nbsp;retrieve&nbsp;the<br>
+raw&nbsp;list&nbsp;of&nbsp;receivers&nbsp;from&nbsp;the&nbsp;connections&nbsp;table<br>
+for&nbsp;the&nbsp;given&nbsp;sender&nbsp;and&nbsp;signal&nbsp;pair.<br>
+&nbsp;<br>
+Note:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;there&nbsp;is&nbsp;no&nbsp;guarantee&nbsp;that&nbsp;this&nbsp;is&nbsp;the&nbsp;actual&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stored&nbsp;in&nbsp;the&nbsp;connections&nbsp;table,&nbsp;so&nbsp;the&nbsp;value<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;should&nbsp;be&nbsp;treated&nbsp;as&nbsp;a&nbsp;simple&nbsp;iterable/truth&nbsp;value<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rather&nbsp;than,&nbsp;for&nbsp;instance&nbsp;a&nbsp;list&nbsp;to&nbsp;which&nbsp;you<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;might&nbsp;append&nbsp;new&nbsp;records.<br>
+&nbsp;<br>
+Normally&nbsp;you&nbsp;would&nbsp;use&nbsp;<a href="#-liveReceivers">liveReceivers</a>(&nbsp;<a href="#-getReceivers">getReceivers</a>(&nbsp;...))<br>
+to&nbsp;retrieve&nbsp;the&nbsp;actual&nbsp;receiver&nbsp;objects&nbsp;as&nbsp;an&nbsp;iterable<br>
+object.</tt></dd></dl>
+ <dl><dt><a name="-liveReceivers"><strong>liveReceivers</strong></a>(receivers)</dt><dd><tt>Filter&nbsp;sequence&nbsp;of&nbsp;receivers&nbsp;to&nbsp;get&nbsp;resolved,&nbsp;live&nbsp;receivers<br>
+&nbsp;<br>
+This&nbsp;is&nbsp;a&nbsp;generator&nbsp;which&nbsp;will&nbsp;iterate&nbsp;over<br>
+the&nbsp;passed&nbsp;sequence,&nbsp;checking&nbsp;for&nbsp;weak&nbsp;references<br>
+and&nbsp;resolving&nbsp;them,&nbsp;then&nbsp;returning&nbsp;all&nbsp;live<br>
+receivers.</tt></dd></dl>
+ <dl><dt><a name="-send"><strong>send</strong></a>(signal<font color="#909090">=_Any</font>, sender<font color="#909090">=_Anonymous</font>, *arguments, **named)</dt><dd><tt>Send&nbsp;signal&nbsp;from&nbsp;sender&nbsp;to&nbsp;all&nbsp;connected&nbsp;receivers.<br>
+&nbsp;<br>
+signal&nbsp;--&nbsp;(hashable)&nbsp;signal&nbsp;value,&nbsp;see&nbsp;connect&nbsp;for&nbsp;details<br>
+&nbsp;<br>
+sender&nbsp;--&nbsp;the&nbsp;sender&nbsp;of&nbsp;the&nbsp;signal<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;Any,&nbsp;only&nbsp;receivers&nbsp;registered&nbsp;for&nbsp;Any&nbsp;will&nbsp;receive<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;message.<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;Anonymous,&nbsp;only&nbsp;receivers&nbsp;registered&nbsp;to&nbsp;receive<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;messages&nbsp;from&nbsp;Anonymous&nbsp;or&nbsp;Any&nbsp;will&nbsp;receive&nbsp;the&nbsp;message<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Otherwise&nbsp;can&nbsp;be&nbsp;any&nbsp;python&nbsp;object&nbsp;(normally&nbsp;one<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;registered&nbsp;with&nbsp;a&nbsp;connect&nbsp;if&nbsp;you&nbsp;actually&nbsp;want<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;something&nbsp;to&nbsp;occur).<br>
+&nbsp;<br>
+arguments&nbsp;--&nbsp;positional&nbsp;arguments&nbsp;which&nbsp;will&nbsp;be&nbsp;passed&nbsp;to<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*all*&nbsp;receivers.&nbsp;Note&nbsp;that&nbsp;this&nbsp;may&nbsp;raise&nbsp;TypeErrors<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;the&nbsp;receivers&nbsp;do&nbsp;not&nbsp;allow&nbsp;the&nbsp;particular&nbsp;arguments.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note&nbsp;also&nbsp;that&nbsp;arguments&nbsp;are&nbsp;applied&nbsp;before&nbsp;named<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;arguments,&nbsp;so&nbsp;they&nbsp;should&nbsp;be&nbsp;used&nbsp;with&nbsp;care.<br>
+&nbsp;<br>
+named&nbsp;--&nbsp;named&nbsp;arguments&nbsp;which&nbsp;will&nbsp;be&nbsp;filtered&nbsp;according<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;the&nbsp;parameters&nbsp;of&nbsp;the&nbsp;receivers&nbsp;to&nbsp;only&nbsp;provide&nbsp;those<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;acceptable&nbsp;to&nbsp;the&nbsp;receiver.<br>
+&nbsp;<br>
+Return&nbsp;a&nbsp;list&nbsp;of&nbsp;tuple&nbsp;pairs&nbsp;[(receiver,&nbsp;response),&nbsp;...&nbsp;]<br>
+&nbsp;<br>
+if&nbsp;any&nbsp;receiver&nbsp;raises&nbsp;an&nbsp;error,&nbsp;the&nbsp;error&nbsp;propagates&nbsp;back<br>
+through&nbsp;send,&nbsp;terminating&nbsp;the&nbsp;dispatch&nbsp;loop,&nbsp;so&nbsp;it&nbsp;is&nbsp;quite<br>
+possible&nbsp;to&nbsp;not&nbsp;have&nbsp;all&nbsp;receivers&nbsp;called&nbsp;if&nbsp;a&nbsp;raises&nbsp;an<br>
+error.</tt></dd></dl>
+ <dl><dt><a name="-sendExact"><strong>sendExact</strong></a>(signal<font color="#909090">=_Any</font>, sender<font color="#909090">=_Anonymous</font>, *arguments, **named)</dt><dd><tt>Send&nbsp;signal&nbsp;only&nbsp;to&nbsp;those&nbsp;receivers&nbsp;registered&nbsp;for&nbsp;exact&nbsp;message<br>
+&nbsp;<br>
+sendExact&nbsp;allows&nbsp;for&nbsp;avoiding&nbsp;Any/Anonymous&nbsp;registered<br>
+handlers,&nbsp;sending&nbsp;only&nbsp;to&nbsp;those&nbsp;receivers&nbsp;explicitly<br>
+registered&nbsp;for&nbsp;a&nbsp;particular&nbsp;signal&nbsp;on&nbsp;a&nbsp;particular<br>
+sender.</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>Anonymous</strong> = _Anonymous<br>
+<strong>Any</strong> = _Any<br>
+<strong>WEAKREF_TYPES</strong> = (&lt;type 'weakref'&gt;, &lt;class 'pydispatch.saferef.BoundMethodWeakref'&gt;)<br>
+<strong>__author__</strong> = "Patrick K. O'Brien &lt;pobrien@orbtech.com&gt;"<br>
+<strong>__cvsid__</strong> = '$Id: dispatcher.py,v 1.1 2010/03/30 15:45:55 mcfletch Exp $'<br>
+<strong>__file__</strong> = '/home/mcfletch/pylive/pydispatch/pydispatch/dispatcher.pyc'<br>
+<strong>__name__</strong> = 'pydispatch.dispatcher'<br>
+<strong>__package__</strong> = 'pydispatch'<br>
+<strong>__version__</strong> = '1.1'<br>
+<strong>connections</strong> = {}<br>
+<strong>generators</strong> = _Feature((2, 2, 0, 'alpha', 1), (2, 3, 0, 'final', 0), 0)<br>
+<strong>senders</strong> = {}<br>
+<strong>sendersBack</strong> = {}</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#7799ee">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Author</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#7799ee"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%">Patrick&nbsp;K.&nbsp;O'Brien&nbsp;&lt;pobrien@orbtech.com&gt;</td></tr></table>
+</body></html>

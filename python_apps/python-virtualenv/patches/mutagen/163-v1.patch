@@ -1,0 +1,33 @@
+diff --git a/mutagen/mp3.py b/mutagen/mp3.py
+--- a/mutagen/mp3.py
++++ b/mutagen/mp3.py
+@@ -252,8 +252,13 @@
+     """
+ 
+     _Info = MPEGInfo
+-    _mimes = ["audio/mp3", "audio/x-mp3", "audio/mpeg", "audio/mpg",
+-              "audio/x-mpeg"]
++
++    _mimes = ["audio/mpeg", "audio/mpg", "audio/x-mpeg"]
++
++    @property
++    def mime(self):
++        l = self.info.layer
++        return ["audio/mp%d" % l, "audio/x-mp%d" % l] + super(MP3, self).mime
+ 
+     @staticmethod
+     def score(filename, fileobj, header):
+diff --git a/tests/test_mp3.py b/tests/test_mp3.py
+--- a/tests/test_mp3.py
++++ b/tests/test_mp3.py
+@@ -125,6 +125,10 @@
+ 
+     def test_mime(self):
+         self.failUnless("audio/mp3" in self.mp3.mime)
++        # XXX
++        self.mp3.info.layer = 2
++        self.failIf("audio/mp3" in self.mp3.mime)
++        self.failUnless("audio/mp2" in self.mp3.mime)
+ 
+     def tearDown(self):
+         os.unlink(self.filename)

@@ -1,0 +1,229 @@
+"""
+kombu.common
+============
+
+Common Utilities.
+
+:copyright: (c) 2009 - 2012 by Ask Solem.
+:license: BSD, see LICENSE for more details.
+
+"""
+from __future__ import absolute_import
+from __future__ import with_statement
+
+import socket
+
+from collections import deque
+from functools import partial
+from itertools import count
+
+from . import serialization
+from .entity import Exchange, Queue
+from .exceptions import StdChannelError
+from .log import Log
+from .messaging import Consumer as _Consumer
+from .utils import uuid
+
+__all__ = ['Broadcast', 'maybe_declare', 'uuid',
+           'itermessages', 'send_reply', 'isend_reply',
+           'collect_replies', 'insured', 'ipublish', 'drain_consumer',
+           'eventloop']
+
+insured_logger = Log('kombu.insurance')
+
+
+class Broadcast(Queue):
+    """Convenience class used to define broadcast queues.
+
+    Every queue instance will have a unique name,
+    and both the queue and exchange is configured with auto deletion.
+
+    :keyword name: This is used as the name of the exchange.
+    :keyword queue: By default a unique id is used for the queue
+       name for every consumer.  You can specify a custom queue
+       name here.
+    :keyword \*\*kwargs: See :class:`~kombu.entity.Queue` for a list
+        of additional keyword arguments supported.
+
+    """
+
+    def __init__(self, name=None, queue=None, **kwargs):
+        return super(Broadcast, self).__init__(
+                    name=queue or 'bcast.%s' % (uuid(), ),
+                    **dict({'alias': name,
+                            'auto_delete': True,
+                            'exchange': Exchange(name, type='fanout'),
+                           }, **kwargs))
+
+
+def declaration_cached(entity, channel):
+    return entity in channel.connection.client.declared_entities
+
+
+def maybe_declare(entity, channel=None, retry=False, **retry_policy):
+    if not entity.is_bound:
+        assert channel
+        entity = entity.bind(channel)
+    if retry:
+        return _imaybe_declare(entity, **retry_policy)
+    return _maybe_declare(entity)
+
+
+def _maybe_declare(entity):
+    channel = entity.channel
+    if not channel.connection:
+        raise StdChannelError("channel disconnected")
+    declared = channel.connection.client.declared_entities
+    if entity not in declared or getattr(entity, 'auto_delete', None):
+        entity.declare()
+        declared.add(entity)
+        return True
+    return False
+
+
+def _imaybe_declare(entity, **retry_policy):
+    return entity.channel.connection.client.ensure(entity, _maybe_declare,
+                             **retry_policy)(entity)
+
+
+def drain_consumer(consumer, limit=1, timeout=None, callbacks=None):
+    acc = deque()
+
+    def on_message(body, message):
+        acc.append((body, message))
+
+    consumer.callbacks = [on_message] + (callbacks or [])
+
+    with consumer:
+        for _ in eventloop(consumer.channel.connection.client,
+                           limit=limit, timeout=timeout, ignore_timeouts=True):
+            try:
+                yield acc.popleft()
+            except IndexError:
+                pass
+
+
+def itermessages(conn, channel, queue, limit=1, timeout=None,
+        Consumer=_Consumer, callbacks=None, **kwargs):
+    return drain_consumer(Consumer(channel, queues=[queue], **kwargs),
+                          limit=limit, timeout=timeout, callbacks=callbacks)
+
+
+def eventloop(conn, limit=None, timeout=None, ignore_timeouts=False):
+    """Best practice generator wrapper around ``Connection.drain_events``.
+
+    Able to drain events forever, with a limit, and optionally ignoring
+    timeout errors (a timeout of 1 is often used in environments where
+    the socket can get "stuck", and is a best practice for Kombu consumers).
+
+    **Examples**
+
+    ``eventloop`` is a generator::
+
+        >>> from kombu.common import eventloop
+
+        >>> it = eventloop(connection, timeout=1, ignore_timeouts=True)
+        >>> it.next()   # one event consumed, or timed out.
+
+        >>> for _ in eventloop(connection, timeout=1, ignore_timeouts=True):
+        ...     pass  # loop forever.
+
+    It also takes an optional limit parameter, and timeout errors
+    are propagated by default::
+
+        for _ in eventloop(connection, limit=1, timeout=1):
+            pass
+
+    .. seealso::
+
+        :func:`itermessages`, which is an event loop bound to one or more
+        consumers, that yields any messages received.
+
+    """
+    for i in limit and xrange(limit) or count():
+        try:
+            yield conn.drain_events(timeout=timeout)
+        except socket.timeout:
+            if timeout and not ignore_timeouts:
+                raise
+        except socket.error:
+            pass
+
+
+def send_reply(exchange, req, msg, producer=None, **props):
+    content_type = req.content_type
+    serializer = serialization.registry.type_to_name[content_type]
+    maybe_declare(exchange, producer.channel)
+    producer.publish(msg, exchange=exchange,
+            **dict({'routing_key': req.properties['reply_to'],
+                    'correlation_id': req.properties.get('correlation_id'),
+                    'serializer': serializer},
+                    **props))
+
+
+def isend_reply(pool, exchange, req, msg, props, **retry_policy):
+    return ipublish(pool, send_reply,
+                    (exchange, req, msg), props, **retry_policy)
+
+
+def collect_replies(conn, channel, queue, *args, **kwargs):
+    no_ack = kwargs.setdefault('no_ack', True)
+    received = False
+    try:
+        for body, message in itermessages(conn, channel, queue,
+                                          *args, **kwargs):
+            if not no_ack:
+                message.ack()
+            received = True
+            yield body
+    finally:
+        if received:
+            channel.after_reply_message_received(queue.name)
+
+
+def _ensure_errback(exc, interval):
+    insured_logger.error(
+        'Connection error: %r. Retry in %ss\n' % (exc, interval),
+            exc_info=True)
+
+
+def revive_connection(connection, channel, on_revive=None):
+    if on_revive:
+        on_revive(channel)
+
+
+def revive_producer(producer, channel, on_revive=None):
+    revive_connection(producer.connection, channel)
+    if on_revive:
+        on_revive(channel)
+
+
+def insured(pool, fun, args, kwargs, errback=None, on_revive=None, **opts):
+    """Ensures function performing broker commands completes
+    despite intermittent connection failures."""
+    errback = errback or _ensure_errback
+
+    with pool.acquire(block=True) as conn:
+        conn.ensure_connection(errback=errback)
+        # we cache the channel for subsequent calls, this has to be
+        # reset on revival.
+        channel = conn.default_channel
+        revive = partial(revive_connection, conn, on_revive=on_revive)
+        insured = conn.autoretry(fun, channel, errback=errback,
+                                 on_revive=revive, **opts)
+        retval, _ = insured(*args, **dict(kwargs, connection=conn))
+        return retval
+
+
+def ipublish(pool, fun, args=(), kwargs={}, errback=None, on_revive=None,
+        **retry_policy):
+    with pool.acquire(block=True) as producer:
+        errback = errback or _ensure_errback
+        revive = partial(revive_producer, producer, on_revive=on_revive)
+        f = producer.connection.ensure(producer, fun, on_revive=revive,
+                                       errback=errback, **retry_policy)
+        return f(*args, **dict(kwargs, producer=producer))
+
+
+def entry_to_queue(queue, **options):
+    return Queue.from_dict(queue, **options)

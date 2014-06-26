@@ -1,0 +1,14 @@
+include MANIFEST.in
+include license.txt
+include *.py
+recursive-include docs *.html
+recursive-include docs/images *.png
+recursive-include docs/style *.css
+recursive-include docs/pydoc *.html *.py
+recursive-include examples *.py
+
+recursive-include tests *.py
+
+global-exclude *.bat
+global-exclude ./CVS
+global-exclude .cvsignore

@@ -1,0 +1,22 @@
+Metadata-Version: 1.1
+Name: poster
+Version: 0.8.1
+Summary: Streaming HTTP uploads and multipart/form-data encoding
+Home-page: http://atlee.ca/software/poster
+Author: Chris AtLee
+Author-email: chris@atlee.ca
+License: MIT
+Download-URL: http://atlee.ca/software/poster/dist/0.8.1
+Description: The modules in the Python standard library don't provide a way to upload large
+        files via HTTP without having to load the entire file into memory first.
+        
+        poster provides support for both streaming POST requests as well as
+        multipart/form-data encoding of string or file parameters
+Keywords: python http post multipart/form-data file upload
+Platform: UNKNOWN
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Software Development :: Libraries :: Python Modules

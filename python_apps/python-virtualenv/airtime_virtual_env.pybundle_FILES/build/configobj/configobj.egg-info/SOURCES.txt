@@ -1,0 +1,6 @@
+configobj.py
+validate.py
+configobj.egg-info/PKG-INFO
+configobj.egg-info/SOURCES.txt
+configobj.egg-info/dependency_links.txt
+configobj.egg-info/top_level.txt

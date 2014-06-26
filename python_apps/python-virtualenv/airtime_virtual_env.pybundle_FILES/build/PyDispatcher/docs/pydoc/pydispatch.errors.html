@@ -1,0 +1,242 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module pydispatch.errors</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="pydispatch.html"><font color="#ffffff">pydispatch</font></a>.errors</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/mcfletch/pylive/pydispatch/pydispatch/errors.py">/home/mcfletch/pylive/pydispatch/pydispatch/errors.py</a></font></td></tr></table>
+    <p><tt>Error&nbsp;types&nbsp;for&nbsp;dispatcher&nbsp;mechanism</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="exceptions.html#Exception">Exception</a>(<a href="exceptions.html#BaseException">BaseException</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="pydispatch.errors.html#DispatcherError">DispatcherError</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="pydispatch.errors.html#DispatcherKeyError">DispatcherKeyError</a>(<a href="exceptions.html#KeyError">KeyError</a>, <a href="pydispatch.errors.html#DispatcherError">DispatcherError</a>)
+</font></dt><dt><font face="helvetica, arial"><a href="pydispatch.errors.html#DispatcherTypeError">DispatcherTypeError</a>(<a href="exceptions.html#TypeError">TypeError</a>, <a href="pydispatch.errors.html#DispatcherError">DispatcherError</a>)
+</font></dt></dl>
+</dd>
+</dl>
+</dd>
+<dt><font face="helvetica, arial"><a href="exceptions.html#KeyError">KeyError</a>(<a href="exceptions.html#LookupError">LookupError</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="pydispatch.errors.html#DispatcherKeyError">DispatcherKeyError</a>(<a href="exceptions.html#KeyError">KeyError</a>, <a href="pydispatch.errors.html#DispatcherError">DispatcherError</a>)
+</font></dt></dl>
+</dd>
+<dt><font face="helvetica, arial"><a href="exceptions.html#TypeError">TypeError</a>(<a href="exceptions.html#StandardError">StandardError</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="pydispatch.errors.html#DispatcherTypeError">DispatcherTypeError</a>(<a href="exceptions.html#TypeError">TypeError</a>, <a href="pydispatch.errors.html#DispatcherError">DispatcherError</a>)
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="DispatcherError">class <strong>DispatcherError</strong></a>(<a href="exceptions.html#Exception">Exception</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Base&nbsp;class&nbsp;for&nbsp;all&nbsp;Dispatcher&nbsp;errors<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="pydispatch.errors.html#DispatcherError">DispatcherError</a></dd>
+<dd><a href="exceptions.html#Exception">Exception</a></dd>
+<dd><a href="exceptions.html#BaseException">BaseException</a></dd>
+<dd><a href="__builtin__.html#object">object</a></dd>
+</dl>
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Methods inherited from <a href="exceptions.html#Exception">Exception</a>:<br>
+<dl><dt><a name="DispatcherError-__init__"><strong>__init__</strong></a>(...)</dt><dd><tt>x.<a href="#DispatcherError-__init__">__init__</a>(...)&nbsp;initializes&nbsp;x;&nbsp;see&nbsp;help(type(x))&nbsp;for&nbsp;signature</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="exceptions.html#Exception">Exception</a>:<br>
+<dl><dt><strong>__new__</strong> = &lt;built-in method __new__ of type object&gt;<dd><tt>T.<a href="#DispatcherError-__new__">__new__</a>(S,&nbsp;...)&nbsp;-&gt;&nbsp;a&nbsp;new&nbsp;object&nbsp;with&nbsp;type&nbsp;S,&nbsp;a&nbsp;subtype&nbsp;of&nbsp;T</tt></dl>
+
+<hr>
+Methods inherited from <a href="exceptions.html#BaseException">BaseException</a>:<br>
+<dl><dt><a name="DispatcherError-__delattr__"><strong>__delattr__</strong></a>(...)</dt><dd><tt>x.<a href="#DispatcherError-__delattr__">__delattr__</a>('name')&nbsp;&lt;==&gt;&nbsp;del&nbsp;x.name</tt></dd></dl>
+
+<dl><dt><a name="DispatcherError-__getattribute__"><strong>__getattribute__</strong></a>(...)</dt><dd><tt>x.<a href="#DispatcherError-__getattribute__">__getattribute__</a>('name')&nbsp;&lt;==&gt;&nbsp;x.name</tt></dd></dl>
+
+<dl><dt><a name="DispatcherError-__getitem__"><strong>__getitem__</strong></a>(...)</dt><dd><tt>x.<a href="#DispatcherError-__getitem__">__getitem__</a>(y)&nbsp;&lt;==&gt;&nbsp;x[y]</tt></dd></dl>
+
+<dl><dt><a name="DispatcherError-__getslice__"><strong>__getslice__</strong></a>(...)</dt><dd><tt>x.<a href="#DispatcherError-__getslice__">__getslice__</a>(i,&nbsp;j)&nbsp;&lt;==&gt;&nbsp;x[i:j]<br>
+&nbsp;<br>
+Use&nbsp;of&nbsp;negative&nbsp;indices&nbsp;is&nbsp;not&nbsp;supported.</tt></dd></dl>
+
+<dl><dt><a name="DispatcherError-__reduce__"><strong>__reduce__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="DispatcherError-__repr__"><strong>__repr__</strong></a>(...)</dt><dd><tt>x.<a href="#DispatcherError-__repr__">__repr__</a>()&nbsp;&lt;==&gt;&nbsp;repr(x)</tt></dd></dl>
+
+<dl><dt><a name="DispatcherError-__setattr__"><strong>__setattr__</strong></a>(...)</dt><dd><tt>x.<a href="#DispatcherError-__setattr__">__setattr__</a>('name',&nbsp;value)&nbsp;&lt;==&gt;&nbsp;x.name&nbsp;=&nbsp;value</tt></dd></dl>
+
+<dl><dt><a name="DispatcherError-__setstate__"><strong>__setstate__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="DispatcherError-__str__"><strong>__str__</strong></a>(...)</dt><dd><tt>x.<a href="#DispatcherError-__str__">__str__</a>()&nbsp;&lt;==&gt;&nbsp;str(x)</tt></dd></dl>
+
+<dl><dt><a name="DispatcherError-__unicode__"><strong>__unicode__</strong></a>(...)</dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="exceptions.html#BaseException">BaseException</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+</dl>
+<dl><dt><strong>args</strong></dt>
+</dl>
+<dl><dt><strong>message</strong></dt>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="DispatcherKeyError">class <strong>DispatcherKeyError</strong></a>(<a href="exceptions.html#KeyError">KeyError</a>, <a href="pydispatch.errors.html#DispatcherError">DispatcherError</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Error&nbsp;raised&nbsp;when&nbsp;unknown&nbsp;(sender,signal)&nbsp;set&nbsp;specified<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="pydispatch.errors.html#DispatcherKeyError">DispatcherKeyError</a></dd>
+<dd><a href="exceptions.html#KeyError">KeyError</a></dd>
+<dd><a href="exceptions.html#LookupError">LookupError</a></dd>
+<dd><a href="exceptions.html#StandardError">StandardError</a></dd>
+<dd><a href="pydispatch.errors.html#DispatcherError">DispatcherError</a></dd>
+<dd><a href="exceptions.html#Exception">Exception</a></dd>
+<dd><a href="exceptions.html#BaseException">BaseException</a></dd>
+<dd><a href="__builtin__.html#object">object</a></dd>
+</dl>
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Methods inherited from <a href="exceptions.html#KeyError">KeyError</a>:<br>
+<dl><dt><a name="DispatcherKeyError-__init__"><strong>__init__</strong></a>(...)</dt><dd><tt>x.<a href="#DispatcherKeyError-__init__">__init__</a>(...)&nbsp;initializes&nbsp;x;&nbsp;see&nbsp;help(type(x))&nbsp;for&nbsp;signature</tt></dd></dl>
+
+<dl><dt><a name="DispatcherKeyError-__str__"><strong>__str__</strong></a>(...)</dt><dd><tt>x.<a href="#DispatcherKeyError-__str__">__str__</a>()&nbsp;&lt;==&gt;&nbsp;str(x)</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="exceptions.html#KeyError">KeyError</a>:<br>
+<dl><dt><strong>__new__</strong> = &lt;built-in method __new__ of type object&gt;<dd><tt>T.<a href="#DispatcherKeyError-__new__">__new__</a>(S,&nbsp;...)&nbsp;-&gt;&nbsp;a&nbsp;new&nbsp;object&nbsp;with&nbsp;type&nbsp;S,&nbsp;a&nbsp;subtype&nbsp;of&nbsp;T</tt></dl>
+
+<hr>
+Methods inherited from <a href="exceptions.html#BaseException">BaseException</a>:<br>
+<dl><dt><a name="DispatcherKeyError-__delattr__"><strong>__delattr__</strong></a>(...)</dt><dd><tt>x.<a href="#DispatcherKeyError-__delattr__">__delattr__</a>('name')&nbsp;&lt;==&gt;&nbsp;del&nbsp;x.name</tt></dd></dl>
+
+<dl><dt><a name="DispatcherKeyError-__getattribute__"><strong>__getattribute__</strong></a>(...)</dt><dd><tt>x.<a href="#DispatcherKeyError-__getattribute__">__getattribute__</a>('name')&nbsp;&lt;==&gt;&nbsp;x.name</tt></dd></dl>
+
+<dl><dt><a name="DispatcherKeyError-__getitem__"><strong>__getitem__</strong></a>(...)</dt><dd><tt>x.<a href="#DispatcherKeyError-__getitem__">__getitem__</a>(y)&nbsp;&lt;==&gt;&nbsp;x[y]</tt></dd></dl>
+
+<dl><dt><a name="DispatcherKeyError-__getslice__"><strong>__getslice__</strong></a>(...)</dt><dd><tt>x.<a href="#DispatcherKeyError-__getslice__">__getslice__</a>(i,&nbsp;j)&nbsp;&lt;==&gt;&nbsp;x[i:j]<br>
+&nbsp;<br>
+Use&nbsp;of&nbsp;negative&nbsp;indices&nbsp;is&nbsp;not&nbsp;supported.</tt></dd></dl>
+
+<dl><dt><a name="DispatcherKeyError-__reduce__"><strong>__reduce__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="DispatcherKeyError-__repr__"><strong>__repr__</strong></a>(...)</dt><dd><tt>x.<a href="#DispatcherKeyError-__repr__">__repr__</a>()&nbsp;&lt;==&gt;&nbsp;repr(x)</tt></dd></dl>
+
+<dl><dt><a name="DispatcherKeyError-__setattr__"><strong>__setattr__</strong></a>(...)</dt><dd><tt>x.<a href="#DispatcherKeyError-__setattr__">__setattr__</a>('name',&nbsp;value)&nbsp;&lt;==&gt;&nbsp;x.name&nbsp;=&nbsp;value</tt></dd></dl>
+
+<dl><dt><a name="DispatcherKeyError-__setstate__"><strong>__setstate__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="DispatcherKeyError-__unicode__"><strong>__unicode__</strong></a>(...)</dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="exceptions.html#BaseException">BaseException</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+</dl>
+<dl><dt><strong>args</strong></dt>
+</dl>
+<dl><dt><strong>message</strong></dt>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="DispatcherTypeError">class <strong>DispatcherTypeError</strong></a>(<a href="exceptions.html#TypeError">TypeError</a>, <a href="pydispatch.errors.html#DispatcherError">DispatcherError</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Error&nbsp;raised&nbsp;when&nbsp;inappropriate&nbsp;signal-type&nbsp;specified&nbsp;(None)<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="pydispatch.errors.html#DispatcherTypeError">DispatcherTypeError</a></dd>
+<dd><a href="exceptions.html#TypeError">TypeError</a></dd>
+<dd><a href="exceptions.html#StandardError">StandardError</a></dd>
+<dd><a href="pydispatch.errors.html#DispatcherError">DispatcherError</a></dd>
+<dd><a href="exceptions.html#Exception">Exception</a></dd>
+<dd><a href="exceptions.html#BaseException">BaseException</a></dd>
+<dd><a href="__builtin__.html#object">object</a></dd>
+</dl>
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Methods inherited from <a href="exceptions.html#TypeError">TypeError</a>:<br>
+<dl><dt><a name="DispatcherTypeError-__init__"><strong>__init__</strong></a>(...)</dt><dd><tt>x.<a href="#DispatcherTypeError-__init__">__init__</a>(...)&nbsp;initializes&nbsp;x;&nbsp;see&nbsp;help(type(x))&nbsp;for&nbsp;signature</tt></dd></dl>
+
+<hr>
+Data and other attributes inherited from <a href="exceptions.html#TypeError">TypeError</a>:<br>
+<dl><dt><strong>__new__</strong> = &lt;built-in method __new__ of type object&gt;<dd><tt>T.<a href="#DispatcherTypeError-__new__">__new__</a>(S,&nbsp;...)&nbsp;-&gt;&nbsp;a&nbsp;new&nbsp;object&nbsp;with&nbsp;type&nbsp;S,&nbsp;a&nbsp;subtype&nbsp;of&nbsp;T</tt></dl>
+
+<hr>
+Methods inherited from <a href="exceptions.html#BaseException">BaseException</a>:<br>
+<dl><dt><a name="DispatcherTypeError-__delattr__"><strong>__delattr__</strong></a>(...)</dt><dd><tt>x.<a href="#DispatcherTypeError-__delattr__">__delattr__</a>('name')&nbsp;&lt;==&gt;&nbsp;del&nbsp;x.name</tt></dd></dl>
+
+<dl><dt><a name="DispatcherTypeError-__getattribute__"><strong>__getattribute__</strong></a>(...)</dt><dd><tt>x.<a href="#DispatcherTypeError-__getattribute__">__getattribute__</a>('name')&nbsp;&lt;==&gt;&nbsp;x.name</tt></dd></dl>
+
+<dl><dt><a name="DispatcherTypeError-__getitem__"><strong>__getitem__</strong></a>(...)</dt><dd><tt>x.<a href="#DispatcherTypeError-__getitem__">__getitem__</a>(y)&nbsp;&lt;==&gt;&nbsp;x[y]</tt></dd></dl>
+
+<dl><dt><a name="DispatcherTypeError-__getslice__"><strong>__getslice__</strong></a>(...)</dt><dd><tt>x.<a href="#DispatcherTypeError-__getslice__">__getslice__</a>(i,&nbsp;j)&nbsp;&lt;==&gt;&nbsp;x[i:j]<br>
+&nbsp;<br>
+Use&nbsp;of&nbsp;negative&nbsp;indices&nbsp;is&nbsp;not&nbsp;supported.</tt></dd></dl>
+
+<dl><dt><a name="DispatcherTypeError-__reduce__"><strong>__reduce__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="DispatcherTypeError-__repr__"><strong>__repr__</strong></a>(...)</dt><dd><tt>x.<a href="#DispatcherTypeError-__repr__">__repr__</a>()&nbsp;&lt;==&gt;&nbsp;repr(x)</tt></dd></dl>
+
+<dl><dt><a name="DispatcherTypeError-__setattr__"><strong>__setattr__</strong></a>(...)</dt><dd><tt>x.<a href="#DispatcherTypeError-__setattr__">__setattr__</a>('name',&nbsp;value)&nbsp;&lt;==&gt;&nbsp;x.name&nbsp;=&nbsp;value</tt></dd></dl>
+
+<dl><dt><a name="DispatcherTypeError-__setstate__"><strong>__setstate__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="DispatcherTypeError-__str__"><strong>__str__</strong></a>(...)</dt><dd><tt>x.<a href="#DispatcherTypeError-__str__">__str__</a>()&nbsp;&lt;==&gt;&nbsp;str(x)</tt></dd></dl>
+
+<dl><dt><a name="DispatcherTypeError-__unicode__"><strong>__unicode__</strong></a>(...)</dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="exceptions.html#BaseException">BaseException</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+</dl>
+<dl><dt><strong>args</strong></dt>
+</dl>
+<dl><dt><strong>message</strong></dt>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>__file__</strong> = '/home/mcfletch/pylive/pydispatch/pydispatch/errors.pyc'<br>
+<strong>__name__</strong> = 'pydispatch.errors'</td></tr></table>
+</body></html>

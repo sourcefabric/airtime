@@ -1,0 +1,15 @@
+MANIFEST.in
+setup.py
+poster/__init__.py
+poster/encode.py
+poster/streaminghttp.py
+poster.egg-info/PKG-INFO
+poster.egg-info/SOURCES.txt
+poster.egg-info/dependency_links.txt
+poster.egg-info/requires.txt
+poster.egg-info/top_level.txt
+poster.egg-info/zip-safe
+tests/__init__.py
+tests/test_encode.py
+tests/test_server.py
+tests/test_streaming.py
