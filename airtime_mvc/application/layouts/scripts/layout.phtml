@@ -22,7 +22,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <?php echo $this->partial('partialviews/airtimeproctabar.phtml'); ?>
 
 <?php echo $this->partial('partialviews/trialBox.phtml', array("is_trial"=>$this->isTrial(), "trial_remain"=> $this->trialRemaining())) ?>
-<div id="Panel">
+<div id="Header_SubPanel">
     <div class="logo"></div>
     <?php echo $this->versionNotify();
             $sss = $this->SourceSwitchStatus();

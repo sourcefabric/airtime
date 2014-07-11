@@ -3088,6 +3088,11 @@ dd .stream-status {
     width: 320px;
 }
 
+#Header_SubPanel
+{
+	position: relative; /** Child elements must be positioned relative to this one */
+}
+
 #airtimepro_cta_bar
 {
 	height: 46px;
