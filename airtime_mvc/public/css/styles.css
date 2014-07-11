@@ -3087,3 +3087,41 @@ dd .stream-status {
 #popup-share-link {
     width: 320px;
 }
+
+#airtimepro_cta_bar
+{
+	height: 46px;
+	line-height: 46px;
+	font-size: 2.0em;
+	background: #222;
+    font-family: Raleway,Arial,Helvetica,sans-serif;
+    text-shadow: 0px 1px 0px rgb(0, 0, 0);
+    color: #ddd;
+    padding-left: 12px;
+}
+
+#airtimepro_signup
+{
+	/* Massive copy-paste from Airtime Pro's CSS. - Albert */
+    position: absolute;
+    right: 0px;
+	background: none repeat scroll 0% 0% rgb(255, 93, 26);
+	/*padding: 20px 35px;
+    font-size: 22px;*/
+    padding: 10px 16px;
+    font-size: 18px;
+    text-shadow: 0px 1px 0px rgb(0, 0, 0);
+	line-height: 18px;
+	cursor: pointer;
+	border: medium none;
+	width: auto;
+	height: auto;
+	display: inline-block;
+	border-radius: 4px;
+	text-decoration: none;
+	box-shadow: 0px 1px 0px 0px rgba(255, 255, 255, 0.2) inset;
+	color: rgb(255, 255, 255) !important;
+	cursor: pointer;
+	margin: 5px;
+	
+}
