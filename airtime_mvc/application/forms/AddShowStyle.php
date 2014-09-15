@@ -41,6 +41,27 @@ class Application_Form_AddShowStyle extends Zend_Form_SubForm
         $c->setValidators(array(
                 'Hex', $stringLengthValidator
         ));
+        
+        // Add show image input
+        $fileCountValidator = Application_Form_Helper_ValidationTypes::overrideFileCountValidator(1);
+        $fileExtensionValidator = Application_Form_Helper_ValidationTypes::overrideFileExtensionValidator('jpg,png,gif');
+        
+        $upload = new Zend_Form_Element_File('upload');
+        
+        $upload->setLabel(_('Show Image:'))
+        	   ->setRequired(false)
+        	   ->setDecorators(array('File', array('ViewScript', array(
+        				'viewScript' => 'form/add-show-style.phtml',
+        				'class'		 => 'big',
+        	   			'placement'  => false
+        		))))
+        	   ->addValidators(array(
+        	   		$fileCountValidator, 
+        	   		$fileExtensionValidator
+        	   ))
+        	   ->addFilter('ImageSize');
+        	   
+        $this->addElement($upload);
     }
 
     public function disable()
