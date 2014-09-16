@@ -510,7 +510,7 @@ class ScheduleController extends Zend_Controller_Action
     {
         $service_showForm = new Application_Service_ShowFormService(null);
         //$service_show = new Application_Service_ShowService();
-
+        
         $js = $this->_getParam('data');
         $data = array();
 
@@ -537,7 +537,6 @@ class ScheduleController extends Zend_Controller_Action
         Logging::info($log_vars);
         
         $forms = $this->createShowFormAction();
-
         $this->view->addNewShow = true;
         
         /* 
