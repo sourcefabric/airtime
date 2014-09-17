@@ -136,7 +136,7 @@ class ScheduleController extends Zend_Controller_Action
         $editable = $user->isUserType(array(UTYPE_ADMIN, UTYPE_PROGRAM_MANAGER));
 
         $calendar_interval = Application_Model_Preference::GetCalendarTimeScale();
-        Logging::info($calendar_interval);
+        // Logging::info($calendar_interval);
         if ($calendar_interval == "agendaDay") {
             list($start, $end) = Application_Model_Show::getStartEndCurrentDayView();
         } else if ($calendar_interval == "agendaWeek") {
@@ -328,7 +328,7 @@ class ScheduleController extends Zend_Controller_Action
 
             return false;
         }
-
+        
         $originalShowId = $show->isRebroadcast();
         if (!is_null($originalShowId)) {
             try {
