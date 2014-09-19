@@ -36,7 +36,7 @@ CREATE TABLE "cc_files"
 	"ftype" VARCHAR(128) default '' NOT NULL,
 	"directory" INTEGER,
 	"filepath" TEXT default '',
-	"state" VARCHAR(128) default 'empty' NOT NULL,
+	"import_status" INTEGER default 1 NOT NULL,
 	"currentlyaccessing" INTEGER default 0 NOT NULL,
 	"editedby" INTEGER,
 	"mtime" TIMESTAMP(6),
@@ -158,6 +158,7 @@ CREATE TABLE "cc_show"
 	"live_stream_pass" VARCHAR(255),
 	"linked" BOOLEAN default 'f' NOT NULL,
 	"is_linkable" BOOLEAN default 't' NOT NULL,
+	"image_path" VARCHAR(255),
 	PRIMARY KEY ("id")
 );
 
@@ -175,6 +176,7 @@ DROP TABLE "cc_show_instances" CASCADE;
 CREATE TABLE "cc_show_instances"
 (
 	"id" serial  NOT NULL,
+	"description" VARCHAR(512),
 	"starts" TIMESTAMP  NOT NULL,
 	"ends" TIMESTAMP  NOT NULL,
 	"show_id" INTEGER  NOT NULL,
@@ -731,25 +733,6 @@ CREATE TABLE "cc_listener_count"
 );
 
 COMMENT ON TABLE "cc_listener_count" IS '';
-
-
-SET search_path TO public;
------------------------------------------------------------------------------
--- cc_locale
------------------------------------------------------------------------------
-
-DROP TABLE "cc_locale" CASCADE;
-
-
-CREATE TABLE "cc_locale"
-(
-	"id" serial  NOT NULL,
-	"locale_code" VARCHAR(16)  NOT NULL,
-	"locale_lang" VARCHAR(128)  NOT NULL,
-	PRIMARY KEY ("id")
-);
-
-COMMENT ON TABLE "cc_locale" IS '';
 
 
 SET search_path TO public;

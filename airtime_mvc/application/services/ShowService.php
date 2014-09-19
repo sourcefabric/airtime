@@ -141,9 +141,17 @@ class Application_Service_ShowService
 
             $ccShowInstance->updateDbTimeFilled($con);
             $ccShowInstance->updateScheduleStatus($con);
+            $ccShowInstance
+            	->setDbDescription($showData['add_show_instance_description'])
+            	->save();
+            
+            
 
             //delete the edited instance from the repeating sequence
-            $ccShowInstanceOrig->setDbModifiedInstance(true)->save();
+            $ccShowInstanceOrig
+            	->setDbModifiedInstance(true)
+            	->setDbDescription($showData['add_show_instance_description'])
+            	->save();
 
             $con->commit();
             Application_Model_RabbitMq::PushSchedule();
@@ -176,7 +184,7 @@ class Application_Service_ShowService
         $this->localShowStartHour = $origStartTime[0];
         $this->localShowStartMin = $origStartTime[1];
     }
-
+    
     public function addUpdateShow($showData)
     {
         $service_user = new Application_Service_UserService();
@@ -198,7 +206,16 @@ class Application_Service_ShowService
             $daysAdded = array();
 
             if ($this->isUpdate) {
-                
+            	
+            	$showId = $this->ccShow->getDbId();
+            	
+            	// Only delete the previous logo if a new one is being uploaded
+            	if (array_key_exists("add_show_logo_name", $showData) && $showData["add_show_logo_name"] !== "") {
+            		if (!Rest_ShowController::deleteShowImagesFromStor($showId)) {
+            			throw new Exception("Error deleting show images");
+            		}
+            	}
+            	 
                 if (!$this->ccShow->getCcShowDayss()->isEmpty()) {
                     $this->storeOrigLocalShowInfo();
                 }
@@ -225,7 +242,7 @@ class Application_Service_ShowService
 
             //update ccShowHosts
             $this->setCcShowHosts($showData);
-
+            
             //create new ccShowInstances
             $this->delegateInstanceCreation($daysAdded);
 
@@ -251,6 +268,9 @@ class Application_Service_ShowService
             Logging::info("EXCEPTION: Show ".$action." failed.");
             Logging::info($e->getMessage());
         }
+        
+        // Added to pass along to the RESTful ShowController
+        return $this->ccShow->getDbId();
     }
 
     /**
@@ -732,6 +752,7 @@ SQL;
         $con = Propel::getConnection();
         $con->beginTransaction();
         try {
+        	
             if (!$currentUser->isAdminOrPM()) {
                 throw new Exception("Permission denied");
             }
@@ -742,7 +763,12 @@ SQL;
                 throw new Exception("Could not find show instance");
             }
 
+            // Delete show images
             $showId = $ccShowInstance->getDbShowId();
+        	if (!Rest_ShowController::deleteShowImagesFromStor($showId)) {
+        		throw new Exception("Error deleting show images");
+        	}
+        	
             if ($singleInstance) {
                 $ccShowInstances = array($ccShowInstance);
             } else {
@@ -772,7 +798,7 @@ SQL;
             return false;
         }
     }
-
+    
     public function deleteShowInstances($ccShowInstances, $showId)
     {
         foreach ($ccShowInstances as $ccShowInstance) {
@@ -1731,7 +1757,7 @@ SQL;
             }
         }
     }
-
+    
     /**
      *
      * Gets the date and time shows (particularly repeating shows)

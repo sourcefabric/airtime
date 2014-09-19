@@ -453,6 +453,8 @@ class ApiController extends Zend_Controller_Action
 
     public function uploadFileAction()
     {
+        Logging::error("FIXME: Change the show recorder to use the File Upload API and remove this function."); // Albert - April 3, 2014
+        /**
         $upload_dir = ini_get("upload_tmp_dir");
         $tempFilePath = Application_Model_StoredFile::uploadFile($upload_dir);
         $tempFileName = basename($tempFilePath);
@@ -464,7 +466,7 @@ class ApiController extends Zend_Controller_Action
             $this->_helper->json->sendJson(
                 array("jsonrpc" => "2.0", "error" => array("code" => $result['code'], "message" => $result['message']))
             );
-        }
+        }*/
     }
 
     public function uploadRecordedAction()
@@ -755,6 +757,28 @@ class ApiController extends Zend_Controller_Action
         Logging::info("Registered Component: ".$component."@".$remoteAddr);
 
         Application_Model_ServiceRegister::Register($component, $remoteAddr);
+        
+        //send ip, subdomain
+        if ($component == "pypo"){
+            $split = explode('.', $_SERVER['SERVER_NAME']);
+            $subdomain = array();
+            foreach ($split as $value) {
+                if ($value == 'airtime') {
+                    break;
+                } else {
+                    $subdomain[] = $value;
+                }
+            }
+            if (count($subdomain) > 0){
+                $subDomain = implode('.',$subdomain);
+
+                $md = array();
+                $md["sub_domain"] = $subDomain;
+                $md["pypo_ip"] = $remoteAddr;
+
+                Application_Model_RabbitMq::SendMessageToHaproxyConfigDaemon($md);
+            }
+        }
     }
 
     public function updateLiquidsoapStatusAction()

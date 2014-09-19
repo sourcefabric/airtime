@@ -877,11 +877,14 @@ SELECT si1.starts            AS starts,
        si1.instance_id       AS record_id,
        si1.show_id           AS show_id,
        show.name             AS name,
+       show.description      AS description,
        show.color            AS color,
        show.background_color AS background_color,
+       show.image_path       AS image_path,
        show.linked           AS linked,
        si1.file_id           AS file_id,
        si1.id                AS instance_id,
+       si1.description       AS instance_description,
        si1.created           AS created,
        si1.last_scheduled    AS last_scheduled,
        si1.time_filled       AS time_filled,
@@ -1076,10 +1079,13 @@ SQL;
 SELECT si.starts AS start_timestamp,
        si.ends AS end_timestamp,
        s.name,
+       s.description,
        s.id,
        si.id AS instance_id,
+       si.description AS instance_description,
        si.record,
        s.url,
+       s.image_path,
        starts,
        ends
 FROM cc_show_instances si
@@ -1121,16 +1127,19 @@ SQL;
         
         $CC_CONFIG = Config::getConfig();
         $con = Propel::getConnection();
-        //
-        //TODO, returning starts + ends twice (once with an alias). Unify this after the 2.0 release. --Martin
+
+                //TODO, returning starts + ends twice (once with an alias). Unify this after the 2.0 release. --Martin
         $sql = <<<SQL
 SELECT si.starts AS start_timestamp,
        si.ends AS end_timestamp,
        s.name,
+       s.description,
        s.id,
        si.id AS instance_id,
+	   si.description AS instance_description,
        si.record,
        s.url,
+       s.image_path,
        starts,
        ends
 FROM cc_show_instances si
@@ -1172,32 +1181,38 @@ SQL;
             {   
                 if ($i-1 >= 0) {
                     $results['previousShow'][0] = array(
-                                "id"              => $rows[$i-1]['id'],
-                                "instance_id"     => $rows[$i-1]['instance_id'],
-                                "name"            => $rows[$i-1]['name'],
-                                "url"             => $rows[$i-1]['url'],
-                                "start_timestamp" => $rows[$i-1]['start_timestamp'],
-                                "end_timestamp"   => $rows[$i-1]['end_timestamp'],
-                                "starts"          => $rows[$i-1]['starts'],
-                                "ends"            => $rows[$i-1]['ends'],
-                                "record"          => $rows[$i-1]['record'],
-                                "type"            => "show");
+                                "id"              		=> $rows[$i-1]['id'],
+                                "instance_id"     		=> $rows[$i-1]['instance_id'],
+                                "instance_description"	=> $rows[$i-1]['instance_description'],
+                    			"name"            		=> $rows[$i-1]['name'],
+                                "description"    		=> $rows[$i-1]['description'],
+                    			"url"             		=> $rows[$i-1]['url'],
+                                "start_timestamp" 		=> $rows[$i-1]['start_timestamp'],
+                                "end_timestamp"   		=> $rows[$i-1]['end_timestamp'],
+                                "starts"          		=> $rows[$i-1]['starts'],
+                                "ends"            		=> $rows[$i-1]['ends'],
+                                "record"          		=> $rows[$i-1]['record'],
+	                    		"image_path"     		=> $rows[$i-1]['image_path'],
+                                "type"           		=> "show");
                 }
 
                 $results['currentShow'][0] =  $rows[$i];
 
                 if (isset($rows[$i+1])) {
                     $results['nextShow'][0] =  array(
-                                "id"              => $rows[$i+1]['id'],
-                                "instance_id"     => $rows[$i+1]['instance_id'],
-                                "name"            => $rows[$i+1]['name'],
-                                "url"             => $rows[$i+1]['url'],
-                                "start_timestamp" => $rows[$i+1]['start_timestamp'],
-                                "end_timestamp"   => $rows[$i+1]['end_timestamp'],
-                                "starts"          => $rows[$i+1]['starts'],
-                                "ends"            => $rows[$i+1]['ends'],
-                                "record"          => $rows[$i+1]['record'],
-                                "type"            => "show");
+                                "id"             		=> $rows[$i+1]['id'],
+                                "instance_id"     		=> $rows[$i+1]['instance_id'],
+                                "instance_description"	=> $rows[$i+1]['instance_description'],
+                    			"name"           	 	=> $rows[$i+1]['name'],
+                                "description"     		=> $rows[$i+1]['description'],
+                    			"url"             		=> $rows[$i+1]['url'],
+                                "start_timestamp" 		=> $rows[$i+1]['start_timestamp'],
+                                "end_timestamp"   		=> $rows[$i+1]['end_timestamp'],
+                                "starts"          		=> $rows[$i+1]['starts'],
+                                "ends"            		=> $rows[$i+1]['ends'],
+                                "record"          		=> $rows[$i+1]['record'],
+	                    		"image_path"      		=> $rows[$i+1]['image_path'],
+                    			"type"            		=> "show");
                 }
                 break;
             }
@@ -1208,16 +1223,19 @@ SQL;
             //if we hit this we know we've gone to far and can stop looping.
             if ($showStartTime > $utcNow) {
                 $results['nextShow'][0] = array(
-                                "id"              => $rows[$i]['id'],
-                                "instance_id"     => $rows[$i]['instance_id'],
-                                "name"            => $rows[$i]['name'],
-                                "url"             => $rows[$i]['url'],
-                                "start_timestamp" => $rows[$i]['start_timestamp'],
-                                "end_timestamp"   => $rows[$i]['end_timestamp'],
-                                "starts"          => $rows[$i]['starts'],
-                                "ends"            => $rows[$i]['ends'],
-                                "record"          => $rows[$i]['record'],
-                                "type"            => "show");
+                                "id"              		=> $rows[$i]['id'],
+                                "instance_id"     		=> $rows[$i]['instance_id'],
+                                "instance_description"	=> $rows[$i]['instance_description'],
+                				"name"            		=> $rows[$i]['name'],
+                                "description"     		=> $rows[$i]['description'],
+                				"url"             		=> $rows[$i]['url'],
+                                "start_timestamp" 		=> $rows[$i]['start_timestamp'],
+                                "end_timestamp"   		=> $rows[$i]['end_timestamp'],
+                                "starts"          		=> $rows[$i]['starts'],
+                                "ends"           	 	=> $rows[$i]['ends'],
+                                "record"         		=> $rows[$i]['record'],
+	                    		"image_path"     		=> $rows[$i]['image_path'],
+                				"type"           		=> "show");
                 break;
             }
         }
@@ -1225,15 +1243,18 @@ SQL;
         //found a previous show so use it.
         if (count($results['previousShow']) == 0 && isset($previousShowIndex)) {
                 $results['previousShow'][0] = array(
-                    "id"              => $rows[$previousShowIndex]['id'],
-                    "instance_id"     => $rows[$previousShowIndex]['instance_id'],
-                    "name"            => $rows[$previousShowIndex]['name'],
-                    "start_timestamp" => $rows[$previousShowIndex]['start_timestamp'],
-                    "end_timestamp"   => $rows[$previousShowIndex]['end_timestamp'],
-                    "starts"          => $rows[$previousShowIndex]['starts'],
-                    "ends"            => $rows[$previousShowIndex]['ends'],
-                    "record"          => $rows[$previousShowIndex]['record'],
-                    "type"            => "show");
+                    "id"              		=> $rows[$previousShowIndex]['id'],
+                    "instance_id"     		=> $rows[$previousShowIndex]['instance_id'],
+                    "instance_description"	=> $rows[$previousShowIndex]['instance_description'],
+                	"name"            		=> $rows[$previousShowIndex]['name'],
+                    "description"     		=> $rows[$previousShowIndex]['description'],
+                	"start_timestamp" 		=> $rows[$previousShowIndex]['start_timestamp'],
+                    "end_timestamp"   		=> $rows[$previousShowIndex]['end_timestamp'],
+                    "starts"          		=> $rows[$previousShowIndex]['starts'],
+                    "ends"            		=> $rows[$previousShowIndex]['ends'],
+                    "record"          		=> $rows[$previousShowIndex]['record'],
+                    "image_path"      		=> $rows[$previousShowIndex]['image_path'],
+                	"type"            		=> "show");
         }
 
         return $results;
@@ -1264,11 +1285,14 @@ SQL;
 SELECT si.starts AS start_timestamp,
        si.ends AS end_timestamp,
        s.name,
+       s.description,
        s.id,
        si.id AS instance_id,
+       si.description AS instance_description,
        si.record,
        s.url,
-       starts,
+	   s.image_path,
+	   starts,
        ends
 FROM cc_show_instances si
      LEFT JOIN cc_show s
