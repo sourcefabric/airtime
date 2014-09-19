@@ -73,10 +73,7 @@ class Application_Form_AddShowStyle extends Zend_Form_SubForm
         				'viewScript' => 'form/add-show-style.phtml',
         				'class'		 => 'big',
         	   			'placement'  => false
-        		))))
-               ->addValidator('Count', false, 1)
-               ->addValidator('Extension', false, 'jpg,jpeg,png,gif')
-        	   ->addFilter('ImageSize');
+        		))));
         	   
         $this->addElement($upload);
         

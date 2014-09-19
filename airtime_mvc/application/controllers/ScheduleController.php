@@ -540,8 +540,6 @@ class ScheduleController extends Zend_Controller_Action
         $this->view->addNewShow = true;
         
         if ($service_showForm->validateShowForms($forms, $data)) {
-            $service_show->addUpdateShow($data);
-
         	// Get the show ID from the show service to pass as a parameter to the RESTful ShowController
         	$this->view->showId = $service_show->addUpdateShow($data);
             
