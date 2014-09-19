@@ -5,7 +5,7 @@ class ApiController extends Zend_Controller_Action
 
     public function init()
     {
-        $ignoreAuth = array("live-info", "week-info");
+        $ignoreAuth = array("live-info", "week-info", "station-metadata");
 
         $params = $this->getRequest()->getParams();
         if (!in_array($params['action'], $ignoreAuth)) {
@@ -223,6 +223,29 @@ class ApiController extends Zend_Controller_Action
 
         echo isset($_GET['callback']) ? $_GET['callback'].'('.json_encode($result).')' : json_encode($result);
     }
+    
+    /**
+     * Convert a static image from disk to a base64 data URI
+     *
+     * @param unknown $path
+     * 		- the path to the image on the disk
+     * @return string
+     * 		- the data URI representation of the image
+     */
+    private function imagePathToDataUri($path) {
+    	if ($path && $path !== '') {
+	    	ob_start();
+	    	header("Content-type: image/*");
+	    	readfile($path);
+	    	$imageData = base64_encode(ob_get_contents());
+	    	ob_end_clean();
+	    	// return the data URI - data:{mime};base64,{data}
+	    	return ($imageData === null || $imageData === '') ?
+	    	'' : 'data: '.mime_content_type($path).';base64,'.$imageData;
+    	} else {
+    		return '';
+    	}
+    }
 
     /**
      * Retrieve the currently playing show as well as upcoming shows.
@@ -284,6 +307,7 @@ class ApiController extends Zend_Controller_Action
             foreach ($result["currentShow"] as &$current) {
             	$current["name"] = htmlspecialchars($current["name"]);
             }
+            
             foreach ($result["nextShow"] as &$next) {
             	$next["name"] = htmlspecialchars($next["name"]);
             }
@@ -303,7 +327,26 @@ class ApiController extends Zend_Controller_Action
             Application_Common_DateHelper::convertTimestamps($result["nextShow"],
             		array("starts", "ends", "start_timestamp", "end_timestamp"),
             		"station");
+            
+            // Convert the image path into a data URI before we send it for convenience
+            foreach ($result as &$s) {
+            	if (is_array($s) && array_key_exists("image_path", $s)) {
+            		$s["image_path"] = $this->imagePathToDataUri($s["image_path"]);
+            	}
+            }
 
+            foreach ($result["currentShow"] as &$cs) {
+            	if (is_array($cs) && array_key_exists("image_path", $cs)) {
+            		$cs["image_path"] = $this->imagePathToDataUri($cs["image_path"]);
+            	}
+            }
+            
+            foreach ($result["nextShow"] as &$ns) {
+                if (is_array($ns) && array_key_exists("image_path", $ns)) {
+                	$ns["image_path"] = $this->imagePathToDataUri($ns["image_path"]);
+                }
+            }
+            
             //used by caller to determine if the airtime they are running or widgets in use is out of date.
             $result['AIRTIME_API_VERSION'] = AIRTIME_API_VERSION;
             header("Content-Type: application/json");
@@ -366,12 +409,43 @@ class ApiController extends Zend_Controller_Action
                     $show["url"] = htmlspecialchars($show["url"]);
                 }
             }
+            
+            // Convert the image path into a data URI before we send it for convenience
+            foreach ($dow as &$d) {
+            	if (array_key_exists("image_path", $show)) {
+            		$show["image_path"] = $this->imagePathToDataUri($show["image_path"]);
+            	}
+            }
+            
 
             //used by caller to determine if the airtime they are running or widgets in use is out of date.
             $result['AIRTIME_API_VERSION'] = AIRTIME_API_VERSION;
             header("Content-type: text/javascript");
             // If a callback is not given, then just provide the raw JSON.
             echo isset($_GET['callback']) ? $_GET['callback'].'('.json_encode($result).')' : json_encode($result);
+        } else {
+            header('HTTP/1.0 401 Unauthorized');
+            print _('You are not allowed to access this resource. ');
+            exit;
+        }
+    }
+    
+    /**
+     * Provide station metadata
+     */
+    public function stationMetadataAction()
+    {
+    	if (Application_Model_Preference::GetAllow3rdPartyApi()) {
+    		// disable the view and the layout
+    		$this->view->layout()->disableLayout();
+    		$this->_helper->viewRenderer->setNoRender(true);
+    		
+    		
+    		//used by caller to determine if the airtime they are running or widgets in use is out of date.
+            $result['AIRTIME_API_VERSION'] = AIRTIME_API_VERSION;
+            header("Content-type: text/javascript");
+            // If a callback is not given, then just provide the raw JSON.
+    		echo isset($_GET['callback']) ? $_GET['callback'].'('.json_encode($result).')' : json_encode($result);
         } else {
             header('HTTP/1.0 401 Unauthorized');
             print _('You are not allowed to access this resource. ');
