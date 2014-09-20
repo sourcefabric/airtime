@@ -2153,8 +2153,8 @@ dd.radio-inline-list, .preferences dd.radio-inline-list, .stream-config dd.radio
     width: 98.5%;
 }
 
-.preferences dd#SoundCloudTags-element.block-display .input_text_area {
-    height: 120px;
+.preferences dd.block-display .input_text_area {
+	height: 120px;
 }
 
 #show_time_info {

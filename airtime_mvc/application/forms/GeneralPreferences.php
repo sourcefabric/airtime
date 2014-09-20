@@ -5,7 +5,8 @@ class Application_Form_GeneralPreferences extends Zend_Form_SubForm
 
     public function init()
     {
-
+    	$maxLens = Application_Model_Show::getMaxLengths();
+    	 
         $notEmptyValidator = Application_Form_Helper_ValidationTypes::overrideNotEmptyValidator();
         $rangeValidator = Application_Form_Helper_ValidationTypes::overrideBetweenValidator(0, 59.9);
         $this->setDecorators(array(
@@ -17,14 +18,26 @@ class Application_Form_GeneralPreferences extends Zend_Form_SubForm
        
         //Station name
         $this->addElement('text', 'stationName', array(
-            'class'      => 'input_text',
-            'label'      => _('Station Name'),
-            'required'   => false,
-            'filters'    => array('StringTrim'),
-            'value' => Application_Model_Preference::GetStationName(),
-            'decorators' => array(
-                'ViewHelper'
-            )
+	            'class'      => 'input_text',
+	            'label'      => _('Station Name'),
+	            'required'   => false,
+	            'filters'    => array('StringTrim'),
+	            'value' => Application_Model_Preference::GetStationName(),
+	            'decorators' => array(
+	                'ViewHelper'
+	            )
+        ));
+        
+        // Station description
+        $this->addElement('textarea', 'stationDescription', array(
+	        	'class'      => 'input_text_area',
+	        	'label'      => _('Station Description'),
+	        	'required'   => false,
+	            'value' => Application_Model_Preference::GetStationDescription(),
+        		'validators' => array(array('StringLength', false, array(0, $maxLens['description']))),
+        		'decorators' => array(
+        			'ViewHelper'
+        		)
         ));
         
         //Default station fade in

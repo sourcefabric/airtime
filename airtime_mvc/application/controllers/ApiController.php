@@ -440,6 +440,10 @@ class ApiController extends Zend_Controller_Action
     		$this->view->layout()->disableLayout();
     		$this->_helper->viewRenderer->setNoRender(true);
     		
+    		// TODO
+    		$result["name"] = $stationName = Application_Model_Preference::GetStationName();
+    		$result["logo"] = $stationName = Application_Model_Preference::GetStationLogo();
+    		$result["description"] = $stationName = Application_Model_Preference::GetStationDescription();
     		
     		//used by caller to determine if the airtime they are running or widgets in use is out of date.
             $result['AIRTIME_API_VERSION'] = AIRTIME_API_VERSION;

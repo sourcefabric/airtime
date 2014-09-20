@@ -14,6 +14,20 @@
                 </ul>
             <?php endif; ?>
         </dd>
+        <dt id="stationDescription-label" class="block-display">
+            <label class="required" for="stationDescription"><?php echo $this->element->getElement('stationDescription')->getLabel() ?>:
+            </label>
+        </dt>
+        <dd id="stationDescription-element" class="block-display">
+            <?php echo $this->element->getElement('stationDescription') ?>
+            <?php if($this->element->getElement('stationDescription')->hasErrors()) : ?>
+                <ul class='errors'>
+                    <?php foreach($this->element->getElement('stationDescription')->getMessages() as $error): ?>
+                        <li><?php echo $error; ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
+        </dd>
         <dt id="stationDefaultFadeIn-label" class="block-display">
             <label class="optional" for="stationDefaultFadeIn"><?php echo $this->element->getElement('stationDefaultFadeIn')->getLabel() ?></label>
         </dt>

@@ -44,6 +44,7 @@ class PreferenceController extends Zend_Controller_Action
             if ($form->isValid($values)) {
 
                 Application_Model_Preference::SetHeadTitle($values["stationName"], $this->view);
+                Application_Model_Preference::SetStationDescription($values["stationDescription"]);
                 Application_Model_Preference::SetDefaultCrossfadeDuration($values["stationDefaultCrossfadeDuration"]);
                 Application_Model_Preference::SetDefaultFadeIn($values["stationDefaultFadeIn"]);
                 Application_Model_Preference::SetDefaultFadeOut($values["stationDefaultFadeOut"]);
@@ -105,6 +106,7 @@ class PreferenceController extends Zend_Controller_Action
                 }
             } else if ($form->isValid($values)) {
                 Application_Model_Preference::SetHeadTitle($values["stationName"], $this->view);
+                Application_Model_Preference::SetStationDescription($values["stationDescription"]);
                 Application_Model_Preference::SetPhone($values["Phone"]);
                 Application_Model_Preference::SetEmail($values["Email"]);
                 Application_Model_Preference::SetStationWebSite($values["StationWebSite"]);
@@ -116,7 +118,6 @@ class PreferenceController extends Zend_Controller_Action
 
                 Application_Model_Preference::SetStationCountry($values["Country"]);
                 Application_Model_Preference::SetStationCity($values["City"]);
-                Application_Model_Preference::SetStationDescription($values["Description"]);
                 Application_Model_Preference::SetStationLogo($imagePath);
                 if (isset($values["Privacy"])) {
                     Application_Model_Preference::SetPrivacyPolicyCheck($values["Privacy"]);
