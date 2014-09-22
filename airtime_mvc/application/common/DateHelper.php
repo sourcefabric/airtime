@@ -313,6 +313,37 @@ class Application_Common_DateHelper
     }
     
     /**
+     * Convert the columns given in the array $columnsToConvert in the
+     * database result $rows to local timezone.
+     *
+     * @param array $rows             arrays of arrays containing database query result
+     * @param array $columnsToConvert array of column names to convert
+     * @param string $timezone 		  convert to the given timezone.
+     * @param string $format 		  time format to convert to
+     */
+    public static function convertTimestampsToTimezone(&$rows, $columnsToConvert, $timezone, $format="Y-m-d H:i:s")
+    {
+    	$timezone = strtolower($timezone);
+    	// Check that the timezone is valid and rows is an array
+    	if (!is_array($rows) || !array_key_exists($timezone, timezone_abbreviations_list())) {
+    		return false;
+    	}
+    	
+    	foreach ($rows as &$row) {
+    		foreach ($columnsToConvert as $column) {
+    			$newTimezone = new DateTimeZone($timezone);
+    			$utcTimezone = new DateTimeZone("UTC");
+    			 
+    			$d = new DateTime($row[$column], $utcTimezone);
+    			$d->setTimezone($newTimezone);
+    			$row[$column] = $d->format($format);
+    		}
+    	}
+    	
+    	return true;
+    }
+    
+    /**
      * This function is used for calculations! Don't modify for display purposes!
      *
      * Convert playlist time value to float seconds
