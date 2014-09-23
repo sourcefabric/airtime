@@ -24,7 +24,7 @@ class Application_Form_AddShowStyle extends Zend_Form_SubForm
             'Hex', $stringLengthValidator
         ));
 
-    // Add show color input
+    	// Add show color input
         $this->addElement('text', 'add_show_color', array(
             'label'      => _('Text Colour:'),
             'class'      => 'input_text',
@@ -74,6 +74,8 @@ class Application_Form_AddShowStyle extends Zend_Form_SubForm
         				'class'		 => 'big',
         	   			'placement'  => false
         		))));
+		// Validation for this element is done on the front-end because it 
+		// doesn't pass Zend validation (since AddShow submits are done through AJAX)
         	   
         $this->addElement($upload);
         
