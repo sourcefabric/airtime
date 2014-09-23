@@ -255,13 +255,11 @@ class ApiController extends Zend_Controller_Action
             // default to the station timezone
             $timezone = Application_Model_Preference::GetDefaultTimezone();
             $userDefinedTimezone = strtolower($this->getRequest()->getParam("timezone"));
-            // if the timezone defined by the user exists, use that
-            if (array_key_exists($userDefinedTimezone, timezone_abbreviations_list())) {
-            	$timezone = $userDefinedTimezone;
-            }
+            $upcase = false; // only upcase the timezone abbreviations
+            $this->checkTimezone($userDefinedTimezone, $timezone, $upcase);
             
             $type = $request->getParam('type');
-            /* This is some *extremely* lazy programming that needs to bi fixed. For some reason
+            /* This is some *extremely* lazy programming that needs to be fixed. For some reason
              * we are using two entirely different codepaths for very similar functionality (type = endofday
              * vs type = interval). Needs to be fixed for 2.3 - MK */
             if ($type == "endofday") {
@@ -288,7 +286,7 @@ class ApiController extends Zend_Controller_Action
             // XSS exploit prevention
             $this->convertSpecialChars($result, array("name", "url"));
             // apply user-defined timezone, or default to station
-            $this->applyLiveTimezoneAdjustments($result, $timezone);
+            $this->applyLiveTimezoneAdjustments($result, $timezone, $upcase);
             
             // convert image paths to point to api endpoints
             $this->findAndConvertPaths($result);
@@ -307,6 +305,23 @@ class ApiController extends Zend_Controller_Action
         }
     }
     
+    private function checkTimezone($userDefinedTimezone, &$timezone, &$upcase) 
+    {
+    	$delimiter = "/";
+    	// if the user passes in a timezone in standard form ("Continent/City")
+    	// we need to fix the downcased string by upcasing each word delimited by a /
+    	if (strpos($userDefinedTimezone, $delimiter) !== false) {
+    		$userDefinedTimezone = implode($delimiter, array_map('ucfirst', explode($delimiter, $userDefinedTimezone)));
+    	}
+    	// if the timezone defined by the user exists, use that
+    	if (array_key_exists($userDefinedTimezone, timezone_abbreviations_list())) {
+    		$timezone = $userDefinedTimezone;
+    		$upcase = true;
+    	} else if (in_array(ucwords($userDefinedTimezone), timezone_identifiers_list())) {
+    		$timezone = $userDefinedTimezone;
+    	}
+    }
+    
     /**
      * If the user passed in a timezone parameter, adjust timezone-dependent 
      * variables in the result to reflect the given timezone
@@ -314,7 +329,8 @@ class ApiController extends Zend_Controller_Action
      * @param unknown $result 				reference to the object to send back to the user
      * @param unknown $userDefinedTimezone	the user's timezone parameter value
      */
-    private function applyLiveTimezoneAdjustments(&$result, $timezone) {
+    private function applyLiveTimezoneAdjustments(&$result, $timezone, $upcase) 
+    {
     	Application_Common_DateHelper::convertTimestampsToTimezone(
     		$result,
     		array("starts", "ends", "start_timestamp","end_timestamp"),
@@ -323,7 +339,7 @@ class ApiController extends Zend_Controller_Action
 
    		//Convert the UTC scheduler time ("now") to the user-defined timezone.
    		$result["schedulerTime"] = Application_Common_DateHelper::UTCStringToTimezoneString($result["schedulerTime"], $timezone);
-   		$result["timezone"] = strtoupper($timezone);
+   		$result["timezone"] = $upcase ? strtoupper($timezone) : $timezone;
    		$result["timezoneOffset"] = Application_Common_DateHelper::getTimezoneOffset($timezone);
     }
     
@@ -403,7 +419,8 @@ class ApiController extends Zend_Controller_Action
      * @param unknown $arr	the array to sanitize
      * @param unknown $keys	indexes of values to be sanitized
      */
-    private function convertSpecialChars(&$arr, $keys) {
+    private function convertSpecialChars(&$arr, $keys) 
+    {
     	foreach ($arr as &$a) {
     		if (is_array($a)) {
     			foreach ($keys as &$key) {
@@ -422,7 +439,8 @@ class ApiController extends Zend_Controller_Action
      *
      * @param unknown $arr the array to search
      */
-    private function findAndConvertPaths(&$arr) {
+    private function findAndConvertPaths(&$arr) 
+    {
     	foreach ($arr as &$a) {
     		if (is_array($a)) {
     			if (array_key_exists("image_path", $a)) {
@@ -438,7 +456,8 @@ class ApiController extends Zend_Controller_Action
     /**
      * API endpoint to display the show logo
      */
-    public function showLogoAction() {
+    public function showLogoAction() 
+    {
     	if (Application_Model_Preference::GetAllow3rdPartyApi()) {
 	    	// disable the view and the layout
 	    	$this->view->layout()->disableLayout();
@@ -493,7 +512,8 @@ class ApiController extends Zend_Controller_Action
     /**
      * API endpoint to display the current station logo
      */
-    public function stationLogoAction() {
+    public function stationLogoAction() 
+    {
     	if (Application_Model_Preference::GetAllow3rdPartyApi()) {
 	    	// disable the view and the layout
 	    	$this->view->layout()->disableLayout();
