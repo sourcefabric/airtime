@@ -121,11 +121,8 @@ class Zend_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
         if (in_array($controller, array("api", "auth", "locale"))) {
             $this->setRoleName("G");
         } elseif (!Zend_Auth::getInstance()->hasIdentity()) {
-
              if ($controller !== 'login') {
-
                 if ($request->isXmlHttpRequest()) {
-
                     $url = 'http://'.$request->getHttpHost().'/login';
                     $json = Zend_Json::encode(array('auth' => false, 'url' => $url));
 
@@ -143,8 +140,7 @@ class Zend_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
                }
             }
         } else {
-
-            $userInfo = Zend_Auth::getInstance()->getStorage()->read();
+        	$userInfo = Zend_Auth::getInstance()->getStorage()->read();
             $this->setRoleName($userInfo->type);
 
             Zend_View_Helper_Navigation_HelperAbstract::setDefaultAcl($this->_acl);
@@ -159,8 +155,11 @@ class Zend_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
             $resourceName .= $controller;
 
             /** Check if the controller/action can be accessed by the current user */
-            if (!$this->getAcl()->has($resourceName) 
-                || !$this->getAcl()->isAllowed($this->_roleName, 
+            if (!$this->getAcl()->has($resourceName)) {
+            	// 404 error -- controller or action not found
+            	$this->getResponse()->setHttpResponseCode(404);
+            	$this->view->message = _('Page not found');
+            } else if (!$this->getAcl()->isAllowed($this->_roleName, 
                         $resourceName, 
                         $request->getActionName())) {
                 /** Redirect to access denied page */
