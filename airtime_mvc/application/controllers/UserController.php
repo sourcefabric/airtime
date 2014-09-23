@@ -123,9 +123,27 @@ class UserController extends Zend_Controller_Action
     {
         $request = $this->getRequest();
         $form = new Application_Form_EditUser();
+        
+        // Get the current user from session
+        $service_user = new Application_Service_UserService();
+        $currentUser = $service_user->getCurrentUser();
+        
+        
         if ($request->isPost()) {
             $formData = $request->getPost();
-            
+
+            // Verify that the request is about the current user
+	        if ($currentUser->getDbId() != $formData['cu_user_id']
+                && !($currentUser->isAdminOrPM())) {
+	        	$this->getResponse()
+			         ->setHttpResponseCode(403);
+	        	
+                $this->view->successMessage = "<div class='errors'>"._("You can only edit your own settings")."</div>";
+	        	$this->view->form = $form;
+	        	$this->view->html = $this->view->render('user/edit-user.phtml');
+	        	return;
+	        }
+	        
             if ($form->isValid($formData) &&
                        $form->validateLogin($formData['cu_login'], $formData['cu_user_id'])) {
                 $user = new Application_Model_User($formData['cu_user_id']);
@@ -136,7 +154,7 @@ class UserController extends Zend_Controller_Action
                 // on the client side.
                 if ($formData['cu_password'] != "xxxxxx") {
                     $user->setPassword($formData['cu_password']);
-                }
+                }	
                 $user->setEmail($formData['cu_email']);
                 $user->setCellPhone($formData['cu_cell_phone']);
                 $user->setSkype($formData['cu_skype']);
