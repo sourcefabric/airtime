@@ -316,10 +316,6 @@ class ApiController extends Zend_Controller_Action
     	//For consistency, all times here are being sent in the station timezone, which
     	//seems to be what we've normalized everything to.
     	
-    	//Convert the UTC scheduler time ("now") to the station timezone.
-    	$result["schedulerTime"] = Application_Common_DateHelper::UTCStringToStationTimezoneString($result["schedulerTime"]);
-    	$result["timezone"] = Application_Common_DateHelper::getStationTimezoneAbbreviation();
-    	$result["timezoneOffset"] = Application_Common_DateHelper::getStationTimezoneOffset();
     	
     	// try assigning to the user-defined timezone - if that fails, default
     	// to the station timezone
@@ -346,7 +342,18 @@ class ApiController extends Zend_Controller_Action
     			array("starts", "ends", "start_timestamp","end_timestamp"),
     			"station"
     		);
+	    	//Convert the UTC scheduler time ("now") to the station timezone.
+	    	$result["schedulerTime"] = Application_Common_DateHelper::UTCStringToStationTimezoneString($result["schedulerTime"]);
+	    	$result["timezone"] = Application_Common_DateHelper::getStationTimezoneAbbreviation();
+	    	$result["timezoneOffset"] = Application_Common_DateHelper::getStationTimezoneOffset();
+    	} else {
+    		//Convert the UTC scheduler time ("now") to the user-defined timezone.
+    		$result["schedulerTime"] = Application_Common_DateHelper::UTCStringToTimezoneString($result["schedulerTime"], $userDefinedTimezone);
+    		$result["timezone"] = strtoupper($userDefinedTimezone);
+    		$result["timezoneOffset"] = Application_Common_DateHelper::getTimezoneOffset($userDefinedTimezone);
     	}
+    	
+    	return $result;
     }
     
     public function weekInfoAction()

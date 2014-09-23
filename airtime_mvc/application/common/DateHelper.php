@@ -343,6 +343,35 @@ class Application_Common_DateHelper
     	return true;
     }
     
+	/**
+	 * Return a formatted string representing the 
+	 * given datetime in the given timezone
+	 * 
+	 * @param unknown $datetime the time to convert
+	 * @param unknown $timezone the timezone to convert to
+	 * @param string $format	the formatted string
+	 */
+    public static function UTCStringToTimezoneString($datetime, $timezone, $format="Y-m-d H:i:s") {
+    	$d = new DateTime($datetime, new DateTimeZone("UTC"));
+    	$timezone = strtolower($timezone);
+    	$newTimezone = new DateTimeZone($timezone);
+    	$d->setTimezone($newTimezone);
+    	 
+    	return $d->format($format);
+    }
+    
+    /**
+     * Return the timezone offset in seconds for the given timezone
+     * 
+     * @param unknown $userDefinedTimezone the timezone used to determine the offset
+     */
+    public static function getTimezoneOffset($userDefinedTimezone) {
+    	$now = new DateTimeZone($userDefinedTimezone);
+    	
+    	$d = new DateTime("now", $now);
+    	return $d->format("Z");
+    }
+    
     /**
      * This function is used for calculations! Don't modify for display purposes!
      *
