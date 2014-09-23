@@ -308,14 +308,19 @@ class Application_Service_ShowFormService
      * 		- the data URI representation of the image
      */
     private function imagePathToDataUri($path) {
-    	ob_start();
-    	header("Content-type: image/*");
-    	readfile($path);
-    	$imageData = base64_encode(ob_get_contents());
-    	ob_end_clean();
-    	// return the data URI - data:{mime};base64,{data}
-    	return ($imageData === null || $imageData === '') ? 
-    		'' : 'data: '.mime_content_type($path).';base64,'.$imageData;
+    	if ($path && $path !== '') {
+    		$mime_type = mime_content_type($path);
+	    	ob_start();
+	    	header("Content-type: " . $mime_type);
+	    	readfile($path);
+	    	$imageData = base64_encode(ob_get_contents());
+	    	ob_end_clean();
+	    	// return the data URI - data:{mime};base64,{data}
+	    	return ($imageData === null || $imageData === '') ? 
+	    		'' : 'data: '.$mime_type.';base64,'.$imageData;
+	    } else {
+	    	return '';
+	    }
     }
 
     private function populateFormLive($form)
