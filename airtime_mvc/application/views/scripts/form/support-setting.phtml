@@ -125,21 +125,21 @@
                 </ul>
             <?php endif; ?>
         </dd>
-        <dt id="Description-label" class="block-display">
-            <label class="optional" for="Description"><?php echo $this->element->getElement('Description')->getLabel() ?></label>
+        <dt id="stationDescription-label" class="block-display">
+            <label class="optional" for="stationDescription"><?php echo $this->element->getElement('stationDescription')->getLabel() ?></label>
         </dt>
-        <dd id="Description-element" class="block-display clearfix">
-            <?php echo $this->element->getElement('Description') ?>
-            <?php if($this->element->getElement('Description')->hasErrors()) : ?>
+        <dd id="stationDescription-element" class="block-display clearfix">
+            <?php echo $this->element->getElement('stationDescription') ?>
+            <?php if($this->element->getElement('stationDescription')->hasErrors()) : ?>
                 <ul class='errors'>
-                    <?php foreach($this->element->getElement('Description')->getMessages() as $error): ?>
+                    <?php foreach($this->element->getElement('stationDescription')->getMessages() as $error): ?>
                         <li><?php echo $error; ?></li>
                     <?php endforeach; ?>
                 </ul>
             <?php endif; ?>
         </dd>
         <dt id="Logo-label" class="block-display">
-            <label class="optional" for="Description"><?php echo $this->element->getElement('Logo')->getLabel() ?></label>
+            <label class="optional" for="Logo"><?php echo $this->element->getElement('Logo')->getLabel() ?></label>
         </dt>
         <dd id="Logo-element" class="block-display clearfix">
             <?php if($this->element->getView()->logoImg){?>

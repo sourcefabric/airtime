@@ -86,7 +86,7 @@ class Application_Form_SupportSettings extends Zend_Form
         ));
 
         // Station Description
-        $description = new Zend_Form_Element_Textarea('Description');
+        $description = new Zend_Form_Element_Textarea('stationDescription');
         $description->class = 'input_text_area';
         $description->setLabel(_('Station Description:'))
                     ->setRequired(false)
