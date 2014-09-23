@@ -325,22 +325,25 @@ class Application_Common_DateHelper
     {
     	$timezone = strtolower($timezone);
     	// Check that the timezone is valid and rows is an array
-    	if (!is_array($rows) || !array_key_exists($timezone, timezone_abbreviations_list())) {
-    		return false;
+    	if (!is_array($rows)) {
+    		return;
     	}
     	
     	foreach ($rows as &$row) {
-    		foreach ($columnsToConvert as $column) {
-    			$newTimezone = new DateTimeZone($timezone);
-    			$utcTimezone = new DateTimeZone("UTC");
-    			 
-    			$d = new DateTime($row[$column], $utcTimezone);
-    			$d->setTimezone($newTimezone);
-    			$row[$column] = $d->format($format);
+    		if (is_array($row)) {
+	    		foreach ($columnsToConvert as $column) {
+	    			if (array_key_exists($column, $row)) {
+		    			$newTimezone = new DateTimeZone($timezone);
+		    			$utcTimezone = new DateTimeZone("UTC");
+		    			 
+		    			$d = new DateTime($row[$column], $utcTimezone);
+		    			$d->setTimezone($newTimezone);
+		    			$row[$column] = $d->format($format);
+	    			}
+	    		}
+	    		self::convertTimestampsToTimezone($row, $columnsToConvert, $timezone, $format);
     		}
     	}
-    	
-    	return true;
     }
     
 	/**

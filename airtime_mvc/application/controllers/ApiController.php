@@ -251,7 +251,14 @@ class ApiController extends Zend_Controller_Action
             
             $utcTimeNow = gmdate("Y-m-d H:i:s");
             $utcTimeEnd = "";   // if empty, getNextShows will use interval instead of end of day
-            $userDefinedTimezone = $this->getRequest()->getParam("timezone");
+
+            // default to the station timezone
+            $timezone = Application_Model_Preference::GetDefaultTimezone();
+            $userDefinedTimezone = strtolower($this->getRequest()->getParam("timezone"));
+            // if the timezone defined by the user exists, use that
+            if (array_key_exists($userDefinedTimezone, timezone_abbreviations_list())) {
+            	$timezone = $userDefinedTimezone;
+            }
             
             $type = $request->getParam('type');
             /* This is some *extremely* lazy programming that needs to bi fixed. For some reason
@@ -274,31 +281,19 @@ class ApiController extends Zend_Controller_Action
                     "currentShow" => Application_Model_Show::getCurrentShow($utcTimeNow),
                     "nextShow" => Application_Model_Show::getNextShows($utcTimeNow, $limit, $utcTimeEnd)
                 );
-            }
-            else {
+            } else {
                 $result = Application_Model_Schedule::GetPlayOrderRange();
-
-                // XSS exploit prevention
-                $result["previous"]["name"] = htmlspecialchars($result["previous"]["name"]);
-                $result["current"]["name"] = htmlspecialchars($result["current"]["name"]);
-                $result["next"]["name"] = htmlspecialchars($result["next"]["name"]);        
             }
             
             // XSS exploit prevention
-            foreach ($result["currentShow"] as &$current) {
-            	$current["name"] = htmlspecialchars($current["name"]);
-            }
+            $this->convertSpecialChars($result, array("name", "url"));
+            // apply user-defined timezone, or default to station
+            $this->applyLiveTimezoneAdjustments($result, $timezone);
             
-            foreach ($result["nextShow"] as &$next) {
-            	$next["name"] = htmlspecialchars($next["name"]);
-            }
+            // convert image paths to point to api endpoints
+            $this->findAndConvertPaths($result);
             
-            $result = $this->applyLiveTimezoneAdjustments($result, $userDefinedTimezone);
-            
-            // Convert the image path into a data URI before we send it for convenience
-            $result = $this->findAndConvertPaths($result);
-            
-            //used by caller to determine if the airtime they are running or widgets in use is out of date.
+            // used by caller to determine if the airtime they are running or widgets in use is out of date.
             $result['AIRTIME_API_VERSION'] = AIRTIME_API_VERSION;
             header("Content-Type: application/json");
 
@@ -312,48 +307,24 @@ class ApiController extends Zend_Controller_Action
         }
     }
     
-    private function applyLiveTimezoneAdjustments($result, $userDefinedTimezone) {
-    	//For consistency, all times here are being sent in the station timezone, which
-    	//seems to be what we've normalized everything to.
-    	
-    	
-    	// try assigning to the user-defined timezone - if that fails, default
-    	// to the station timezone
-    	if (!($userDefinedTimezone && $userDefinedTimezone != ''
-    			&& Application_Common_DateHelper::convertTimestampsToTimezone(
-    				$result["currentShow"],
-    				array("starts", "ends", "start_timestamp","end_timestamp"),
-    				$userDefinedTimezone
-    			)
-    			&& Application_Common_DateHelper::convertTimestampsToTimezone(
-    				$result["nextShow"],
-    				array("starts", "ends", "start_timestamp","end_timestamp"),
-    				$userDefinedTimezone
-    			))
-    	) {
-    		//Convert from UTC to station time for Web Browser.
-    		Application_Common_DateHelper::convertTimestamps(
-    			$result["currentShow"],
-    			array("starts", "ends", "start_timestamp","end_timestamp"),
-    			"station"
-    		);
-    		Application_Common_DateHelper::convertTimestamps(
-    			$result["nextShow"],
-    			array("starts", "ends", "start_timestamp","end_timestamp"),
-    			"station"
-    		);
-	    	//Convert the UTC scheduler time ("now") to the station timezone.
-	    	$result["schedulerTime"] = Application_Common_DateHelper::UTCStringToStationTimezoneString($result["schedulerTime"]);
-	    	$result["timezone"] = Application_Common_DateHelper::getStationTimezoneAbbreviation();
-	    	$result["timezoneOffset"] = Application_Common_DateHelper::getStationTimezoneOffset();
-    	} else {
-    		//Convert the UTC scheduler time ("now") to the user-defined timezone.
-    		$result["schedulerTime"] = Application_Common_DateHelper::UTCStringToTimezoneString($result["schedulerTime"], $userDefinedTimezone);
-    		$result["timezone"] = strtoupper($userDefinedTimezone);
-    		$result["timezoneOffset"] = Application_Common_DateHelper::getTimezoneOffset($userDefinedTimezone);
-    	}
-    	
-    	return $result;
+    /**
+     * If the user passed in a timezone parameter, adjust timezone-dependent 
+     * variables in the result to reflect the given timezone
+     * 
+     * @param unknown $result 				reference to the object to send back to the user
+     * @param unknown $userDefinedTimezone	the user's timezone parameter value
+     */
+    private function applyLiveTimezoneAdjustments(&$result, $timezone) {
+    	Application_Common_DateHelper::convertTimestampsToTimezone(
+    		$result,
+    		array("starts", "ends", "start_timestamp","end_timestamp"),
+    		$timezone
+    	);
+
+   		//Convert the UTC scheduler time ("now") to the user-defined timezone.
+   		$result["schedulerTime"] = Application_Common_DateHelper::UTCStringToTimezoneString($result["schedulerTime"], $timezone);
+   		$result["timezone"] = strtoupper($timezone);
+   		$result["timezoneOffset"] = Application_Common_DateHelper::getTimezoneOffset($timezone);
     }
     
     public function weekInfoAction()
@@ -372,16 +343,21 @@ class ApiController extends Zend_Controller_Action
 
             $result = array();
             
-			$userDefinedTimezone = $this->getRequest()->getParam("timezone");
+        	// default to the station timezone
+            $timezone = Application_Model_Preference::GetDefaultTimezone();
+            $userDefinedTimezone = strtolower($this->getRequest()->getParam("timezone"));
+            // if the timezone defined by the user exists, use that
+            if (array_key_exists($userDefinedTimezone, timezone_abbreviations_list())) {
+            	$timezone = $userDefinedTimezone;
+            }            
             $utcTimezone = new DateTimeZone("UTC");
-            $stationTimezone = new DateTimeZone(Application_Model_Preference::GetDefaultTimezone());
-
+            
             $weekStartDateTime->setTimezone($utcTimezone);
             $utcDayStart = $weekStartDateTime->format("Y-m-d H:i:s");
             for ($i = 0; $i < 14; $i++) {
             	
             	//have to be in station timezone when adding 1 day for daylight savings.
-            	$weekStartDateTime->setTimezone($stationTimezone);
+            	$weekStartDateTime->setTimezone(new DateTimeZone($timezone));
             	$weekStartDateTime->add(new DateInterval('P1D'));
             	
             	//convert back to UTC to get the actual timestamp used for search.
@@ -391,35 +367,20 @@ class ApiController extends Zend_Controller_Action
                 $shows = Application_Model_Show::getNextShows($utcDayStart, "ALL", $utcDayEnd);
                 $utcDayStart = $utcDayEnd;
                 
-                // try assigning to the user-defined timezone - if that fails, default 
-                // to the station timezone
-                if (!($userDefinedTimezone && $userDefinedTimezone != '' && 
-                		Application_Common_DateHelper::convertTimestampsToTimezone(
-	                		$shows,
-    	            		array("starts", "ends", "start_timestamp","end_timestamp"),
-        	        		$userDefinedTimezone
-                		))
-                ) {
-	                Application_Common_DateHelper::convertTimestamps(
-	                	$shows,
-	                    array("starts", "ends", "start_timestamp","end_timestamp"),
-	                	"station"
-	                );
-                }
+            	// convert to user-defined timezone, or default to station
+                Application_Common_DateHelper::convertTimestampsToTimezone(
+	            	$shows,
+    	        	array("starts", "ends", "start_timestamp","end_timestamp"),
+        	    	$timezone
+              	);
 
-                $result[$dow[$i]] = $shows;
+              	$result[$dow[$i]] = $shows;
             }
 
             // XSS exploit prevention
-            foreach ($dow as $d) {
-                foreach ($result[$d] as &$show) {
-                    $show["name"] = htmlspecialchars($show["name"]);
-                    $show["url"] = htmlspecialchars($show["url"]);
-                }
-            }
-            
-            // Convert the image path into a data URI before we send it for convenience
-            $result = $this->findAndConvertPaths($result);
+            $this->convertSpecialChars($result, array("name", "url"));
+            // convert image paths to point to api endpoints
+            $this->findAndConvertPaths($result);
             
             //used by caller to determine if the airtime they are running or widgets in use is out of date.
             $result['AIRTIME_API_VERSION'] = AIRTIME_API_VERSION;
@@ -436,25 +397,42 @@ class ApiController extends Zend_Controller_Action
     }
     
     /**
+     * Go through a given array and sanitize any potentially exploitable fields
+     * by passing them through htmlspecialchars
+     *
+     * @param unknown $arr	the array to sanitize
+     * @param unknown $keys	indexes of values to be sanitized
+     */
+    private function convertSpecialChars(&$arr, $keys) {
+    	foreach ($arr as &$a) {
+    		if (is_array($a)) {
+    			foreach ($keys as &$key) {
+    				if (array_key_exists($key, $a)) {
+    					$a[$key] = htmlspecialchars($a[$key]);
+    				}
+    			}
+    			$this->convertSpecialChars($a, $keys);
+    		}
+    	}
+    }
+    
+    /**
      * Recursively find image_path keys in the various $result subarrays,
      * and convert them to point to the show-logo endpoint
      *
-     * @param unknown $arr
-     * 		- the array to search
-     * @return unknown
-     * 		- the input array with converted image paths
+     * @param unknown $arr the array to search
      */
-    private function findAndConvertPaths($arr) {
+    private function findAndConvertPaths(&$arr) {
     	foreach ($arr as &$a) {
     		if (is_array($a)) {
     			if (array_key_exists("image_path", $a)) {
-    				$a["image_path"] = "http://".$_SERVER['HTTP_HOST']."/api/show-logo?path=".urlencode($a["image_path"]);
+    				$a["image_path"] = $a["image_path"] && $a["image_path"] !== '' ?
+    					"http://".$_SERVER['HTTP_HOST']."/api/show-logo?path=".urlencode($a["image_path"]) : '';
     			} else {
     				$this->findAndConvertPaths($a);
     			}
     		}
     	}
-    	return $arr;
     }
     
     /**
