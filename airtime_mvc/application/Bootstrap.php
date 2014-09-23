@@ -31,6 +31,7 @@ Application_Model_Auth::pinSessionToClient(Zend_Auth::getInstance());
 
 $front = Zend_Controller_Front::getInstance();
 $front->registerPlugin(new RabbitMqPlugin());
+$front->throwExceptions(false);
 
 //localization configuration
 Application_Model_Locale::configureLocalization();
@@ -167,7 +168,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     protected function _initZFDebug()
     {
 
-        Zend_Controller_Front::getInstance()->throwExceptions(true);
+        // Zend_Controller_Front::getInstance()->throwExceptions(true);
 
         /*
         if (APPLICATION_ENV == "development") {
