@@ -44,6 +44,10 @@ class Application_Form_Login extends Zend_Form
             )
         ));
         
+        // Turn off autocomplete for safety
+		$pass = $this->getElement('password');
+		$pass->setAttrib('autocomplete', 'off');
+        
         $locale = new Zend_Form_Element_Select("locale");
         $locale->setLabel(_("Language:"));
         $locale->setMultiOptions(Application_Model_Locale::getLocales());
