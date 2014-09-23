@@ -71,7 +71,6 @@ class LoginController extends Zend_Controller_Action
 
                         $this->_redirect('Showbuilder');
                     } else {
-
                         $message = _("Wrong username or password provided. Please try again.");
                         Application_Model_Subjects::increaseLoginAttempts($username);
                         Application_Model_LoginAttempts::increaseAttempts($_SERVER['REMOTE_ADDR']);
