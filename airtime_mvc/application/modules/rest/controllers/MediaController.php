@@ -129,15 +129,6 @@ class Rest_MediaController extends Zend_Rest_Controller
     
     public function postAction()
     {
-        /*  If the user presents a valid API key, we don't check CSRF tokens.  
-            CSRF tokens are only used for session based authentication.
-        */
-        if(!$this->verifyAPIKey()){
-            if(!$this->verifyCSRFToken($this->_getParam('csrf_token'))){
-                return;
-            }
-        }
-
         if (!$this->verifyAuth(true, true))
         {
             return;
@@ -304,26 +295,17 @@ class Rest_MediaController extends Zend_Rest_Controller
         return $id;
     }
 
-    private function verifyCSRFToken($token){
-        $current_namespace = new Zend_Session_Namespace('csrf_namespace');
-        $observed_csrf_token = $token;
-        $expected_csrf_token = $current_namespace->authtoken;
-
-        if($observed_csrf_token == $expected_csrf_token){
-            return true;
-        }else{
-            $resp = $this->getResponse();
-            $resp->setHttpResponseCode(401);
-            $resp->appendBody("ERROR: Token Missmatch."); 
-            return false;
-        }
-    }
-    
     private function verifyAuth($checkApiKey, $checkSession)
     {
-        //Session takes precedence over API key for now:
-        if ($checkSession && $this->verifySession()) 
-        {
+        //  Session takes precedence over API key for now:
+        if ($checkSession && $this->verifySession()) {
+            //  CSRF token validation only applies to session based authorization.
+            if(!$this->verifyCSRFToken($this->_getParam('csrf_token'))){
+                $resp = $this->getResponse();
+                $resp->setHttpResponseCode(401);
+                $resp->appendBody("ERROR: Token Missmatch."); 
+                return false;
+            }
             return true;
         }
         
@@ -339,6 +321,17 @@ class Rest_MediaController extends Zend_Rest_Controller
         return false;
     }
     
+    private function verifyCSRFToken($token){
+        $current_namespace = new Zend_Session_Namespace('csrf_namespace');
+        $observed_csrf_token = $token;
+        $expected_csrf_token = $current_namespace->authtoken;
+
+        if($observed_csrf_token == $expected_csrf_token){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     private function verifyAPIKey()
     {
