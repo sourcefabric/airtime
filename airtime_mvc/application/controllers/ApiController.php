@@ -5,7 +5,12 @@ class ApiController extends Zend_Controller_Action
 
     public function init()
     {
-        $ignoreAuth = array("live-info", "week-info");
+        $ignoreAuth = array("live-info", 
+            "week-info", 
+            "show-history-feed", 
+            "item-history-feed",
+            "shows",
+            "show-schedules");
 
         $params = $this->getRequest()->getParams();
         if (!in_array($params['action'], $ignoreAuth)) {
@@ -46,6 +51,7 @@ class ApiController extends Zend_Controller_Action
                 ->addActionContext('update-stream-setting-table'   , 'json')
                 ->addActionContext('update-replay-gain-value'      , 'json')
                 ->addActionContext('update-cue-values-by-silan'    , 'json')
+                ->addActionContext('show-preview'             , 'json')
                 ->initContext();
     }
 
@@ -265,7 +271,7 @@ class ApiController extends Zend_Controller_Action
                 $end->setTimezone(new DateTimeZone("UTC"));
                 $utcTimeEnd = $end->format("Y-m-d H:i:s");
                 $result = array(
-					"env" => APPLICATION_ENV,
+                    "env" => APPLICATION_ENV,
                     "schedulerTime" => $utcTimeNow,
                     "currentShow" => Application_Model_Show::getCurrentShow($utcTimeNow),
                     "nextShow" => Application_Model_Show::getNextShows($utcTimeNow, $limit, $utcTimeEnd)
@@ -282,10 +288,10 @@ class ApiController extends Zend_Controller_Action
             
             // XSS exploit prevention
             foreach ($result["currentShow"] as &$current) {
-            	$current["name"] = htmlspecialchars($current["name"]);
+                $current["name"] = htmlspecialchars($current["name"]);
             }
             foreach ($result["nextShow"] as &$next) {
-            	$next["name"] = htmlspecialchars($next["name"]);
+                $next["name"] = htmlspecialchars($next["name"]);
             }
             
             //For consistency, all times here are being sent in the station timezone, which
@@ -298,11 +304,11 @@ class ApiController extends Zend_Controller_Action
             
             //Convert from UTC to station time for Web Browser.
             Application_Common_DateHelper::convertTimestamps($result["currentShow"],
-            		array("starts", "ends", "start_timestamp", "end_timestamp"),
-            		"station");
+                    array("starts", "ends", "start_timestamp", "end_timestamp"),
+                    "station");
             Application_Common_DateHelper::convertTimestamps($result["nextShow"],
-            		array("starts", "ends", "start_timestamp", "end_timestamp"),
-            		"station");
+                    array("starts", "ends", "start_timestamp", "end_timestamp"),
+                    "station");
 
             //used by caller to determine if the airtime they are running or widgets in use is out of date.
             $result['AIRTIME_API_VERSION'] = AIRTIME_API_VERSION;
@@ -328,8 +334,8 @@ class ApiController extends Zend_Controller_Action
             $weekStartDateTime = Application_Common_DateHelper::getWeekStartDateTime();
             
             $dow = array("monday", "tuesday", "wednesday", "thursday", "friday",
-						"saturday", "sunday", "nextmonday", "nexttuesday", "nextwednesday",
-						"nextthursday", "nextfriday", "nextsaturday", "nextsunday");
+                        "saturday", "sunday", "nextmonday", "nexttuesday", "nextwednesday",
+                        "nextthursday", "nextfriday", "nextsaturday", "nextsunday");
 
             $result = array();
             $utcTimezone = new DateTimeZone("UTC");
@@ -338,22 +344,22 @@ class ApiController extends Zend_Controller_Action
             $weekStartDateTime->setTimezone($utcTimezone);
             $utcDayStart = $weekStartDateTime->format("Y-m-d H:i:s");
             for ($i = 0; $i < 14; $i++) {
-            	
-            	//have to be in station timezone when adding 1 day for daylight savings.
-            	$weekStartDateTime->setTimezone($stationTimezone);
-            	$weekStartDateTime->add(new DateInterval('P1D'));
-            	
-            	//convert back to UTC to get the actual timestamp used for search.
-            	$weekStartDateTime->setTimezone($utcTimezone);
-            	
+                
+                //have to be in station timezone when adding 1 day for daylight savings.
+                $weekStartDateTime->setTimezone($stationTimezone);
+                $weekStartDateTime->add(new DateInterval('P1D'));
+                
+                //convert back to UTC to get the actual timestamp used for search.
+                $weekStartDateTime->setTimezone($utcTimezone);
+                
                 $utcDayEnd = $weekStartDateTime->format("Y-m-d H:i:s");
                 $shows = Application_Model_Show::getNextShows($utcDayStart, "ALL", $utcDayEnd);
                 $utcDayStart = $utcDayEnd;
                 
                 Application_Common_DateHelper::convertTimestamps(
-                	$shows,
+                    $shows,
                     array("starts", "ends", "start_timestamp","end_timestamp"),
-                	"station"
+                    "station"
                 );
 
                 $result[$dow[$i]] = $shows;
@@ -1043,8 +1049,8 @@ class ApiController extends Zend_Controller_Action
         if (!is_null($media_id) && $media_id > 0) {
 
             if (isset($data_arr->title)) {
-            	
-            	$data_title = substr($data_arr->title, 0, 1024);
+                
+                $data_title = substr($data_arr->title, 0, 1024);
 
                 $previous_metadata = CcWebstreamMetadataQuery::create()
                     ->orderByDbStartTime('desc')
@@ -1060,9 +1066,9 @@ class ApiController extends Zend_Controller_Action
                 }
 
                 if ($do_insert) {
-                	
-                	$startDT = new DateTime("now", new DateTimeZone("UTC"));
-                	
+                    
+                    $startDT = new DateTime("now", new DateTimeZone("UTC"));
+                    
                     $webstream_metadata = new CcWebstreamMetadata();
                     $webstream_metadata->setDbInstanceId($media_id);
                     $webstream_metadata->setDbStartTime($startDT);
@@ -1105,4 +1111,194 @@ class ApiController extends Zend_Controller_Action
             Application_Model_StreamSetting::SetListenerStatError($k, $v);
         }
     }
+
+    /**
+     * display played items for a given time range and show instance_id
+     *
+     * @return json array
+     */
+    public function itemHistoryFeedAction()
+    {
+        try {
+            $request = $this->getRequest();
+            $params = $request->getParams();
+            $instance = $request->getParam("instance_id", null);
+
+            list($startsDT, $endsDT) = $this->getStartEnd($request);
+
+            $historyService = new Application_Service_HistoryService();
+            $results = $historyService->getPlayedItemData($startsDT, $endsDT, $params, $instance);
+
+            $this->_helper->json->sendJson($results['history']);
+    }
+        catch (Exception $e) {
+            Logging::info($e);
+            Logging::info($e->getMessage());
+        }
+    }
+
+    /**
+     * display show schedules for a given time range and show instance_id
+     *
+     * @return json array
+     */
+    public function showHistoryFeedAction()
+    {
+        try {
+            $request = $this->getRequest();
+            $params = $request->getParams();
+            $userId = $request->getParam("user_id", null);
+ 
+            list($startsDT, $endsDT) = $this->getStartEnd($request);
+            
+            $historyService = new Application_Service_HistoryService();
+            $shows = $historyService->getShowList($startsDT, $endsDT, $userId);
+
+            $this->_helper->json->sendJson($shows);
+        }
+        catch (Exception $e) {
+            Logging::info($e);
+            Logging::info($e->getMessage());
+        }
+    }
+
+    /**
+     * display show info (without schedule) for given show_id
+     *
+     * @return json array
+     */
+    public function showsAction()
+    {
+        try {
+            $request = $this->getRequest();
+            $params = $request->getParams();
+            $showId = $request->getParam("show_id", null);
+ 
+            if (empty($showId)) {            
+                $shows = Application_Model_Show::getDistinctShows();
+            } else {
+                $show = new Application_Model_Show($showId);
+                $shows = $show->getShowInfo();
+            }
+
+            $this->_helper->json->sendJson($shows);
+        }
+        catch (Exception $e) {
+            Logging::info($e);
+            Logging::info($e->getMessage());
+        }
+    }
+   
+    /**
+     * display show schedule for given show_id
+     *
+     * @return json array
+     */
+    public function showSchedulesAction() 
+    {
+        try {
+            $request = $this->getRequest();
+            $params = $request->getParams();
+            $showId = $request->getParam("show_id", null);
+ 
+            list($startsDT, $endsDT) = $this->getStartEnd($request);
+            
+            $shows = Application_Model_Show::getShows($startsDT, $endsDT, FALSE, $showId);
+
+            $this->_helper->json->sendJson($shows);
+        }
+        catch (Exception $e) {
+            Logging::info($e);
+            Logging::info($e->getMessage());
+        }
+
+    }
+    
+    public function showPreviewAction()
+    {
+        $baseUrl = Application_Common_OsPath::getBaseDir();
+        $prefTimezone = Application_Model_Preference::GetTimezone();
+
+        $instanceId = $this->_getParam('instance_id');
+        $apiKey = $this->_getParam('api_key');
+
+        if (!isset($instanceId)) {
+            return;
+        }
+
+        $showInstance = new Application_Model_ShowInstance($instanceId);
+        $result = array();
+        $position = 0;
+        foreach ($showInstance->getShowListContent($prefTimezone) as $track) {
+
+            $elementMap = array(
+                'title' => isset($track['track_title']) ? $track['track_title'] : "",
+                'artist' => isset($track['creator']) ? $track['creator'] : "",
+                'position' => $position,
+                'id' => ++$position,
+                'mime' => isset($track['mime'])?$track['mime']:"",
+                'starts' => isset($track['starts']) ? $track['starts'] : "",
+                'length' => isset($track['length']) ? $track['length'] : "",
+                'file_id' => ($track['type'] == 0) ? $track['item_id'] :  $track['filepath']
+            );
+
+            $result[] = $elementMap;
+        }
+
+        $this->_helper->json($result);
+
+    }
+    
+    /**
+     * sets start and end vars from given params, or defauls to 
+     * yesterday - today using server timezone
+     */ 
+    private function getStartEnd($request)
+    {
+        $prefTimezone = Application_Model_Preference::GetTimezone();
+        $utcTimezone = new DateTimeZone("UTC");
+        $utcNow = new DateTime("now", $utcTimezone);
+         
+        $start = $request->getParam("start");
+        $end = $request->getParam("end");
+        $timezone = $request->getParam("timezone");
+
+        if (empty($timezone)) {
+            $userTimezone = new DateTimeZone($prefTimezone);
+        } else {
+            $userTimezone = new DateTimeZone($timezone);
+        }
+ 
+        if (empty($start) || empty($end)) {
+            $startsDT = clone $utcNow;
+            $startsDT->sub(new DateInterval("P1D"));
+            $endsDT = clone $utcNow;
+        }
+        else {
+             
+            try {
+                $startsDT = new DateTime($start, $userTimezone);
+                $startsDT->setTimezone($utcTimezone);
+    
+                $endsDT = new DateTime($end, $userTimezone);
+                $endsDT->setTimezone($utcTimezone);
+    
+                if ($startsDT > $endsDT) {
+                    throw new Exception("start greater than end");
+                }
+            }
+            catch (Exception $e) {
+                Logging::info($e);
+                Logging::info($e->getMessage());
+    
+                $startsDT = clone $utcNow;
+                $startsDT->sub(new DateInterval("P1D"));
+                $endsDT = clone $utcNow;
+            }
+             
+        }
+         
+        return array($startsDT, $endsDT);
+    }
+
 }
