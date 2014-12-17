@@ -102,11 +102,11 @@ case "$1" in
 
       # PHP config
       echo "Configuring php5..."
-      if [ ! -d /etc/$php/conf.d/ ]; then
-        install -d -m755 /etc/$php/conf.d/
+      if [ ! -d /etc/$php/$webserver/conf.d/ ]; then
+        install -d -m755 /etc/$php/$webserver/conf.d/
       fi
-      if [ ! -e /etc/$php/conf.d/airtime.ini ]; then
-        ln -s ${phpinifile} /etc/$php/conf.d/airtime.ini
+      if [ ! -e /etc/$php/$webserver/conf.d/airtime.ini ]; then
+        ln -s ${phpinifile} /etc/$php/$webserver/conf.d/airtime.ini
       fi
 
       # restart apache
