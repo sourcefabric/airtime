@@ -80,7 +80,7 @@ try:
 
     #initialize init.d scripts
     subprocess.call("update-rc.d airtime-playout defaults >/dev/null 2>&1", shell=True)
-    subprocess.call("update-rc.d airtime-liquidsoap defaults >/dev/null 2>&1", shell=True)
+    subprocess.call("update-rc.d airtime-liquidsoap defaults 92 8 >/dev/null 2>&1", shell=True)
 
     #clear out an previous pypo cache
     print "* Clearing previous pypo cache"
