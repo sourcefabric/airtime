@@ -60,9 +60,10 @@ class Rest_MediaController extends Zend_Rest_Controller
             $storedFile = new Application_Model_StoredFile($file, $con);
             $baseUrl = Application_Common_OsPath::getBaseDir();
 
+            $CC_CONFIG = Config::getConfig();
             $this->getResponse()
                 ->setHttpResponseCode(200)
-                ->appendBody($this->_redirect($storedFile->getRelativeFileUrl($baseUrl).'/download/true'));
+                ->appendBody($this->_redirect($storedFile->getRelativeFileUrl($baseUrl).'/download/true/api_key/'.$CC_CONFIG["apiKey"][0]));
         } else {
             $this->fileNotFoundResponse();
         }
@@ -155,7 +156,7 @@ class Rest_MediaController extends Zend_Rest_Controller
         
         $file = CcFilesQuery::create()->findPk($id);
         // Since we check for this value when deleting files, set it first
-        $file->setDbDirectory(self::MUSIC_DIRS_STOR_PK);
+        //$file->setDbDirectory(self::MUSIC_DIRS_STOR_PK);
 
         $requestData = json_decode($this->getRequest()->getRawBody(), true);
         $whiteList = $this->removeBlacklistedFieldsFromRequestData($requestData);
@@ -164,9 +165,38 @@ class Rest_MediaController extends Zend_Rest_Controller
         if (!$this->validateRequestData($file, $whiteList)) {
             $file->save();
             return;
-        } else if ($file) {
+        } else if ($file && isset($requestData["resource_id"])) {
             $file->fromArray($whiteList, BasePeer::TYPE_FIELDNAME);
-
+            
+            //store the original filename
+            $file->setDbFilepath($requestData["filename"]);
+            
+            $fileSizeBytes = $requestData["filesize"];
+            if (!isset($fileSizeBytes) || $fileSizeBytes === false)
+            {
+                $file->setDbImportStatus(2)->save();
+                $this->fileNotFoundResponse();
+                return;
+            }
+            $cloudFile = new CloudFile();
+            $cloudFile->setStorageBackend($requestData["storage_backend"]);
+            $cloudFile->setResourceId($requestData["resource_id"]);
+            $cloudFile->setCcFiles($file);
+            $cloudFile->save();
+            
+            Application_Model_Preference::updateDiskUsage($fileSizeBytes);
+            
+            $now  = new DateTime("now", new DateTimeZone("UTC"));
+            $file->setDbMtime($now);
+            $file->save();
+            
+            $this->getResponse()
+                ->setHttpResponseCode(200)
+                ->appendBody(json_encode(CcFiles::sanitizeResponse($file)));
+        } else if ($file) {
+            //local file storage
+            $file->setDbDirectory(self::MUSIC_DIRS_STOR_PK);
+            $file->fromArray($whiteList, BasePeer::TYPE_FIELDNAME);
             //Our RESTful API takes "full_path" as a field, which we then split and translate to match
             //our internal schema. Internally, file path is stored relative to a directory, with the directory
             //as a foreign key to cc_music_dirs.
@@ -179,26 +209,22 @@ class Rest_MediaController extends Zend_Rest_Controller
                     return;
                 }
                 Application_Model_Preference::updateDiskUsage($fileSizeBytes);
-
                 $fullPath = $requestData["full_path"];
                 $storDir = Application_Model_MusicDir::getStorDir()->getDirectory();
                 $pos = strpos($fullPath, $storDir);
-                
+            
                 if ($pos !== FALSE)
                 {
                     assert($pos == 0); //Path must start with the stor directory path
-                    
+            
                     $filePathRelativeToStor = substr($fullPath, strlen($storDir));
                     $file->setDbFilepath($filePathRelativeToStor);
                 }
-            }    
+            }
             
             $now  = new DateTime("now", new DateTimeZone("UTC"));
             $file->setDbMtime($now);
             $file->save();
-            
-            /* $this->removeEmptySubFolders(
-                isset($_SERVER['AIRTIME_BASE']) ? $_SERVER['AIRTIME_BASE']."/srv/airtime/stor/organize/" : "/srv/airtime/stor/organize/"); */
             
             $this->getResponse()
                 ->setHttpResponseCode(200)
@@ -218,11 +244,9 @@ class Rest_MediaController extends Zend_Rest_Controller
         $file = CcFilesQuery::create()->findPk($id);
         if ($file) {
             $con = Propel::getConnection();
-            $storedFile = new Application_Model_StoredFile($file, $con);
-            if ($storedFile->existsOnDisk()) {
-                $storedFile->delete(); //TODO: This checks your session permissions... Make it work without a session?
-            }
-            $file->delete();
+            $storedFile = Application_Model_StoredFile::RecallById($id, $con);
+            $storedFile->delete(); //TODO: This checks your session permissions... Make it work without a session?
+            
             $this->getResponse()
                 ->setHttpResponseCode(204);
         } else {
@@ -246,6 +270,13 @@ class Rest_MediaController extends Zend_Rest_Controller
         $resp = $this->getResponse();
         $resp->setHttpResponseCode(404);
         $resp->appendBody("ERROR: Media not found."); 
+    }
+    
+    private function importFailedResponse()
+    {
+        $resp = $this->getResponse();
+        $resp->setHttpResponseCode(200);
+        $resp->appendBody("ERROR: Import Failed.");
     }
 
     private function invalidDataResponse()
@@ -314,9 +345,12 @@ class Rest_MediaController extends Zend_Rest_Controller
         }
             
         //TODO: Remove uploadFileAction from ApiController.php **IMPORTANT** - It's used by the recorder daemon...
-         
-        $storDir = Application_Model_MusicDir::getStorDir();
-        $importedStorageDirectory = $storDir->getDirectory() . "/imported/" . $ownerId;
+        
+        $importedStorageDirectory = "";
+        if ($CC_CONFIG["current_backend"] == "file") {
+            $storDir = Application_Model_MusicDir::getStorDir();
+            $importedStorageDirectory = $storDir->getDirectory() . "/imported/" . $ownerId;
+        }
         
         try {
             //Copy the temporary file over to the "organize" folder so that it's off our webserver
@@ -327,12 +361,12 @@ class Rest_MediaController extends Zend_Rest_Controller
             Logging::error($e->getMessage());
             return;
         }
-
+        
         //Dispatch a message to airtime_analyzer through RabbitMQ,
         //notifying it that there's a new upload to process!
         Application_Model_RabbitMq::SendMessageToAnalyzer($newTempFilePath,
                  $importedStorageDirectory, basename($originalFilename),
-                 $callbackUrl, $apiKey);
+                 $callbackUrl, $apiKey, $CC_CONFIG["current_backend"]);
     }
 
     private function getOwnerId()
