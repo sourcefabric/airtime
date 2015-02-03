@@ -65,6 +65,11 @@ if ($return_code == 0) {
     exit(1);
 }
 
+// Stop media-monitor and disable it -- Airtime 2.5.3+
+@exec("service media-monitor stop-with-monit");
+@exec("rm /etc/init.d/airtime-media-monitor");
+
+
 //convert strings like 1.9.0-devel to 1.9.0
 $version = substr($version, 0, 5);
 
@@ -100,6 +105,10 @@ if (strcmp($version, "2.5.0") < 0) {
 }
 if (strcmp($version, "2.5.1") < 0) {
     passthru("php --php-ini $SCRIPTPATH/../airtime-php.ini $SCRIPTPATH/../upgrades/airtime-2.5.1/airtime-upgrade.php");
+    pause();
+}
+if (strcmp($version, "2.5.3") < 0) {
+    passthru("php --php-ini $SCRIPTPATH/../airtime-php.ini $SCRIPTPATH/../upgrades/airtime-2.5.3/airtime-upgrade.php");
     pause();
 }
 echo "******************************* Upgrade Complete *******************************".PHP_EOL;

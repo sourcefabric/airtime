@@ -1390,4 +1390,25 @@ class Application_Model_Preference
     public static function GetHistoryFileTemplate() {
         return self::getValue("history_file_template");
     }
+
+    public static function getDiskUsage()
+    {
+        $val = self::getValue("disk_usage");
+        return (strlen($val) == 0) ? 0 : $val;
+    }
+
+    public static function setDiskUsage($value)
+    {
+        self::setValue("disk_usage", $value);
+    }
+
+    public static function updateDiskUsage($filesize)
+    {
+        $currentDiskUsage = self::getDiskUsage();
+        if (empty($currentDiskUsage)) {
+            $currentDiskUsage = 0;
+        }
+
+        self::setDiskUsage($currentDiskUsage + $filesize);
+    }
 }
