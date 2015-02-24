@@ -56,6 +56,17 @@ class Config {
 
         $CC_CONFIG['soundcloud-connection-retries'] = $values['soundcloud']['connection_retries'];
         $CC_CONFIG['soundcloud-connection-wait'] = $values['soundcloud']['time_between_retries'];
+
+        if (array_key_exists('mixcloud', $values))
+        { 
+            $CC_CONFIG['mixcloud'] = true;
+            $CC_CONFIG['mixcloud_client_id']     = $values['mixcloud']['client_id'];
+            $CC_CONFIG['mixcloud_client_secret'] = $values['mixcloud']['client_secret'];                
+        } else {
+            $CC_CONFIG['mixcloud'] = false;
+            $CC_CONFIG['mixcloud_client_id']     = '';
+            $CC_CONFIG['mixcloud_client_secret'] = '';
+        }
         
         if(isset($values['demo']['demo'])){
             $CC_CONFIG['demo'] = $values['demo']['demo'];

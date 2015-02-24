@@ -731,6 +731,10 @@ class ApiController extends Zend_Controller_Action
             $id = $file->getId();
             Application_Model_Soundcloud::uploadSoundcloud($id);
         }
+        if (!$showCanceled && Application_Model_Preference::GetAutoUploadRecordedShowToMixcloud()) {
+            $id = $file->getId();
+            Application_Model_Mixcloud::uploadMixcloud($id);
+        }
     }
 
     public function mediaMonitorSetupAction()

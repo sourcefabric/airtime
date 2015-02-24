@@ -1,0 +1,45 @@
+<fieldset class="padded">
+    <dl class="zend_form">
+        <dd id="ConnectToMixcloud-element" class="block-display" style="margin:6px 0 10px 0">
+            <label class="optional" for="ConnectToMixcloud">
+                <?php echo 
+                    //We would hide this here if Zend_Form had a hasElement() method or if it threw
+                    //an exception, but asas, it doesn't. The logic to hide this stuff is in MixcloudPreferences.php.
+                    $this->element->getElement('ConnectToMixcloud') 
+                ?>
+            </label>
+            <?php if($this->element->getElement('ConnectToMixcloud')->hasErrors()) : ?>
+                <ul class='errors'>
+                    <?php foreach($this->element->getElement('ConnectToMixcloud')->getMessages() as $error): ?>
+                        <li><?php echo $error; ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?> 
+        </dd>
+        <dd id="DisconnectFromMixcloud-element" class="block-display" style="margin:6px 0 10px 0">
+            <label class="optional" for="DisconnectFromMixcloud">
+                <?php echo $this->element->getElement('DisconnectFromMixcloud') ?>
+            </label>
+            <?php if($this->element->getElement('DisconnectFromMixcloud')->hasErrors()) : ?>
+                <ul class='errors'>
+                    <?php foreach($this->element->getElement('DisconnectFromMixcloud')->getMessages() as $error): ?>
+                        <li><?php echo $error; ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?> 
+        </dd>
+        <dd id="MixcloudAutoUpload-element" class="block-display" style="margin:6px 0 10px 0">
+            <label class="optional" for="MixcloudAutoUpload">
+                <?php echo $this->element->getElement('MixcloudAutoUpload') ?>
+                <strong><?php echo $this->element->getElement('MixcloudAutoUpload')->getLabel() ?></strong>
+            </label>
+            <?php if($this->element->getElement('MixcloudAutoUpload')->hasErrors()) : ?>
+                <ul class='errors'>
+                    <?php foreach($this->element->getElement('MixcloudAutoUpload')->getMessages() as $error): ?>
+                        <li><?php echo $error; ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?> 
+        </dd>
+    </dl>
+</fieldset>

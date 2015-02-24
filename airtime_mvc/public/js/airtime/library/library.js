@@ -1046,6 +1046,32 @@ var AIRTIME = (function(AIRTIME) {
                             soundcloud.view.callback = callback;
                         }
                     }
+                    
+                    // add callbacks for Mixcloud menu items.
+                    if (oItems.mixcloud !== undefined) {
+                        var mixcloud = oItems.mixcloud.items;
+                        
+                        // define an upload to mixcloud callback.
+                        if (mixcloud.upload !== undefined) {
+                            
+                            callback = function() {
+                                $.post(mixcloud.upload.url, function(){
+                                    addProgressIcon(data.id);
+                                });
+                            };
+                            mixcloud.upload.callback = callback;
+                        }
+                        
+                        // define a view on mixcloud callback
+                        if (mixcloud.view !== undefined) {
+                            
+                            callback = function() {
+                                window.open(mixcloud.view.url);
+                            };
+                            mixcloud.view.callback = callback;
+                        }
+                    }                    
+                    
                     // add callbacks for duplicate menu items.
                     if (oItems.duplicate !== undefined) {
                         var url = oItems.duplicate.url;

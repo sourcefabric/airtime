@@ -1336,6 +1336,41 @@ SQL;
         }
     }
 
+    public function uploadToMixcloud() 
+    {
+        $CC_CONFIG = Config::getConfig();
+
+        $file = $this->_file;
+        if (is_null($file)) {
+            return "File does not exist";
+        }
+
+        if (Application_Model_Preference::GetMixcloudEnabled()) {
+            $filepath = $this->getFilePath();
+            $name = $this->getName();
+            $access_token = Application_Model_Preference::GetMixcloudRequestToken();
+
+            $url = "https://api.mixcloud.com/upload/?access_token=" . $access_token;
+            $post_data['name'] = "$name";
+            $post_data['mp3'] = "@" . "$filepath";
+
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+            // Pass TRUE or 1 if you want to wait for and catch the response against the request made
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            // For Debug mode; shows up any error encountered during the operation
+            curl_setopt($ch, CURLOPT_VERBOSE, 1);
+            // Execute the request
+            $response = curl_exec($ch);
+
+            // Just for debug: to see response
+            echo "$response\n";
+            curl_close ($ch);
+        }
+    }
+
+
     public static function setIsPlaylist($p_playlistItems, $p_type, $p_status) {
         foreach ($p_playlistItems as $item) {
             $file = self::RecallById($item->getDbFileId());
