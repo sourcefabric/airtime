@@ -35,6 +35,9 @@ defined('APPLICATION_ENV')
 defined('VERBOSE_STACK_TRACE')
     || define('VERBOSE_STACK_TRACE', (getenv('VERBOSE_STACK_TRACE') ? getenv('VERBOSE_STACK_TRACE') : true));
 
+//Vendors
+set_include_path(realpath(dirname(__FILE__) . '/../../vendor'));
+
 // Ensure library/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(
     get_include_path(),
@@ -49,10 +52,16 @@ set_include_path(APPLICATION_PATH . '/models' . PATH_SEPARATOR . get_include_pat
 //Controller plugins.
 set_include_path(APPLICATION_PATH . '/controllers/plugins' . PATH_SEPARATOR . get_include_path());
 
+//Services.
+set_include_path(APPLICATION_PATH . '/services/' . PATH_SEPARATOR . get_include_path());
+
 //Zend framework
 if (file_exists('/usr/share/php/libzend-framework-php')) {
     set_include_path('/usr/share/php/libzend-framework-php' . PATH_SEPARATOR . get_include_path());
 }
+
+//cloud storage directory
+set_include_path(APPLICATION_PATH . '/cloud_storage' . PATH_SEPARATOR . get_include_path());
 
 /** Zend_Application */
 require_once 'Zend/Application.php';
@@ -63,6 +72,7 @@ $application = new Zend_Application(
 
 require_once (APPLICATION_PATH."/logging/Logging.php");
 Logging::setLogPath('/var/log/airtime/zendphp.log');
+Logging::setupParseErrorLogging();
 
 // Create application, bootstrap, and run
 try {
@@ -74,15 +84,18 @@ try {
         $application->bootstrap()->run();
     }
 } catch (Exception $e) {
-    echo $e->getMessage();
-    echo "<pre>";
-    echo $e->getTraceAsString();
-    echo "</pre>";
-    Logging::info($e->getMessage());
+
+    header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
+
+    Logging::error($e->getMessage());
     if (VERBOSE_STACK_TRACE) {
-        Logging::info($e->getTraceAsString());
+        echo $e->getMessage();
+        echo "<pre>";
+        echo $e->getTraceAsString();
+        echo "</pre>";
+        Logging::error($e->getTraceAsString());
     } else {
-        Logging::info($e->getTrace());
+        Logging::error($e->getTrace());
     }
     throw $e;
 }

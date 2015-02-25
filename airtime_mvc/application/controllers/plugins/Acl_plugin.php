@@ -123,38 +123,47 @@ class Zend_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
                     die();
                 }
             }
+            else  //Non-REST, regular Airtime web app requests
+            {
+                //Redirect you to the login screen since you have no session.
+                if ($controller !== 'login') {
 
-            if ($controller !== 'login') {
+                    if ($request->isXmlHttpRequest()) {
 
-                if ($request->isXmlHttpRequest()) {
+                        $url = 'http://'.$request->getHttpHost().'/login';
+                        $json = Zend_Json::encode(array('auth' => false, 'url' => $url));
 
-                    $url = 'http://'.$request->getHttpHost().'/login';
-                    $json = Zend_Json::encode(array('auth' => false, 'url' => $url));
+                        // Prepare response
+                        $this->getResponse()
+                             ->setHttpResponseCode(401)
+                             ->setBody($json)
+                             ->sendResponse();
 
-                    // Prepare response
-                    $this->getResponse()
-                         ->setHttpResponseCode(401)
-                         ->setBody($json)
-                         ->sendResponse();
-
-                    //redirectAndExit() cleans up, sends the headers and stops the script
-                    Zend_Controller_Action_HelperBroker::getStaticHelper('redirector')->redirectAndExit();
-                } else {
-                    $r = Zend_Controller_Action_HelperBroker::getStaticHelper('redirector');
-                    $r->gotoSimpleAndExit('index', 'login', $request->getModuleName());
-               }
+                        //redirectAndExit() cleans up, sends the headers and stops the script
+                        Zend_Controller_Action_HelperBroker::getStaticHelper('redirector')->redirectAndExit();
+                    } else {
+                        $r = Zend_Controller_Action_HelperBroker::getStaticHelper('redirector');
+                        $r->gotoSimpleAndExit('index', 'login', $request->getModuleName());
+                   }
+                }
             }
-        } else {
+        } else { //We have a session/identity.
             // If we have an identity and we're making a RESTful request,
             // we need to check the CSRF token
-            if ($request->_action != "get" && $request->getModuleName() == "rest") {
-                $tokenValid = $this->verifyCSRFToken($request->getParam("csrf_token"));
+            if ($_SERVER['REQUEST_METHOD'] != "GET" && $request->getModuleName() == "rest") {
+                $token = $request->getParam("csrf_token");
+                $tokenValid = $this->verifyCSRFToken($token);
 
                 if (!$tokenValid) {
+                    $csrf_namespace = new Zend_Session_Namespace('csrf_namespace');
+                    $csrf_namespace->authtoken = sha1(openssl_random_pseudo_bytes(128));
+
+                    Logging::warn("Invalid CSRF token: $token");
                     $this->getResponse()
                          ->setHttpResponseCode(401)
-                         ->appendBody("ERROR: CSRF token mismatch.");
-                    return;
+                         ->appendBody("ERROR: CSRF token mismatch.")
+                         ->sendResponse();
+                    die();
                 }
             }
             
@@ -198,9 +207,7 @@ class Zend_Controller_Plugin_Acl extends Zend_Controller_Plugin_Abstract
         $current_namespace = new Zend_Session_Namespace('csrf_namespace');
         $observed_csrf_token = $token;
         $expected_csrf_token = $current_namespace->authtoken;
-        Logging::error("Observed: " . $observed_csrf_token);
-        Logging::error("Expected: " . $expected_csrf_token);
-        
+
         return ($observed_csrf_token == $expected_csrf_token);
     }
     
