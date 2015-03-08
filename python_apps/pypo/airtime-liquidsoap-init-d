@@ -1,5 +1,4 @@
 #!/bin/bash
-
 ### BEGIN INIT INFO
 # Provides:          airtime-liquidsoap
 # Required-Start:    $local_fs $remote_fs $network $syslog $all
@@ -17,7 +16,7 @@ DAEMON=/usr/lib/airtime/pypo/bin/airtime-liquidsoap
 PIDFILE=/var/run/airtime-liquidsoap.pid
 EXEC='/usr/bin/airtime-liquidsoap'
 
-start () {
+start_ls () {
         mkdir -p /var/log/airtime/pypo-liquidsoap
         chown $USERID:$GROUPID /var/log/airtime/pypo-liquidsoap
 
@@ -34,7 +33,7 @@ start () {
              --nicelevel -15 --startas $DAEMON --exec $EXEC
 }
 
-stop () {
+stop_ls () {
         timeout --version >/dev/null 2>&1
         RESULT="$?"        
 
@@ -57,69 +56,75 @@ stop () {
 }
 
 start_with_monit () {
-        start
+        start_ls
         monit monitor airtime-liquidsoap >/dev/null 2>&1
 }
 
 stop_with_monit() {
         monit unmonitor airtime-liquidsoap >/dev/null 2>&1
-        stop
+        stop_ls
+}
+
+start_without_monit () {
+        start_ls
+}
+
+stop_without_monit() {
+        stop_ls
 }
 
 
 
-
 case "${1:-''}" in
-  'stop')
-           echo "* Stopping Liquidsoap without notifying Monit process watchdog. If Monit is 
-* running it will automatically bring the Liquidsoap back up. You probably want 
-* 'stop-with-monit' instead of 'stop'."
-           echo -n "Stopping $NAME: "
-           stop
-           echo "Done."
-        ;;
-  'start')
-           echo "* Starting $NAME without Monit process watchdog. To make sure Monit is watching 
-* Liquidsoap, use 'start-with-monit' instead of 'start'."
-           echo -n "Starting $NAME: "
-           start
-           echo "Done."
-        ;;
-  'restart')
-           # restart commands here
-           echo -n "Restarting $NAME: "
-           stop
-           start
+  start|start-with-monit)
+           echo -n " * Starting $NAME: "
+           start_with_monit
            echo "Done."
         ;;
 
-  'status')
+  stop|stop-with-monit)
+           echo -n " * Stopping $NAME: "
+           stop_with_monit
+           echo "Done."
+        ;;
+
+  restart|restart-with-monit)
+           echo -n " * Restarting $NAME: "
+           stop_with_monit
+           start_with_monit
+           echo "Done."
+        ;;
+
+  status)
         if [ -f "$PIDFILE" ]; then
             pid=`cat $PIDFILE`
             if [ -d "/proc/$pid" ]; then
-                echo "$NAME is running"
+                echo "$NAME is running (PID=$(cat $PIDFILE))"
                 exit 0
             fi
         fi
         echo "$NAME is not running"
         exit 1
         ;;
-  'start-with-monit')
-           # restart commands here
-           echo -n "Starting $NAME: "
-           start_with_monit
+
+  start-without-monit)
+           echo -n "Starting $NAME without Monit process watchdog: "
+           echo -n " * Starting $NAME without Monit process watchdog. To make sure Monit is watching 
+   Liquidsoap, use 'start' (or 'start-with-monit') instead of 'start-without-monit'."
+           start_without_monit
            echo "Done."
         ;;
-  'stop-with-monit')
-           # restart commands here
-           echo -n "Stopping $NAME: "
-           stop_with_monit
+
+  stop-without-monit)
+           echo -n " * Stopping $NAME without notifying Monit process watchdog. If Monit is 
+   running it will automatically bring the Liquidsoap back up. You probably want 
+   'stop' (or 'stop-with-monit') instead of 'stop-without-monit'."
+           stop_without_monit
            echo "Done."
         ;;
 
   *)      # no parameter specified
-        echo "Usage: $SELF start|stop|restart|status"
+        echo "Usage: $SELF start|stop|restart|status|start-without-monit|stop-without-monit"
         exit 1
         ;;
-
 esac
