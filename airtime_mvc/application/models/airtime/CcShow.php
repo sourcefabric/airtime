@@ -314,7 +314,7 @@ class CcShow extends BaseCcShow {
             $info['name'] = $this->getDbName();
             $info['id'] = $this->getDbId();
             $info['url'] = $this->getDbUrl();
-	    $info['image_path'] = $this->getDbImagePath();
+            $info['image_path'] = $this->getDbImagePath();
             $info['genre'] = $this->getDbGenre();
             $info['description'] = $this->getDbDescription();
             $info['color'] = $this->getDbColor();
