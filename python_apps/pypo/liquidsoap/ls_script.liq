@@ -260,6 +260,13 @@ else
     s
 end
 
+def print_metadata(m) =
+  title = m["title"]
+  artist = m["artist"]
+  print("Now playing: #{title} by #{artist}")
+end
+
+
 s = if master_live_stream_port != 0 and master_live_stream_mp != "" then
     master_dj =
         audio_to_stereo(
@@ -272,6 +279,8 @@ s = if master_live_stream_port != 0 and master_live_stream_mp != "" then
                 on_disconnect=master_dj_disconnect))
 
     ignore(output.dummy(master_dj, fallible=true))
+
+    master_dj = on_metadata(print_metadata, master_dj)
 
     switch(id="master_show_schedule_noise_switch",
             track_sensitive=false,
