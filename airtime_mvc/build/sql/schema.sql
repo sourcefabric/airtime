@@ -561,7 +561,7 @@ DROP TABLE IF EXISTS "cc_webstream_metadata" CASCADE;
 CREATE TABLE "cc_webstream_metadata"
 (
     "id" serial NOT NULL,
-    "instance_id" INTEGER NOT NULL,
+    "instance_id" INTEGER,
     "start_time" TIMESTAMP NOT NULL,
     "liquidsoap_data" VARCHAR(1024) NOT NULL,
     PRIMARY KEY ("id")

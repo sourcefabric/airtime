@@ -2214,7 +2214,7 @@ abstract class BaseCcSchedule extends BaseObject implements Persistent
                 $this->ccWebstreamMetadatasScheduledForDeletion = clone $this->collCcWebstreamMetadatas;
                 $this->ccWebstreamMetadatasScheduledForDeletion->clear();
             }
-            $this->ccWebstreamMetadatasScheduledForDeletion[]= clone $ccWebstreamMetadata;
+            $this->ccWebstreamMetadatasScheduledForDeletion[]= $ccWebstreamMetadata;
             $ccWebstreamMetadata->setCcSchedule(null);
         }
 

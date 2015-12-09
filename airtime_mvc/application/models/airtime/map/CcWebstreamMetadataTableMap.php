@@ -40,7 +40,7 @@ class CcWebstreamMetadataTableMap extends TableMap
         $this->setPrimaryKeyMethodInfo('cc_webstream_metadata_id_seq');
         // columns
         $this->addPrimaryKey('id', 'DbId', 'INTEGER', true, null, null);
-        $this->addForeignKey('instance_id', 'DbInstanceId', 'INTEGER', 'cc_schedule', 'id', true, null, null);
+        $this->addForeignKey('instance_id', 'DbInstanceId', 'INTEGER', 'cc_schedule', 'id', false, null, null);
         $this->addColumn('start_time', 'DbStartTime', 'TIMESTAMP', true, null, null);
         $this->addColumn('liquidsoap_data', 'DbLiquidsoapData', 'VARCHAR', true, 1024, null);
         // validators

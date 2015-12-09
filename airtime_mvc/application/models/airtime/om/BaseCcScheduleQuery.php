@@ -1133,7 +1133,7 @@ abstract class BaseCcScheduleQuery extends ModelCriteria
      *
      * @return CcScheduleQuery The current query, for fluid interface
      */
-    public function joinCcWebstreamMetadata($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function joinCcWebstreamMetadata($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
     {
         $tableMap = $this->getTableMap();
         $relationMap = $tableMap->getRelation('CcWebstreamMetadata');
@@ -1168,7 +1168,7 @@ abstract class BaseCcScheduleQuery extends ModelCriteria
      *
      * @return   CcWebstreamMetadataQuery A secondary query class using the current class as primary query
      */
-    public function useCcWebstreamMetadataQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    public function useCcWebstreamMetadataQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
     {
         return $this
             ->joinCcWebstreamMetadata($relationAlias, $joinType)
