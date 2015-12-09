@@ -35,6 +35,11 @@ s2_namespace = ref ''
 s3_namespace = ref ''
 just_switched = ref false
 
+master_dj_enabled = ref false
+live_dj_enabled = ref false
+scheduled_play_enabled = ref false
+
+
 %include "ls_lib.liq"
 
 sources = ref []
@@ -159,10 +164,6 @@ end
 default = rewrite_metadata([("title", !ref_off_air_meta)], default)
 ignore(output.dummy(default, fallible=true))
 
-master_dj_enabled = ref false
-live_dj_enabled = ref false
-scheduled_play_enabled = ref false
-
 def make_master_dj_available()
     master_dj_enabled := true
 end
@@ -263,9 +264,9 @@ end
 def print_metadata(m) =
   title = m["title"]
   artist = m["artist"]
-  print("Now playing: #{title} by #{artist}")
+  print("Master/Show Source Now Playing: #{title} by #{artist}")
+  notify_stream(m)
 end
-
 
 s = if master_live_stream_port != 0 and master_live_stream_mp != "" then
     master_dj =

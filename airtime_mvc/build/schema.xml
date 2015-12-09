@@ -466,7 +466,7 @@
   </table>
   <table name="cc_webstream_metadata" phpName="CcWebstreamMetadata">
     <column name="id" phpName="DbId" primaryKey="true" type="INTEGER" autoIncrement="true" required="true" />
-    <column name="instance_id" phpName="DbInstanceId" type="INTEGER" required="true"/>
+    <column name="instance_id" phpName="DbInstanceId" type="INTEGER" required="false"/>
     <column name="start_time" phpName="DbStartTime" type="TIMESTAMP" required="true" />
     <column name="liquidsoap_data" phpName="DbLiquidsoapData" type="VARCHAR" size="1024" required="true"/>
     <foreign-key foreignTable="cc_schedule" name="cc_schedule_inst_fkey" onDelete="CASCADE">

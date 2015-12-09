@@ -127,25 +127,26 @@ function updatePlaybar(){
 
     if (currentSong !== null && !master_dj_on_air && !live_dj_on_air){
         if (currentSong.record == "1")
-            $('#current').html("<span style='color:red; font-weight:bold'>"+$.i18n._("Recording:")+"</span>"+currentSong.name+",");
+            $('#current').html("<span style='color:red; font-weight:bold'>"+$.i18n._("Recording:")+"</span>"+currentSong.name);
         else
-            $('#current').text(currentSong.name+",");
+            $('#current').text(currentSong.name);
     }else{
         if (master_dj_on_air) {
             if (showName) {
-                $('#current').html($.i18n._("Current")+": <span style='color:red; font-weight:bold'>"+showName+" - "+$.i18n._("Master Stream")+"</span>");
+                $('#current').html($.i18n._("Master Source")+": <span style='color:red; font-weight:bold'>"+currentSong["name"]+" - " + showName +"</span>");
             } else {
-                $('#current').html($.i18n._("Current")+": <span style='color:red; font-weight:bold'>"+$.i18n._("Master Stream")+"</span>");
+                $('#current').html($.i18n._("Master Source")+": <span style='color:red; font-weight:bold'>"+currentSong["name"]+"</span>"); //$.i18n._("Master Stream")
             }
         } else if (live_dj_on_air) {
             if (showName) {
-                $('#current').html($.i18n._("Current")+": <span style='color:red; font-weight:bold'>"+showName+" - "+$.i18n._("Live Stream")+"</span>");
+                $('#current').html($.i18n._("Show Source")+": <span style='color:red; font-weight:bold'>"+currentSong["name"]+" - " + showName +"</span>"); //$.i18n._("Live Stream")
             } else {
-                $('#current').html($.i18n._("Current")+": <span style='color:red; font-weight:bold'>"+$.i18n._("Live Stream")+"</span>");
+                $('#current').html($.i18n._("Show Source")+": <span style='color:red; font-weight:bold'>"+currentSong["name"]+"</span>"); //$.i18n._("Live Stream")
             }
         } else {
             $('#current').html($.i18n._("Current")+": <span style='color:red; font-weight:bold'>"+$.i18n._("Nothing Scheduled")+"</span>");
         }
+
     }
 
     if (nextSong !== null){

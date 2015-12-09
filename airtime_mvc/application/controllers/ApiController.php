@@ -1280,10 +1280,11 @@ class ApiController extends Zend_Controller_Action
         $data = $request->getParam("data");
         $media_id = intval($request->getParam("media_id"));
         $data_arr = json_decode($data);
-        
-        //$media_id is -1 sometimes when a stream has stopped playing
-        if (!is_null($media_id) && $media_id > 0) {
 
+        //$media_id is -1 sometimes when a stream has stopped playing
+        if ((!is_null($media_id) && $media_id > 0) || Application_Model_Schedule::isLiveBroadcasterConnected()) {
+
+            //We log webstream and master/show source metadata to its own table.
             if (isset($data_arr->title)) {
                 
                 $data_title = substr($data_arr->title, 0, 1024);

@@ -526,29 +526,68 @@ class Application_Service_HistoryService
 		try {
 			
 			$item = CcScheduleQuery::create()->findPK($schedId, $this->con);
-			
-			//TODO figure out how to combine these all into 1 query.
-			$showInstance = $item->getCcShowInstances($this->con);
-			$show = $showInstance->getCcShow($this->con);
-			
-			$webstream = $item->getCcWebstream($this->con);
-			
-			$metadata = array();
-			$metadata["showname"] = $show->getDbName();
-			$metadata[MDATA_KEY_TITLE] = $data->title;
-			$metadata[MDATA_KEY_CREATOR] = $webstream->getDbName();
-			
-			$history = new CcPlayoutHistory();
-			$history->setDbStarts($startDT);
-			$history->setDbEnds(null);
-			$history->setDbInstanceId($item->getDbInstanceId());
-			
-			foreach ($metadata as $key => $val) {
+
+			//Scheduled track/webstream
+			if ($item)
+			{
+				//TODO figure out how to combine these all into 1 query.
+				$showInstance = $item->getCcShowInstances($this->con);
+				$show = $showInstance->getCcShow($this->con);
+
+				$webstream = $item->getCcWebstream($this->con);
+
+				$metadata = array();
+				$metadata["showname"] = $show->getDbName();
+				$metadata[MDATA_KEY_TITLE] = $data->title;
+				$metadata[MDATA_KEY_CREATOR] = $webstream->getDbName();
+
+				$history = new CcPlayoutHistory();
+				$history->setDbStarts($startDT);
+				$history->setDbEnds(null);
+				$history->setDbInstanceId($item->getDbInstanceId());
+
+				foreach ($metadata as $key => $val) {
+					$meta = new CcPlayoutHistoryMetaData();
+					$meta->setDbKey($key);
+					$meta->setDbValue($val);
+
+					$history->addCcPlayoutHistoryMetaData($meta);
+				}
+			}
+			else { //$item will be null if we're on master/show source.
+				
+				//Master/show source
+				$utcNow = new DateTime("now", new DateTimeZone("UTC"));
+				$end = new DateTime();
+				$end->add(new DateInterval("P2D")); // Add 2 days
+				$end->setTimezone(new DateTimeZone("UTC"));
+				$utcTimeEnd = $end->format(DEFAULT_TIMESTAMP_FORMAT);
+
+				$shows = Application_Model_Show::getPrevCurrentNext($utcNow, $utcTimeEnd, 1);
+				$currentShowID = count($shows['currentShow'])>0?$shows['currentShow']['instance_id']:null;
+
+				$metadata[MDATA_KEY_TITLE] = $data->title;
+
+				$history = new CcPlayoutHistory();
+				$history->setDbStarts($startDT);
+				$history->setDbEnds(null);
+				$history->setCcShowInstances(CcShowInstancesQuery::create()->findPK($currentShowID, $this->con));
+
+				foreach ($metadata as $key => $val) {
+					$meta = new CcPlayoutHistoryMetaData();
+					$meta->setDbKey($key);
+					$meta->setDbValue($val);
+
+					$history->addCcPlayoutHistoryMetaData($meta);
+				}
+
 				$meta = new CcPlayoutHistoryMetaData();
-				$meta->setDbKey($key);
-				$meta->setDbValue($val);
-			
+				$artistFieldName = BasePeer::translateFieldname("CcFiles", CcFilesPeer::ARTIST_NAME, BasePeer::TYPE_COLNAME, BasePeer::TYPE_FIELDNAME);
+				$meta->setDbKey($artistFieldName);
+
+				$meta->setDbValue("Live DJ Broadcast");
 				$history->addCcPlayoutHistoryMetaData($meta);
+
 			}
 			
 			$history->save($this->con);

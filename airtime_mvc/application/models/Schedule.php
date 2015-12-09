@@ -200,11 +200,19 @@ SQL;
         // track information to the current show values
         if ($source != self::SCHEDULED_SOURCE_NAME) {
             $show = Application_Model_Show::getCurrentShow();
+
+            $currentWebstream = CcWebstreamQuery::create()
+                ->findOne();
+            $currentWebstreamMetadata = CcWebstreamMetadataQuery::create()
+                ->orderByDbStartTime(Criteria::DESC)
+                ->findOne();
+            $currentMediaName = $currentWebstream->getDbName();
+
             $results["current"] = isset($show[0]) ? array(
                 "starts"            => $show[0]["starts"],
                 "ends"              => $show[0]["ends"],
                 "type"              => _("livestream"),
-                "name"              => $show[0]["name"] . " - " . _(self::LIVE_STREAM),
+                "name"              => $currentWebstreamMetadata->getDbLiquidsoapData(),
                 "media_item_played" => false,
                 "record"            => "0"
             ) : null;
@@ -333,6 +341,11 @@ SQL;
         $source = ($master_dj ? self::MASTER_SOURCE_NAME
                               : ($live_dj ? self::SHOW_SOURCE_NAME : self::SCHEDULED_SOURCE_NAME));
         return $source;
+    }
+
+    public static function isLiveBroadcasterConnected()
+    {
+        return (self::_getSource() == self::SHOW_SOURCE_NAME) || (self::_getSource() == self::MASTER_SOURCE_NAME);
     }
 
     public static function GetLastScheduleItem($p_timeNow)

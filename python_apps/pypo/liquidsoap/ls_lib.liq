@@ -16,8 +16,10 @@ def notify_stream(m)
   #escaping the apostrophe, and then starting a new string right after it. This is why we use 3 apostrophes.
   json_str = string.replace(pattern="'",(fun (s) -> "'\''"), json_str)
   command = "timeout --signal=KILL 45 pyponotify --webstream='#{json_str}' --media-id=#{!current_dyn_id} &"
-  
-  if !current_dyn_id != "-1" then
+
+  # If a master/show source are enable OR a webstream is playing, send the metadata back to Airtime.
+  # (The "!" is the derefence operator, not a logical NOT!)
+  if (!current_dyn_id != "-1" or (!master_dj_enabled) or (!live_dj_enabled)) then
     log(command)
     system(command)
   end
