@@ -717,7 +717,7 @@ msgstr "Copyright"
 #: airtime_mvc/application/services/HistoryService.php:1149
 #: airtime_mvc/application/services/HistoryService.php:1166
 msgid "Creator"
-msgstr "Creatore"
+msgstr "Autore"
 
 #: airtime_mvc/application/forms/SmartBlockCriteria.php:58
 #: airtime_mvc/application/controllers/LocaleController.php:72
