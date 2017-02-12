@@ -115,6 +115,8 @@ class DashboardController extends Zend_Controller_Action
     public function aboutAction()
     {
         $this->view->airtime_version = Application_Model_Preference::GetAirtimeVersion();
+
+        $this->view->is_fork = defined('AIRTIME_FORK_NAME');
     }
 
 }

@@ -80,3 +80,7 @@ define('UI_BLOCK_SESSNAME', 'BLOCK');*/
 define('SOUNDCLOUD_NOT_UPLOADED_YET' , -1);
 define('SOUNDCLOUD_PROGRESS'         , -2);
 define('SOUNDCLOUD_ERROR'            , -3);
+
+if (is_readable(__DIR__ . '/constants.fork.php')) {
+    include __DIR__ . '/constants.fork.php';
+}
