@@ -11,6 +11,15 @@ echo sprintf(_('%1$s %2$s, the open radio software for scheduling and remote sta
     $this->airtime_version)
 ?>
 <br />
+<?php 
+if ($this->is_fork) {
+$forkAnchor = '<a href="' . AIRTIME_FORK_URL . '" target="_blank">'
+                 . AIRTIME_FORK_NAME
+             . '</a>'; 
+echo sprintf('%1$s %2$s, %3$s<br />',
+    $forkAnchor, AIRTIME_FORK_VERSION, AIRTIME_FORK_DESCRIPTION);
+}
+?>
 <br />© 2013 
 <?php 
 $companySiteAnchor = "<a href='" . COMPANY_SITE_URL . "' target='_blank'>"
